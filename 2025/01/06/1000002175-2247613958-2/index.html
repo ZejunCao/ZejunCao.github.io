@@ -1,0 +1,1128 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="1.4s 即可生成1024px图像！SnapGen：轻量化架构和训练策略实现端侧文生图, ZejunCao&#39;Blogs">
+    <meta name="description" content="1.4s 即可生成1024px图像！SnapGen：轻量化架构和训练策略实现端侧文生图
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+↑点击蓝字关注极市平台作者丨科技猛兽编辑丨极市平台极市导读在ImageNet-1K">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>1.4s 即可生成1024px图像！SnapGen：轻量化架构和训练策略实现端侧文生图 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002175_2247613958_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">1.4s 即可生成1024px图像！SnapGen：轻量化架构和训练策略实现端侧文生图</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能前沿讲习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-01-06
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/T4N6cI4du1i5TIGkepBY1w">1.4s 即可生成1024px图像！SnapGen：轻量化架构和训练策略实现端侧文生图</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>↑点击蓝字关注极市平台<br>作者丨科技猛兽<br>编辑丨极市平台<br>极市导读<br>在ImageNet-1K上，本文的模型仅使用372M参数，在256px生成中实现了2.06的FID。在T2I基准测试中(GenEval和DPG-Bench)，本文的模型只有379M参数，虽然尺寸很小，却超过了具有数十亿个参数的大模型(比SDXL小7倍，比IF-XL小14倍)。&gt;&gt;加入极市CV技术交流群，走在计算机视觉的最前沿<br>端侧文生图扩散模型的成功范式。<br>现有的文生图(T2I)扩散模型有几个限制：1)模型尺寸过大不适合移动设备(MobileDevices)，2)时延高，3)生成质量很低。<br>本文开发了一个很小，快速的T2I模型，旨在在移动平台上生成高分辨率和高质量的图像。本文提出了几个技术来实现这个目的。<br>首先，作者系统地检查了网络架构的设计选择，以减少模型参数和延迟，同时确保高质量的生成。其次，为了进一步提高生成质量，使用来自更大模型的跨架构知识蒸馏，使用多级策略从头开始指导小模型的训练。然后，通过将对抗性指导与知识蒸馏相结合来实现Few-step生成。<br>本文的模型SnapGen可以约1.4s在移动设备上生成1024px的图像。在ImageNet-1K上，本文的模型仅使用372M参数，在256px生成中实现了2.06的FID。在T2I基准测试中(GenEval和DPG-Bench)，本文的模型只有379M参数，虽然尺寸很小，却超过了具有数十亿个参数的大模型(比SDXL小7倍，比IF-XL小14倍)。<br>下面是对本文的详细介绍。<br>1SnapGen：轻量化架构和训练策略实现端侧文生图(来自Snap，墨尔本大学，HKUST，MBZUAI)1SnapGen论文解读1.1SnapGen研究背景1.2高效U-Net架构1.3更小更快的解码器1.4训练配方以及多级知识蒸馏1.5Step蒸馏1.6实验设置1.7实验结果</p>
+<p>论文地址：<br>http :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2412.09619<br>ProjectPage：<br>http :&#x2F;&#x2F;snap-research.github.io&#x2F;snapgen&#x2F;<br>大规模文生图(T2I)扩散模型在内容生成方面取得了显著的成功，为图像编辑和视频生成等许多应用提供支持。然而，T2I模型往往伴随着较大的模型尺寸，较慢的运行时间。如果将它们部署在云上，会引发与数据安全性问题，和高成本的问题。<br>为了应对这些挑战，人们通过模型压缩(例如剪枝和量化)等技术开发更小更快的T2I模型，比如通过蒸馏减少steps[1]，以及减轻二次方计算复杂度的高效注意力机制[2]。但是，目前的工作仍然会遇到局限性，例如移动设备上的低分辨率生成，这限制了它们更广泛的应用。<br>更重要的是，一个关键问题尚未探索：如何从头开始训练T2I模型，以在移动上生成高质量高分辨率图像？这样的模型将在速度、紧凑性、成本效益和安全性部署方面提供实质性优势。为了构建这个模型，本文引入几个创新：<br>高效的网络架构：作者对网络架构进行了深入的检查，包括DenoisingUNet和AutoEncoder(AE)，以获得资源使用和性能之间最优的权衡。与优化和压缩预训练扩散模型的先前工作[3][4][5]不同，本文直接专注于宏观和微观级别的设计选择，以实现一种新颖的架构，该架构大大降低了模型大小和计算复杂度，同时保留了高质量的生成。<br>改进的训练技术：作者引入了几个改进来从头开始训练紧凑的T2I模型。利用FlowMatching[6][7]作为目标，与SD3和SD3.5等更大的模型对齐。这种设计实现了高效的KnowledgeDistillation和StepDistillation，将大规模扩散模型的丰富表示转移到小模型。此外，本文提出了一种多级知识蒸馏和一个结合了多个训练目标的时间步感知缩放。没有通过线性组合对目标进行加权，而是考虑流匹配中不同时间步长的目标预测难度(即学生-教师的差异)。</p>
+<p>本文介绍如何制作和训练高效的T2I模型以进行高分辨率生成。具体来说，从latentdiffusionmodel架构开始，优化了denoisingbackbone和autoencoder，使它们又紧凑又快速，即使在移动设备上也是如此。然后，本文提出了改进的训练配方和知识蒸馏，得到高性能T2I模型。最后介绍步骤蒸馏，显著降低更快的T2I模型的denoisingsteps数量。<br>Baseline架构<br>作者从SDXL[9]中选择UNet作为Baseline，因为它比纯基于Transformer的模型具有更高的效率和更快的收敛。将U-Net调整为更薄和更短的模型(将变换器块的数量从[0,2,10]分为三个阶段到[0,2,4]，它们的通道维度从[320,640,1280]减少到[256,512,896])，并在其之上迭代设计选择。<br>评估指标<br>作者在ImageNet-1K上训练模型120个epoch，除非另有说明，并报告256px生成的FID分数。与现有工作[10]类似，作者通过文本模板”aphotoof”。然后，使用文本编码器对其进行编码，以对齐T2I生成的管道。作者还计算了不同模型的参数量，FLOPs(以128×128的latent大小测量，相当于解码后的1024×1024图像)，以及移动设备上的运行时间(在iPhone15Pro上测试)。下面将介绍改进模型的关键架构更改。<br>1)高分辨率阶段去掉Self-Attention<br>Self-Attention受二次计算复杂度的限制，对高分辨率输入会带来较高的计算成本和内存消耗。所以，只在最低分辨率保留SA，在高分辨率阶段删除，如上图2(b)所示。这使得FLOPs减少了17%，时延减少了24%，结果如图3所示。有趣的是，甚至观察到性能改进，FID从3.76降到3.12。作者假设原因是高分辨率阶段SA的模型收敛得更慢。<br>2)将Conv替换为扩展SeparableConv<br>常规卷积(Conv)在参数和计算中都是多余的。为了解决这个问题，将所有Conv层替换为SeparableConv[11]，由DepthwiseConvolution(DW)和PointwiseConvolution(PW)组成，如图2(c)所示。这种替换将参数减少了24%，时延减少了62%，但也会导致性能下降(FID从3.12增加到3.38)。为了解决这个问题，作者扩展了中间通道。具体来说，第1个PW层之后的通道数随着扩展比的增加而增加，在第2个PW层之后减少到原始数。Expansionratio设置为2以平衡性能、延迟和模型参数之间的权衡。这样的设计使得残差块与UniversalInvertedBottleneck(UIB)对齐。因此，本文模型在获得较低的FID的同时，实现了15%的参数、27%的计算量和2.4倍的加速。<br>3)TrimFFN层<br>对于FFN层，默认将隐藏通道expansionratio设置为4，并使用门控单元进一步加倍。这大大增加了模型参数、计算和内存使用。继MobileDiffusion[12]之后，作者检查了简单地减少扩展比的功效，如图2(d)所示。本文表明，将扩展比减少到3可以保持可比的FID性能，同时将参数和FLOP减少12%。<br>4)MQA替换MHSA<br>Multi-HeadSelf-Attention(MHSA)为每个注意力头需要多组键和值。相比之下，Multi-QueryAttention(MQA)[13]在所有head之间共享一组键和值更有效。用MQA替换MHSA将参数减少了16%，时延减少了9%，对性能的影响最小。有趣的是，减少时延的9%超过了减少FLOPs的6%，因为减少的内存访问可实现更高的计算强度(FLOPs&#x2F;Byte)。因此，模型的计算吞吐量FLOPS提升了。所以，尽管FLOPs仅仅降低6%，但是时延下降了9%。<br>5)将Condition注入第1阶段<br>交叉注意力(Cross-Attention)将Condition信息(如纹理描述)与空间特征混合，生成与条件一致的图像。然而，SDXL的UNet仅在从第2阶段开始的TransformerBlock中应用CA，导致第1阶段的条件指导缺失。本文建议从第1阶段引入条件嵌入，如图2(e)所示。具体来说，将残差块替换为包含CA和FFN的TransformerBlock，而在没有SA层的情况下。这种调整使模型更小、更快、更高效，同时提高了FID。<br>6)使用QKRMSNorm和RoPE位置编码<br>作者扩展了最初为语言模型开发的两种先进技术，使用RMSNorm[14]的Query-Key(QK)Normalization[15]和RotaryPositionEmbedding(RoPE)[16]，以增强模型(图2(f))。RMSNorm在注意力机制中的Query-Key投影之后应用，在不牺牲模型表达能力的情况下降低了Softmax饱和的风险，同时稳定训练以实现更快的收敛。此外，作者将RoPE从一维调整为二维以更好地支持更高的分辨率，因为它显著减少了重复对象等伪影。总之，RMSNorm和RoPE引入的计算和内存开销可以忽略不计，同时在FID性能方面提供了增益。<br>讨论<br>经过上述的优化，得到了一个高效而强大的扩散Backbone，能够在移动设备上生成高分辨率图像。在进行大规模T2I训练之前，作者将本文模型与ImageNet-1K上的现有工作进行了比较。作者遵循先前工作的设置来训练1000Epochs。作者在不同的推理步骤中使用不同的CFG评估模型。如图4所示。高效的U-Net实现了与SiT-XL相当的FID，而小近45%。<br>除了去噪模型外，解码器还占总运行时间的很大一部分，特别是对于On-device部署。在这里，作者介绍了一种新的解码器架构，如图5所示，以实现高效的高分辨率生成。<br>BaselineDecoder<br>由于优越的重建质量，作者使用来自SD3[17]的自动编码器(AE)作为Baseline模型(即来自SD3的AE的相同编码器）。AE将图像映射到低维latent空间在SD3中为8,16）。然后通过Decoder将编码的latent解码回图像。对于高分辨率生成，作者观察到SD3中的解码器在移动设备上非常慢。具体来说，当在iPhone15Pro和移动GPU的ANE处理器上生成10242px图像时，它会遇到内存不足（OOM）错误。为了克服延迟问题，作者提出了一个更小更快的Decoder。<br>高效的Decoder<br>作者进行了一系列实验来决定具有以下关键变化的高效Decoder，与基线架构相比：<br>移除注意力层：以大大减少峰值内存，而不会对解码质量产生显着影响。<br>保留最少的GroupNorm(GN)：来找到延迟和性能之间的权衡（即减轻颜色移动）。<br>使解码器更薄(更少的通道或更窄的宽度)，并用SepConvs替换Conv。<br>在高分辨率阶段使用更少的ResidualBlock。<br>在ResidualBlock中去除ConvShortcuts，并使用Upsampling层进行通道转换。<br>Decoder的训练<br>作者用均方误差(MSE)损失、lpips损失、对抗性损失训练本文解码器，并丢弃KL项，因为Encoder是固定的。Decoder在256px的图像patch上进行训练，BatchSize为256，迭代次数为1M。TinyDecoder实现了具有竞争力的PSNR分数，与传统的解码器(例如，来自SDXL和SD3的解码器)相比，在移动设备上高分辨率生成速度提高了35.9倍和54.4倍。<br>On-device时延的讨论<br>作者最后测量了iPhone16Pro-Max上10242px生成的T2I模型时延。Decoder需要119ms，U-Net的每步延迟为274ms。这导致4到8步生成的运行时间为1.2~2.3s。注意，与其他组件相比，文本编码器运行时间可以忽略不计。<br>为了提高高效扩散模型的生成质量，本文提出了一系列训练技术。<br>基于流的训练和推理<br>RectifiedFlows(RFs)[18][19]将正向过程定义为将数据分布连接到标准正态分布的直线路径，即:<br>其中，是干净（潜在）图像，是时间步长，是时间步长相关因子，是从中采样的随机噪声。去噪U－Net被制定为预测目标速度场为：<br>其中，是U-Net的预测速度。为了进一步增强训练稳定性，作者在训练期间对时间步长应用logit正态采样，将更多的样本分配给中间步骤。在推理阶段，使用Flow-Euler采样器，它根据速度预测下一个样本，即：<br>为了在高分辨率(即1024px)图像上实现较低的信噪比，作者应用了类似于SD3的时间步长移位来调整训练和推理过程中的调度因子。<br>多级知识蒸馏<br>为了提高小模型的生成质量，一种常见做法是应用知识蒸馏。得益于对齐的流匹配目标和(AE)潜在空间，强大的SD3.5-Large[20]模型可以作为教师进行输出蒸馏。然而，由于1)U-Net和DiT之间的异构架构，2)蒸馏损失和任务损失之间的尺度差异，以及3)不同时间步的不同预测难度，仍然面临挑战。为了解决这些问题，本文提出了一种新的多级蒸馏损失，以及时间步长感知缩放以稳定和加速蒸馏。本文知识蒸馏的方案概述如图7所示。<br>除了式2中定义的任务损失外，知识蒸馏的主要目标是使用教师模型的输出来监督小模型，可以表示为：<br>鉴于教师和学生模型之间的容量差距，单独应用输出级监督会导致不稳定和收敛速度慢。因此，作者进一步做了特征蒸馏：<br>其中，和分别表示教师模型和学生模型中第层和第层的特征输出。与之前的工作[21]不同，本文考虑从DiT到UNet的跨结构蒸馏。由于Transformer最丰富的信息位于最后一层，作者将蒸馏目标设置为两个模型中的这一层，并使用只有2个Conv层的轻量级可训练投影来映射学生特征以匹配教师特征的维度。所提出的特征级蒸馏损失为学生模型提供了额外的监督，更快地对齐教师模型的生成质量。<br>时间步长感知缩放<br>加权多个目标一直是知识蒸馏的主要挑战，尤其是在扩散模型中。之前的工作[4][21]的总体训练目标是多个损失项的简单线性组合，即：<br>其中，加权系数和根据经验设置为常数。但是，这个Baseline设置无法考虑不同时间步长的预测难度。作者研究了模型训练期间不同时间步下和的幅度分布。可以发现在中间步骤中，与更接近0或1的相比，预测难度较低。<br>基于这一重要观察，作者提出了目标的时间步长感知缩放，以缩小不同值的损失幅值的差距，并考虑每个时间步的预测困难，如下所示：<br>其中，是标准归一化logit－norm密度函数，表示幅值。在中，首先确保不同的任务损失和蒸馏损失之间的相同比例，然后预测难度更高（更接近0或1）时使用更多的教师模型监督，预测难度更低（中间的时间步）时使用更多真实数据监督。这个方案考虑了时间步的变化，有助于加速蒸馏训练。最终的多级蒸馏目标可以定义为：</p>
+<p>其中，是使用预训练的Few－step教师模型(SD3.5-Large-Turbo[8])部分初始化的判别器模型。教师模型仅用作特征提取器，并在蒸馏过程中被冻结。在特征提取后，只训练判别器的几个线性层。<br>采样过程是和，其中，是本文的模型预测的结果。<br>这个训练目标包含一个对抗性损失，在时间步匹配噪声样本，还包含一个输出蒸馏损失<br>本文提出的Step蒸馏方法如图9所示，可以解释为通过对抗性损失和知识蒸馏训练扩散模型，其中教师指导作为额外的归纳偏差。这种Step蒸馏方法使我们的紧凑模型能够生成高质量的生成，只需几个去噪步骤。<br>本文的T2I由高效的U-Net和高效的编码器-解码器模型组成。为了从输入提示中获取textembedding，作者利用了多个textEncoder，即轻量级CLIP-L、CLIP-G和大型Gemma2-2b语言模型。遵循SD3策略，将这3个文本编码器组合成一个统一的丰富文本嵌入。<br>与之前的工作[10]类似，使用多阶段策略从头开始训练U-Net模型。<br>使用ImageNet-1K对模型进行256px的预训练。<br>从256→512→1024分辨率逐步微调该模型。<br>使用知识蒸馏和时间步感知缩放来改进本文模型中的更精细的细节，使用更大的教师模型(SD3.5-Large)和所有3个文本编码器。<br>使用SD3.5-Large-Turbo模型作为教师通过步骤蒸馏获得Few-steps模型。<br>定量结果<br>作者使用GenEval和DPG-Benchbenchmark分别评估在短提示和长提示上的文本到图像对齐。作者报告了MS-COCO验证数据集的6K子集的CLIP分数。此外，为了测量模型的美学质量，作者计算了所选PixArtprompt上的ImageReward分数。图10列出了本文与现有最先进的T2I基线的性能。<br>本文的0.38B参数模型比SDXL(2.6B)、Playground(2.6B)和IF-XL(5.5B)等显着更大的模型取得了更好的性能。<br>KD提高了基础模型的提示跟随能力，比如改善了DPG-Bench和GenEval分数。<br>在美学性能方面，本文模型具有与Playground模型相似的图像奖励分数。<br>定性比较<br>为了直观地评估图像文本对齐和美学，作者在图1中比较了不同T2I模型生成的图像。可以观察到，许多现有的模型无法完全捕获完整的提示并错过重要的元素。此外，人类相关的图像生成通常会导致人脸平滑，导致细节丢失。相比之下，本文模型生成了更逼真的图像，具有更好的图像-文本对齐效果。<br>Few-step生成<br>在Step蒸馏之后，本文模型可以使用Few-steps生成高质量的图像。图11比较了我们的模型在步骤蒸馏之前和之后的性能，以及相应的GenEval分数。结果表明，本文模型在步骤蒸馏后，即使仅使用4步或8步，依然实现了与具有28步的基线模型相当的性能。虽然与28步基线相比，生成结果显示出了轻微的质量下降，但仍然优于大多数现有推理步骤明显更多的T2I模型，例如SDXL(50步)和PixArt-α(100步)。<br>参考<br>^One-stepDiffusionwithDistributionMatchingDistillation<br>^Sana:Efficienthigh-resolutionimagesynthesiswithlineardiffusiontransformers<br>^LD-Pruner:EfficientPruningofLatentDiffusionModelsusingTask-AgnosticInsights<br>^abBk-sdm:ArchitecturallyCompressedStableDiffusionforEfficientText-to-ImageGeneration<br>^Laptop-Diff:LayerPruningandNormalizedDistillationforCompressingDiffusionModels<br>^Flowmatchingforgenerativemodeling<br>^Learningtogenerateandtransferdatawithrectifiedflow<br>^abStablediffusion3.5largeturbo<br>^SDXL:ImprovingLatentDiffusionModelsforHigh-ResolutionImageSynthesis<br>^abAscan:Asymmetricconvolution-attentionnetworksforefficientrecognitionandgeneration<br>^MobileNets:EfficientConvolutionalNeuralNetworksforMobileVisionApplications<br>^MobileDiffusion:SubsecondText-to-ImageGenerationonMobileDevices<br>^FastTransformerDecoding:OneWrite-HeadisAllYouNeed<br>^RootMeanSquareLayerNormalization<br>^Query-KeyNormalizationforTransformers<br>^RoFormer:EnhancedTransformerwithRotaryPositionEmbedding<br>^ScalingRectifiedFlowTransformersforHigh-ResolutionImageSynthesis<br>^FlowMatchingforGenerativeModeling<br>^FlowStraightandFast:LearningtoGenerateandTransferDatawithRectifiedFlow<br>^Stablediffusion3.5large<br>^abLinFusion:1GPU,1Minute,16KImage<br>^Fasthighresolutionimagesynthesiswithlatentadversarialdiffusiondistillation<br>公众号后台回复“数据集”获取100+深度学习各方向资源整理<br>极市干货<br>技术专栏：多模态大模型超详细解读专栏｜搞懂Tranformer系列｜大视觉模型(LVM)解读｜扩散模型系列｜极市直播<br>技术综述：小目标检测那点事｜大模型面试八股含答案｜万字长文！人体姿态估计(HPE)入门教程<br>点击阅读原文进入CV社区<br>收获更多技术干货</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/01/06/1000002175-2247613958-2/">https://zejuncao.github.io/2025/01/06/1000002175-2247613958-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能前沿讲习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/01/06/1000002064-2247658633-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002064_2247658633_1.jpg" class="responsive-img" alt="落地厦门！百度飞桨人工智能产业赋能中心再添一城">
+                        
+                        <span class="card-title">落地厦门！百度飞桨人工智能产业赋能中心再添一城</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%A3%9E%E6%A1%A8PaddlePaddle/">
+                        <span class="chip bg-color">飞桨PaddlePaddle</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/01/06/1000002175-2247613958-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002175_2247613958_1.jpg" class="responsive-img" alt="【源头活水】DeepSeek V3获竞技场最强开源认证！与Claude 3.5 Sonnet对比实测来了">
+                        
+                        <span class="card-title">【源头活水】DeepSeek V3获竞技场最强开源认证！与Claude 3.5 Sonnet对比实测来了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

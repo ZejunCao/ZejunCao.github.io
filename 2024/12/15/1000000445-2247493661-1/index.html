@@ -1,0 +1,1124 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="2024年大模型后训练(post-training)总结, ZejunCao&#39;Blogs">
+    <meta name="description" content="2024年大模型后训练(post-training)总结
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+今年工业界陆续开源了多款优秀的大语言模型，并放出了技术报告，本文整理工业界主流开源LLM的后训练方案，着重介绍训">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>2024年大模型后训练(post-training)总结 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000445_2247493661_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">2024年大模型后训练(post-training)总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">包包算法笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-12-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/B2WgbZrrOI0yptt4rKL60g">2024年大模型后训练(post-training)总结</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>今年工业界陆续开源了多款优秀的大语言模型，并放出了技术报告，本文整理工业界主流开源LLM的后训练方案，着重介绍训练算法和数据处理部分。以下是模型列表：<br>Llama3（Meta，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.21783#%EF%BC%8Chttps://github.com/meta-llama/llama3%EF%BC%89">https://arxiv.org/abs/2407.21783#，https://github.com/meta-llama/llama3）</a><br>Qwen2（阿里云，<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.10671%EF%BC%8Chttps://github.com/QwenLM/Qwen2%EF%BC%89">https://arxiv.org/pdf/2407.10671，https://github.com/QwenLM/Qwen2）</a><br>Nemotron（Nvidia，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.11704%EF%BC%8Chttps://github.com/NVIDIA/NeMo-Aligner%EF%BC%89">https://arxiv.org/abs/2406.11704，https://github.com/NVIDIA/NeMo-Aligner）</a><br>AFM（Apple，<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.21075%EF%BC%89">https://arxiv.org/pdf/2407.21075）</a><br>Yi（01ai，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.04652%EF%BC%8Chttps://github.com/01-ai/Yi%EF%BC%8Chttps://arxiv.org/abs/2412.01253%EF%BC%89">https://arxiv.org/abs/2403.04652，https://github.com/01-ai/Yi，https://arxiv.org/abs/2412.01253）</a><br>GLM-4（智谱，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.12793%EF%BC%8Cgithub%EF%BC%89">https://arxiv.org/abs/2406.12793，github）</a><br>Gemma2（Google，<a target="_blank" rel="noopener" href="https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf%EF%BC%8Chttps://arxiv.org/abs/2403.08295%EF%BC%8Chttps://arxiv.org/abs/2312.11805%EF%BC%89">https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf，https://arxiv.org/abs/2403.08295，https://arxiv.org/abs/2312.11805）</a><br>DeepSeek-V2（DeepSeek，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.04434%EF%BC%8Chttps://github.com/deepseek-ai/deepseek-v2%EF%BC%89">https://arxiv.org/abs/2405.04434，https://github.com/deepseek-ai/deepseek-v2）</a><br>Baichuan2Alignment（百川，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.14940%EF%BC%89">https://arxiv.org/abs/2410.14940）</a><br>总结以上技术报告，可以发现一些基本趋势：<br>数据合成已成为工业界主流LLM后训练的基本方案，未来大概率也会持续发展，快速开发出领先的数据合成pipeline，有助于企业保持领先地位。<br>善用LLM-as-judge和拒绝采样技术。在偏好数据的构造上，Llama3、Qwen2、Baichuan2、AFM均采用拒绝采样(Rejectionsampling)技术。用不同规模、不同参数的模型多次采样，再使用LLM和人工评估构造偏好样本对。<br>Instag(<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=pszewhybU9)%E6%96%B9%E6%B3%95%EF%BC%8C%E6%9C%80%E5%88%9D%E5%87%BA%E7%8E%B0%E5%9C%A8Qwen%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A%E4%B8%AD%EF%BC%8C%E4%BB%8A%E5%B9%B4%E5%8F%88%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86Llama3%E3%80%81Qwen2%E3%80%81Yi%E4%B8%89%E4%B8%AA%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A%E4%B8%AD%EF%BC%8C%E5%80%BC%E5%BE%97%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6%E3%80%82">https://openreview.net/forum?id=pszewhybU9)方法，最初出现在Qwen技术报告中，今年又出现在了Llama3、Qwen2、Yi三个模型的技术报告中，值得深入研究。</a><br>重点能力需要单独优化，如代码、多语言、数学、推理、长上下文、工具使用、指令遵循。<br>模型合并。使用不同版本的数据或超参数训练多个模型，最后平均模型参数，可以实现更均衡的性能。Llama3、Gemma2和Baichuan2均采用了模型合并技术。<br>强化学习。Llama3和Qwen2都只用了改良版的DPO，而没有使用PPO在线学习，说明PPO虽然上限高，但有一定门槛。各模型强化学习技术总结如下表。<br>模型偏好对齐技术Llama3迭代式DPOQwen2、Yi-LightningofflineDPO+onlineDPOChatGLM4DPO+PPODeepseek-V2、Baichuan2GRPONemotron-4迭代式DPO+RPOAFM综合RS、DPO、IPO，以及改进版在线RL：MDLOO<br>1算法<br>后训练迭代了数轮。每一轮都包括SFT和DPO，使用人类注释数据或合成数据。后训练目标包括奖励模型和语言模型。首先基于预训练checkpoint，使用人类标注的偏好数据训练一个RM，SFT后使用RM进行拒绝采样，并对预训练checkpoint进行微调，再执行DPO与人类偏好对齐。此过程如图7，适用于Llama3系列所有模型。<br>对话格式。与Llama2相比，Llama3具有新的能力，如tooluse。为支持这一点，llama3设计了一种新的多消息聊天协议，使用各种特殊的headertokens和terminationtokens。headertokens用于指示对话中每个消息的来源和目的地，terminationtokens指示何时轮到人类和AI交替发言。<br>奖励建模RM。由于数据扩展后改进逐渐减少，Llama3的loss移除了边际项。过滤掉相似响应样本之后，使用所有偏好数据进行奖励建模。除了标准的偏好对（chosen，rejected）外，Llama3还为某些提示创建了第三个“editedresponse”，基于chosenresponse进一步改进得到，偏好顺序：edited&gt;chosen&gt;rejected。训练期间将提示和多个响应合并成单行，并随机打乱响应，以近似响应分别放在不同行中计算分数的标准场景。<br>监督微调SFT。使用奖励模型在人类标注提示上执行拒绝采样，详细信息见2.2节。与此拒绝采样数据和其他数据源（包括合成数据）一起，执行sft。最大的模型lr&#x3D;1e-5，$steps\in[8.5k,9k]$。这些超参设置在不同的轮次和数据混合中都表现良好。<br>直接偏好优化DPO。每一轮DPO都使用前一轮对齐中表现最好的模型，并收集最新一批偏好数据。对于Llama3，lr&#x3D;1e-5，β&#x3D;0.1。此外，DPO还应用了以下算法修改：<br>DPOloss屏蔽格式化tokens：从chosen和rejectedresponses屏蔽特殊的格式化tokens，包括headertokens和terminationtokens。这些token加入损失可能导致奇怪的模型行为，如尾部重复或突然生成终止符。这可能是由于DPOloss的对比性质-两个响应存在共同token导致学习目标冲突，因为模型需要同时增加和减少这些token的可能性。<br>NLLloss正则化：在选择的序列上增加了一个额外的负对数似然（NLL）损失项，缩放系数为0.2，类似于Pang等人（2024）。这有助于保持生成期望格式，并防止chosenresponse的对数概率下降，稳定DPO训练（Pang等人，2024；Pal等人，2024）。<br>模型平均。在每个RM、SFT或DPO阶段使用不同版本的数据或超参数进行实验，平均获得的模型（Izmailov等人，2019；Wortsman等人，2022；Li等人，2022）。<br>迭代轮次。llama3应用以上方法迭代六轮。每一轮都收集新的偏好注释和SFT数据，从最新模型中采样合成数据。<br>2数据<br>后训练数据包括人类注释数据、偏好数据，SFT数据组成，以及数据质量控制、清洗方法。<br>2.1偏好数据<br>每训练一轮后部署多个模型进行注释，并为每个userprompt采样两个不同模型的response。这些模型可以使用不同的数据混合和对齐方法训练，从而允许不同的能力强度（例如，代码专业知识）和增加的数据多样性。llama3要求注释者根据响应的喜好程度，将其分为四个等级：明显更好，更好，稍微更好或略好。还在偏好排名后增加了一个edit步骤，鼓励注释者进一步改进首选响应。因此，最终的偏好数据可能有三个排名响应：edited&gt;chosen&gt;rejected。<br>丢弃相似响应样本后，每一轮后训练llama3使用所有的偏好数据进行奖励建模，同时仅使用来自各种能力的最新批次数据进行DPO训练。<br>2.2SFT数据<br>微调数据主要由以下来源组成：<br>人类注释收集的提示，拒绝采样的响应<br>针对特定能力的合成数据（第2.4节）<br>少量人类策划的数据（第2.4节）<br>拒绝采样Rejectionsampling。对于人类注释的每个提示，从最新的聊天模型（通常是后训练迭代中表现最佳的checkpoint，或特定能力表现良好的checkpoint）采样K（通常是10-30）个输出，并使用奖励模型选择最佳候选。训练后期引入系统提示以引导RS响应符合期望的语气、风格或格式，这些可能因不同能力而异。<br>整体数据组成。表7是“有用性”混合数据中每个广泛类别的统计信息。虽然SFT和偏好数据包含重叠领域，但它们是分别策划的。2.4节描述了用于对数据样本进行主题、复杂性和质量分类的技术。每一轮后训练仔细调整这些轴上的数据混合，以在广泛的基准测试中调整性能。最终的混合数据在一些高质量资源上多次采样，并降低其他资源采样。<br>2.3数据处理和质量控制<br>由于大部分训练数据是模型生成的，因此需要仔细清洗和质量控制。<br>数据清洗。实施一系列基于规则的数据删除和修改策略。例如，缓解过度道歉问题，识别过度使用的短语（如“I’msorry”或“Iapologize”），识别过度使用的表情符号或感叹号，并仔细平衡数据集中这类样本的比例。<br>数据修剪。应用一系列基于模型的技术，删除低质量训练样本：<br>主题分类：将Llama38B微调为一个主题分类器，在所有数据上进行推理，将其分类为粗粒度（如“数学推理”）和细粒度（如“几何和三角学”）的桶。<br>质量评分：使用奖励模型和基于Llama的信号为每个样本获得质量分数。对于基于RM的分数，llama3认为处于RM分数Top1&#x2F;4的数据是高质量的。对于基于Llama的分数，使用Llama3checkpoint对每个样本在三点量表上进行一般数据评分（accuracy,instructionfollowing和tone&#x2F;presentation）。对编码数据进行两点量表评分（bugidentification和userintention），并将最高分数的样本视为高质量。RM和基于Llama的分数有很高的不一致率，llama3结合这些信号在内部测试集上获得了最佳的召回率。最终，选择被RM或Llama标记的高质量示例。<br>难度评分：使用两种难度度量：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2308.07074%E6%A0%87%E7%AD%BE%E5%92%8Chttps://arxiv.org/abs/2312.15685%E8%AF%84%E5%88%86%E3%80%82%E5%AF%B9%E4%BA%8Ehttps://arxiv.org/abs/2308.07074(Luetal.,2023)%EF%BC%8C%E6%8F%90%E7%A4%BALlama370B%E5%AF%B9SFT%E6%8F%90%E7%A4%BA%E8%BF%9B%E8%A1%8C%E6%84%8F%E5%9B%BE%E6%A0%87%E8%AE%B0%EF%BC%8C%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%84%8F%E5%9B%BE%E6%84%8F%E5%91%B3%E7%9D%80%E6%9B%B4%E9%AB%98%E7%9A%84%E5%A4%8D%E6%9D%82%E6%80%A7%E3%80%82%E5%AF%B9%E4%BA%8Ehttps://arxiv.org/abs/2312.15685(Liu%E7%AD%89%E4%BA%BA%EF%BC%8C2024c)%EF%BC%8C%E6%8F%90%E7%A4%BALlama3%E5%9C%A8%E4%B8%89%E7%82%B9%E9%87%8F%E8%A1%A8%E4%B8%8A%E6%B5%8B%E9%87%8F%E5%AF%B9%E8%AF%9D%E7%9A%84%E9%9A%BE%E5%BA%A6%E3%80%82">https://arxiv.org/abs/2308.07074标签和https://arxiv.org/abs/2312.15685评分。对于https://arxiv.org/abs/2308.07074(Luetal.,2023)，提示Llama370B对SFT提示进行意图标记，更多的意图意味着更高的复杂性。对于https://arxiv.org/abs/2312.15685(Liu等人，2024c)，提示Llama3在三点量表上测量对话的难度。</a><br>语义去重：参考（Abbas等人，2023；Liu等人，2024c）。首先使用RoBERTa（Liu等人，2019b）对完整对话聚类，然后在每个聚类内按质量分数×难度分数排序。然后迭代所有排序示例，只保留与样本集的最大余弦相似度小于阈值的示例，贪婪选择。<br>2.4能力<br>重点提升能力，包括：代码、多语言、数学和推理、长上下文、工具使用、事实性和可引导性。<br>2.4.1代码<br>改进代码能力的方法包括：训练代码专家、合成sft数据、带系统提示引导的拒绝采样、代码执行和model-as-judge过滤。<br>1）训练代码专家。对预训练模型进行持续预训练获得，其中持续预训练语料大部分（&gt;85%）是代码数据，合计1Ttokens。遵循类似CodeLlama的配方（Roziereetal.，2023）。最后几千步训练，在高质量的repository-level混合代码数据执行长上下文微调（LCFT），将专家的上下文长度扩展到16Ktokens。最后，除了针对代码领域的SFT和DPO混合数据外，也遵循Llama3训练流程对齐模型。该模型也用于代码prompt的拒绝采样。<br>2）合成sft数据。使用Llama3和代码专家合成大量的SFT对话。包括三种代码数据合成方法，生成超过270万的例子。<br>合成数据生成：执行反馈。当使用参数量更大、性能更强的模型生成数据再进行训练时，8B和70B模型显示出显着的性能改进。而使用Llama3405B自己生成的数据进行训练，却并没有什么帮助（甚至会降低性能）。为了解决这一限制，llama3引入了执行反馈，提升代码数据质量，使用以下过程生成约100万代码对话：<br>问题描述生成：从各种来源抽取随机代码片段，并提示模型基于这些示例生成新编程问题。编程问题描述涵盖各种主题，包括长尾分布主题。<br>解决方案生成：提示Llama3用给定的编程语言解决每个问题。在提示中添加一般性编程规则提高生成质量。在代码评论中解释其思维过程也能提升效果。<br>正确性分析：从生成的解决方案中提取源代码，并应用静态和动态分析技术测试其正确性，包括：<br>静态分析：通过解析器和linter运行所有生成代码，以确保语法正确性，捕获语法错误、使用未初始化变量、非导入函数、代码风格问题、键入错误等错误。<br>单元测试生成和执行：对于每个问题和解决方案，提示模型生成单元测试，与解决方案一起在容器化环境中执行，捕获执行错误和语义错误。<br>错误反馈和迭代自我修正：当解决方案在任何一步失败时，提示模型进行修改。提示包括原始问题描述、错误解决方案、解析器&#x2F;linter&#x2F;测试器反馈（stdout、stderr&#x2F;和返回代码）。单元测试失败后，模型修复代码以通过现有测试，也可以修改单元测试以适应现有代码。只有完全正确的问答对才会包含在最终sft数据集中。llama3发现约20%的解决方案最初是错误的，但可以自我纠正，表明模型从执行反馈中学习并提高了性能。<br>微调和迭代改进：微调过程分多轮进行，每一轮都建立在前一轮基础上，为下一轮生成更高质量的合成数据。<br>合成数据生成：编程语言翻译。将常见编程语言（例如，Python&#x2F;C++），翻译为不太常见的语言（例如，Typescript&#x2F;PHP）来补充现有数据，提升编程语言性能。并提示Llama3通过语法解析、编译和执行，以确保质量。<br>合成数据生成：反向翻译。对于某些编码能力（例如，说明、解释），使用执行反馈不足以改进其能力，llama3采用了另一种多步骤方法，生成了约120万个与代码解释、生成、说明和调试相关的对话。从预训练数据各种代码片段开始：<br>生成：提示Llama3生成代表目标能力的数据，例如，为代码片段添加注释说明，或者解释一段代码。<br>反向翻译：提示模型将合成数据“反向翻译”为原始代码，例如，提示模型仅从代码说明生成代码，或者仅从代码解释生成代码。<br>过滤：使用原始代码作为参考，提示Llama3确定输出质量，例如，询问模型反向翻译代码对原始代码的忠实程度，再使用SFT中具有最高自我验证分数的生成示例。<br>3）带系统提示引导的拒绝采样。拒绝抽样过程使用特定的代码系统提示，提高代码的可读性、说明、彻底性和特异性。<br>4）使用执行和model-as-judge信号过滤数据。早期版本的Llama3评估根据两个标准分配二进制(0&#x2F;1)分数：代码正确性和代码风格。只保留那些获得满分2分的样本。最初，这种严格的过滤导致了下游基准性能的回归，主要是因为它不成比例地删除了具有挑战性提示的示例。为了解决这个问题，llama3策略性地修改了一些被归类为最具挑战性的代码数据响应，直到它们满足基于Llama的“model-as-judge”标准。通过改进这些具有挑战性的问题，代码数据实现了质量和难度的平衡，获得了最佳的下游性能。<br>2.4.2多语言<br>方法包括训练多语言专家，采购和生成德语&#x2F;法语&#x2F;意大利语等多语言的的高质量指令数据。<br>训练多语言专家。使用预训练模型在多语言混合数据集（包含90%的多语言tokens）做持续预训练，然后，按照使用前面的后训练流程。最后，使用该专家模型收集高质量的多语言注释数据直到预训练结束。<br>多语言数据收集。多语言SFT数据主要来自以下来源。总体分布是2.4%的人工注释、44.2%其他NLP任务数据、18.8%的拒绝采样数据和34.6%翻译的推理数据。<br>人工注释：从语言学家和母语人士那里收集高质量的人工注释数据。主要由现实世界的开放式提示组成。<br>其他NLP任务数据：使用其他任务的多语言训练数据并重写为对话格式。例如，exams-qa和Conic10k。为了改进语言对齐，使用GlobalVoices和Wikimedia的并行文本。使用基于LID的过滤和Blaser2.0(SeamlessCommunicationetal.,2023)来删除低质量数据。对于并行文本数据，没有直接使用双文本对，而是应用受Weietal.(2022a)启发的多语言模板，以更好地模拟翻译和语言学习场景中的现实对话。<br>拒绝采样数据：对人工注释的提示应用拒绝采样，以生成高质量微调样本，流程和收集英语类数据类似：<br>生成：前期从$[0.2,1]$区间随机选择温度T。高T时多语言响应会富有创意，但也容易出现语码转换问题。在最后一轮后训练时，设置T&#x3D;0.6。此外，使用专门的系统提示来改进响应格式、结构和可读性。<br>选择：在基于奖励模型的选择之前，实施特定的多语言检查，以确保提示和响应之间的语言匹配率（例如，罗马化印地语提示不应以印地文梵文响应）。<br>翻译数据：尽量避免使用机器翻译数据，以防止可能的翻译名称偏差、性别偏差或文化偏见。有一个例外，llama3使用了翻译的推理数据（详见2.4.3数学与推理），以提高非英语语言中定量推理性能。由于这些数学问题仅使用简单的语言，翻译后几乎没有质量问题。<br>2.4.3数学与推理<br>提升数学推理能力，面临着一些挑战：<br>缺乏提示：SFT有效提示或问题数量不足，很难创建多样化且具有代表性的数学训练集。<br>缺乏真实的思维链：缺乏真实的思维链数据，以指导模型如何逐步分解问题并得出最终答案。<br>不正确的中间步骤：当使用模型生成的思维链时，中间步骤可能会出错，影响训练效果。<br>使用外部工具：增强模型利用外部工具（如代码解释器），或通过交错代码和文本进行推理。这种能力可以显着提高他们解决问题的能力。<br>训练和推理之间的差异：微调后的模型可能会与人类或其他模型交互，要求它使用反馈来改进推理结果。确保训练数据和实际使用场景的一致性，对于维持推理性能至关重要。<br>为了应对这些挑战，采用以下方法：<br>解决缺乏提示问题：从预训练数据中寻找数学相关数据，并将其转换为问答格式用于sft。创建数学技能分类，寻找模型表现不佳的数学技能，人工编写相关提示&#x2F;问题。<br>通过逐步推理轨迹增强训练数据：使用Llama3为一组提示生成逐步解决方案，再使用Llama3验证特定的逐步解决方案对于给定问题是否有效，根据正确答案过滤这些结果。<br>过滤不正确的推理痕迹：训练结果RM和分步RM(Lightmanetal.,2023;Wangetal.,2023a)过滤中间推理步骤不正确的训练数据。对于更具挑战性的提示，使用蒙特卡罗树搜索（MCTS）和学习的分步RM生成有效的推理轨迹。<br>交错代码和文本推理：提示Llama3通过文本推理和Python代码组合解决推理问题。以代码执行作为反馈信号，消除推理链无效情况，保证推理过程正确性。<br>从反馈和错误中学习：为了模拟人类反馈，利用不正确的生成结果并提示Llama3产生正确的生成结果，来执行错误纠正，这有助于提高模型推理和从错误中学习的能力。<br>2.4.4长上下文<br>预训练最后阶段，Llama3的上下文长度从8K扩展到128Ktokens。与预训练类似，微调过程也必须仔细调整配方以平衡短上下文和长上下文能力。<br>合成数据。使用Llama3的早期版本合成长上下文数据，包括：多回合问答、长文档摘要以及代码存储库推理。<br>QA对生成：从预训练数据中精心策划一组长文档，分成8Ktoken的块，使用早期版本的Llama3模型根据随机选择的块生成QA对，训练期间使用整个文档作为上下文。<br>总结：首先使用最强的Llama38K模型对输入长度为8K的块进行总结，然后再对所有的总结进行汇总，从而对长上下文文档进行分层汇总。训练期间，给模型提供完整的文档并提示模型总结文档，同时保留所有重要细节。另外，还根据文档摘要生成QA对，并提示模型提出需要理解整个长文档的全局问题。<br>长上下文代码推理：解析Python文件识别导入语句，并确定它们的依赖关系。选择最常依赖的文件，特别是至少五个其他文件引用的文件，从存储库中删除这些关键文件之一，并提示模型识别丢失的依赖文件，生成必要的丢失代码。<br>根据序列长度（16K、32K、64K和128K）进一步对这些合成样本进行分类，以实现更细粒度的输入长度定位。最终，消融实验发现混合0.1%的长上下文合成数据与原始短上下文数据，性能最佳。<br>DPO。实验发现只要SFT模型在长上下文任务中具有高质量的推理效果，那么DPO训练仅使用短上下文也不会影响长上下文性能。鉴于这一发现，长上下文SFT之后，保留了DPO的短上下文数据混合。<br>2.4.5工具使用<br>Llama3训练了三种工具调用：搜索引擎、Python解释器、数学计算引擎。除此之外，还训练了zero-shot工具使用（上下文中给定可能未见过的工具定义和用户查询，训练模型使用正确的工具调用）。<br>执行。使用不同的方法将核心工具实现为Python对象。零样本工具可以实现为带有描述、文档示例的Python函数，并且模型只需要函数的签名和文档字符串作为上下文来生成适当的调用。还将函数定义和调用转换为JSON格式，所有工具调用均由Python解释器执行，必须在Llama3系统提示符中启用该解释器。核心工具可以在系统提示符中单独启用或禁用。<br>数据收集。llama3主要依靠人类注释和偏好，合成工具调用数据，这一点与toolformer不同。与标准后训练流程相比，有两个主要区别：<br>对于工具，对话通常包含多条助手消息（例如，调用工具，根据工具输出推理结果）。llama3在消息级别进行注释以收集细粒度反馈：注释者在具有相同上下文的两条助手消息之间进行偏好选择，或者如果两者都有问题，则编辑改进其中一条消息。然后，所选或编辑的消息将添加到上下文中，对话继续。这为助手调用工具和推理工具输出提供了人类反馈。注释者无法排名或编辑工具输出。<br>不执行拒绝抽样，因为未在工具基准测试中观察到增益。<br>人工注释数据。人工注释过程从单轮工具注释开始，然后转向对话中的工具使用，最后注释多步工具使用和数据分析。流程如下：<br>单步工具使用：从合成用户提示的少样本生成开始（这些生成需要调用核心工具）。依靠几次生成，为这些提示生成适当的工具调用，执行它们，并将输出添加到模型上下文。最后，再次提示模型根据工具输出生成最终答案。可以得到以下形式的轨迹：系统提示、用户提示、工具调用、工具输出、最终答案。为提高数据质量，过滤了约30%无法执行的工具调用或其他格式问题。<br>多步工具使用：首先提示Llama3生成需要至少两次工具调用的用户提示，这些工具可以与核心工具集不同。然后，使用这些提示多次，让Llama3生成由交错推理步骤和工具调用组成的解决方案，类似于ReAct。<br>文件上传与分析：对常用文件类型进行注释（如.txt、.docx、.pdf、.pptx、.xlsx、.csv、.py、.json等）。提示模型基于提供的文件，总结文件内容，查找并修复错误，优化代码，执行数据分析或可视化。<br>使用合成数据微调后，在各种具有挑战性的场景中收集人类注释（包括多轮交互、超过三步的工具使用以及工具调用不准的情况）。llama3使用不同的系统提示增强合成数据，以教导模型仅在工具功能激活时才使用工具。为了训练模型简单查询直接推理（不需要额外调用工具）的能力，llama3还添加了来自简单数学或问答数据集的查询，及其在没有工具情况下的响应，只在系统提示激活工具时才调用工具。<br>零样本工具调用。通过使用大量多样化的工具调用合成数据（函数定义、用户查询、相应调用等），提高了Llama3零样本工具的使用能力。<br>单个、嵌套和并行函数调用：llama3借助于theStack(Kocetkovetal.,2022)，将合成用户查询应用于实际函数。更准确地说，提取函数调用及其定义，清理和过滤异常代码（例如缺少文档字符串或不可执行的函数）。然后，使用Llama3生成与函数调用相对应的自然语言查询。<br>多轮函数调用：通过函数调用为多轮对话生成合成数据。使用多个代理来生成域、API、用户查询、API调用和响应，同时确保生成的数据涵盖一组不同的域和实际的API。所有代理都是Llama3的变体，根据其角色以不同的方式提示，并以step-by-step方式进行协作。<br>2.4.6事实性<br>llama3遵循的原则是，后训练应该使模型“knowwhatitknows”，而不是添加知识(Gekhmanetal.,2024;Mielkeetal.,2020)。主要方法涉及生成数据，使模型生成与预训练中存在的数据保持一致。基于llama3的知识探测，数据生成过程如下：<br>从预训练数据中提取数据片段。<br>通过提示Llama3生成有关这些片段（上下文）的事实问题。<br>使用Llama3回答问题。<br>以原始上下文为参考，以Llama3为评审，对各生成的正确性进行评分。<br>使用Llama3作为评估者对各生成的信息量进行评分。<br>使用Llama3对各生成结果的信息一致但不正确的响应生成拒绝。<br>使用知识探测生成的数据鼓励模型只回答它所了解的问题，并拒绝回答不确定问题。此外，预训练数据并不总是与事实一致或正确。因此，llama3还收集了一组有限的带标签事实数据，这些数据涉及敏感主题，并且可能存在事实矛盾或不正确陈述。<br>2.4.7操纵性（指令遵循）<br>可操纵性，即指导模型满足用户规范的能力。Llama3专注于通过带有自然语言指令的系统提示来增强其可操纵性，特别是在响应长度、格式、语气和角色&#x2F;性格方面。<br>数据收集。通过要求注释者为Llama3设计不同的系统提示，收集一般英语类别中的可操纵性偏好样本。然后注释者与模型进行对话，以评估它们在对话过程中遵循系统提示中定义的指令一致性。下面展示了一个用于增强可操纵性的自定义系统提示示例：<br>建模。收集偏好数据后，在奖励建模、拒绝采样、SFT和DPO中利用这些数据来增强Llama3的可操纵性。<br>Qwen2后训练阶段提升的能力范围，包括编码、数学、逻辑推理、指令遵循和多语言理解。此外，它确保模型的生成与人类价值观和谐一致，使其有益、诚实且无害。与严重依赖广泛的人类监督的传统方法不同，Qwen2侧重于以最少的人类注释进行可扩展的对齐（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.01252%EF%BC%89%E3%80%82%E4%BB%8E%E4%BA%BA%E7%B1%BB%E5%8F%8D%E9%A6%88%E4%B8%AD%E8%8E%B7%E5%8F%96SFT%E5%92%8CRLHF%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6%E5%9C%B0%E5%87%8F%E5%B0%91%E4%BA%BA%E5%B7%A5%E6%A0%87%E8%AE%B0%E9%9C%80%E6%B1%82%EF%BC%8C%E5%90%8C%E6%97%B6%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6%E5%9C%B0%E6%8F%90%E9%AB%98%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E5%92%8C%E5%8F%AF%E9%9D%A0%E6%80%A7%E3%80%82">https://arxiv.org/abs/2406.01252）。从人类反馈中获取SFT和RLHF数据，最大限度地减少人工标记需求，同时最大限度地提高数据质量和可靠性。</a><br>后训练数据。训练数据构建需要两个步骤：协作数据注释和自动数据合成。首先，从大规模指令语料库中提取数据本体，从而产生广泛且多样化的高质量指令。再对这些指令进行系统增强以包含更大的复杂性。通过人工注释，获得目标响应$y_i$以及对应的正、负label$(y_{i}^+,y_{i}^−)$。随后，采用各种自动对齐策略合成大量代码、数学、指令遵循、创造性任务、角色扮演和安全领域的人工注释数据。<br>协作数据标注，包含以下四步：<br>自动本体提取。参考《InsTag:InstructionTaggingforAnalyzingSupervisedFine-tuningofLargeLanguageModels》，这是一种开放集细粒度标记器，用于从大规模指令数据集中提取底层本体。随后再人工精炼以保证提取准确性。<br>指令选择。参考《HowAbilitiesinLargeLanguageModelsareAffectedbySupervisedFinetuningDataComposition》，对每条标签注释后的指令，评估标签多样性、语义丰富性、复杂性和意图完整性。根据这些标准选择一组代表性指令。<br>指令进化。参考《Tree-Instruct:APreliminaryStudyoftheIntrinsicRelationshipbetweenComplexityandAlignment》，使用Qwen模型向现有指令添加约束或要求，从而增加其复杂性并确保数据集中的不同难度级别。<br>人工注释。使用不同的生成策略和不同规模的Qwen模型获得指令的多个响应。注释者根据自己的偏好对这些响应进行排名，确保最佳响应符合既定标准，生成事例数据和偏好数据。<br>自动数据合成。维持指令响应的注释质量提出了大规模的重大挑战，特别是那些需要专业知识、经验、细心、耐心的注释。为了应对这些挑战，Qwen2设计了各种自动对齐策略大规模合成数据。<br>RejectionSampling拒绝抽样。对于具有明确最终答案的数学或类似任务，应用RejectionSampling（Yuanetal.,<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2308.01825%EF%BC%89%E6%8F%90%E9%AB%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%B4%A8%E9%87%8F%E3%80%82%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%88LLMs%EF%BC%89%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%98%AF%E4%B8%BA%E6%AF%8F%E6%9D%A1%E6%8C%87%E4%BB%A4%E7%94%9F%E6%88%90%E5%A4%9A%E4%B8%AA%E5%93%8D%E5%BA%94%EF%BC%88%E6%8E%A8%E7%90%86%E8%B7%AF%E5%BE%84%EF%BC%89%EF%BC%8C%E7%84%B6%E5%90%8E%EF%BC%8C%E5%B0%86%E6%8E%A8%E7%90%86%E8%B7%AF%E5%BE%84%E6%AD%A3%E7%A1%AE%E5%B9%B6%E4%B8%94%E6%A8%A1%E5%9E%8B%E8%AE%A4%E4%B8%BA%E5%90%88%E7%90%86%E7%9A%84%E8%B7%AF%E5%BE%84%EF%BC%8C%E4%BF%9D%E7%95%99%E4%B8%8B%E6%9D%A5%E4%BD%9C%E4%B8%BA%E7%A4%BA%E8%8C%83%E6%95%B0%E6%8D%AE%E3%80%82%E8%80%8C%E5%81%8F%E5%A5%BD%E6%95%B0%E6%8D%AE%E5%88%99%E6%98%AF%E9%80%9A%E8%BF%87%E5%AF%B9%E6%AF%94%E6%AD%A3%E7%A1%AE%E5%92%8C%E9%94%99%E8%AF%AF%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E7%9A%84%E3%80%82">https://arxiv.org/abs/2308.01825）提高解决方案质量。大型语言模型（LLMs）的任务是为每条指令生成多个响应（推理路径），然后，将推理路径正确并且模型认为合理的路径，保留下来作为示范数据。而偏好数据则是通过对比正确和错误路径生成的。</a><br>ExecutionFeedback执行反馈。对于编码任务，参考《Self-playwithExecutionFeedback:ImprovingInstruction-followingCapabilitiesofLargeLanguageModels》，使用LLMs生成解决方案和相关测试用例。再通过编译和执行评估测试用例，创建演示和偏好数据。该方法也适用于评估指令遵循。<br>DataRepurposing数据再利用。对于文学写作任务，参考《LargeLanguageModelsareSuperpositionsofAllCharacters:AttainingArbitraryRole-playviaSelf-Alignment》，Qwen2汇总了公共领域的高质量文学作品，并使用LLMs制定不同详细程度的说明。这些说明与原始作品配对，作为演示数据。例如，为了构造角色扮演数据使其具有生动的responses，Qwen2从维基百科等知识库中获取详细的角色档案，并指导LLMs生成相应的指令和响应。此过程类似于阅读理解任务，可确保角色个人资料的完整性。<br>ConstitutionalFeedback宪法反馈。参考《ConstitutionalAI:HarmlessnessfromAIFeedback》，宪法AI是指导LLMs根据预定义的一组原则生成响应的过程。为了确保遵守安全和价值观等准则，Qwen2编制了宪法数据集。该数据集描述了应遵循的原则和应避免的原则。用来指导LLMs做出符合或偏离这些指南的回答，作为演示和偏好数据参考。<br>SFT。Qwen2收集了广泛的教学数据集，包含超过500,000个示例，涵盖指令遵循、编码、数学、逻辑推理、角色扮演、多语言和安全等技能。模型微调两个epoch，序列长度32k。为了优化学习，学习率lr从$7×10^{−6}$逐渐降低到$7×10^{−7}$。为了解决过拟合问题，设置weightdecay&#x3D;0.1，梯度被裁剪为最大值1.0。<br>RLHF。RLHF包括两个连续阶段：offline训练和online训练。离线训练阶段，使用DPO算法在预编译的偏好数据集$P$上，最大化$y_i^+$和$y_i^−$的可能性差异（DPO，Rafailov等人，<a target="_blank" rel="noopener" href="https://arxiv.org/html/2407.10671v4#bib.bib59%EF%BC%89%E3%80%82%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5%EF%BC%8C%E6%A8%A1%E5%9E%8B%E5%88%A9%E7%94%A8%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%EF%BC%8C%E5%AE%9E%E6%97%B6%E8%BF%AD%E4%BB%A3%E5%9C%B0%E5%AE%8C%E5%96%84%E5%85%B6%E6%80%A7%E8%83%BD%E3%80%82%E5%85%B7%E4%BD%93%E6%9D%A5%E8%AF%B4%EF%BC%8C%E4%BB%8E%E5%BD%93%E5%89%8D%E7%AD%96%E7%95%A5%E6%A8%A1%E5%9E%8B%E4%B8%AD%E9%87%87%E6%A0%B7%E5%A4%9A%E4%B8%AA%E5%93%8D%E5%BA%94%EF%BC%8C%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E6%9C%80%E5%96%9C%E6%AC%A2%E5%92%8C%E6%9C%80%E4%B8%8D%E5%96%9C%E6%AC%A2%E7%9A%84%E5%93%8D%E5%BA%94%EF%BC%8C%E5%BD%A2%E6%88%90%E6%AF%8F%E4%B8%80%E8%BD%AE%E8%BF%AD%E4%BB%A3%E7%9A%84DPO%E5%81%8F%E5%A5%BD%E5%AF%B9%E3%80%82%E6%AD%A4%E5%A4%96%EF%BC%8C%E9%87%87%E7%94%A8%E5%9C%A8%E7%BA%BF%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96%E5%99%A8%EF%BC%88Luetal.,https://arxiv.org/abs/2405.17931%EF%BC%89%E5%87%8F%E8%BD%BB%E5%AF%B9%E9%BD%90%E7%A8%8E%EF%BC%8C%E7%BC%93%E8%A7%A3%E6%A8%A1%E5%9E%8B%E5%AF%B9%E9%BD%90%E5%90%8E%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8B%E9%99%8D%E3%80%82">https://arxiv.org/html/2407.10671v4#bib.bib59）。在线训练阶段，模型利用奖励模型进行即时反馈，实时迭代地完善其性能。具体来说，从当前策略模型中采样多个响应，奖励模型选择最喜欢和最不喜欢的响应，形成每一轮迭代的DPO偏好对。此外，采用在线合并优化器（Luetal.,https://arxiv.org/abs/2405.17931）减轻对齐税，缓解模型对齐后的性能下降。</a><br>1奖励模型RM<br>Nemotron-4收集了10k人类偏好数据集，称为HelpSteer2，遵循<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2311.09528%E7%B1%BB%E4%BC%BC%E7%9A%84%E6%96%B9%E6%B3%95%E3%80%82%E5%B9%B6%E5%BC%80%E6%BA%90%E5%8F%91%E5%B8%83%EF%BC%8C%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E5%8F%82%E8%80%83Wangetal.(https://arxiv.org/abs/2406.08673)%E3%80%82">https://arxiv.org/abs/2311.09528类似的方法。并开源发布，详细信息参考Wangetal.(https://arxiv.org/abs/2406.08673)。</a><br>与欧阳等人采用的成对排名模型不同。Nemotron-4发现多属性回归奖励模型可以更有效地将真正的有用性与不相关性分开（例如仅仅因为其长度而更喜欢较长但无用的响应）。此外，回归模型更擅长预测细粒度奖励，捕捉相似响应之间有用性的细微差别。回归奖励模型建立在Nemotron-4-340B-Base模型之上，用新的reward“head”替换最终的softmax层。这个“head”是一个线性投影，它将最后一层的隐藏状态映射到HelpSteer属性（有用性、正确性、连贯性、复杂性、详细性）的五维向量中。在推理过程中，将这些属性值通过加权和的方式聚合，作为总体奖励。更多细节参考Wangetal.(<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.08673)%E3%80%82%E8%BF%99%E6%A0%B7%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%9C%A8RewardBench(Lambertetal.,2024)%E4%B8%8A%E8%A1%A8%E7%8E%B0%E9%9D%9E%E5%B8%B8%E5%A5%BD%EF%BC%8C%E8%BE%BE%E5%88%B0%E4%BA%86%E5%8F%91%E5%B8%83%E6%97%B6%E7%9A%84%E6%9C%80%E9%AB%98%E5%87%86%E7%A1%AE%E7%8E%87%E3%80%82%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%88%AB%E7%9A%84%E5%BE%97%E5%88%86%E5%A6%82%E8%A1%A84%E6%89%80%E7%A4%BA%E3%80%82">https://arxiv.org/abs/2406.08673)。这样的模型在RewardBench(Lambertetal.,2024)上表现非常好，达到了发布时的最高准确率。不同类别的得分如表4所示。</a><br>Nemotron-4-340B-Reward的总体得分证明了Nemotron-4-340B-Base模型的优势、HelpSteer2数据集的高质量以及方法的有效性。此外，该奖励模型为训练Nemotron-4-340B-Instruct提供了坚实的基础。<br>2对齐数据</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2024/12/15/1000000445-2247493661-1/">https://zejuncao.github.io/2024/12/15/1000000445-2247493661-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">包包算法笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2024/12/15/1000000445-2247493661-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000445_2247493661_1.jpg" class="responsive-img" alt="2024年大模型后训练(post-training)总结">
+                        
+                        <span class="card-title">2024年大模型后训练(post-training)总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">包包算法笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/31/wei-xin-gong-zhong-hao-ju-he-ping-tai-byname/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微信公众号聚合平台_按公众号区分">
+                        
+                        <span class="card-title">微信公众号聚合平台_按公众号区分</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
