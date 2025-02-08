@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="【源头活水】DEIM: 在DETR中使用多对一匹配的策略加快收敛, ZejunCao&#39;Blogs">
+    <meta name="description" content="【源头活水】DEIM: 在DETR中使用多对一匹配的策略加快收敛
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研究问题的本质有更">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【源头活水】DEIM: 在DETR中使用多对一匹配的策略加快收敛 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002201_2247615171_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【源头活水】DEIM: 在DETR中使用多对一匹配的策略加快收敛</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能前沿讲习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gVnMBCUl_QX8XxPSeqofmw">【源头活水】DEIM: 在DETR中使用多对一匹配的策略加快收敛</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研究问题的本质有更清晰的认识和理解，是自我提高的不竭源泉。为此，我们特别精选论文阅读笔记，开辟“源头活水”专栏，帮助你广泛而深入的阅读科研文献，敬请关注！<br>摘要<br>本文介绍了一种名为DEIM的创新且高效的训练框架，旨在加速基于Transformer架构（如DETR）在实时目标检测中的收敛速度。为了缓解DETR模型中一对一（O2O）匹配所固有的稀疏监督问题，DEIM采用了密集的一对一（DenseO2O）匹配策略。该方法通过引入额外的目标，并使用标准的数据增强技术，增加了每张图像中的正样本数量。尽管密集O2O匹配加快了收敛速度，但它同时也引入了许多低质量的匹配，可能影响性能。为了解决这个问题，我们提出了匹配感知损失（Matchability-AwareLoss,MAL），这是一种新颖的损失函数，它优化了不同质量级别的匹配，增强了密集O2O的有效性。<br>大量的实验在COCO数据集上验证了DEIM的有效性。当与RT-DETR和D-FINE结合时，它不仅持续提升了性能，还使训练时间减少了50%。值得注意的是，与RT-DETRv2配对时，DEIM仅需在NVIDIA4090GPU上训练一天就能达到53.2%的平均精度（AP）。此外，经过DEIM训练的实时模型超越了领先的实时目标检测器，其中DEIM-D-FINE-L和DEIM-D-FINE-X分别在NVIDIAT4GPU上以124帧&#x2F;秒（FPS）和78帧&#x2F;秒的速度实现了54.7%和56.5%的AP，而无需额外的数据。我们认为DEIM为实时目标检测的进步设定了新的基准。<br>我们的代码和预训练模型可以在https :&#x2F;&#x2F;github.com&#x2F;ShihuaHuang95&#x2F;DEIM获取。<br>1介绍<br>目标检测是计算机视觉中的一个基本任务，广泛应用于诸如自动驾驶、机器人导航等领域。随着对高效检测器需求的增长，实时检测方法的发展也得到了推动。特别是YOLO作为实时目标检测的主要范式之一脱颖而出，因为它在延迟和准确性之间提供了引人注目的权衡。YOLO模型被广泛认可为基于卷积神经网络的一阶段检测器。一对一多（O2M）分配策略在YOLO系列中广泛应用，其中每个目标框与多个锚点相关联。这种策略被认为是有效的，因为它提供了密集的监督信号，加速了收敛并提升了性能。然而，它为每个对象产生了多个重叠的边界框，需要手工设计的非极大值抑制（Non-MaximumSuppression,NMS）来消除冗余，这引入了延迟和不稳定性。<br>基于Transformer的目标检测（DETR）范式的出现[3]吸引了大量关注，利用多头注意力捕捉全局上下文，从而增强了定位和分类能力。DETRs采用了一对一（O2O）匹配策略，该策略在训练期间使用匈牙利算法建立预测框与真实对象之间的唯一对应关系，消除了对NMS的需求。这个端到端框架为实时目标检测提供了一个有吸引力的替代方案。<br>然而，收敛速度慢仍然是DETRs的主要限制之一，我们假设原因有两个方面。第一，稀疏监督：O2O匹配机制只为每个目标分配一个正样本，极大地限制了正样本的数量。相比之下，O2M生成的正样本数量要多几倍。这种正样本的稀缺性限制了密集监督，阻碍了有效模型学习——特别是对于小物体，密集监督对于性能至关重要。第二，低质量匹配：与依赖密集锚点的传统方法（通常&gt;8000）不同，DETR使用少量（100或300）随机初始化的查询。这些查询缺乏与目标的空间对齐，导致训练中产生许多低质量匹配，即匹配框与目标的IoU较低但置信度分数较高。<br>为了应对DETR中监督的稀缺性，最近的研究通过将O2M分配融入O2O训练中放松了O2O匹配的约束，从而为目标引入辅助正样本以增加监督。GroupDETR通过使用具有独立O2O匹配的多个查询组实现了这一点，而Co-DETR则结合了来自FasterR-CNN和FCOS等目标检测器的O2M方法。虽然这些方法成功地增加了正样本的数量，但也需要额外的解码器，增加了计算开销，并有可能像传统检测器一样产生冗余的高质量预测。相比之下，我们提出了一种新颖且简单的密集一对一（DenseO2O）匹配方法。我们的核心思想是在每张训练图像中增加目标的数量，从而在训练过程中生成更多的正样本。值得注意的是，这可以通过使用马赛克和mixup等经典技术轻松实现，这些技术在保留一对一匹配框架的同时为每张图像生成额外的正样本。密集O2O匹配可以提供与O2M方法相当的监督水平，而不需要O2M方法通常伴随的复杂性和开销。<br>尽管尝试通过先验改进查询初始化，使得查询在物体周围分布更有效。这些改进的初始化方法通常依赖于从编码器提取的有限特征信息，往往将查询聚集在少数显著物体周围。相比之下，大多数不显眼的物体缺乏附近的查询，导致低质量匹配。当使用密集O2O时，这个问题变得更加突出。随着目标数量的增加，显著和非显著目标之间的差异增大，导致尽管匹配数量总体增加，但低质量匹配的比例上升。在这种情况下，如果损失函数在处理这些低质量匹配方面存在局限性，这种差异将持续存在，阻碍模型实现更好的性能。<br>现有的DETR损失函数，如变焦损失（VarifocalLoss,VFL），是为密集锚点设计的，其中低质量匹配的数量相对较少。它们主要惩罚高质量匹配，尤其是高IoU但低置信度的匹配，并丢弃低质量匹配。为了处理低质量匹配并进一步改善密集O2O，我们提出了匹配感知损失（Matchability-AwareLoss,MAL）。MAL根据匹配可能性调整惩罚，通过结合匹配查询与目标之间的IoU与分类置信度。MAL对于高质量匹配的表现类似于VFL，但对于低质量匹配则更加重视，提高了训练期间有限正样本的利用率。此外，MAL提供了比VFL更简单的数学公式。<br>所提出的DEIM将密集O2O与MAL相结合，创建了一个有效的训练框架。我们在COCO数据集上进行了广泛的实验，以评估DEIM的有效性。图1(a)的结果显示，DEIM显著加速了RT-DETRv2和D-FINE的收敛，并取得了更好的性能。具体来说，在仅一半的训练轮次下，我们的方法分别超过RT-DETRv2和D-FINE0.2和0.6个AP。此外，我们的方法能够在单个4090GPU上训练ResNet50为基础的DETR模型，在一天内（大约24个轮次）达到53.2%的mAP。通过结合更高效的模型，我们还引入了一系列新的实时检测器，超越了现有模型，包括最新的YOLOv11，为实时目标检测设定了新的最先进（SoTA）水平（图1(b)）。<br>本工作的主要贡献总结如下：<br>我们引入了DEIM，这是一种简单且灵活的实时目标检测训练框架。<br>DEIM通过改进匹配的数量和质量，分别通过密集O2O和MAL加速了收敛。<br>使用我们的方法，现有的实时DETRs在性能上有所提升，同时将训练成本减半。特别是，当与D-FINE中的高效模型配对后，我们的方法超过了YOLOs，并在实时目标检测中建立了新的SoTA。<br>2相关工作<br>基于Transformer的目标检测（DETR）标志着从传统卷积神经网络（CNN）架构向Transformer的转变。通过使用匈牙利算法计算的一对一匹配损失，DETR消除了对手工设计的非极大值抑制（NMS）作为后处理的需求，并实现了端到端的目标检测。然而，它面临着收敛速度慢和计算密集的问题。<br>增加正样本<br>一对一匹配将每个目标限制为一个正样本，提供的监督远少于一对多（O2M），这阻碍了优化。一些研究探索了在O2O框架内增加监督的方法。例如，GroupDETR引入了“组”的概念来近似实现O2M。它使用K组查询（K&gt;1），并在每组内部独立执行O2O匹配，使得每个目标可以分配到K个正样本。为了防止组间的通信，每组需要一个独立的解码器层，最终导致有K个并行的解码器。H-DETR中的混合匹配方案与GroupDETR类似工作。<br>Co-DETR发现，一对多分配方法有助于模型学习更独特的特征信息，因此提出了一个协作混合分配方案，通过辅助头进行一对多标签分配，如FasterR-CNN和FCOS，以增强编码器表示。现有方法旨在增加每个目标的正样本数量以提高监督。相比之下，我们的DenseO2O探索了另一个方向——通过增加每张训练图像中的目标数量来有效提升监督。不同于现有的方法，这些方法需要额外的解码器或头，从而增加了训练资源消耗，我们的方法是无需额外计算的。<br>优化低质量匹配<br>稀疏且随机初始化的查询缺乏与目标的空间对齐，导致大量低质量匹配，阻碍了模型的收敛。一些方法引入了先验知识到查询初始化中，比如锚点查询、DAB-DETR、DN-DETR和密集独特查询。最近，受两阶段范式的启发，像DINO和RT-DETR这样的方法利用编码器的密集输出中排名靠前的预测来精炼解码器查询。这些策略使查询初始化更加接近目标区域。然而，低质量匹配仍然是一个重大挑战。在RT-DETR中，变焦损失（VarifocalLoss,VFL）被用来减少分类置信度和框质量之间的不确定性，增强了实时性能。然而，VFL主要针对传统检测器，其中低质量匹配较少，并专注于高IoU优化，对于低IoU匹配由于其最小和平坦的损失值而未得到充分优化。<br>在此基础上，我们引入了匹配感知损失（Matchability-AwareLoss,MAL）以更好地优化不同质量级别的匹配，显著提高了DenseO2O匹配的有效性。<br>减少计算成本<br>标准的注意力机制涉及密集计算。为了提高效率并促进多尺度特征的交互，开发了几种先进的注意力机制，如可变形注意力、多尺度可变形注意力、动态注意力和级联窗口注意力。此外，最近的研究集中在创建更高效的编码器上。例如，LiteDETR引入了一种在高级和低级特征之间交错更新的编码器块，而RT-DETR在其编码器中结合了CNN和自注意力。这两种设计显著减少了资源消耗，尤其是RT-DETR。RT-DETR是DETR框架内的首个实时目标检测模型。基于这种混合编码器，D-FINE进一步优化了RT-DETR，通过添加模块并迭代更新概率分布而非预测固定坐标来改进回归过程。这种方法使D-FINE能够在延迟和性能之间取得更有利的权衡，略微超过了最新的YOLO模型。<br>利用这些实时DETRs的进展，我们的方法以较低的训练成本实现了令人印象深刻的性能，在实时目标检测方面大幅超越了YOLO模型。<br>3方法<br>3.1预备知识<br>O2M对比O2O一对多（One-to-Many,O2M）分配策略在传统目标检测器中被广泛采用，其监督可以表述为：<br>FocalLoss<br>FocalLoss(FL)被引入以防止大量的简单负样本在训练过程中压倒检测器，而是将注意力集中在少量困难样本上。它作为基于DETR的检测器中默认的分类损失，并定义如下：<br>3.2提高匹配效率：密集一对一（DenseO2O）<br>在基于DETR的模型中，通常使用的一对一（O2O）匹配方案将每个目标仅与一个预测查询相匹配。该方法通过匈牙利算法实现，允许端到端训练，并消除了对非极大值抑制（NMS）的需求。然而，O2O的一个关键限制是相比于传统的多对一（O2M）方法，如SimOTA，它生成的正样本显著较少。这导致了监督稀疏，可能会减缓训练期间的收敛速度。<br>为了更好地理解这个问题，我们在MSCOCO数据集上用ResNet50骨干训练了RTDETRv2。我们比较了由匈牙利（O2O）和SimOTA（O2M）策略生成的正匹配数量。如图3a所示，O2O在每张图像少于10个正匹配的情况下产生了尖峰，而O2M则生成了一个更宽泛的分布，拥有更多的正匹配，有时对于单个图像可以超过80个正样本。图3b进一步强调，在极端情况下，SimOTA生成的匹配数大约是O2O的十倍。这表明O2O具有较少的正匹配，可能会减慢优化过程。<br>3.3提高匹配质量：可匹配性感知损失（Matchability-AwareLoss）<br>VFL的局限性。基于FocalLoss(FL)构建的VariFocalLoss(VFL)已被证明可以改善目标检测性能，特别是在DETR模型中。VFL损失表达式为：<br>其中q表示预测边界框与其目标框之间的IoU。对于前景样本(q&gt;0)，目标标签被设置为q，而背景样本(q&#x3D;0)的目标标签为0。VFL通过结合IoU来提升DETR中查询的质量。<br>然而，当优化低质量匹配时，VFL有两个关键局限性：<br>i).低质量匹配。VFL主要关注高质量匹配（高IoU）。对于低质量匹配（低IoU），损失保持较小，阻止了模型对低质量边界框的预测进行细化。对于低质量匹配（例如，图2d中的低IoU），损失仍然很小（在图2e中标记为星号(*)）。<br>ii)负样本。VFL将没有重叠的匹配视为负样本，这减少了正样本的数量，并限制了有效的训练。<br>为了克服这些局限性，我们提出了可匹配性感知损失（Matchability-AwareLoss）。该损失函数旨在更有效地处理低质量匹配和负样本的问题，以提高模型的匹配质量和整体性能。通过引入可匹配性感知机制，可以使模型更好地学习到不同质量匹配样本之间的区别，从而增强其对低质量匹配的改进能力，并适当增加有效训练的样本数量。<br>这些问题对于传统检测器来说影响较小，因为它们依赖密集的锚点和多重分配策略。然而，在DETR框架中，查询是稀疏的且匹配更加严格，这些局限性变得更加明显。<br>可匹配性感知损失（Matchability-AwareLoss,MAL）。为了解决上述问题，我们提出了可匹配性感知损失（MAL），它在继承VFL优点的同时减轻了其不足。MAL将匹配质量直接融入到损失函数中，使其对低质量匹配更加敏感。MAL的公式为：<br>与VFL的比较。我们在处理低质量和高质量匹配方面比较了MAL和VFL。对于低质量匹配（IoU&#x3D;0.05，见图4a），随着预测置信度的增长，MAL显示出比VFL更急剧的损失增加，而VFL则几乎保持不变。而对于高质量匹配（IoU&#x3D;0.95，见图4b），MAL和VFL表现相似，这证实了MAL提高了训练效率，同时并没有影响到高质量匹配上的性能。<br>通过上述对比可以看出，MAL在不牺牲高质量匹配性能的前提下，改善了低质量匹配的学习效果，从而使得模型在训练过程中能够更加有效地学习不同质量级别的匹配。这种改进对于如DETR这样的框架尤为重要，因为它可以帮助缓解由于查询稀疏性和匹配刚性所带来的局限性。<br>4实验4.1训练细节<br>对于DenseO2O，我们应用了马赛克增强和mixup增强来为每张图像生成额外的正样本。我们在MS-COCO数据集上使用AdamW优化器来训练我们的模型。如同RT-DETR和D-FINE中的做法，我们也采用了标准的数据增强方法，如颜色抖动和缩放。<br>我们使用了一个平坦余弦学习率调度器，并提出了一种新的数据增强调度器。在最初的几个训练轮次（通常为四个）中，我们采用数据增强预热策略以简化注意力机制的学习。在训练轮次的50%之后禁用DenseO2O可以得到更好的结果。遵循RT-DETRv2的做法，我们在最后两个轮次中关闭数据增强。我们的学习率LR和数据增强DataAug调度器具体展示在图5中。我们的骨干网络是在ImageNet1k上预训练的。我们在640×640分辨率的MS-COCO验证集上评估我们的模型。关于超参数的更多详细信息可以在补充材料中找到。<br>4.2与实时检测器的比较<br>我们将我们的方法集成到了D-FINE-L和D-FINE-X中，构建了DEIM-D-FINE-L和DEIM-D-FINE-X。然后，我们评估这些模型，并将其实时目标检测性能与最先进模型进行基准测试，包括YOLOv8、YOLOv9、YOLOv10、YOLOv。表1根据训练轮次、参数数量、GFLOPs（每秒十亿浮点运算）、延迟和检测准确度对这些模型进行了比较。补充材料中还包含了较小模型变体（S和M）的额外比较。<br>我们的方法在训练成本、推理延迟和检测准确度方面超越了当前的最先进模型，为实时目标检测设定了新的基准。值得注意的是，D-FINE是一项非常近期的工作，它通过引入蒸馏和边界框精化来提升RT-DETRv2的性能，确立了其作为领先实时检测器的地位。我们的DEIM进一步提升了D-FINE的性能，在不增加推理延迟的情况下实现了0.7AP的增益，并将训练成本降低了30%。最大的改进是在小目标检测上，当使用我们的方法训练时，D-FINE-X作为DEIM-D-FINE-X实现了1.5AP的增益。<br>与直接对比的YOLOv11-X相比，我们的方法超过了这一最先进YOLO模型的性能，达到了略高的性能（54.7vs.54.1AP），并将推理时间减少了20%（8.07msvs.10.74ms）。尽管YOLOv10采用了混合O2M和O2O分配策略，但我们的模型始终优于YOLOv10，这证明了我们密集O2O策略的有效性。<br>尽管与其他基于DETR的模型相比，在小目标检测方面有显著的改进，但我们的方法在小目标AP上相较于YOLO模型略有下降。例如，YOLOv9-E在小目标检测上的表现比D-FINE-L高出约1.4AP，尽管我们的模型实现了更高的整体AP（56.5vs.55.6）。这一差距突显了在DETR架构内小目标检测所面临的持续挑战，并指出了可能进一步改进的领域。<br>4.3与基于ResNet的DETRs的比较<br>大多数DETR研究使用ResNet作为主干网络，为了能够对现有的DETR变体进行全面比较，我们也将我们的方法应用于RT-DETRv2，这是一种最先进的DETR变体。结果总结在表2中。不同于原始的DETR，后者需要500个epoch才能有效训练，最近的DETR变体，包括我们的方法，减少了训练时间同时提高了模型性能。我们的方法展示了最显著的改进，在仅仅36个epoch后就超过了所有变体。具体来说，DEIM将训练时间减少了一半，并且分别在带有ResNet-50和ResNet-101主干网络的RT-DETRv2上增加了0.5和0.9的AP。此外，它在使用ResNet-50主干网络时比DINO-Deformable-DETR高出2.7AP。<br>DEIM还大大增强了小目标检测的能力。例如，在实现了与RT-DETRv2相当的整体AP的同时，我们的DEIM-RT-DETRv2-R50在小目标上的表现超越了RT-DETRv2达1.3AP。这种改进在使用更大的ResNet-101主干网络时更为明显，其中我们的DEIM-RT-DETRv2-R101在小目标上的表现超越了RT-DETRv2-R101达2.1AP。将训练扩展到72个epoch进一步提升了整体性能，特别是在使用ResNet-50主干网络时，这表明较小的模型从额外的训练中获益更多。<br>4.4CrowdHuman数据集上的比较<br>CrowdHuman是一个旨在评估目标检测器在密集人群场景中表现的基准数据集。我们按照官方仓库1提供的配置，将D-FINE和我们提出的方法应用到了CrowdHuman数据集上。如表3所示，我们的方法（增强版D-FINE-L，结合了DEIM）相较于D-FINE-L实现了显著的1.5AP提升。特别是，我们的方法在小目标（APs）和高质量检测（AP75）方面提供了显著的性能提升（超过3%的改进），这表明它在具有挑战性的场景中能够更准确地检测目标。此外，这个实验强调了我们的方法在不同数据集上强大的泛化能力，进一步证实了其稳健性。<br>4.5.分析<br>在接下来的研究中，除非另有说明，我们默认使用RT-DETRv2与ResNet50的组合进行实验，并报告其在MS-COCOval2017上的性能。<br>实现密集一对一（DenseO2O）的方法。我们探索了两种实现密集一对一的方法：马赛克（mosaic）和mixup。马赛克是一种数据增强技术，它将四张图像合并成一张；而mixup则是以随机比例叠加两张图像。这两种方法都能有效增加每张图像中的目标数量，在训练期间增强了监督信号。<br>如表4所示，与不使用目标增强的训练相比，马赛克和mixup在经过12个epoch后都带来了显著的改进，这突显了密集一对一的有效性。此外，结合使用马赛克和mixup可以加速模型收敛，进一步强调了增强监督的好处。我们还跟踪了一次训练epoch中每张图像的正样本数量，结果如图6所示。相比于传统的O2O匹配，密集一对一显著增加了每张图像的正样本数量。<br>总体而言，通过增加每张图像的目标数量，密集一对一加强了监督力度，从而加快了模型收敛速度。马赛克和mixup是简单且计算效率高的技术，能够实现这一目标，它们的效果表明在训练过程中探索其他增加目标数量的方法具有进一步的潜力。<br>γ在MAL（公式4）中的影响表5的结果显示了不同γ值对经过24个epoch后的MAL的影响。根据这些实验，我们经验性地将γ设置为1.5，因为它能带来最佳性能。<br>密集一对一和MAL的有效性表6展示了两个核心组件——密集一对一和MAL的有效性。密集一对一显著加速了模型收敛，在仅仅36个epoch内就达到了与基线相似的性能，而原始模型则需要72个epoch。当与MAL结合时，我们的方法进一步提高了性能。这种改进主要得益于更好的边界框质量，符合我们优化低质量匹配以改善高质量边界框预测的目标。总体而言，密集一对一和MAL在RT-DETRv2和DFINE上均一致地带来了性能提升，证明了它们的稳健性和泛化能力。<br>5结论<br>在本文中，我们提出了DEIM，这是一种通过改进匹配来加速基于DETR的实时目标检测器收敛的方法。DEIM整合了密集一对一（DenseO2O）匹配，该方法增加了每张图像中的正样本数量，以及MAL，一种旨在优化不同质量匹配并特别增强低质量匹配的新颖损失函数。这种组合显著提高了训练效率，使DEIM能够在比YOLOv11等模型更少的epoch内实现优越的性能。与RT-DETR和D-FINE等最先进（SoTA）的DETR模型相比，DEIM展示了明显的优点，在不牺牲推理延迟的情况下，显示出了可测量的检测准确性和训练速度的提升。这些特性确立了DEIM作为实时应用的高度有效解决方案的地位，并具有进一步精炼和应用于其他高性能检测任务的潜力。<br>本文目的在于学术交流，并不代表本公众号赞同其观点或对其内容真实性负责，版权归原作者所有，如有侵权请告知删除。<br>收藏，分享、在看，给个三连击呗！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/02/03/1000002201-2247615171-2/">https://zejuncao.github.io/2025/02/03/1000002201-2247615171-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能前沿讲习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/03/1000002201-2247615171-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002201_2247615171_1.jpg" class="responsive-img" alt="【他山之石】ACM Computing Surveys | 港大等基于可靠性视角的深度伪造检测综述，覆盖主流基准库、模型">
+                        
+                        <span class="card-title">【他山之石】ACM Computing Surveys | 港大等基于可靠性视角的深度伪造检测综述，覆盖主流基准库、模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/03/2650953378-2650953378-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2650953378_2650953378_1.jpg" class="responsive-img" alt="No More Next-Token Prediction?">
+                        
+                        <span class="card-title">No More Next-Token Prediction?</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
