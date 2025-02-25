@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="297-A1.2｜AIGC图像水印，AI生成媒体检测综述；统一扩散桥用于图像恢复，可逆引导一致性训练，无指导扩散用于少数样本生成, ZejunCao&#39;Blogs">
+    <meta name="description" content="297-A1.2｜AIGC图像水印，AI生成媒体检测综述；统一扩散桥用于图像恢复，可逆引导一致性训练，无指导扩散用于少数样本生成
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+AIGCResearch主编｜庄才林（C">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>297-A1.2｜AIGC图像水印，AI生成媒体检测综述；统一扩散桥用于图像恢复，可逆引导一致性训练，无指导扩散用于少数样本生成 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000335_2247525703_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">297-A1.2｜AIGC图像水印，AI生成媒体检测综述；统一扩散桥用于图像恢复，可逆引导一致性训练，无指导扩散用于少数样本生成</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/AIGC-Research/">
+                                <span class="chip bg-color">AIGC Research</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-21
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/G0Gw3NL9hNf0nvVYA4FUXg">297-A1.2｜AIGC图像水印，AI生成媒体检测综述；统一扩散桥用于图像恢复，可逆引导一致性训练，无指导扩散用于少数样本生成</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>AIGCResearch<br>主编｜庄才林（CailinZhuang）技术支持｜胡耀淇（YaoqiHu）发布日期｜2025年2月11日｜周二<br>2025-02-10｜ZJU｜⭐️<br>http :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.06418v1<br>在当今人工智能生成内容（AIGC）日益普及的背景下，水印技术成为确保内容来源和检测深度伪造的重要手段。现有的水印技术通常注重抵抗真实世界的干扰（如JPEG压缩和噪声添加），但研究表明，这种“强健性”实际上会导致信息泄露的风险增加。本文提出了一种新型攻击框架，利用多通道特征提取来挖掘水印模式的泄露信息，从而实现水印的去除和伪造。与以往需要大量数据或检测器访问的研究不同，我们的方法仅需一张水印图像即可完成攻击，且在视觉保真度方面表现优异。实验结果显示，该方法在检测规避和伪造准确性上分别提高了60%和51%的成功率，揭示了现有水印技术在安全性与强健性之间的矛盾，为未来水印设计提供了新的视角。<br>本研究提出的攻击框架名为DAPAO，主要分为以下几个步骤：<br>特征提取：利用预训练的视觉模型对水印图像进行多通道特征提取，识别出可能包含水印信息的特征通道。<br>通道定位：通过聚类算法自动定位并优化特征通道，以便提取出水印信息。<br>攻击目标：分为两个主要目标：<br>检测规避：通过对特征通道的扰动，降低水印信息的可识别性，进而达到规避检测的目的。<br>伪造攻击：将提取的水印信息嵌入到无水印的干净图像中，实现伪造。<br>优化算法：采用投影梯度下降法（PGD）解决优化问题，以确保在扰动图像的同时保持视觉质量。<br>本研究通过两组数据集（COCO和DIV2K）进行实验，随机选择100张图像进行水印嵌入，并与100张无水印图像进行对比。我们测试了七种公开的水印方法，并与传统的图像降质技术（如JPEG压缩、加性高斯噪声等）以及现有的攻击方法进行了比较。评估指标包括结构相似性指数（SSIM）和峰值信噪比（PSNR），同时采用比特准确率和成功率来衡量攻击的有效性。实验结果表明，DAPAO在水印去除和伪造攻击上均显著优于现有方法，成功率分别提高了60%和51%。<br>我们的方法主要分为几个简单的步骤。首先，我们会使用一个已经训练好的计算机视觉模型，从水印图像中提取出不同的特征通道。这些通道就像图像的不同层次，包含了可能的水印信息。接下来，我们会通过一种聚类技术来自动找出哪些通道最有可能包含水印信息，并对其进行优化。然后，我们的目标有两个：一是通过对这些特征的轻微扰动，让水印变得难以被检测到；二是将提取到的水印信息添加到另一张干净的图像中，使其看起来像是原始水印图像。为了确保我们的操作不会影响图像的视觉效果，我们使用了一种叫做投影梯度下降的方法来解决这个问题。这一系列步骤的设计旨在有效地实现水印的去除和伪造，同时保持图像的质量。<br>2025-02-07｜BUPT,UCSB,CAS,CASIA｜⭐️<br>http :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.05240v2<br>随着人工智能生成媒体技术的快速发展，信息的真实性和社会信任面临着重大挑战，因此可靠的检测方法变得尤为重要。本文对AI生成媒体的检测方法进行了系统性综述，特别关注了从特定领域检测方法（Non-MLLM）到通用大型多模态语言模型（MLLM）检测方法的过渡。当前的检测方法可分为两大类：基于非MLLM的方法和基于MLLM的方法。前者依赖于深度学习技术，使用高精度的特定领域检测器，而后者则利用MLLM的通用检测器，能够处理文本、图像、音频和视频等多种输入类型，并生成高质量的文本输出。尽管这一领域取得了显著进展，但在文献中仍缺乏对这两类方法的全面比较，本文旨在填补这一空白，提供对现有方法的详细分类和分析。<br>本文的方法部分主要集中在对AI生成媒体检测技术的分类和比较，具体包括以下几个方面：<br>检测方法分类：<br>非MLLM检测器：这些方法通常针对特定任务优化，具有较高的检测精度，适用于资源有限的环境。<br>MLLM检测器：利用MLLM的跨模态处理能力，能够同时处理多种输入，进行真实性验证、可解释性分析和定位。<br>检测任务：<br>真实性检测：判断媒体样本是原创还是AI生成的，通常采用二分类任务。<br>可解释性：提供人类可理解的检测决策解释，通常以自然语言或视觉表现形式呈现。<br>定位：识别输入中的具体篡改区域，通常使用像素级或分段级分类。<br>技术优势：MLLM方法通过人类般的推理能力和丰富的知识获取，能够执行复杂的分析任务，并为后续分析提供灵活的框架。<br>在实验部分，作者对超过100项研究进行了深入评估，比较了不同检测方法的性能。通过分析这些方法在真实性检测、可解释性和定位等任务中的表现，揭示了它们的优缺点和适用场景。此外，研究还探讨了当前检测方法面临的主要挑战，特别是在安全性和伦理问题上的考量。实验结果表明，MLLM方法在处理复杂的多模态数据时表现出色，能够有效提高检测准确性，并为更复杂的任务提供有力支持。通过对现有基准和数据集的总结，本文为未来的研究方向提供了重要的参考依据。<br>在这一部分，我们可以更简单地理解本文的方法。首先，研究者将AI生成的媒体检测分为两大类：一种是专门针对特定任务的检测器，另一种是基于大型多模态语言模型（MLLM）的检测器。前者在特定领域内表现优异，适合在资源有限的环境中使用；而后者则能够处理多种类型的信息，比如文字、图片和视频，提供更全面的分析。<br>接下来，检测的任务主要有三个：首先是判断一段媒体是否是AI生成的，其次是提供关于检测结果的解释，最后是找出媒体中被篡改的具体部分。特别是MLLM方法，凭借其强大的理解和推理能力，能够在复杂的情况下提供更准确的结果，并帮助我们理解为什么会得出这样的结论。这种方法不仅提高了检测的准确性，也为后续的深入分析打下了良好的基础。<br>2025-02-09｜ShanghaiTech,MoEKeyLab,FDU｜⭐️<br>http :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.05749v2https :&#x2F;&#x2F;github.com&#x2F;UniDB-SOC&#x2F;UniDB&#x2F;<br>在这篇论文中，作者提出了UniDB，一个基于随机最优控制（SOC）的统一扩散桥架构。扩散桥模型在图像生成和恢复等领域取得了显著的进展，但现有的模型在处理任意分布之间的转换时存在局限性，主要是由于其对高斯噪声先验的固有假设。UniDB通过引入可调的终端惩罚系数来克服这些限制，从而在控制成本和终端惩罚之间实现最佳平衡，显著提高了图像细节的保留和输出质量。通过对现有扩散桥模型的统一化，UniDB展示了其在图像恢复任务中的优势，尤其是在超分辨率、去雨和修复等任务中。<br>UniDB的核心方法基于随机最优控制（SOC），其主要步骤如下：<br>构建扩散桥的前向随机微分方程（SDE）：该方程强制从预定的初始状态过渡到终端状态，确保生成的图像符合目标分布。<br>定义目标函数：目标函数结合了控制成本和终端惩罚，允许通过调整终端惩罚系数来优化图像细节的保留。<br>导出最优控制器：通过SOC问题的闭式解，UniDB能够推导出最优控制策略，以实现从初始状态到终端状态的平滑过渡。<br>与现有模型的整合：UniDB能够与现有的扩散桥模型（如DDBMs和GOUB）无缝集成，且只需进行最小的代码修改。<br>在实验部分，作者对UniDB在多个图像恢复任务中的表现进行了评估，包括超分辨率、去雨和图像修复。实验结果表明，UniDB在多个图像质量指标上超过了现有基线模型，如PSNR、SSIM、LPIPS和FID。具体来说，UniDB在超分辨率任务中显著提高了图像细节的保留，尤其在处理高频特征时表现优异。此外，作者还探讨了不同终端惩罚系数对模型性能的影响，发现适当的惩罚系数能够有效提升图像质量。<br>在UniDB的构建过程中，研究者们使用了一种名为随机最优控制的方法。这种方法的基本思想是通过设定一个目标，来寻找最佳的路径或策略。在图像处理的背景下，这个目标是让生成的图像尽可能接近我们想要的效果。具体来说，UniDB会首先定义一个起点和一个终点，然后通过调整一些参数（比如惩罚系数）来控制生成图像的质量。这个惩罚系数就像一个调节器，帮助模型在生成图像时平衡细节保留和整体风格。最终，UniDB不仅能生成更清晰、更真实的图像，还能与现有的图像处理模型兼容，方便使用。<br>2025-02-08｜NationalTaiwanU,NCTU｜⭐️<br>http :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.05391v1<br>本研究提出了一种新颖的训练框架，称为可逆引导一致性训练（iGCT），旨在提升图像生成和编辑的效率与质量。传统的扩散模型（DMs）在生成高质量图像时，通常需要大量的计算资源和时间，而iGCT通过引入数据驱动的方法，显著降低了对预训练模型的依赖，减少了计算需求。该方法解决了在高引导尺度下出现的饱和伪影问题，并通过对CIFAR-10和ImageNet64数据集的广泛实验，展示了其在FID（FréchetInceptionDistance）和精度方面的显著提升。iGCT的创新之处在于，它能够在不依赖于扩散模型的情况下，进行高效的图像生成和编辑。<br>iGCT的核心在于其数据驱动的引导学习机制，主要包括以下几个方面：<br>引导一致性训练：iGCT通过解耦目标清晰样本与源图像，捕捉无条件和条件噪声的影响。这种方法使得模型在训练过程中能够独立学习引导信息，而不依赖于复杂的预训练扩散模型。<br>可逆性设计：引入一个独立的噪声映射组件，该组件能够将图像映射到噪声空间，简化了图像编辑过程。这种可逆性使得在生成和编辑过程中，能够快速地进行反向映射。<br>一致性目标优化：iGCT通过优化一致性目标，直接推断出概率流ODE（OrdinaryDifferentialEquations）的终点，提升了生成效率和图像质量。<br>在实验部分，研究团队对iGCT的性能进行了全面评估，主要集中在CIFAR-10和ImageNet64数据集上。实验结果表明，iGCT在不同引导尺度下的生成效果优于传统的扩散模型和基于一致性蒸馏的方法。具体而言，iGCT在高引导尺度下显著降低了FID值，同时提升了精度和召回率。此外，iGCT在图像编辑任务中表现出色，能够在单步操作中快速完成目标类条件的图像编辑，展示了其在实时应用中的潜力。<br>iGCT的工作原理可以简单理解为一种智能的图像生成和编辑方式。首先，它通过学习如何将图像转化为噪声，从而掌握了图像的基本特征。接着，当我们需要生成新图像或编辑现有图像时，它能够快速地把这些噪声转回到清晰的图像中。与传统方法需要大量计算不同，iGCT只需一步就能完成这个过程，因此更快、更高效。此外，它还避免了一些常见问题，比如生成图像时的颜色失真，让结果更加自然。总的来说，iGCT是一个聪明且高效的工具，能帮助我们更轻松地处理图像。<br>2025-02-10｜KAIST｜⭐️<br>http :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.06516v1<br>在现代生成AI中，生成少数样本（minoritysamples）是一个重要的研究领域，尤其是在数据增强和创意内容生成等应用中。然而，现有的基于扩散的少数生成器通常依赖于计算开销较大的指导方法。为了解决这一问题，本文提出了一种简单而有效的无指导生成方法——Boost-and-Skip。该方法通过对标准生成过程进行两项最小化修改，即（i）方差增强初始化和（ii）时间步跳过，来提升少数样本的生成能力。尽管这些修改看似微不足道，但其背后有坚实的理论和实证支持，能够有效促进少数特征的出现。实验结果显示，Boost-and-Skip显著提高了少数样本的生成能力，甚至与依赖指导的最先进方法相媲美，同时计算成本显著降低，推动了该领域的进一步发展。<br>Boost-and-Skip方法的核心在于两项关键的修改：<br>方差增强初始化：在生成过程中，我们用增强的方差初始化噪声，而不是标准的高斯噪声。这种修改鼓励生成过程从低密度区域开始，增加生成少数样本的概率。具体来说，我们通过设置一个比例因子（γ&gt;1）来放大初始化的方差，从而提高少数样本生成的可能性。<br>时间步跳过：为了增强低密度初始化的影响，我们在生成过程中跳过几个最初的时间步。这一策略的实施是通过选择一个合适的跳过量（Δ），确保在生成过程中依然能够保持有效的低密度引导。通过这两项修改，我们能够显著提升少数样本的生成性能，而单独使用其中任何一项修改效果有限。<br>本文进行了广泛的实验，以验证Boost-and-Skip方法的有效性。我们在多个真实世界的数据集上进行测试，包括CelebA、LSUN-Bedrooms和ImageNet等。实验结果表明，Boost-and-Skip在生成少数样本方面表现出色，生成的样本在质量和多样性方面均与现有的最先进方法相当，甚至在某些情况下超越了它们。此外，Boost-and-Skip的计算效率显著提高，所需的计算资源远低于依赖指导的生成方法。我们还进行了消融实验，表明同时应用方差增强和时间步跳过的组合效果最佳，进一步验证了该方法的有效性和实用性。<br>Boost-and-Skip方法的核心可以理解为两种简化的操作，帮助我们更好地生成少数样本。首先，想象我们在画画时，通常使用一种标准的颜色（高斯噪声）来开始，但如果我们用一种更鲜艳的颜色（增强的方差）来开始，就能更好地突出一些细微的特征，这就相当于我们在生成过程中使用了方差增强的初始化。其次，我们并不需要每一步都细致入微地进行，而是可以选择跳过一些步骤（时间步跳过），这样可以让我们更快地达到想要的效果。通过这两种方法的结合，Boost-and-Skip能有效地生成那些在数据中比较少见的样本，同时减少计算的复杂性，帮助我们在生成AI中更好地处理少数样本的问题。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/02/21/1000000335-2247525703-2/">https://zejuncao.github.io/2025/02/21/1000000335-2247525703-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/AIGC-Research/">
+                                    <span class="chip bg-color">AIGC Research</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/21/1000000335-2247525703-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000335_2247525703_1.jpg" class="responsive-img" alt="297-A1.1｜统一多模态理解与生成加速，材质迁移，概念融合，个性化，偏好优化；探讨儿童、成人与AI在创意绘画任务中的表现">
+                        
+                        <span class="card-title">297-A1.1｜统一多模态理解与生成加速，材质迁移，概念融合，个性化，偏好优化；探讨儿童、成人与AI在创意绘画任务中的表现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AIGC-Research/">
+                        <span class="chip bg-color">AIGC Research</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/21/1000000335-2247525703-3/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000335_2247525703_3.jpg" class="responsive-img" alt="297-A2.1｜视频个性化定制，VFX视效生成，基于指令的视频编辑数据集，文本驱动的长视频编辑">
+                        
+                        <span class="card-title">297-A2.1｜视频个性化定制，VFX视效生成，基于指令的视频编辑数据集，文本驱动的长视频编辑</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AIGC-Research/">
+                        <span class="chip bg-color">AIGC Research</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

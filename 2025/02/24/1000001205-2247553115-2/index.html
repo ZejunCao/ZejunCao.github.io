@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="显著超越现有SOTA！ChatVLA：实现统一的多模态理解与机器人控制, ZejunCao&#39;Blogs">
+    <meta name="description" content="显著超越现有SOTA！ChatVLA：实现统一的多模态理解与机器人控制
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+作者|ZhongyiZhou等编辑|具身智能之心本文只做学术分享，如有侵权，联系删文人类拥有统一的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>显著超越现有SOTA！ChatVLA：实现统一的多模态理解与机器人控制 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001205_2247553115_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">显著超越现有SOTA！ChatVLA：实现统一的多模态理解与机器人控制</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E5%AD%A6%E8%80%85/">
+                                <span class="chip bg-color">深度学习初学者</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/WblsMc1d877SGacKHZqveA">显著超越现有SOTA！ChatVLA：实现统一的多模态理解与机器人控制</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>作者|ZhongyiZhou等编辑|具身智能之心<br>本文只做学术分享，如有侵权，联系删文<br>人类拥有统一的认知能力，能够感知、理解物理世界并与之互动。为什么大语言模型无法复制这种整体理解能力呢？通过对视觉-语言-动作模型（VLA）现有训练范式的系统分析，发现了两个关键挑战：虚假遗忘，即机器人训练会覆盖关键的视觉文本对齐信息；任务干扰，即控制任务和理解任务在联合训练时相互竞争，会降低模型性能。为了克服这些限制，这里提出了ChatVLA，一个新颖的框架，它采用分阶段对齐训练，在掌握初始控制能力后逐步整合多模态数据，还使用专家混合（MoE）架构来最小化任务干扰。ChatVLA在视觉问答数据集上表现出色，在多模态理解基准测试中显著超越了最先进的视觉-语言-动作（VLA）方法。值得注意的是，它在MMMU基准测试中的性能提高了6倍，在MMStar基准测试中得分达到47.2%，并且与ECOT相比，其设计的参数效率更高。此外，与现有的VLA方法（如OpenVLA）相比，ChatVLA在25个现实世界机器人操作任务中表现更优。研究结果凸显了这个统一框架在实现强大的多模态理解和有效的机器人控制方面的潜力。<br>项目链接：https :&#x2F;&#x2F;chatvla.github.io&#x2F;<br>近年来，视觉-语言-动作（VLA）模型取得了显著进展，这类模型在很大程度上优先致力于让机器人掌握动作。在机器人控制任务上训练的模型擅长低级操作和物理交互，但在解读和推理图像、文本等多模态数据时却常常遇到困难。这看似矛盾，因为现代VLA架构是基于预训练的视觉-语言模型（VLMs）构建的。相反，在视觉-文本对上训练的VLMs展现出了出色的多模态场景理解能力，但却缺乏与环境进行物理交互的能力。这种二元性凸显了一个关键挑战：如何在不牺牲任何一个领域性能的前提下，通过对齐机器人动作和视觉-文本语义这些不同数据源，实现实体控制和多模态理解的统一。<br>我们的工作致力于探索如何统一一个端到端的神经网络，使其具备多模态场景理解、对话能力和物理交互能力。首先研究了现有的训练范式，评估它们实现统一的可行性。我们研究了VLA训练的三种数据设置：<br>第一，仅在包含机器人动作轨迹的专家演示数据上进行训练（这是最常见的方法，例如OpenVLA、TinyVLA、π0）；<br>第二，用推理短语扩充机器人数据以指导动作（类似于ECOT和DiffusionVLA）；<br>第三，同时使用视觉-文本对和机器人数据进行联合训练（如RT-2）。<br>这里也分析了每种配置对模型平衡控制和理解能力的影响。实验表明，仅用机器人数据训练会完全侵蚀对话能力；添加推理数据能部分保留多模态理解能力；引入视觉-文本对则会显著削弱控制能力。这揭示了两个关键挑战：第一，VLA模型存在虚假遗忘问题，模型性能下降并非意味着预训练VLMs的知识完全丢失，而是模型内部表示与不同任务的对齐方式发生了变化。机器人动作与视觉-文本数据之间的对齐似乎很脆弱，在微调过程中容易被覆盖。第二，任务干扰问题，控制任务和理解任务的参数空间相互冲突，它们共享重叠的表示，在同时训练时会导致相互的性能下降。<br>为了解决这些挑战，我们提出了ChatVLA，这是一个在神经架构和训练策略方面都简单有效的框架，能让单个神经网络同时掌握理解和操作能力。我们受到课程学习的启发，提出了分阶段对齐训练，这是一种两阶段策略。模型首先掌握实体控制，然后逐步整合多模态数据，“重新激活”冻结的对齐链接。此外，在MLP层引入了专家混合（MoE）。这使得两个任务可以共享注意力层（用于跨任务知识转移），同时隔离特定任务的MLP（以最小化干扰）。这一设计的灵感来自双编码理论，该理论认为人类大脑通过两个独立但相互关联的系统处理信息：一个用于物理技能，另一个用于语言和视觉实践。ChatVLA中共享的注意力层促进了理解任务和控制任务之间有益知识的交换，而单独的MLP层则独立处理所学知识。<br>我们从三个维度评估ChatVLA：对话能力（视觉问答）、一般多模态理解和一般机器人控制。在TextVQA和DocVQA等既定数据集上评估其对话能力，与现有的VLMs相比，ChatVLA取得了具有竞争力的性能。此外，ChatVLA在包括MMMU、MME和MMStar在内的一般视觉和文本基准测试中，展示出了强大的多模态理解能力。值得注意的是，与ECOT等最先进的VLA方法相比，我们的方法在MMMU上性能提高了6倍，在MMStar上的性能从0提升到47.2，并且在VLM骨干网络中使用的参数减少了3.5倍。最后在25个现实世界机器人任务上评估ChatVLA，这些任务涵盖了抓取、放置、推动和悬挂等多种技能，涉及浴室、厨房和桌面等多个环境。在这个多任务设置中，我们的方法优于OpenVLA等最先进的VLA方法。这些结果验证了方法的有效性，展示了单一统一方法在多模态理解和机器人控制方面的潜力。<br>ChatVLA贡献如下：<br>在严格的设置下深入分析了现有的VLA方法，展示了它们在实现令人满意的多模态理解和机器人控制性能方面的局限性；<br>引入了ChatVLA，这是一个简单而有效的框架，它在单个神经网络中统一了对话能力、多模态理解和机器人控制；<br>进行了广泛的实验，评估ChatVLA在各种问答和一般理解基准测试中的性能；<br>进行了广泛的现实世界机器人实验，涵盖了现实家庭环境（桌面、厨房和浴室）中的25个不同任务，展示了ChatVLA在现实世界机器人控制场景中的卓越性能。<br>多模态大语言模型（MLLMs）通过整合视觉和语言信息来实现整体场景理解，极大地推动了多模态理解领域的发展。MLLMs在需要跨模态对齐的任务中，如视觉问答（VQA）、图像字幕生成和空间推理，展现出了出色的性能。这一成功源于它们能够通过复杂的适配器设计将视觉特征映射到语义表示。然而，当前的MLLMs缺乏与物理世界的连接，无法与环境和人类进行交互。这项工作旨在填补这一空白，使视觉-语言模型也能具备行动能力。<br>视觉-语言-动作模型（VLAs）是一个不断发展的研究领域，它以预训练的视觉-语言模型（VLMs）为骨干，实现语言理解和观察理解。这些方法通常对大型预训练VLMs进行微调，以预测机器人动作。这些方法在模拟和现实世界任务中都表现出了强大的性能。然而，现有的VLA模型尚未证明具备真正的多模态理解能力。基于我们的实验，发现这些模型缺乏这种能力。相比之下，我们的工作提出了一种统一的方法，使单个网络能够有效地处理多模态理解和机器人控制。<br>考虑机器人控制和多模态理解这两种不同的场景。在机器人控制场景中，我们通常构建一个演示数据集，其中每个演示由一系列状态-动作对组成。状态由观察（图像）和指令（文本）组成，即。我们可以将状态-动作对序列表示为：<br>其中每个元组表示时间步的状态和相应采取的动作，是演示的长度。这些演示通常由人类专家提供。<br>对于多模态理解和视觉对话任务，我们有一个数据集，其中每个数据样本由一个视觉图像和相应的文本形式的问题（或字幕）组成，即。这里，表示此类图像-文本对的总数。符号表示视觉-文本数据。<br>工作的总体目标是开发一个通用模型，它能够处理实体控制和多模态理解。对于实体控制，这涉及学习一个策略，该策略对给定当前视觉观察和文本指令的机器人动作的联合分布进行建模：。同时，对于多模态理解和视觉问答，模型应该捕捉给定视觉输入的文本（答案或字幕）的分布：。我们的目标是创建一个统一的模型，能够有效地学习这两种分布，使其在机器人控制任务和多模态理解场景中都能表现出色。<br>当前的VLA研究致力于开发更强大、更具泛化性的模型来学习视觉运动策略。一些方法探索类似思维链的推理来改进策略生成，而另一些方法则研究使用视觉-文本和机器人数据联合训练VLA模型。一些研究报告称在实验室环境中使用视觉-文本数据联合训练有好处，而另一些研究发现在现实世界场景中效果不佳。虽然有一些工作表明VLA可以保持对话能力，但没有研究深入探讨在应用VLA训练范式后，这种能力以及一般多模态理解能力是如何保留的。在接下来的部分，分析VLA的不同训练数据集设置，特别关注所得模型在多模态理解和现实世界机器人控制中的性能。目标是为构建能够同时实现这两者的统一模型提供实用指导。<br>为了了解现有VLA模型在多模态理解和实体控制方面的能力，我们研究了三种不同的训练范式，每种范式使用不同的数据集：第一，仅用机器人数据训练，这是VLA中最普遍的方法，主要侧重于优化机器人控制性能；第二，用类似思维链的推理扩充机器人数据，旨在提供辅助信息，提高模型的泛化能力和机器人任务性能；第三，同时使用视觉-文本数据和机器人数据进行联合训练。后一种范式由RT-2开创，但由于专有数据和模型细节的原因，很难进行精确复制。在本次实验中，参照RT-2，将机器人数据与视觉-文本数据的比例设为3:1。<br>我们分析了VLA模型的这三种训练数据设置。具体来说，使用DiffusionVLA，这是一个具有代表性的VLA模型，它既支持通过自回归生成语言输出，也支持通过扩散模型生成动作。在六个具有代表性的基准测试中评估性能：其中四个侧重于视觉问答，另外两个对多模态大语言模型进行更广泛的评估，涵盖数学和OCR等任务。此外，在五个现实世界机器人任务中评估性能，这些任务涵盖了悬挂、拉动、抓取和放置等多种技能。按照DiffusionVLA的方法，生成机器人推理数据。对于视觉-文本数据，从LLaVA中随机抽取54k个图像-文本对。<br>多模态理解和问答基准测试结果：实验结果如图2所示。图的右下角显示了在六个基准测试中的性能，包括视觉问答（VQA）和一般理解任务。图的右上角显示了在五个现实世界机器人任务上总共进行112次试验的平均成功率。<br>右下角的表格包含了基础模型Qwen2-VL的结果。一些结果在意料之中。例如，仅在机器人数据上训练模型，在所有基准测试中的性能均为0。该模型完全失去了对话能力，被提问时只会输出无意义的内容。不出所料，与基础模型相比，使用视觉-文本对和机器人数据同时训练时，性能下降最小。有趣的是，即使推理数据中的推理短语具有高度结构化和模板化的特点，用包含推理的机器人数据进行训练也能将性能从0提升到不可忽视的水平。尽管推理短语相似且结构化，但明确让模型“表达出来”显著提高了问答甚至一般理解的性能。<br>结论1：观察表明，预训练的VLM组件似乎遭受了灾难性遗忘。仅用机器人数据训练会导致模型失去先前获得的对话和理解能力。然而实验表明，这并不一定意味着知识的完全丢失，而是由机器人数据导致的对齐错误。使用固定的推理模板进行训练似乎“重新激活”了视觉-文本对齐，使模型能够进行对话并展示理解能力。<br>现实机器人多任务设置的结果：进一步在现实机器人设置中评估了不同的方法。所有方法都在25个现实机器人任务上进行训练，这里选择了五个不同的任务，涵盖推动、抓取和悬挂等技能进行比较。然而，令人惊讶的是，仅用机器人数据训练的性能比加入推理数据更差。这证实了先前的发现，即利用视觉或文本思维链可以增强机器人模型的泛化能力。有趣的是，将机器人数据与视觉-文本数据联合训练导致现实世界任务成功率显著下降。<br>结论2：最初观察到在机器人数据中加入推理可以提高性能，这与双编码理论一致。该理论认为，身体运动技能和视觉-语言理解并非相互排斥，而是相互关联的，具有重叠的益处。然而，当在训练数据中加入视觉-文本对时，机器人控制的性能急剧下降。这表明，动作生成和理解所需的不同表示可能在共享参数空间中相互竞争。我们将这种现象称为部分任务干扰，需要仔细解决。一个统一的系统应该连接这两种数据类型，同时为每个任务实现可分离的表示学习。<br>如前所述，在机器人策略数据上训练会干扰视觉-文本关系的学习。此外，仅在机器人数据上训练会削弱视觉-文本对齐，导致模型对话能力下降。因此，解决这两个挑战对于在单个VLA模型中成功统一这两个方面至关重要。这里将首先描述用于解决虚假遗忘的训练策略，然后概述方法的总体架构，以解决第二个挑战。<br>分阶段对齐训练：此前发现虚假遗忘是导致VLA失去聊天和理解场景能力的关键因素。由于预训练的VLM训练良好，在视觉相关任务中表现出色，因此直观地说，少量的视觉-文本对数据就可以重新激活聊天和理解场景的能力。相比之下，机器人控制任务的训练要复杂得多，因此优先开发一个在实体控制任务中表现出色的优秀模型。我们的训练策略简单而有效。首先在机器人数据上训练VLA模型。在这个训练过程中，我们还包括推理数据，以确保视觉和文本组件之间的持续对齐。一旦机器人数据训练完成，同时训练视觉-文本数据和机器人数据，以帮助模型在两个任务中都保持熟练程度。<br>专家混合：上面展示了使用分阶段对齐训练来解决虚假遗忘问题，使模型能够保留先前训练的VLM中的知识。然而，这种方法并没有完全解决任务干扰问题，因为模型仍然需要同时在视觉-文本数据和机器人数据上进行联合训练。我们引入专家混合来解决这个问题，如图4所示。给定作为第个块的输入。该输入可以属于或。值得注意的是，这里设计了一个双路由器，一个用于处理与多模态理解和对话相关的任务（），另一个用于学习机器人控制的表示（）。输入首先通过多头自注意力机制，其中表示多头自注意力。然后将其输入到专家混合层，可以表示为：<br>然后将其与来自跳跃连接的输入相加。请注意，在第一阶段训练中，仅激活控制专家。<br>为了区分不同任务的输出，采用了不同的系统提示。比如，对于理解和对话任务，使用“依据问题作答”；对于控制任务，则使用“预测机器人动作”。直观来讲，应用于多层感知器（MLP）层的静态专家混合（MoE）架构，可看作是一个高维特征提取器，它对共享参数空间进行划分。这使得每个任务（例如理解任务和控制任务）都能利用相当一部分专用神经元，进而让模型在这两个方面都表现出色。这种类MoE架构的一个关键优势在于，在推理过程中，仅有一条路径会被激活，从而保留了基础模型的参数。我们的研究结果表明，这种简单直接的方法能够同时提升模型的理解能力、对话能力和控制性能。为什么要共享自注意力层呢？目前一种常见的解决方案是使用注意力混合机制来学习特定任务的表示。然而，基于实验我们认为理解任务和机器人控制任务共享的一些表示对两者都有益。例如，在典型的机器人控制场景中，模型需要理解场景、识别物体、确定物体位置，然后将这些信息转化为动作。这些高维表示具有相似的语义概念。因此，这两个任务之间的相互关联性，对于同时提升理解和控制方面的性能至关重要。<br>使用Vlmevalkit在TextVQA、DocVQA、InfoVQA、AI2D、ChartQA、MTVQA和RealworldQA数据集上评估ChatVLA的视觉问答能力。还针对为多模态大语言模型（MLLMs）设计的更具挑战性的基准进行了测试，即MMMU、MMStar、MME、OCRBench、HallBench和MMBench。如表1所示，ChatVLA在多个基准测试中与现有的视觉语言模型（VLMs）相比表现出了竞争力。值得注意的是，在视觉问答任务中，我们的框架在TextVQA上取得了71.2的显著成绩，大幅超越了当前最先进的视觉语言动作（VLA）方法。与ECoT和DiVLA相比，它在这些基线模型上的相对提升分别达到了9.2倍和9.5倍。该模型在需要复杂跨模态整合的多模态推理任务中表现出特别强的能力。在MMStar基准测试中，ChatVLA获得了37.4的分数，与DiVLA和ECoT相比，性能分别提升了2.2倍和6.9倍。<br>ChatVLA的实体控制性能在25个真实世界的操作任务上进行评估。根据语言指令的粒度，所有这些评估任务可分为三类。我们在一个真实机器人上进行了528次试验，以评估该模型的能力。<br>直接提示的长时程任务：模型被要求直接根据语言指令执行任务（例如，“整理玩具”）。评估的四个任务均在桌面设置的玩具场景中完成。此类具有挑战性的任务包括任务1，其中所有玩具以随机姿势放置在不同位置；以及任务3，它需要整合打开、拾取和关闭这三种不同的技能。在所有评估场景中，ChatVLA在直接根据高级描述执行任务方面展现出显著优势。该方法在多步序列中保持一致的性能，在任务1中平均成功长度达到0.54（比Octo高6.75倍），并且在任务3的三步序列中成功率达到完美。<br>带有高级规划器的长时程任务：模型接收指定当前子任务目标的中间命令（例如，“拾取物体并放置到目标位置”）。此评估的主要挑战来自子任务之间的显著差异，这些差异包括：（1）不同的物体类型（例如，盘子、杯子、面包）；（2）多种所需技能（例如，拾取-放置、翻转）；（3）不同的位置高度（例如，顶部&#x2F;底部架子位置），如图1右下角面板所示。这些差异共同构成了一个测试平台，用于评估模型的组合推理能力，特别是其整合物体操作、空间推理和干扰适应的能力。这一要求在实验结果中得到了明显体现，如表3所示，ChatVLA在所有任务配置上均优于OpenVLA和Octo。<br>跨技能多任务：这些任务需要在各种真实世界环境中整合多种操作技能（例如，拾取、放置、推动和悬挂），具体分为三个测试领域：浴室场景（任务14-17）、厨房环境（任务18-19）和桌面配置（任务20-25）。如表4所示，ChatVLA在所有任务类别中均比Octo和OpenVLA表现更优。该模型在具有挑战性的浴室和厨房任务中表现尤为出色，在这些任务中，机械臂的操作空间范围受到严重限制。这种实验设置在模型评估过程中引入了大量安全考虑因素，从而对评估模型的操作精度和系统稳健性提出了严格要求。<br>哪种视觉语言数据更优？：在第二阶段，使用LLaVA-1.5数据集进行联合训练，这使得模型在视觉问答（VQA）和多模态大语言模型基准测试中与Qwen2-VL相比能够取得相当的结果。然而，我们认为剩余的性能差距归因于所使用的视觉文本数据的局限性。为了进一步探索这一点，对ChatVLA和Qwen2-VL在MMMU数据集上的结果进行了深入分析，如图5所示。MMMU数据集分为六个类别，ChatVLA在其中三个类别（艺术、医学和社会科学）中的性能略低于Qwen2-VL。对相应子类别结果的更仔细检查显示，性能差异主要出现在五个特定领域：艺术理论、检验医学、药学、文学和心理学。这些领域涉及相对有限的专业知识，难以获取。在查看LLaVA数据集的组成时，惊讶地发现，其包含COCO、GQA、OCR-VQA、TextVQA和VisualGenome在内的子数据集缺乏这些领域所需的专家知识，这可能是观察到性能下降的原因。这一发现也凸显了ChatVLA的巨大潜力：通过使用更合适的专业数据进行训练，相信可以在多模态理解方面取得显著更好的性能。<br>视觉文本数据与机器人数据的合适比例是多少？：在与视觉文本数据进行联合训练时，遵循ECoT中讨论的设置，将视觉文本数据与机器人数据的总体比例设置为1:3。然而，其他数据比例对多模态理解和机器人任务是有益还是有害仍需关注。因此，在相同的步数下，将联合训练中视觉文本数据与机器人数据的比例分别修改为1:1和3:1。三种设置的结果如表5所示。令人惊讶的是，较少的视觉文本数据导致了更好的性能。这与前面的分析一致，即使是有限数量的视觉文本数据也足以重新激活视觉文本对齐，并弥合基础视觉语言模型（VLM）与视觉语言动作（VLA）模型之间在现实世界交互能力方面的差距。<br>[1]ChatVLA:UnifiedMultimodalUnderstandingandRobotControlwithVision-Language-ActionModel</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/02/24/1000001205-2247553115-2/">https://zejuncao.github.io/2025/02/24/1000001205-2247553115-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E5%AD%A6%E8%80%85/">
+                                    <span class="chip bg-color">深度学习初学者</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/24/1000002220-2247616041-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002220_2247616041_2.jpg" class="responsive-img" alt="【他山之石】ICLR 2025 | Spatial-Mamba：基于结构感知状态融合的高效视觉状态空间模型">
+                        
+                        <span class="card-title">【他山之石】ICLR 2025 | Spatial-Mamba：基于结构感知状态融合的高效视觉状态空间模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/24/1000003394-2650956298-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000003394_2650956298_1.jpg" class="responsive-img" alt="联手华为诺亚，南大LAMDA组获EDA顶会DATE 2025最佳论文">
+                        
+                        <span class="card-title">联手华为诺亚，南大LAMDA组获EDA顶会DATE 2025最佳论文</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

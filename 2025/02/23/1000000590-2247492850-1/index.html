@@ -1,0 +1,1130 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="关于Grok3和DeepSeek背后苦涩教训引发的思考, ZejunCao&#39;Blogs">
+    <meta name="description" content="关于Grok3和DeepSeek背后苦涩教训引发的思考
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+IlyaSutskever（前OpenAI联合创始人兼首席科学家）曾在在召开的NeurIPS会议上表示，大模型的预">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>关于Grok3和DeepSeek背后苦涩教训引发的思考 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000590_2247492850_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">关于Grok3和DeepSeek背后苦涩教训引发的思考</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/ChallengeHub/">
+                                <span class="chip bg-color">ChallengeHub</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_mdq4qBY2MrDfY3R-sd7fA">关于Grok3和DeepSeek背后苦涩教训引发的思考</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>IlyaSutskever（前OpenAI联合创始人兼首席科学家）曾在在召开的NeurIPS会议上表示，大模型的预训练已经走到了尽头。而NoamBrown（OpenAI研究员，曾带领团队开发出在德州扑克中战胜职业选手的AI系统Pluribus）在关于OpenAIO1发布的采访中提到，提升Test-TimeCompute是提升大模型答案质量的关键。2024年的圣诞节前夕，一片节日气氛下，湾区的硅谷AI大佬、机构和投资者们正在深入探讨从“ScalingLearning”向“ScalingSearch”转变的路径。而这一切的思考，都可以追溯到RichSutton（强化学习领域的奠基人之一）在2019年发表的经典短文TheBitterLesson(苦涩的教训)。<br>从2025年初持续火爆的DeepSeek-R1，到近期马斯克带着团队全球直播发布了号称“史上最聪明AI”的Grok3，一个是工程优化节省资源追求极致性价比，一个是力大拍砖大力出奇迹无脑坚定地scaleup，两条相似但又非常不同的路线，恰如AI发展史上的两条岔路。这不仅是一场技术路线的对比，更是对“苦涩教训”深刻内涵的再审视。<br>TheBitterLesson（苦涩的教训）又称AI工程师的必背经典！</p>
+<p>传说中OpenAI工程师需要背诵的经典文章《TheBitterLesson（苦涩的教训）》，正是由他撰写。文章指出了过去70年来，AI研究走过的最大弯路，就是过于重视人类既有经验和知识，而他认为最大的解决之道是摒弃人类在特定领域的知识、利用大规模算力的方法，从而获得最终胜利。<br>今天，就让我们静下心来，细读这篇雄文。或许在阅读之后，我们可以对当下与未来的AI发展，拥有更深刻的理解和启发，这篇文章信息量密度极高，重点都划不过来，强烈建议大家反复阅读！<br>以下中文内容我由ChatGPT-4O翻译+润色而来，欢迎大家阅读英文原文<br>原文作者：<br>TheBitterLessonRichSuttonMarch13,2019<br>原文地址：http :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">www.incompleteideas.net/IncIdeas/BitterLesson.html</a><br>从70年的人工智能研究中可以得出的最大教训是：利用算力的通用方法最终是最有效的，并且这种优势非常显著。其根本原因在于摩尔定律，或者更准确地说，就是单位算力成本随时间持续呈指数级下降这一客观规律。大多数人工智能研究都是在假设算力保持恒定的前提下进行的（在这种情况下，利用人类知识几乎是唯一可行的提高性能的方法）。然而，若考虑比一般研究项目稍长的时间尺度，我们会发现，算力的增长是不可避免的，并且增长速度极快。在寻求短期内能带来提升的方法时，研究人员倾向于利用他们对特定领域的专业知识。然而，从长远来看，唯一重要的事情是如何利用算力。领域知识和算力这两个事情客观来讲并不相关，但在实践中却常常相互冲突。研究者的时间有限：有限的时间投入到一种方法上，就必然会错失另一种方法带来的潜在收益。而且，研究者也容易对他们选择的方法产生心理上的依赖，甚至把这种依赖当做自己的特长，从而难以跳出固有思维。更重要的是，基于人类知识的方法往往会增加研究的复杂性，限制了基于算力的通用方法的有效性。这条真理，是许多AI研究者在无数次的碰壁之后才痛彻心扉地领悟到的，其中一些典型的案例值得我们深思。<br>在计算机国际象棋领域，1997年击败世界冠军卡斯帕罗夫的方法，主要依赖于大规模的深度搜索。当时，大多数研究计算机国际象棋的研究人员对此感到失望，因为他们所采用的方法是基于人类对国际象棋的特殊理解。当一个更简单的、基于搜索的方法，结合专门的硬件和软件，证明其效果远远优于人类知识驱动的方法时，这些研究人类知识的象棋研究者无法坦然接受失败。他们认为，”蛮力”搜索可能在这次比赛中取胜，但它不是一种通用策略，而且这也不是人类下棋的方式。这些研究者希望基于人类经验的方法能胜出，但现实让他们感到失望。<br>在计算机围棋领域，类似的研究进展模式再次出现，不过这一过程比国际象棋晚了20年。最初，大量的研究努力都集中在如何避免搜索，而是利用人类知识或围棋的特殊特性。然而，随着大规模搜索的有效应用，所有这些努力都变得无关紧要，甚至起到了反作用。另一个关键因素是自我对弈学习（self-play）的方法，它用于学习价值函数。这种方法在其他许多游戏中，包括国际象棋中都发挥了重要作用（尽管1997年击败世界冠军的国际象棋程序并没有依赖学习）。自我对弈学习，以及学习方法本身，与搜索类似，它们都能利用大量算力。搜索和学习是人工智能研究中利用算力的两大核心技术。在计算机围棋研究中，研究人员最初的努力集中在如何利用人类理解（从而减少搜索需求），但最终，通过拥抱搜索和学习，才取得了更大的突破。<br>在语音识别领域，1970年代DARPA曾举办过一次早期竞赛。当时参赛的方法包括大量依赖人类知识的特殊技术，例如利用对单词、音素和人类声道结构的理解。而另一类方法则是更具统计性的方式，依赖大量计算，并基于隐马尔可夫模型（HMMs）。最终，统计方法战胜了基于人类知识的方法。这一结果引发了整个自然语言处理领域的重大变革，统计和计算方法逐渐在几十年间成为主导。最近，深度学习的兴起进一步推动了这一趋势。在语音识别领域，深度学习方法更少依赖人类知识，而是使用更多的算力，并在海量训练数据上进行学习，从而显著提高了语音识别系统的性能。和游戏领域一样，研究人员最初总是尝试构建符合他们对自身思维过程理解的系统——他们希望将这些知识直接植入系统中——但事实证明这最终是适得其反的。而随着摩尔定律的发展，大量算力的可用性使得基于计算的方法取得了更好的效果，研究人员却为此浪费了大量时间。<br>在计算机视觉领域，类似的模式也曾上演。早期的计算机视觉方法主要基于寻找边缘、广义圆柱体，或使用SIFT特征等方法。然而，如今这些方法已基本被淘汰。现代深度学习神经网络仅依赖卷积（convolution）和某些不变性假设，最终取得了远超传统方法的性能。<br>这个教训非常深刻。然而，作为一个领域，我们仍然没有完全吸取这一教训，因为我们仍在重复类似的错误。要意识到这一点，并有效地避免，我们需要理解这些错误的吸引力。我们必须学会这个苦涩的教训：试图构建符合人类思维模式的人工智能系统，从长远来看是行不通的。这个教训建立在如下历史观察之上：<br>AI研究人员往往尝试将人类知识直接植入智能体；<br>这种方法在短期内确实有所帮助，并且对研究者来说很有成就感；<br>但从长远来看，它会停滞不前，甚至阻碍进一步的进步；<br>重大突破最终是通过相反的方法实现的，即基于搜索和学习，利用大规模计算资源进行扩展。<br>最终的成功带有一种苦涩，因为它是对研究者所钟爱的“人类中心”方法的否定，这种成功往往难以被完全接受。<br>从这个苦涩的教训中，我们应该吸取的第一个重要经验是通用方法的巨大威力。只有那些能够持续利用增长算力的方法，才能在未来保持高效。目前来看，能够无限扩展的两类方法是搜索和学习。<br>第二个需要吸取的重要经验是：人类思维的实际内容极其复杂，并且这种复杂性是无法简化的。我们应该放弃试图以简单方式理解思维内容的做法，例如试图用简单方法来理解空间、物体、多智能体系统或对称性。这些概念都只是外部世界的一部分，它们本质上是复杂且无穷无尽的。我们不应该试图直接构建这些知识，因为它们的复杂性是不可避免的。相反，我们应该构建能够发现和捕捉这些复杂性的元方法（meta-methods）。这些方法的关键在于它们能够找到良好的近似解，而我们应该让AI系统通过搜索和学习找到这些解，而不是由我们手动去定义它们。我们希望AI智能体具备像人类一样的发现能力，而不是仅仅包含我们所发现的知识。将人类已有的发现直接植入AI系统，反而会使得理解发现过程变得更加困难。</p>
+<p>Grok的发展历程体现了AI领域的快速迭代：<br>Grok-1（2023年11月）：3140亿参数，64层，8个专家模型。<br>Grok-1.5（2024年3月）：提升推理能力，上下文长度达128,000tokens。<br>Grok-2（2024年8月）：进一步提升推理和多语言支持。<br>Grok-3（2025年2月）：使用Colossus超级计算机训练，配备10万至20万NVIDIAH100GPU。<br>Grok的独特之处在于它的幽默感和通过X平台获取实时信息的能力，以及较少受限的回答风格。但更重要的是，Grok3的成功离不开xAI在算力上的巨大投入。xAI在孟菲斯建造的Colossus超级计算机，配备了10万至20万NVIDIAH100GPU，为Grok3的训练提供了强大的支持。<br>Grok基座模型分别领先了DeepSeek-v3Gemini和GPT4o；推理模型在benchmark上得分也高于OpenAI的o1&#x2F;o3系列和deepseek-R1模型。<br>AlbertoRomero在他的文章「Grok3:AnotherWinForTheBitterLesson」中写道：“Grok3的发布是「苦涩的教训」的又一次胜利”。xAI没有像一些资源有限的公司那样需要极致的优化，而是直接利用大规模的算力来训练模型。xAI正是通过这种方式，快速追赶上了AI领域的领先者。<br>和国内AI公司背靠互联网大厂不同，DeepSeek由量化对冲基金幻方量化运营。2016年，幻方量化推出首个AI模型，第一份由深度学习生成的交易仓位上线执行。到2017年底，几乎所有的量化策略都采用AI模型计算。2023年，幻方量化宣布成立创新性大模型公司DeepSeek。<br>2024年12月，DeepSeek-V3首个版本上线，并同步开源，训练成本仅为557.6万美元，整个训练只需要280万个GPU小时。<br>2025年1月20日，DeepSeek又正式开源R1推理模型。1月24日，DeepSeek-R1在ChatbotArena综合榜单上排名第三，与OpenAI的顶尖推理模型o1并列。<br>DeepSeek之所以引发科技圈关注最主要的原因在于其以极小的成本训练出能和OpenAI的ChatGPT一较高下的人工智能大模型。DeepSeek的R1的预训练(V3)费用只有557.6万美元，仅是OpenAIGPT-4o模型训练成本的不到十分之一。同时，DeepSeek公布了API的定价，每百万输入tokens1元（缓存命中）&#x2F;4元（缓存未命中），每百万输出tokens16元。这个收费大约是OpenAIo1运行成本的三十分之一。<br>年初DeepSeek-R1正式发布，并同步开源模型权重。DeepSeek-R1基于DeepSeek-V3在后训练阶段大规模使用了强化学习技术，在仅有极少标注数据的情况下，极大提升了模型推理能力。在数学、代码、自然语言推理等任务上，性能比肩OpenAIo1正式版。<br>Grok3是xAI在2025年推出的旗舰模型，被ElonMusk誉为“人类科学发现的超级加速器”。其训练过程堪称“暴力美学”的典范：200,000个NvidiaH100GPU、数亿甚至十亿美元的投入，以及海量数据的预训练和微调。这种“大力出奇迹”的策略直接呼应了RichSutton在《苦涩教训》中提出的核心观点——计算规模的增加最终会压倒一切人为设计的精巧方法。<br>然而，这种成功的背后隐藏着苦涩的代价。首先，资源的消耗令人咋舌。200,000个H100GPU的训练不仅需要巨额资金，还伴随着巨大的能耗和环境影响。据估算，训练Grok3的电费可能相当于一个小型城市的年用电量。其次，规模化的收益似乎正在逼近天花板。尽管Grok3在推理能力和通用知识上表现出色，但与上一代模型相比，其边际提升是否匹配投入成本，仍是一个悬而未决的问题。<br>这种无脑堆积计算资源继续沿着scalinglaw曲线发展的路子，对咱们国内的很多公司来说，是可望而不可及的。<br>Grok3的“苦涩教训”是：规模可以带来突破，但也可能成为一种依赖。当计算资源成为竞争的核心壁垒时，AI开发的门槛被推向了只有巨头才能企及的高度。这种路径虽然短期内有效，却让中小型团队望尘莫及，同时也让人们开始反思：如果“ScalingLearning”走到尽头，单纯的算力堆砌还能走多远？<br>与Grok3的“土豪式”训练形成鲜明对比，DeepSeek-R1代表了另一种哲学：在有限资源下通过技术创新追求极致性能。这款由中国初创公司DeepSeek推出的开源模型，建立在DeepSeek-V3基础模型之上，通过强化学习（RL）和监督微调（SFT）优化推理能力。其训练成本仅为约600万美元，相较于动辄数亿美元的对手，堪称“性价比之王”。<br>DeepSeek-R1的成功得益于一系列高效训练技术。例如，它采用了基于规则的奖励系统替代传统的神经网络奖励模型，显著降低了计算需求；同时，通过“冷启动数据”和RL的结合，减少了对昂贵人工标注数据的依赖。这种方法不仅降低了成本，还通过开源模式推动了社区协作，使其影响力迅速扩大。<br>然而，这种创新并非没有代价（可能的猜测，类似我们要做实验试错）。DeepSeek-R1的训练过程可能存在的技术风险：纯RL训练曾导致模型输出可读性下降和语言混杂问题，迫使团队引入额外的SFT步骤进行矫正。这种“试错式”开发暴露了效率路径的苦涩一面——创新可能带来突破，但也伴随着更高的失败概率和调试成本。其性能令人惊艳，在面对资源雄厚的对手时，DeepSeek-R1的长期竞争力仍需时间验证。<br>DeepSeek-R1的“苦涩教训”是：效率和创新可以在资源有限时打开局面，但技术复杂性和不确定性可能是其天花板。当规模化的对手继续加码时，效率之路是否能持续领先？<br>Grok3和DeepSeek-R1的对比，就像AI发展史上规模与效率、蛮力与智慧的永恒对决。Grok3遵循《苦涩教训》的经典教条——计算规模是王道；而DeepSeek-R1则试图挑战这一教条，通过工程优化和算法创新突破资源瓶颈。两者的训练资源对比清晰地展示了这种差异，下面我们看看：<br>Grok3<br>200,000H100<br>数亿美元<br>预训练+微调<br>DeepSeek-R1<br>约50,000H100估算的，可能不准<br>约600万美元<br>RL+SFT<br>RichSutton的《苦涩教训》曾指出，AI的进步往往依赖于通用方法和计算能力，而非人类设计的特定规则。然而，DeepSeek-R1的成功似乎在提醒我们：当计算资源成为稀缺品时，创新的“杠杆效应”可能比单纯的scaleup更具价值。反过来，Grok3的高成本则表明，规模化的道路虽然稳健，但可能陷入“资源诅咒”——过度依赖硬件而忽视算法层面的突破。<br>这种碰撞引发了更深层次的思考：</p>
+<p>资源的民主化与集中化Grok3的路径强化了巨头垄断，而DeepSeek-R1的开源模式则试图将AI技术民主化。两者孰优孰劣，或许取决于未来AI生态是倾向于集中式控制还是分布式创新。<br>可持续性与伦理Grok3的高能耗引发了对AI环境影响的担忧，而DeepSeek-R1的低成本则提供了一种更可持续的范式。AI的未来是否需要在性能与责任之间找到平衡？<br>DeepSeek在显卡资源有限的情况下，把工程优化做到了极致，但如果有更多高性能GPU，当然会更好，这点毫无疑问。换句话说，短期内通过工程上的优化来节省计算资源、提升性能，并不违背计算资源的scalinglaw，二者并不冲突。而且从长期来看，英伟达（Nvidia）的优势依然稳固。<br>今天看到网上不少人在讨论Grok-3用了这么多GPU，但相比DeepSeek提升似乎没有预期中那么大。其实这个很好理解，因为Grok-3主要是和自家系列对比，来验证性能和计算量之间的关系——这就是典型的控制变量。<br>未来的趋势很清晰：在算力占据主导地位的前提下，不断优化工程效率，尽可能逼近算力规模所决定的模型极限。实际上，这次商用大模型的落地已经验证了scalinglaw依然有效。“TheBitterLesson”也再次证明了一个道理——从长远看，算力始终是推动AI进步的决定性因素。从Grok3性能来看，尤其大家也不断尝试验证其DeepSearch良好效果，当时2025年1月底英伟达股票暴跌时，当时市场可能有点过度悲观了。<br>Grok3和DeepSeek-R1的故事，是2025年AI领域的一面镜子。Grok3用规模证明了计算能力的无可替代，而DeepSeek-R1用创新展示了效率的潜力。然而，两者背后的“苦涩教训”告诉我们：没有一条路是完美的。规模带来胜利的同时埋下成本的隐患，效率带来希望的同时伴随挑战的阴影。<br>站在这个十字路口，AI社区需要回答的是：未来的突破是继续“力大拍砖”，还是转向“精巧杠杆”？或许，正如《苦涩教训》的深刻启示，最终的答案不在于选择哪条路，而是如何在这两条路之间找到融合之道——用规模赋能创新，用创新优化规模。无论如何，Grok3和DeepSeek-R1的较量，已经为我们打开了一扇思考未来AI发展的新窗口。<br>在年前举办的研讨会上，OpenAI的核心成员NoamBrown发表了一系列重要观点。他强调尽管Ilya预训练模型的时代已经告一段落，但ScalingLaw并未过时，而是进入了新的发展阶段。Noam提出了o1模式，这种模式以推理计算为核心，优化算法和硬件设计，使AI在保持高性能的同时，大幅降低计算资源消耗。NoamBrown认为，传统ScalingLaw主要依赖于增加数据、计算资源和模型参数，而o1模式则是通过优化推理计算，提高模型效率。采用o1模式后，某些模型的推理速度提高50%，而计算资源消耗减少30%。o1模式的提出不仅是对ScalingLaw的革新，也是人工智能可持续发展的重要探索。通过优化推理计算，AI未来可以更广泛应用于自然语言处理、计算机视觉、强化学习等领域，并推动技术普及。<br>DeepSeek-R1代表的高效计算路线，与Grok3代表的极致规模化路线，看似是两个完全不同的方向，但未来AI发展可能会融合这两种思路。我们可以预见以下几种可能的趋势：</p>
+<p>动态计算（AdaptiveCompute）：AI可能会基于问题的复杂度调整计算资源，例如简单问题使用轻量推理，而复杂问题调用更强的搜索与规划能力。<br>边缘计算（EdgeCompute）：未来AI的应用将更多部署到终端设备上，因此如何在有限的计算资源下优化AI推理将是关键。</p>
+<p>结合我们在做的事情，比如去年火爆的RAG，从一开始简单RAG、模块化RAG再到GraphRAG，AgenticRAG，其中演化路径也是伴随着计算规模与效率优化的权衡利弊。在私有化部署以及应用场景中，受算力资源限制，可能应用了一个比较小参数量的大模型，其推理能力较差，在这种背景下我们需要做很多链路优化，比如用户问一个问题，可能经过查询改写、文档判断、信息压缩以及证据溯源等步骤。RAG应用场景很广泛，模式很好，但是需要反复优化可能变得棘手繁琐，如今结合DeepSeek-R1以及Grok3的能力可以进一步将RAG优化变得更简单，也会出现更强的变体。<br>最终，未来AI竞赛的赢家将不仅仅是技术最先进的公司，而是那些能够在算力、技术创新和可持续性之间找到最佳平衡的公司。<br>Grok3:AnotherWinForTheBitterLesson<br>TheBitterLesson<br>ScalingLaw的新篇章：OpenAINoamBrown的洞见<br>从零到Grok3：马斯克的算力赌局赢了<br>马斯克发布Grok3，跟DeepSeek有什么不同之处？<br>添加微信，回复”LLM“进入交流群</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/02/23/1000000590-2247492850-1/">https://zejuncao.github.io/2025/02/23/1000000590-2247492850-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/ChallengeHub/">
+                                    <span class="chip bg-color">ChallengeHub</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/23/1000000337-2247525945-8/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000337_2247525945_8.jpg" class="responsive-img" alt="299-A3&amp;B｜视频到4D生成，可重打光体积视频生成；评估6D空间理解能力；人类中心基础模型综述；自监督图像视频表示学习">
+                        
+                        <span class="card-title">299-A3&amp;B｜视频到4D生成，可重打光体积视频生成；评估6D空间理解能力；人类中心基础模型综述；自监督图像视频表示学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AIGC-Research/">
+                        <span class="chip bg-color">AIGC Research</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/22/1000002125-2247523977-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002125_2247523977_1.jpg" class="responsive-img" alt="颜宁，拟获“全国三八红旗手”！">
+                        
+                        <span class="card-title">颜宁，拟获“全国三八红旗手”！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%9D%E5%AD%A6%E8%80%85/">
+                        <span class="chip bg-color">机器学习初学者</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1129 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="注意力机制进化史：从MHA到MoBA，新一代注意力机制的极限突破！, ZejunCao&#39;Blogs">
+    <meta name="description" content="注意力机制进化史：从MHA到MoBA，新一代注意力机制的极限突破！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+DeepSeek发布了一篇新论文，提出了一种改进版的注意力机制NSA，即NativeSparseAtt">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>注意力机制进化史：从MHA到MoBA，新一代注意力机制的极限突破！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000585_2247492799_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">注意力机制进化史：从MHA到MoBA，新一代注意力机制的极限突破！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/ChallengeHub/">
+                                <span class="chip bg-color">ChallengeHub</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SnsRxsUDWNgl4g3pEsjR_w">注意力机制进化史：从MHA到MoBA，新一代注意力机制的极限突破！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>DeepSeek发布了一篇新论文，提出了一种改进版的注意力机制NSA，即NativeSparseAttention，可以直译为「原生稀疏注意力」；但其实就在同一天，月之暗面也发布了一篇主题类似的论文，提出了一种名为MoBA的注意力机制，即MixtureofBlockAttention，可以直译为「块注意力混合」。<br>与DeepSeek的NSA注意力机制新论文一样，月之暗面这篇MoBA论文也收获了诸多好评，借此笔者回顾了一些注意力机制相关模型：从MHA、MQA、GQA、MLA到NSA、MoBA<br>MLA主要通过优化KV-cache来减少显存占用，从而提升推理性能。直接抛出这个结论可能不太好理解。首先我们来看下，对于生成模型，一个完整的推理阶段是什么样的，推理性能上有什么问题。这部分内容主要来自：<br>deepseek技术解读(1)-彻底理解MLA（Multi-HeadLatentAttention）https :&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;16730036197<br>LLM推理分为两个阶段：prefill阶段和decode阶段<br>prefill阶段：是模型对全部的Prompttokens一次性并行计算，最终会生成第一个输出token<br>decode阶段：每次生成一个token，直到生成EOS（end-of-sequence）token，产出最终的response<br>在推理过程中，由于模型堆叠了多层transformer，所以核心的计算消耗在Transformer内部，包括MHA，FFN等操作，其中MHA要计算Q，K，V矩阵，来做多头注意力的计算。</p>
+<p>图片来源:https :&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;16730036197<br>我们以一个序列的位置的token为例，计算一层Transformer的attention过程，如列下公式所示：<br>DeepSeek-V3中的Attention计算公式<br>公式中的符号：<br>表示计算序列中第个token；中的两个下标，前一个表示token位置，后一个表示对应的Head下标。<br>从公式可以看到，在计算Attention时，位置的只与位置前的做计算，所以我们有如下两个结论：<br>计算前面的并不受后面token的影响。<br>后面计算位置的Attention，要使用前序的位置的的信息且始终不变的。<br>所以为了加速训练和推理的效率，在token-by-token生成过程中，避免重复计算前序的。研究者们引入缓存机制，将计算好的存在缓存，这也就是目前主流的KV-cache机制。KV-cache的本质是换取空间换时间的方法。我们知道当前LLM还是比较大，GPU的显存空间也是比较宝贵的，通过将有限长的KV-cache作为公用来节约存储空间。换句话说，如果不使用KV-cache模型在推理计算时（重复计算前序），是个计算密集型任务；增加了KV-cache机制，现在不再是过时计算得出，而是从「存储点」直接拿来算，GPT格式存储合适的数据格式后又引入类似数据库管理任务。所以使用了KV-cache的机制，解决的就是重复计算的问题，间接的也就提升了推理或训练的速度。<br>为了直观理解访存的速率，我们以一个分布式推理架构为例。<br>比如2台机器，每台机器有8张A100，那么在这样一个系统内，卡内，单机卡间，机器之间的数据访问效率如图3所示。注：我们的例子中，只描述了一种访存介质HBM(也就是我们常说的显卡的显存)，我们知道通常GPU的存储介质除了显存，还有SRAM和DRAM。SRAM也被称为片上存储，是GPU计算单元上即时访问更快的存储，所有的计算都要先调度到片上存储SRAM才能做计算，一般只有几十M大小，带宽可达到20T&#x2F;s左右，SRAM是跟计算单元强绑定的，推理阶段一般不考虑将SRAM作为存储单元使用。而DRAM是我们常说的CPU的内存，由于访问速率较慢，推理阶段一般也不考虑使用。所以我们讨论的推理存储介质，一般就指的是HBM（显存）<br>分布式推理架构卡内、卡间、跨机存储和带宽<br>由上图的访存带宽可知，卡内的带宽是单机卡间的带宽的3倍，是跨机带宽的20倍，所以我们对于存储的数据应该优先放到卡内，其次单机内，最后可能才考虑跨机存储。<br>接下来我们再看下，推理过程中，有哪些数据要存储到显存上。<br>推理阶段主要有三部分数据会放到显存里。<br>KVCache：如上一节所述，前序token序列计算的结果，会随着后面tokent推理过程逐步存到显存里。存储的量随着Batch，Sequence_len长度动态变化<br>模型参数：包括Transformer、Embedding等模型参数会存到显存里。模型大小固定后，这个存储空间是固定的。<br>运行时中间数据：推理过程中产出的一些中间数据会临时存到显存，即用即释放，一般占用空间比较小<br>由上述可知，推理阶段主要存储消耗是两部分：模型参数和KVCache。那么模型参数占多少，KVCache又占多少？<br>首先我们先以一个token的计算过程为例，看下一个token计算要存储多少KV？为了方便理解，我们以Qwen-72B模型为例，模型配置详见：Qwen-72B-Chat。<br>模型共80层，每层有64个Head，每个Head的向量维度是128，<br>注：这里先不考虑qwen72BGQA的设置（实际上KV做了压缩处理），只考虑当前模型的MHA的模型结构（假设不做任何处理），GQA后面再详细讨论。<br>如下图所示，计算一个token，每个Transformer层的每个Head都需要存储一对,。<br>单tokenkv缓存数据,来源https :&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;16730036197<br>所以针对一个token，缓存的k，v数据总量是：<br>其中公式中的k表示1个k和1个v，一个token就需要存10240个k，v，这个数是不是有点离谱之外！那么k，v占多少存储呢？我们使用模型推理时会是半精度（bf16）参数，每个参数占2Byte。最长一个token的存储量，如公式(2)计算所示：<br>我们现在在计算一个Token计算需要存储的k，v数量和存储量。那么对于一个实际的推理场景，还需要考虑批量Batch(B)和序列长度Sequence_len(S)两个维度，来估计整体KVCache的存储需求。随着两个维度增大时可以动态变化的。我们看看下面两种场景：场景1：单条短文本场景<br>Batch和序列设置：B&#x3D;1,S&#x3D;2048。此时k，vcache总量是：<br>场景2：并发长文本场景<br>Batch和序列设置：B&#x3D;32,S&#x3D;4096。此时k，vcache总量是：<br>除了k，v消耗存储空间时，我们还通过模型参数数量占用的存储，推理阶段模型参数占用的存储空间是固定的，可以忽略模型参数数量*B；其中，bf16精度做推理，则参数是2Φ(Byte)，也还是以qwen-72B为例，参数占用存储空间：<br>我们将结合上面两个场景，看查看存储的整体分布：<br>场景1：模型推理需要mem_p&#x3D;144G，kv存储memkv&#x3D;5.366GB，，模型的参数储存占主导，使用80G的A100，至少需要2张卡做推理。<br>场景2：模型推理需要mem_p&#x3D;144G，kv存储memkv&#x3D;343.4GB，，KVCache储存占主导，使用80G的A100，至少需要7张卡做推理。<br>这里还要多啰嗦几句，推理阶段根据离线、在线的业务场景，到底组多大的Batch，其实是一个Balance的过程，Batch选择比较小，虽然并发度不高，但可能单卡就能装下完整模型参数和KVCache，这时候卡内带宽会比较高，性能可能依然出众，可以考虑适当增加Batch把单卡显存用满，进一步提升性能。但当Batch再增大，超出单卡范围、甚至超出单机范围，此时并发会比较大，但跨卡或跨机访存性能会降低，导致访存成为瓶颈，GPU计算资源使用效率不高，可能实际导致整体推理性能不高。所以单从推理Batch设置角度来看，要实测找到性能最佳的平衡点。<br>当前LLM都比较大，而访存的容量和访存速率有分级的特点。所以推理过程中，减少跨卡、卡机的访存读写是优化推理性能的一个有效路径。一方面单次读写的数据越少，整体速度会越快；另一方面整体显存占用越少，就能尽量把数据放到单卡或单机上，能使用更高的带宽读写数据。<br>我们下面用一个例子更加详细的解释什么是KVCache，了解一些背景的计算问题，以及KVCache的概念。<br>无论是encoder-decoder结构，还是现在我们最接近AGI的decoder-only的LLM，解码生成时都是自回归auto-regressive的方式。也就是说，解码的时候，先根据当前输入，生成下一个token，然后把生成的token拼接在后面，获得新的输入，再用生成，依此选择，直到生成结果。<br>比如我们输入“窗前明月光下一句是”，那么模型每次生成一个token，输入输出会是这样（方便起见，默认每个token都是一个字符）<br>(其中[BOS]和[EOS]分别是开始和结束的标记字符)<br>我们看一下在计算的过程中，如何输入的token“是”的最后是hiddenstate如何传递到后面的类Token预测模型，以及后面每一个token，使用新的输入列中最后一个时刻的输出。<br>我们可以看到，在每一个step的计算中，主要包含了上一轮step的内容，而且只在最后一步使用（一个token）。那么每一个计算也就包含了上一轮step的计算内容。<br>从公式来看是这样的，回想一下我们attention的计算：<br>注意对于decoder的时候，由于maskattention的存在，每个输入只能看到自己和前面的内容，而看不到后面的内容。<br>假设我们当前输入的长度是3，预测第4个字，那么每层attention所做的计算有：<br>预测完第4个字，放到输入里，继续预测第5个字，每层attention所做的计算有：<br>可以看到，在预测第5个字时，只有最后一步引入了新的计算，而到的计算部分是完全重复的。<br>但是模型在推理的时候可不管这些，无论你是否只是要最后一个字的输出，它都会把所有输入计算一遍，给出所有输出结果。<br>也就是说中间有很多我们不需要的计算，这样就造成了浪费。<br>而且随着生成的结果越来越多，输入的长度也越来越长，上面这个例子里，输入长度是step0的10个，每步骤，直接step5到15个。如果输入的instruction是规范型任务，那么可能有800个step。这个情况下，step0就变得有800次，step1被重复了799次——这样浪费的计算资源显然不可忍受。<br>有没有什么方法可以重利用上一个step里已经计算过的结果，减少浪费呢？<br>答案就是KVCache，利用一个缓存，把需要重复利用的时序计算结果保存下来，减少重复计算。<br>而和就是需要保存的对象。<br>想一想，下图就是缓存的过程，假设我们第一次输入的输入长度是3个，我们第一次预测输出预测第4个字，那么由于下图给你看的是每个输入步骤的缓存，每个时序步骤都需要存储一次，而我们依旧会有些重复计算的情况。则有：<br>kv_cache下标l表示模型层数。在进行第二次预测时，也就是预测第5个字的时候，在第l层的时候，由于前面我们缓存了每层的,值，那层就不需要算新的，而不再算,。因为第l层的,本来经过FFN层之后进到层，再经过新的投影变换，成为层的,值，但是是层的,值就已经保留了!<br>然后我们把本次新算出来的,值也存储起来。<br>然后我们再做下一次计算出的结果:<br>这样就节省了attention和FFN的很多重复计算。<br>transformers中，生成的时候传入use_cache&#x3D;True就会开启KVCache。<br>也可以简单看下GPT2中的实现，中文注释的部分就是使用缓存结果和更新缓存结果<br>总的来说，KVCache是以空间换时间的做法，通过使用快速的缓存存储，减少了重复计算。（注意，只能在decoder结构的模型可用，因为有maskattention的存在，使得前面的token可以不用关照后面的token）<br>但是，用了KVCache之后也不是立刻万事大吉。<br>我们简单计算一下，对于输入长度为，层数为，hiddensize为的模型，需要缓存的参数量为<br>如果使用的是半精度浮点数，那么每个值所需要的空间就是<br>以Llama27B为例，有，，那么每个token所需的缓存空间就是524,288bytes，约524k，假设，则需要占用536,870,912bytes，超过500M的空间。<br>这些参数的大小是batchsize&#x3D;1的情况，如果batchsize增大，这个值是很容易就超过1G。<br>业界针对KVCache的优化，衍生出很多方法，方法主要有四类：<br>共享KV：多个Head共享使用1组KV，将原来每个Head一个KV，变成1组Head一个KV，来压缩KV的存储。代表方法：GQA，MQA等<br>窗口KV：针对长序列控制一个计算KV的窗口，KVcache只保存窗口内的结果（窗口长度远小于序列长度），超出窗口的KV会被丢弃，通过这种方法能减少KV的存储，当然也会损失一定的长文推理效果。代表方法：Longformer等<br>量化压缩：基于量化的方法，通过更低的Bit位来保存KV，将单KV结果进一步压缩，代表方法：INT8等<br>计算优化：通过优化计算过程，减少访存换入换出的次数，让更多计算在片上存储SRAM进行，以提升推理性能，代表方法：flashAttention等<br>共享KV主要有两种方法，MQA和GQA都是Google提出的<br>论文标题：AttentionIsAllYouNeed<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1706.03762<br>MHA在2017年就随着《AttentionIsAllYouNeed》一起提出，主要干的就是一个事：把原来一个attention计算，拆成多个小份的attention，并行计算，分别得出结果，最后再合回原来的维度。假设原来模型的hiddensize是，在MHA中，会把投影后的在hiddenstate的维度上切成份，每个头的维度是。这组小分别独立进行attention计算，之后把得到的维度的输出concat起来。直接看这个amazing的图，很直观<br>我们希望多个头能够在训练中学会注意到不同的内容。例如在翻译任务里，一些attentionhead可以关注语法特征，另一些attentionhead可以关注单词特性。这样模型就可以从不同角度来分析和理解输入信息，获得更好的效果了。<br>论文标题：FastTransformerDecoding:OneWrite-HeadisAllYouNeed<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1911.02150<br>MQA就是减少所有所需要的重的。</p>
+<p>MQA的做法其实很简单。在MHA中，输入分别经过的变换之后，都切成份（&#x3D;头数），维度也从降到，分别进行attention计算再拼接。而MQA这一步，在运算过程中，首先对进行切分（和MHA一样），而则直接在在线变换的时候把维度压到（而不是切分开），然后返回每个Query头分别和一份进行attention计算，之后最终结果拼接起来。<br>简而言之，就是MHA中，每个注意力头的是不一样的，而MQA这里，每个注意力头的是一样的，值是共享的。而性别效果和MHA一样。<br>这样来讲，需要缓存的值一下就从所有头变成一个头的量。<br>比如在Llama27B中使用的是32个头，那么MQA后，1024个token需要缓存的量就变成,536,870,912bytes&#x2F;32&#x3D;16,777,216bytes，差不多是16M，这就能明显减少存储了。<br>（实际上，就是改一下线性变换矩阵，然后把的处理划分变成共享，就不用缓存。）<br>当然，由于共享了多个头的参数，限制了模型的表示能力，MQA虽然能耗费支持推理加速，但是是在最大头数上略有差一点，但是真并不多，且相比其他修改hiddensize或headnum的做法效果都好。</p>
+<p>既然MQA对效果有点影响，MHA存储又有不下，那2023年GQA（Grouped-QueryAttention）就提出了一个折中的办法，既能减少MQA效果的损失，又相比MHA需要更少的存储。<br>GQA是，还是按原来MHA&#x2F;MQA的做法不变。只使用一套共享的就能效果不好吗，那就还是多个头。但是要不要太多，数量还是比的头数少一些，这样相当于把多个头分成group，同一个group内的共享，同不group的所用的不同。<br>MHA可以认为是头数最大时的GQA，而MQA可以认为是头数少时的GQA。<br>效果怎么样呢？<br>看表中2&#x2F;3&#x2F;4行对比，GQA的速度相比MHA有明显提升，而效果上比MQA也好一些，能做到和MHA基本没差距。文中提到，这里的MQA和GQA都是通过averagepooling从MHA初始化而来，然后进行了少量的训练得到的。如果我们想要把之前用MHA训练的模型改造成GQA，也可以通过这样的方法，增加少量训练来实现。当然如果从一开始就加上，从零开始训练，也是没有问题的。<br>Llama2用的就是GQA，在techreport中也做了MHA、MQA、GQA的效果对比，可以看到效果确实很不错。<br>论文标题：DeepSeek-V2:AStrong,Economical,andEfficientMixture-of-ExpertsLanguageModel<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2405.04434</p>
+<p>DeepSeek-V2架构示意图：MLA通过显著减少生成过程中的KV缓存，确保了高效的推理；而DeepSeekMoE则通过稀疏架构，以低成本训练出强大的模型。<br>MLA（Memory-efficientLatentAttention）的核心思想是将注意力输入压缩到一个低维的潜在向量，记作，其维度远小于原始的维度。这样，在计算注意力时，我们可以通过映射将该潜在向量恢复到高维空间，以重构键（keys）和值（values）。这种方法的优势在于，只需存储低维的潜在向量，从而大幅减少内存占用。<br>这一过程可以用以下公式描述：<br>是低维的潜在向量。<br>是一个压缩矩阵（down-projectionmatrix），用于将的维度从降维到（其中D代表“降维”）。<br>和是两个向上投影矩阵（up-projectionmatrices），分别用于将共享的潜在向量映射回高维空间，以恢复键(K)和值(V)。<br>类似地，我们也可以将查询（queries）映射到一个低维的潜在向量，并再将其映射回原始的高维空间。这种方法可以降低存储和计算的成本，同时保持注意力机制的有效性。<br>MLA的核心思想是通过低秩联合压缩技术，减少K和V矩阵的存储和计算开销。<br>MLA从LoRA的成功借鉴经验，实现了比GQA这种通过复制参数压缩矩阵尺度的方法更为节省的低秩推理，同时对模型的效果损耗不大。<br>为了展示MLA（Memory-LimitedAttention）的完整计算过程，我们提供其详细公式如下：<br>查询的低秩压缩计算<br>这里，是查询的压缩潜在向量，用于降低计算复杂度，其中代表降维后的查询表示。<br>查询向量计算<br>这里代表查询向量，由通过变换矩阵获得。<br>查询向量位置编码计算<br>这里的代表带有旋转位置编码（RoPE）的查询向量，适用于位置敏感的注意力机制，其中，是用于生成解耦查询的矩阵。<br>我们注意到在增加RoPE位置编码并没有在上述计算出的的基础上乘以RoPE的对角矩阵。而是单独计算了两个带着位置编码的，如公式(39)和公式(43)所示。<br>为什么这样做呢？因为在MLA的KV压缩机制（KVcompression）下，Key（k）和Value（v）在存储时会被压缩，而RoPE的位置变换会影响Key的表示，这导致在计算Query-Key相似度时，RoPE的位置信息可能会引入误差。DeepSeek-V2论文中有一段原文解释（中文翻译）：<br>DeepSeek-67B计划在DeepSeek-V2中使用旋转位置嵌入（RoPE）。然而，RoPE与低秩KV压缩不兼容。具体来说，RoPE对查询（query）和键（key）均具有位置敏感性。如果对键应用RoPE，则会与一个位置敏感的RoPE矩阵耦合。在推理过程中，无法像那样进行吸收，因为RoPE矩阵与当前生成的token相关，且与之间的矩阵乘法不符合交换律。因此，在推理时，必须为所有前缀token重新计算键，这会显著降低推理效率。<br>为了解决这一问题，提出了解耦RoPE（DecoupledRoPE）策略，该策略使用额外的多头查询和一个共享的键来携带RoPE，其中代表解耦后的查询和键的每头维度。采用解耦RoPE策略后，多头注意力（MLA）的计算如下：<br>其中和为解耦查询和键的投影矩阵，表示RoPE变换操作，表示向量拼接操作。在推理过程中，解耦后的键应被缓存。因此，DeepSeek-V2需要一个包含维度的KV缓存。<br>更多细节可以参考这篇文章，非常细！deepseek技术解读(1)-彻底理解MLA（Multi-HeadLatentAttention）<br>最终查询向量<br>这里由和组成，分别表示标准查询和旋转查询。<br>键值缓存计算<br>这里是通过矩阵计算得到的键值内容，（蓝框部分代表需要缓存的向量）。<br>键值计算<br>这里的键向量和通过不同方式计算，并合并为最终键向量。<br>值向量计算<br>这里代表值向量，同样需要缓存以加速计算。<br>注意力计算到目前为止，我们得到的包括两部分拼接而成：一部分是做了低秩压缩得到的向量，一部分是增加了RoPE位置编码的向量,分别是公式(40)和公式(44)。<br>这里采用标准的注意力计算方法，即查询和键点积后归一化，再加权值向量。<br>最终输出计算<br>最终输出通过权重矩阵变换得到。<br>在推理阶段，为了避免重复计算，我们可以缓存并从中恢复和，从而降低计算开销。这是通过矩阵变换的结合（如将吸收进）来优化的。这样，我们可以避免对每个查询重新计算键和值，从而提升推理效率。<br>如DeepSeek-V2架构示意图右下所示，大模型使用kv-cache进行模型的解码加速，但是当序列较长的情况下很容易出现显存不足的问题，MLA从这一角度出发，致力于减少kv缓存的占用。<br>多头注意力（MHA）、分组查询注意力（GQA）、多查询注意力（MQA）和多头潜在注意力（MLA）的简化示意图。通过将键（keys）和值（values）联合压缩到一个潜在向量中，MLA在推理过程中显著减少了KV缓存的大小。<br>从上图我们可以看到，虽然MLA缓存的LatentKV比较短（相当于2.25个MQA的缓存量），但MLA有恢复全k,v的能力，特征表达能力显著比GQA、MQA要强。所以MLA能做到又快又省又强。论文中也给出了下图的数据<br>NativeSparseAttention:Hardware-AlignedandNativelyTrainableSparseAttention<br>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.11089<br>在自然语言处理领域，长上下文建模对下一代大语言模型至关重要，其应用场景广泛，如深度推理、代码生成、多轮对话等。然而，标准注意力机制计算复杂度高，当处理长序列时，计算成本剧增，成为模型发展的瓶颈。以解码64k长度上下文为例，softmax注意力计算的延迟占总延迟的70-80%，这凸显了寻求高效注意力机制的紧迫性。<br>为提升效率，利用softmax注意力的固有稀疏性是一种可行途径，即选择性计算关键查询-键对，在保持性能的同时降低计算开销。现有方法虽各有探索，但在实际应用中存在诸多局限：<br>推理效率假象：许多稀疏注意力方法在推理时未能实现预期的加速效果。一方面，部分方法存在阶段受限的稀疏性，如H2O在解码阶段应用稀疏性，但预填充阶段计算量大；MInference则只关注预填充阶段稀疏性，导致至少一个阶段计算成本与全注意力相当，无法在不同推理负载下有效加速。另一方面，一些方法与先进注意力架构不兼容，如Quest在基于GQA的模型中，虽能减少计算操作，但KV缓存内存访问量仍较高，无法充分利用先进架构的优势。<br>可训练稀疏性的误区：仅在推理阶段应用稀疏性会导致模型性能下降，且现有稀疏注意力方法大多未有效解决训练阶段的计算挑战。例如，基于聚类的方法（如ClusterKV）存在动态聚类计算开销大、算子优化困难、实现受限等问题；一些方法的离散操作（如MagicPIG中的SimHash选择）使计算图不连续，阻碍梯度传播；HashAttention等方法的非连续内存访问模式，无法有效利用快速注意力技术（如FlashAttention），降低了训练效率。<br>针对这些问题，本文提出了原生可训练的稀疏注意力机制（NativeSparseAttention，NSA），旨在通过算法创新与硬件对齐优化，实现高效的长上下文建模，平衡模型性能与计算效率。<br>NSA的技术方法涵盖算法设计与内核优化。其整体框架基于对注意力机制的重新定义，通过设计不同的映射策略构建更紧凑、信息更密集的键值对表示，以减少计算量。同时，针对硬件特性进行内核优化，提升实际运行效率。<br>背景知识<br>注意力机制：在语言建模中，注意力机制广泛应用。对于输入序列长度为的情况，注意力操作定义为：<br>其中表示注意力函数：<br>这里是与之间的注意力权重，是键的特征维度。随着序列长度增加，注意力计算在总计算成本中占比越来越大，给长上下文处理带来挑战。<br>算术强度：算术强度是计算操作与内存访问的比率，对硬件上的算法优化有重要影响。每个GPU都有由峰值计算能力和内存带宽决定的临界算术强度。对于计算任务，算术强度高于此临界阈值时受GPU浮点运算能力（FLOPS）限制，低于此阈值时受内存带宽限制。在因果自注意力机制中，训练和预填充阶段，批矩阵乘法和注意力计算算术强度高，属于计算受限阶段；而自回归解码时，每次前向传递仅生成一个令牌，但需加载整个键值缓存，算术强度低，受内存带宽限制。这导致不同阶段的优化目标不同：训练和预填充阶段需降低计算成本，解码阶段需减少内存访问。<br>整体框架：为利用注意力的自然稀疏模式，NSA提出用更紧凑的键值对、替代原始键值对、。优化后的注意力输出定义为：<br>其中、根据当前查询和上下文内存、动态构建。通过设计多种映射策略可得到不同类别的、，并将它们组合起来：<br>NSA有三种映射策略，分别代表压缩、选择和滑动窗口策略，用于处理键值对。是对应策略的门控分数，由输入特征经MLP和sigmoid激活得到。令表示重新映射后的键&#x2F;值总数：<br>通过确保，NSA保持较高的稀疏率。<br>算法设计<br>令牌压缩（TokenCompression）：通过聚合连续的键或值块为块级表示，得到压缩后的键值对，以捕获整个块的信息。压缩键表示定义为：<br>其中是块长度，是相邻块之间的滑动步长，是带有块内位置编码的可学习MLP，用于将块中的键映射为单个压缩键。是由压缩键组成的张量。通常采用来减少信息碎片化。类似地，可定义压缩值表示。压缩表示捕获更粗粒度的高级语义信息，降低注意力计算负担。<br>令牌选择（TokenSelection）：仅使用压缩键值对可能会丢失重要的细粒度信息，因此NSA设计了高效的令牌选择机制。<br>块级选择（BlockwiseSelection）：基于硬件效率和注意力分数的固有分布模式，NSA的选择策略按空间连续块处理键值序列。现代GPU架构对连续块访问具有更高的吞吐量，且块级计算能更好地利用张量核心。此外，注意力分数通常具有空间连续性，相邻键往往具有相似的重要性水平。<br>重要性分数计算（ImportanceScoreComputation）：计算块重要性分数可能会带来较大开销。NSA利用压缩令牌的注意力计算产生的中间注意力分数来推导选择块的重要性分数。公式为：<br>其中是与压缩键之间的注意力分数。当压缩块和选择块具有相同的分块方案（即）时，可直接得到选择块重要性分数。对于分块方案不同的情况（假设且），通过下式推导选择块的重要性分数：<br>在采用GQA或MQA的模型中，为最小化解码时的KV缓存加载，需确保跨查询头的一致块选择。同一组内跨头的共享重要性分数定义为：<br>其中表示头索引，是每组中的查询头数量。<br>Top-n块选择（Top-nBlockSelection）：获得选择块重要性分数后，保留按块重要性分数排名前的稀疏块中的令牌。公式为：<br>其中表示降序排名位置，对应最高分数，是所选块的索引集，表示拼接操作。是由选择的键组成的张量。类似地，可定义细粒度值。这些选择的键值对参与与的注意力计算。<br>滑动窗口（SlidingWindow）：在注意力机制中，局部模式可能会主导学习过程，影响模型从压缩和选择令牌中学习。为解决此问题，NSA引入滑动窗口分支专门处理局部上下文。具体而言，NSA维护一个窗口内的近期令牌，，并将不同信息源（压缩令牌、选择令牌、滑动窗口）的注意力计算分离到不同分支。这些分支输出通过学习的门控机制聚合。为防止注意力分支间的梯度干扰，NSA为三个分支提供独立的键值对。这种架构设计在引入最小开销的同时，通过防止局部和长距离模式识别之间的梯度干扰，实现稳定学习。<br>最终输出计算：获得压缩、选择和滑动窗口这三类键值对（，；，；，）后，按照公式计算最终的注意力输出，这构成了NSA完整的算法框架。<br>内核设计：为在训练和预填充阶段实现类似FlashAttention的加速效果，NSA基于Triton实现了硬件对齐的稀疏注意力内核。当前先进的大语言模型多采用共享KV缓存的架构（如GQA和MQA），NSA聚焦于此。压缩和滑动窗口注意力计算可与现有FlashAttention-2内核兼容，而对于稀疏选择注意力，NSA提出了专门的内核设计。若采用FlashAttention将时间连续的查询块加载到SRAM的策略，由于块内查询可能需要不连续的KV块，会导致内存访问效率低下。NSA的关键优化在于采用不同的查询分组策略：对于查询序列上的每个位置，将GQA组内的所有查询头（它们共享相同的稀疏KV块）加载到SRAM。其内核设计具有以下关键特征：<br>以组为中心的数据加载（Group-CentricDataLoading）：对于每个内循环，加载组内位置处所有头的查询及其共享的稀疏键&#x2F;值块索引。<br>共享KV获取（SharedKVFetching）：在内循环中，按顺序将连续的键&#x2F;值块加载到SRAM中，分别表示为，，以最小化内存加载，其中是满足的内核块大小。<br>网格外循环（OuterLooponGrid）：由于不同查询块的内循环长度（与所选块数成比例）几乎相同，NSA将查询&#x2F;输出循环放入Triton的网格调度器中，简化并优化内核。<br>优势：这种设计通过组间共享消除冗余的KV传输，并平衡GPU流式多处理器的计算负载，实现接近最优的算术强度。<br>预训练设置：模型采用270亿参数的骨干结构，结合GQA和MoE进行训练，使用YaRN在32K长度文本上继续训练以适应长上下文。NSA在预训练损失上优于全注意力模型。<br>基线方法：除与全注意力模型对比外，还评估了H2O、infLLM、Quest等稀疏注意力方法，长上下文评估中对所有基线方法进行比较。<br>性能比较<br>一般评估：NSA在9个基准中超越7个，包括推理任务（DROP、GSM8K等），显示出其稀疏注意力在减少噪声、聚焦重要信息上的优势。<br>长上下文评估：NSA在64k上下文的“Needle-in-a-Haystack”测试中表现完美，且在LongBench上超越了所有基线模型，提升了多跳问答和代码理解任务的性能。<br>思维链推理评估：NSA在知识蒸馏的数学推理任务（AIME24基准）中，比全注意力模型在8k和16k上下文下分别提高0.075和0.054，验证了其长距离逻辑依赖的捕捉能力。<br>效率分析<br>训练速度：在64k上下文下，NSA的前向传播速度提升9倍，反向传播速度提升6倍，得益于硬件对齐设计。<br>解码速度：NSA在64k上下文下的解码速度提升11.6倍，显著降低了解码延迟，尤其随着序列长度增加。<br>论文标题：MixtureofBlockAttentionforLong-ContextLLMs<br>论文地址：https :&#x2F;&#x2F;github.com&#x2F;MoonshotAI&#x2F;MoBA&#x2F;blob&#x2F;master&#x2F;MoBA_Tech_Report.pdf<br>扩展大语言模型（LLMs）的有效上下文长度对迈向通用人工智能（AGI）意义重大，但传统注意力机制的二次计算复杂度带来高昂开销。现有方法存在局限，如基于预定义结构的方法缺乏通用性，线性近似方法在复杂推理任务中的效果有待探究。本文提出混合块注意力（MoBA）机制，遵循“少结构”原则，将专家混合（MoE）原理应用于注意力机制。MoBA在长上下文任务中表现卓越，能在全注意力和稀疏注意力间无缝切换，提升效率的同时不降低性能。<br>该机制已应用于支持Kimi的长上下文请求，为LLMs的高效注意力计算带来显著进展，代码可在https :&#x2F;&#x2F;github.com&#x2F;MoonshotAI&#x2F;moba获取。<br>追求通用人工智能推动大语言模型向大规模发展，处理长序列的能力成为关键，它在历史数据分析、复杂推理决策等众多应用中至关重要。从Kimi、Claude、Gemini等模型对长输入提示的理解，以及Kimik1.5、DeepSeek-R1、OpenAIo1&#x2F;o3对长思维链输出能力的探索，都能看出对扩展上下文处理能力的迫切需求。<br>由于传统注意力机制（Waswani等人，2017）计算复杂度随序列长度呈二次增长，扩展LLMs的序列长度并非易事。为解决这一问题，研究主要集中在利用注意力分数的稀疏性来提高效率，同时不牺牲性能。<br>基于预定义结构的方法：像基于汇聚（sink-based）（G.Xiao等人，2023）或滑动窗口注意力（Beltagy等人，2020）这类方法，通过预定义结构利用稀疏性，但高度依赖特定任务，可能限制模型的通用性。<br>动态稀疏注意力机制：Quest（Tang等人，2024）、Minference（H.Jiang等人，2024）和RetrievalAttention（DiLiu等人，2024）等动态稀疏注意力机制，在推理时选择部分令牌，虽能减少长序列计算量，但无法大幅降低长上下文模型的训练成本，难以高效扩展到数百万令牌的上下文。<br>线性注意力模型：Mamba（Dao和Gu，2024）、RWKV（Peng、Alcaide等人，2023；Peng、Goldstein等人，2024）和RetNet（Sun等人，2023）等线性注意力模型，用线性近似替代传统的基于softmax的注意力，降低长序列处理的计算开销。然而，线性和传统注意力差异大，适配现有Transformer模型成本高，或需从头训练新模型，且在复杂推理任务中的有效性证据有限。<br>在这样的背景下，本文提出MoBA。它基于MoE原理，应用于Transformer模型的注意力机制，通过将上下文划分为块，并采用门控机制选择性地将查询令牌路由到最相关的块，提高LLMs效率，使模型能处理更长更复杂的提示，同时降低资源消耗。<br>Transformer中的标准注意力计算如下：对于单个查询令牌，它关注个键和值令牌，分别表示为，标准注意力计算为<br>块分区和选择策略：与标准注意力不同，MoBA使每个查询令牌仅关注部分键和值，公式为，其中是选定的键和值的集合。MoBA的关键创新在于块分区和选择策略。将长度为的完整上下文划分为个块，每个块代表后续令牌的一个子集，假设上下文长度能被块数整除，记为块大小，第个块的范围为。通过应用MoE中的top-k门控机制，模型能让每个查询选择性地关注不同块中的部分令牌，而非整个上下文，即。<br>门控机制：模型采用门控机制，计算查询与第个块的亲和分数，并在所有块中应用top-k门控。第个块的门值计算为：<br>其中表示包含个最高亲和分数的集合。在本文中，分数通过与沿序列维度的平均池化的内积计算，即<br>运行示例：图1a展示了MoBA的运行示例，有两个查询令牌和四个KV块。路由器（门控网络）为每个查询动态选择前两个块进行关注，第一个查询被分配到第一和第二个块，第二个查询被分配到第三和第四个块。<br>因果性保持：在自回归语言模型中，保持因果性至关重要。MoBA通过两种设计确保因果性：<br>不关注未来块：MoBA确保查询令牌不会被路由到任何未来块，将注意力范围限制在当前和过去块，遵循语言建模的自回归性质。形式上，记为查询的位置索引，对于任何满足的块，设置，。<br>当前块注意力和因果掩码：定义“当前块”为包含查询令牌本身的块。为避免当前块注意力计算中因平均池化包含未来令牌信息而违反因果性，模型强制每个令牌路由到其当前块，并在当前块注意力计算时应用因果掩码。这不仅避免了信息泄露，还鼓励关注局部上下文。形式上，对于查询令牌位置在区间内的块，设置。从MoE角度看，MoBA中的当前块注意力类似于现代MoE架构中的共享专家角色。<br>其他关键设计选择：<br>细粒度块分割：受MoE文献中细粒度专家分割提升模型性能的启发，MoBA沿上下文长度维度进行分割。通过实验发现，块粒度对MoBA性能影响显著，细粒度分割有助于提升模型性能。<br>MoBA与全注意力的混合：MoBA设计为可替代全注意力，且参数数量不变。在初始化阶段，每个注意力层可选择全注意力或MoBA，训练时也可动态切换。实验表明，这种混合策略在平衡训练效率和模型性能方面效果显著。<br>与滑动窗口注意力和注意力汇聚的比较：滑动窗口注意力和注意力汇聚可视为MoBA的特殊情况。滑动窗口注意力可解释为MoBA的一种变体，其门控网络总是选择最近的块；注意力汇聚可看作MoBA的变体，门控网络总是选择初始块和最近块。这表明MoBA具有更强的表达能力，能灵活近似多种静态稀疏注意力架构。<br>MoBA的高性能实现结合了FlashAttention（Dao、D.Fu等人，2022）和MoE（Rajbhandari等人，2022）的优化技术，主要包含以下五个步骤：<br>根据门控网络和因果掩码确定查询令牌到KV块的分配。<br>根据分配的KV块对查询令牌进行排序。<br>为每个KV块和分配到它的查询令牌计算注意力输出，此步骤可通过可变长度的FlashAttention进行优化。<br>将注意力输出重新排列回原始顺序。<br>使用在线Softmax（即平铺）组合相应的注意力输出，因为一个查询令牌可能关注其当前块和多个历史KV块。<br>算法1详细描述了MoBA的实现流程，首先将KV矩阵划分为块（第1-2行），然后计算门控分数（第3-7行），应用top-k操作得到查询到KV块的映射矩阵（第8行），接着根据映射排列查询令牌并计算块级注意力输出（第9-12行），最后重新排列并组合注意力输出（第16行）。<br>LM损失的可扩展性：MoBA与全注意力模型在不同大小的语言模型上验证损失曲线相似，证明MoBA具有与全注意力相当的缩放性能。<br>长上下文可扩展性：尽管MoBA在32K序列长度下的损失略高于全注意力，差距逐渐缩小，表明MoBA适应长上下文任务。<br>细粒度块分割的消融研究：块粒度对MoBA性能影响显著，细粒度分割有助于提升性能，性能差异可达1e-2。<br>MoBA&#x2F;全注意力混合训练：MoBA&#x2F;全注意力混合训练平衡了训练效率与模型性能，验证损失与全注意力训练接近，未出现显著损失峰值。<br>层混合策略：在监督微调中，通过将最后几层从MoBA切换到全注意力，显著降低了SFT损失。<br>Llama3.18B基础模型：MoBA与全注意力在多个长上下文基准测试中表现相近，且MoBA在长上下文任务中有较好表现，尤其在RULER和NeedleinaHaystack基准测试中，表现几乎相同。<br>效率提升：MoBA在所有上下文长度下的前向传播时间较全注意力更高效，计算复杂度为次二次，速度提高可达6.5倍。<br>长度可扩展性：MoBA处理长序列时比全注意力更高效，在处理1000万令牌时计算时间减少16倍。<br>缓存与效果的极限拉扯：从MHA、MQA、GQA到MLA<br>【手撕NSA】DeepSeek新作-原生稀疏注意力-超长文(附代码)<br>撞车DeepSeekNSA，Kimi杨植麟署名的新注意力架构MoBA发布，代码也公开<br>Deepseek-V2技术报告解读！全网最细！<br>浅读DeepSeek-V2技术报告<br>还在用MHA？MLA来了DeepSeek-v2的MLA的总结和思考<br>Multi-HeadLatentAttention(MLA)详细介绍（来自DeepseekV3的回答）<br>大模型推理框架RTP-LLM架构解析<br>DeepSeek-V2高性能推理(1)：通过矩阵吸收十倍提速MLA算子<br>注意力MHA、MQA、GQA、LinearAttention到MLA<br>大模型KVCache节省神器MLA学习笔记（包含推理时的矩阵吸收分析）<br>MHA、MQA、GQA区别和联系<br>MHAvsMQAvsGQAvsMLA<br>添加微信，回复”LLM“进入交流群</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/02/20/1000000585-2247492799-1/">https://zejuncao.github.io/2025/02/20/1000000585-2247492799-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/ChallengeHub/">
+                                    <span class="chip bg-color">ChallengeHub</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/20/1000000878-2453464224-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000878_2453464224_1.jpg" class="responsive-img" alt="重磅！继Google Willow之后，微软宣布量子计算新突破！">
+                        
+                        <span class="card-title">重磅！继Google Willow之后，微软宣布量子计算新突破！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AGI-Hunt/">
+                        <span class="chip bg-color">AGI Hunt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/19/1000001479-2247537412-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001479_2247537412_1.jpg" class="responsive-img" alt="目标检测YOLOv12算法来袭，更高性能、更快速度！（附论文及源码）">
+                        
+                        <span class="card-title">目标检测YOLOv12算法来袭，更高性能、更快速度！（附论文及源码）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
