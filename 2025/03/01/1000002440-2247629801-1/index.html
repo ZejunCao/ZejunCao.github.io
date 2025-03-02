@@ -1,0 +1,1174 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="手把手教你驯服DeepSeek-R1！部署+测试+性能优化万字全攻略, ZejunCao&#39;Blogs">
+    <meta name="description" content="手把手教你驯服DeepSeek-R1！部署+测试+性能优化万字全攻略
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击上方“小白学视觉”，选择加”星标”或“置顶”重磅干货，第一时间送达作者丨Mr.Felix编辑丨极">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>手把手教你驯服DeepSeek-R1！部署+测试+性能优化万字全攻略 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002440_2247629801_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">手把手教你驯服DeepSeek-R1！部署+测试+性能优化万字全攻略</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">小白学视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gkFNLeTdh4bafSXOFmQhlA">手把手教你驯服DeepSeek-R1！部署+测试+性能优化万字全攻略</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击上方“小白学视觉”，选择加”星标”或“置顶”<br>重磅干货，第一时间送达<br>作者丨Mr.Felix<br>编辑丨极市平台<br>极市导读<br>本文详细介绍了如何部署和测试DeepSeek-R1模型，涵盖了从Ollama到vLLM的多种推理框架的安装与配置，并提供了性能测试结果和优化建议，帮助用户在多机多卡环境下高效运行大模型。<br>1、直接运行：curl-fsSLhttps :&#x2F;&#x2F;ollama.com&#x2F;install.sh|sh运行如果报网络错误则参考链接进行手动下载安装并设置自启动。<br>2、参考链接设置ollama保存模型的路径和设置监听端口。<br>3、选择合适模型，运行命令：ollamarundeepseek-r1:1.5bDeepSeek-R1-Distill-Qwen-1.5B单卡2080Ti显存占用1902MiB。<br>4、参考链接设置远程部署，并在客户端用Chatbox访问；<br>ollama部署类似docker的方式，好处是比较简单易上手，但对于生产环境来说，可配置功能简单、不支持多机部署、高并发下性能差、只支持量化版本模型等。<br>为此，我们选择DeepSeek官方推荐的4种推理框架之一的vLLM。<br>官方有两种安装方式：python本地安装和docker安装[链接]。<br>硬件：3台相同配置的服务器：操作系统：18.04.6LTS显卡：RTX2080Ti*8内存：376GB磁盘：1TB<br>官方安装最简单，直接运行：pipinstallvllm,但下载缓慢且如果本地cuda版本不对xformers编译会报错。建议将以下文件先下载到本地（如果采用其他版本注意兼容性）：<br>1.	安装Nvidia驱动和cuda<br>注意nvidia-smi查看驱动版本和cuda版本，理论上驱动版本相近即可。可参考链接安装驱动，注意安装时退出会调用到GPU的程序，比如Ollama。<br>cuda可在链接下载，安装直接运行.run即可。<br>2.	anaconda安装并创建虚拟环境<br>sudochmod777.&#x2F;Anaconda3-2021.05-Linux-x86_64.sh<br>sudo.&#x2F;Anaconda3-2021.05-Linux-x86_64.sh按照提示安装并初始化，重新进入中断看到前缀(base)即安装成功<br>condacreate-nLLMpython&#x3D;3.11-y<br>condaactivateLLM<br>如果在其他服务器已经安装好了虚拟环境，建议直接打包过来解压即可使用。<br>打包：<br>解压：<br>condaactivateLLM即可使用。<br>如果出现“terminalsdatabaseisinaccessible”，添加环境变量：<br>3.	安装torch<br>pipinstall.&#x2F;torch-2.5.1+cu118-cp311-cp311-linux_x86_64.whl-i<br>https :&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple<br>pipinstall.&#x2F;torchvision-0.20.1+cu118-cp311-cp311-linux_x86_64.whl-i<br>https :&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple<br>4.	安装vLLM<br>pipinstall.&#x2F;vllm-0.7.2+cu118-cp38-abi3-manylinux1_x86_64.whl-i<br>https :&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple<br>期间编译xformers需要几分钟，随后就安装成功。<br>5.	挂载模型目录<br>sudomount-tcifs&#x2F;&#x2F;&#x2F;&#x2F;DeepSeek&#x2F;home&#x2F;ubuntu&#x2F;DeepSeek-ousername&#x3D;,password&#x3D;<br>避免模型文件需备份到各个服务器。<br>6.	单机多卡运行<br>7.	设置防火墙<br>需关闭防火墙或开放指定范围端口，以免节点通信受阻或经常掉线。<br>8.	配置网卡、NCCL环境变量<br>运行ipaddr查看本地IP对应网卡名称，一般为eno1。<br>在~&#x2F;.bashrc写入下面环境变量：<br>保证socket和NCCL通信顺畅，否则会出现节点连接不上的问题。<br>9.	部署ray节点<br>在根节点服务器运行：<br>raystart–head–dashboard-host0.0.0.0<br>在子节点服务器运行：<br>raystart–address&#x3D;’:6379’<br>raystatus查看节点状态<br>10.	多机多卡运行<br>以3台服务器为例：<br>1.	更新安装Nvidia驱动和cuda<br>注意nvidia-smi查看驱动版本和cuda版本，理论上驱动版本相近即可。<br>可参考链接安装驱动，vllm-openai:v0.7.2镜像要求驱动版本&gt;530。注意安装时退出会调用到GPU的程序，比如Ollama。<br>cuda可在链接下载，安装直接运行.run即可。<br>2.	设置docker权限和环境变量<br>安装nvidia-container-toolkit<br>添加以下内容：<br>4.	加载镜像<br>按照官方文档下载官方镜像：dockerpullvllm&#x2F;vllm-openai:v0.7.2<br>但文件较大容易下载失败，建议在网络较好的环境下载好后打包到目标服务器。<br>5.	挂载模型目录<br>sudomount-tcifs&#x2F;&#x2F;&#x2F;&#x2F;DeepSeek&#x2F;home&#x2F;ubuntu&#x2F;DeepSeek-ousername&#x3D;,password&#x3D;<br>避免模型文件需备份到各个服务器。<br>6.	单机多卡运行<br>推荐使用chatbox或chrome插件PageAssist(支持联网搜索)</p>
+<p>如果需要使用知识库，则推荐CherryStudio。<br>OllamaAPIAPi密钥：EMPTYAPI域名：http :&#x2F;&#x2F;:11434模型ID：nomic-embed-text<br>1.	谷歌浏览器插件PageAssist<br>2.	VSCode插件Cline<br>3.	WPS插件OfficeAI<br>下载https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.office-ai.cn/%E5%B9%B6%E5%AE%89%E8%A3%85%EF%BC%8C%E6%89%93%E5%BC%80WPS%E5%B0%B1%E5%8F%AF%E4%BB%A5%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%8C%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E6%96%87%E6%A1%88%E7%94%9F%E6%88%90%E3%80%81%E6%B6%A6%E8%89%B2%E7%AD%89%E5%8A%9F%E8%83%BD%E3%80%82">www.office-ai.cn/并安装，打开WPS就可以配置本地大模型，目前支持文案生成、润色等功能。</a><br>4.	CherryStudio知识库<br>参考链接(https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;4WZL9eXAKyLivb4NXHuBQA)创建本地知识库。<br>本测试推理框架采用vLLM0.7.2，安装环境基于python本地安装。<br>硬件环境：382080Ti<br>部署模型：DeepSeek-R1-Distill-Qwen-32B和DeepSeek-R1-Distill-Llama-70B<br>提问：ubuntu如何安装nvidia显卡驱动<br>结论：671B模型的回答方案更加全面，且有可能存在的异常问题的解决办法，70B的回答虽然不全面，但是方案是最常用的，且步骤没有问题。<br>本地部署70B：</p>
+<p>好吧，我现在要在Ubuntu上安装NVIDIA的显卡驱动。首先，我对Linux不是很熟悉，所以得慢慢来。让我先理清楚步骤。<br>首先，我应该检查一下我的显卡型号。听说可以通过终端命令来查看，lspci|grep-invidia，这样就能看到显卡的信息了。然后记下这个型号，可能后面会用到。<br>接下来，我需要知道当前的Ubuntu版本。可以用lsb_release-a命令来查看。我记得不同的Ubuntu版本可能支持不同的驱动版本，所以这一步挺重要的。<br>然后，访问NVIDIA的官方网站，找到驱动程序的下载页面。在那里，应该有一个自动检测工具，或者手动选择显卡型号和操作系统。我需要选择Linux版本，然后按照指示下载合适的驱动。<br>不过，我也听说Ubuntu有一个附加组件库，里面有很多预编译的驱动。使用这个可能会更方便，不用手动下载和安装。所以，可能可以用Ubuntu的软件更新器来安装驱动。<br>我还需要禁用开源的Nouveau驱动，因为它可能会和NVIDIA的驱动冲突。禁用的话，可以通过编辑黑名单文件，添加”blacklistnouveau”，然后更新初始化ramdisk。重启之后，Nouveau就不会再加载了。<br>安装驱动的时候，有两种方法：一种是通过.run文件手动安装，另一种是使用apt-get从官方仓库安装。我觉得用仓库的方法可能更简单，因为这样可以通过包管理器来处理依赖和更新。<br>不过，如果用.run文件的话，安装完成后可能需要配置Xorg服务器。这可能有点复杂，我得按照指示来，免得弄坏系统。<br>安装完成后，重启系统是必须的，然后通过nvidia-smi命令来确认驱动是否正确加载。这样就能看到GPU的信息了。<br>另外，还有一些可选的工具，比如NVIDIAXServer设置和GPU监控工具，可以安装这些来更好地管理显卡。<br>如果在安装过程中遇到问题，可能需要重新启用Nouveau驱动，或者检查是否有其他冲突的包。我可能需要查阅一些论坛或者文档来解决问题。<br>总之，我觉得最简单的方法是通过Ubuntu的软件更新器来安装驱动，这样比较省事，而且有官方支持。先禁用Nouveau，然后添加NVIDIA的仓库，安装驱动，重启，验证一下。希望一切顺利。</p>
+<p>在Ubuntu上安装NVIDIA显卡驱动，可以按照以下步骤操作：<br>###步骤1：检查显卡信息和Ubuntu版本<br>1.打开终端，输入以下命令查看显卡型号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci|grep-invidia</span><br></pre></td></tr></table></figure>
+<p>记录下显卡型号。<br>2.检查Ubuntu版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release-a</span><br></pre></td></tr></table></figure>
+<p>###步骤2：禁用开源驱动Nouveau<br>1.编辑黑名单文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudonano/etc/modprobe.d/blacklist-nvidia.conf</span><br></pre></td></tr></table></figure>
+<p>添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklistnouveau</span><br><span class="line">optionsnouveaumodeset=0</span><br></pre></td></tr></table></figure>
+<p>2.更新初始化ramdisk：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoupdate-initramfs-u</span><br></pre></td></tr></table></figure>
+<p>3.重启系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoreboot</span><br></pre></td></tr></table></figure>
+<p>###步骤3：安装NVIDIA驱动<br>####方法一：通过Ubuntu软件更新器安装<br>1.打开“软件与更新”工具，在UbuntuDock或应用程序中找到。<br>2.转到“附加驱动”选项卡，找到NVIDIA的proprietary驱动。<br>3.选择推荐的驱动版本，点击“应用”进行安装。<br>4.等待安装完成后，重启系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoreboot</span><br></pre></td></tr></table></figure>
+<p>####方法二：通过官方仓库安装<br>1.添加NVIDIA官方仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudoadd-apt-repositoryppa:graphics-drivers/ppa</span><br><span class="line">sudoaptupdate</span><br></pre></td></tr></table></figure>
+<p>2.安装推荐的驱动包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubuntu-driversdevices</span><br><span class="line">sudoubuntu-driversautoinstall</span><br></pre></td></tr></table></figure>
+<p>3.重启系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoreboot</span><br></pre></td></tr></table></figure>
+<p>####方法三：手动下载.run文件安装<br>1.访问[NVIDIA驱动下载页面](https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.nvidia.com/Download/index.aspx)%EF%BC%8C%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E9%A9%B1%E5%8A%A8%E4%B8%8B%E8%BD%BD.run%E6%96%87%E4%BB%B6%E3%80%82">www.nvidia.com/Download/index.aspx)，选择合适的驱动下载.run文件。</a><br>2.进入下载目录，赋予执行权限并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span>+xNVIDIA-Linux-x86_64-.run</span><br><span class="line"><span class="built_in">sudo</span>./NVIDIA-Linux-x86_64-.run</span><br></pre></td></tr></table></figure>
+<p>3.按照安装向导完成安装，重启系统。<br>###步骤4：验证安装<br>1.重启后，打开终端，输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p>查看是否显示GPU信息，确认驱动加载成功。<br>2.可选安装NVIDIA设置工具：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoaptinstallnvidia-settings</span><br></pre></td></tr></table></figure>
+<p>打开工具检查显卡状态。<br>###可选步骤：安装CUDA工具包（如需）<br>1.如果需要CUDA支持，访问[NVIDIACUDA页面](https :&#x2F;&#x2F;developer.nvidia.com&#x2F;cuda-downloads)下载合适的版本。<br>2.按照指示安装CUDAtoolkit。<br>###故障排除<br>-如果安装失败，检查是否正确禁用了Nouveau，确保没有其他冲突的包。</p>
+<h2 id="通过以上步骤，你应该能够成功在Ubuntu上安装NVIDIA显卡驱动。DeepSeekR1（671B）好的，我现在需要帮助用户在Ubuntu系统上安装NVIDIA显卡驱动。让我先回忆一下相关的步骤和可能遇到的问题，确保提供准确的信息。首先，用户可能使用的是Ubuntu的桌面版或服务器版，不同的版本可能在安装过程中有细微差别，但总体步骤应该类似。安装NVIDIA驱动通常有几种方法：使用Ubuntu的仓库、使用PPA源，或者直接从NVIDIA官网下载-run文件手动安装。不过，手动安装可能会比较复杂，尤其是对于新手来说，所以推荐使用仓库或PPA的方法更安全。接下来，我需要考虑用户可能使用的Ubuntu版本，比如20-04、22-04或者24-04，不同版本的软件包名称或仓库可能有所不同。但一般来说，步骤是相似的。首先应该推荐使用Ubuntu自带的“软件和更新”工具，这是图形界面，对用户来说可能更友好。用户可以在“附加驱动”选项卡中选择合适的驱动版本进行安装。这一步需要提醒用户可能需要先更新软件源，或者检查是否有可用的专有驱动。如果用户更倾向于使用命令行，那么需要指导他们如何通过命令行查询可用的驱动版本。常用的命令是ubuntu-driversdevices，这会列出推荐的驱动。然后使用sudoaptinstall来安装推荐的驱动，或者指定版本号安装。安装完成后需要重启系统，以确保驱动生效。另外，有时候用户可能需要安装最新版的驱动，而Ubuntu官方仓库中的版本可能比较旧。这时候可以建议添加NVIDIA的官方PPA，比如graphics-drivers-ppa，然后更新并安装。但需要注意，使用PPA可能会有兼容性问题，特别是对于较新的显卡型号，可能需要最新的驱动支持。同时，添加PPA需要用户确认是否信任该源，属于常规操作。在安装过程中，可能会遇到一些问题，比如安装后无法进入图形界面，这通常是因为驱动与当前的内核或系统组件不兼容。这时候需要引导用户进入恢复模式，卸载现有驱动，然后尝试安装其他版本。另外，SecureBoot的问题也需要考虑，如果系统启用了SecureBoot，安装第三方驱动时需要设置密码，否则可能导致驱动无法加载，进而无法进入系统。这时候需要指导用户在安装过程中处理SecureBoot的设置，或者暂时禁用SecureBoot。还有一个常见的问题是，安装NVIDIA驱动后，系统仍然使用开源驱动nouveau。为了避免冲突，安装前需要禁用nouveau驱动。通常可以通过在-etc-modprobe-d-blacklist-conf文件中添加黑名单条目，并更新initramfs。不过，在Ubuntu的某些版本中，使用官方仓库安装驱动时会自动处理这些步骤，但手动安装时可能需要用户自己处理。需要提醒用户检查是否成功禁用了nouveau，并确保在安装过程中没有冲突。另外，安装完成后，用户可能需要验证驱动是否正常工作。可以使用nvidia-smi命令来检查显卡状态，或者通过“系统设置”中的“关于”部分查看图形接口是否切换为NVIDIA。如果遇到问题，可能需要查看Xorg的日志文件，或者使用dmesg命令检查内核日志，排查错误信息。最后，需要提醒用户在安装驱动前，最好备份重要数据，以防万一出现系统无法启动的情况。同时，如果遇到无法解决的问题，建议查阅Ubuntu的官方文档或社区支持，比如AskUbuntu论坛，可能会有更多的解决方案。总结一下，步骤大致如下：1-更新系统并检查可用的驱动版本。2-选择合适的驱动安装方法（图形界面或命令行）。3-处理SecureBoot和禁用nouveau驱动。4-安装驱动并重启系统。5-验证驱动是否正常工作，并处理可能的问题。在解释每个步骤时，需要给出具体的命令示例，并说明可能需要的选项，比如安装推荐驱动时的自动选择，或者手动指定版本号。同时，对于可能出现的问题，提供解决方案或参考链接，帮助用户自行排查。另外，需要注意不同版本的Ubuntu可能在软件包名称上有差异，例如nvidia-driver-535或nvidia-driver-550等，需要根据用户的系统版本推荐正确的包名。如果用户不确定，可以建议使用ubuntu-drivers命令来检测推荐版本。最后，确保语言简洁明了，避免使用过于专业的术语，让新手用户也能理解并跟随步骤操作。同时，提醒用户按照自己的显卡型号和系统需求选择合适的驱动版本，不必一味追求最新版，稳定性和兼容性更重要。在Ubuntu上安装NVIDIA显卡驱动的步骤如下，提供图形界面和命令行两种方法："><a href="#通过以上步骤，你应该能够成功在Ubuntu上安装NVIDIA显卡驱动。DeepSeekR1（671B）好的，我现在需要帮助用户在Ubuntu系统上安装NVIDIA显卡驱动。让我先回忆一下相关的步骤和可能遇到的问题，确保提供准确的信息。首先，用户可能使用的是Ubuntu的桌面版或服务器版，不同的版本可能在安装过程中有细微差别，但总体步骤应该类似。安装NVIDIA驱动通常有几种方法：使用Ubuntu的仓库、使用PPA源，或者直接从NVIDIA官网下载-run文件手动安装。不过，手动安装可能会比较复杂，尤其是对于新手来说，所以推荐使用仓库或PPA的方法更安全。接下来，我需要考虑用户可能使用的Ubuntu版本，比如20-04、22-04或者24-04，不同版本的软件包名称或仓库可能有所不同。但一般来说，步骤是相似的。首先应该推荐使用Ubuntu自带的“软件和更新”工具，这是图形界面，对用户来说可能更友好。用户可以在“附加驱动”选项卡中选择合适的驱动版本进行安装。这一步需要提醒用户可能需要先更新软件源，或者检查是否有可用的专有驱动。如果用户更倾向于使用命令行，那么需要指导他们如何通过命令行查询可用的驱动版本。常用的命令是ubuntu-driversdevices，这会列出推荐的驱动。然后使用sudoaptinstall来安装推荐的驱动，或者指定版本号安装。安装完成后需要重启系统，以确保驱动生效。另外，有时候用户可能需要安装最新版的驱动，而Ubuntu官方仓库中的版本可能比较旧。这时候可以建议添加NVIDIA的官方PPA，比如graphics-drivers-ppa，然后更新并安装。但需要注意，使用PPA可能会有兼容性问题，特别是对于较新的显卡型号，可能需要最新的驱动支持。同时，添加PPA需要用户确认是否信任该源，属于常规操作。在安装过程中，可能会遇到一些问题，比如安装后无法进入图形界面，这通常是因为驱动与当前的内核或系统组件不兼容。这时候需要引导用户进入恢复模式，卸载现有驱动，然后尝试安装其他版本。另外，SecureBoot的问题也需要考虑，如果系统启用了SecureBoot，安装第三方驱动时需要设置密码，否则可能导致驱动无法加载，进而无法进入系统。这时候需要指导用户在安装过程中处理SecureBoot的设置，或者暂时禁用SecureBoot。还有一个常见的问题是，安装NVIDIA驱动后，系统仍然使用开源驱动nouveau。为了避免冲突，安装前需要禁用nouveau驱动。通常可以通过在-etc-modprobe-d-blacklist-conf文件中添加黑名单条目，并更新initramfs。不过，在Ubuntu的某些版本中，使用官方仓库安装驱动时会自动处理这些步骤，但手动安装时可能需要用户自己处理。需要提醒用户检查是否成功禁用了nouveau，并确保在安装过程中没有冲突。另外，安装完成后，用户可能需要验证驱动是否正常工作。可以使用nvidia-smi命令来检查显卡状态，或者通过“系统设置”中的“关于”部分查看图形接口是否切换为NVIDIA。如果遇到问题，可能需要查看Xorg的日志文件，或者使用dmesg命令检查内核日志，排查错误信息。最后，需要提醒用户在安装驱动前，最好备份重要数据，以防万一出现系统无法启动的情况。同时，如果遇到无法解决的问题，建议查阅Ubuntu的官方文档或社区支持，比如AskUbuntu论坛，可能会有更多的解决方案。总结一下，步骤大致如下：1-更新系统并检查可用的驱动版本。2-选择合适的驱动安装方法（图形界面或命令行）。3-处理SecureBoot和禁用nouveau驱动。4-安装驱动并重启系统。5-验证驱动是否正常工作，并处理可能的问题。在解释每个步骤时，需要给出具体的命令示例，并说明可能需要的选项，比如安装推荐驱动时的自动选择，或者手动指定版本号。同时，对于可能出现的问题，提供解决方案或参考链接，帮助用户自行排查。另外，需要注意不同版本的Ubuntu可能在软件包名称上有差异，例如nvidia-driver-535或nvidia-driver-550等，需要根据用户的系统版本推荐正确的包名。如果用户不确定，可以建议使用ubuntu-drivers命令来检测推荐版本。最后，确保语言简洁明了，避免使用过于专业的术语，让新手用户也能理解并跟随步骤操作。同时，提醒用户按照自己的显卡型号和系统需求选择合适的驱动版本，不必一味追求最新版，稳定性和兼容性更重要。在Ubuntu上安装NVIDIA显卡驱动的步骤如下，提供图形界面和命令行两种方法：" class="headerlink" title="通过以上步骤，你应该能够成功在Ubuntu上安装NVIDIA显卡驱动。DeepSeekR1（671B）好的，我现在需要帮助用户在Ubuntu系统上安装NVIDIA显卡驱动。让我先回忆一下相关的步骤和可能遇到的问题，确保提供准确的信息。首先，用户可能使用的是Ubuntu的桌面版或服务器版，不同的版本可能在安装过程中有细微差别，但总体步骤应该类似。安装NVIDIA驱动通常有几种方法：使用Ubuntu的仓库、使用PPA源，或者直接从NVIDIA官网下载.run文件手动安装。不过，手动安装可能会比较复杂，尤其是对于新手来说，所以推荐使用仓库或PPA的方法更安全。接下来，我需要考虑用户可能使用的Ubuntu版本，比如20.04、22.04或者24.04，不同版本的软件包名称或仓库可能有所不同。但一般来说，步骤是相似的。首先应该推荐使用Ubuntu自带的“软件和更新”工具，这是图形界面，对用户来说可能更友好。用户可以在“附加驱动”选项卡中选择合适的驱动版本进行安装。这一步需要提醒用户可能需要先更新软件源，或者检查是否有可用的专有驱动。如果用户更倾向于使用命令行，那么需要指导他们如何通过命令行查询可用的驱动版本。常用的命令是ubuntu-driversdevices，这会列出推荐的驱动。然后使用sudoaptinstall来安装推荐的驱动，或者指定版本号安装。安装完成后需要重启系统，以确保驱动生效。另外，有时候用户可能需要安装最新版的驱动，而Ubuntu官方仓库中的版本可能比较旧。这时候可以建议添加NVIDIA的官方PPA，比如graphics-drivers&#x2F;ppa，然后更新并安装。但需要注意，使用PPA可能会有兼容性问题，特别是对于较新的显卡型号，可能需要最新的驱动支持。同时，添加PPA需要用户确认是否信任该源，属于常规操作。在安装过程中，可能会遇到一些问题，比如安装后无法进入图形界面，这通常是因为驱动与当前的内核或系统组件不兼容。这时候需要引导用户进入恢复模式，卸载现有驱动，然后尝试安装其他版本。另外，SecureBoot的问题也需要考虑，如果系统启用了SecureBoot，安装第三方驱动时需要设置密码，否则可能导致驱动无法加载，进而无法进入系统。这时候需要指导用户在安装过程中处理SecureBoot的设置，或者暂时禁用SecureBoot。还有一个常见的问题是，安装NVIDIA驱动后，系统仍然使用开源驱动nouveau。为了避免冲突，安装前需要禁用nouveau驱动。通常可以通过在&#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf文件中添加黑名单条目，并更新initramfs。不过，在Ubuntu的某些版本中，使用官方仓库安装驱动时会自动处理这些步骤，但手动安装时可能需要用户自己处理。需要提醒用户检查是否成功禁用了nouveau，并确保在安装过程中没有冲突。另外，安装完成后，用户可能需要验证驱动是否正常工作。可以使用nvidia-smi命令来检查显卡状态，或者通过“系统设置”中的“关于”部分查看图形接口是否切换为NVIDIA。如果遇到问题，可能需要查看Xorg的日志文件，或者使用dmesg命令检查内核日志，排查错误信息。最后，需要提醒用户在安装驱动前，最好备份重要数据，以防万一出现系统无法启动的情况。同时，如果遇到无法解决的问题，建议查阅Ubuntu的官方文档或社区支持，比如AskUbuntu论坛，可能会有更多的解决方案。总结一下，步骤大致如下：1.更新系统并检查可用的驱动版本。2.选择合适的驱动安装方法（图形界面或命令行）。3.处理SecureBoot和禁用nouveau驱动。4.安装驱动并重启系统。5.验证驱动是否正常工作，并处理可能的问题。在解释每个步骤时，需要给出具体的命令示例，并说明可能需要的选项，比如安装推荐驱动时的自动选择，或者手动指定版本号。同时，对于可能出现的问题，提供解决方案或参考链接，帮助用户自行排查。另外，需要注意不同版本的Ubuntu可能在软件包名称上有差异，例如nvidia-driver-535或nvidia-driver-550等，需要根据用户的系统版本推荐正确的包名。如果用户不确定，可以建议使用ubuntu-drivers命令来检测推荐版本。最后，确保语言简洁明了，避免使用过于专业的术语，让新手用户也能理解并跟随步骤操作。同时，提醒用户按照自己的显卡型号和系统需求选择合适的驱动版本，不必一味追求最新版，稳定性和兼容性更重要。在Ubuntu上安装NVIDIA显卡驱动的步骤如下，提供图形界面和命令行两种方法："></a>通过以上步骤，你应该能够成功在Ubuntu上安装NVIDIA显卡驱动。<br>DeepSeekR1（671B）<br>好的，我现在需要帮助用户在Ubuntu系统上安装NVIDIA显卡驱动。让我先回忆一下相关的步骤和可能遇到的问题，确保提供准确的信息。<br>首先，用户可能使用的是Ubuntu的桌面版或服务器版，不同的版本可能在安装过程中有细微差别，但总体步骤应该类似。安装NVIDIA驱动通常有几种方法：使用Ubuntu的仓库、使用PPA源，或者直接从NVIDIA官网下载.run文件手动安装。不过，手动安装可能会比较复杂，尤其是对于新手来说，所以推荐使用仓库或PPA的方法更安全。<br>接下来，我需要考虑用户可能使用的Ubuntu版本，比如20.04、22.04或者24.04，不同版本的软件包名称或仓库可能有所不同。但一般来说，步骤是相似的。首先应该推荐使用Ubuntu自带的“软件和更新”工具，这是图形界面，对用户来说可能更友好。用户可以在“附加驱动”选项卡中选择合适的驱动版本进行安装。这一步需要提醒用户可能需要先更新软件源，或者检查是否有可用的专有驱动。<br>如果用户更倾向于使用命令行，那么需要指导他们如何通过命令行查询可用的驱动版本。常用的命令是<code>ubuntu-driversdevices</code>，这会列出推荐的驱动。然后使用<code>sudoaptinstall</code>来安装推荐的驱动，或者指定版本号安装。安装完成后需要重启系统，以确保驱动生效。<br>另外，有时候用户可能需要安装最新版的驱动，而Ubuntu官方仓库中的版本可能比较旧。这时候可以建议添加NVIDIA的官方PPA，比如graphics-drivers&#x2F;ppa，然后更新并安装。但需要注意，使用PPA可能会有兼容性问题，特别是对于较新的显卡型号，可能需要最新的驱动支持。同时，添加PPA需要用户确认是否信任该源，属于常规操作。<br>在安装过程中，可能会遇到一些问题，比如安装后无法进入图形界面，这通常是因为驱动与当前的内核或系统组件不兼容。这时候需要引导用户进入恢复模式，卸载现有驱动，然后尝试安装其他版本。另外，SecureBoot的问题也需要考虑，如果系统启用了SecureBoot，安装第三方驱动时需要设置密码，否则可能导致驱动无法加载，进而无法进入系统。这时候需要指导用户在安装过程中处理SecureBoot的设置，或者暂时禁用SecureBoot。<br>还有一个常见的问题是，安装NVIDIA驱动后，系统仍然使用开源驱动nouveau。为了避免冲突，安装前需要禁用nouveau驱动。通常可以通过在&#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf文件中添加黑名单条目，并更新initramfs。不过，在Ubuntu的某些版本中，使用官方仓库安装驱动时会自动处理这些步骤，但手动安装时可能需要用户自己处理。需要提醒用户检查是否成功禁用了nouveau，并确保在安装过程中没有冲突。<br>另外，安装完成后，用户可能需要验证驱动是否正常工作。可以使用<code>nvidia-smi</code>命令来检查显卡状态，或者通过“系统设置”中的“关于”部分查看图形接口是否切换为NVIDIA。如果遇到问题，可能需要查看Xorg的日志文件，或者使用<code>dmesg</code>命令检查内核日志，排查错误信息。<br>最后，需要提醒用户在安装驱动前，最好备份重要数据，以防万一出现系统无法启动的情况。同时，如果遇到无法解决的问题，建议查阅Ubuntu的官方文档或社区支持，比如AskUbuntu论坛，可能会有更多的解决方案。<br>总结一下，步骤大致如下：<br>1.更新系统并检查可用的驱动版本。<br>2.选择合适的驱动安装方法（图形界面或命令行）。<br>3.处理SecureBoot和禁用nouveau驱动。<br>4.安装驱动并重启系统。<br>5.验证驱动是否正常工作，并处理可能的问题。<br>在解释每个步骤时，需要给出具体的命令示例，并说明可能需要的选项，比如安装推荐驱动时的自动选择，或者手动指定版本号。同时，对于可能出现的问题，提供解决方案或参考链接，帮助用户自行排查。<br>另外，需要注意不同版本的Ubuntu可能在软件包名称上有差异，例如nvidia-driver-535或nvidia-driver-550等，需要根据用户的系统版本推荐正确的包名。如果用户不确定，可以建议使用ubuntu-drivers命令来检测推荐版本。<br>最后，确保语言简洁明了，避免使用过于专业的术语，让新手用户也能理解并跟随步骤操作。同时，提醒用户按照自己的显卡型号和系统需求选择合适的驱动版本，不必一味追求最新版，稳定性和兼容性更重要。<br>在Ubuntu上安装NVIDIA显卡驱动的步骤如下，提供图形界面和命令行两种方法：</h2><h2 id="方法一：通过图形界面安装（推荐新手）1-打开“软件和更新”-在Ubuntu应用菜单中搜索并打开Software-Updates（软件和更新）。2-选择专有驱动-切换到AdditionalDrivers（附加驱动）选项卡。-系统会自动检测可用驱动版本，选择带有“Proprietary-Tested”标识的推荐版本。3-应用更改-点击ApplyChanges，输入密码后开始安装。4-重启系统-安装完成后重启生效：sudoreboot"><a href="#方法一：通过图形界面安装（推荐新手）1-打开“软件和更新”-在Ubuntu应用菜单中搜索并打开Software-Updates（软件和更新）。2-选择专有驱动-切换到AdditionalDrivers（附加驱动）选项卡。-系统会自动检测可用驱动版本，选择带有“Proprietary-Tested”标识的推荐版本。3-应用更改-点击ApplyChanges，输入密码后开始安装。4-重启系统-安装完成后重启生效：sudoreboot" class="headerlink" title="###方法一：通过图形界面安装（推荐新手）1.打开“软件和更新”-在Ubuntu应用菜单中搜索并打开Software&amp;Updates（软件和更新）。2.选择专有驱动-切换到AdditionalDrivers（附加驱动）选项卡。-系统会自动检测可用驱动版本，选择带有“Proprietary,Tested”标识的推荐版本。3.应用更改-点击ApplyChanges，输入密码后开始安装。4.重启系统-安装完成后重启生效：sudoreboot"></a>###<strong>方法一：通过图形界面安装（推荐新手）</strong><br>1.<strong>打开“软件和更新”</strong><br>-在Ubuntu应用菜单中搜索并打开<strong>Software&amp;Updates</strong>（软件和更新）。<br>2.<strong>选择专有驱动</strong><br>-切换到<strong>AdditionalDrivers</strong>（附加驱动）选项卡。<br>-系统会自动检测可用驱动版本，选择带有<strong>“Proprietary,Tested”</strong>标识的推荐版本。<br>3.<strong>应用更改</strong><br>-点击<strong>ApplyChanges</strong>，输入密码后开始安装。<br>4.<strong>重启系统</strong><br>-安装完成后重启生效：<code>sudoreboot</code></h2><h2 id="方法二：通过命令行安装（灵活推荐）-步骤1：更新系统并检查可用驱动输出示例：-步骤2：安装驱动-安装推荐版本：-或自动安装推荐驱动：-步骤3：处理SecureBoot（如有必要）-如果系统启用了SecureBoot，安装过程中会提示设置密码，重启后需在蓝屏界面输入密码以载入驱动。-步骤4：重启系统"><a href="#方法二：通过命令行安装（灵活推荐）-步骤1：更新系统并检查可用驱动输出示例：-步骤2：安装驱动-安装推荐版本：-或自动安装推荐驱动：-步骤3：处理SecureBoot（如有必要）-如果系统启用了SecureBoot，安装过程中会提示设置密码，重启后需在蓝屏界面输入密码以载入驱动。-步骤4：重启系统" class="headerlink" title="###方法二：通过命令行安装（灵活推荐）####步骤1：更新系统并检查可用驱动输出示例：####步骤2：安装驱动-安装推荐版本：-或自动安装推荐驱动：####步骤3：处理SecureBoot（如有必要）-如果系统启用了SecureBoot，安装过程中会提示设置密码，重启后需在蓝屏界面输入密码以载入驱动。####步骤4：重启系统"></a>###<strong>方法二：通过命令行安装（灵活推荐）</strong><br>####<strong>步骤1：更新系统并检查可用驱动</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudoaptupdate&amp;&amp;sudoaptupgrade-y#更新系统</span><br><span class="line">ubuntu-driversdevices#查看推荐驱动版本</span><br></pre></td></tr></table></figure><br>输出示例：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">driver:nvidia-driver-535-third-partyfree</span><br><span class="line">driver:nvidia-driver-550-third-partyfree***推荐***</span><br></pre></td></tr></table></figure><br>####<strong>步骤2：安装驱动</strong><br>-<strong>安装推荐版本</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoaptinstallnvidia-driver-550#替换为推荐版本号</span><br></pre></td></tr></table></figure><br>-<strong>或自动安装推荐驱动</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoubuntu-driversautoinstall</span><br></pre></td></tr></table></figure><br>####<strong>步骤3：处理SecureBoot（如有必要）</strong><br>-如果系统启用了SecureBoot，安装过程中会提示设置密码，重启后需在蓝屏界面输入密码以载入驱动。<br>####<strong>步骤4：重启系统</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoreboot</span><br></pre></td></tr></table></figure></h2><h2 id="验证安装-检查显卡状态：-查看驱动版本："><a href="#验证安装-检查显卡状态：-查看驱动版本：" class="headerlink" title="###验证安装-检查显卡状态：-查看驱动版本："></a>###<strong>验证安装</strong><br>-<strong>检查显卡状态</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi#显示GPU信息即表示成功</span><br></pre></td></tr></table></figure><br>-<strong>查看驱动版本</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-settings#或使用图形界面查看</span><br></pre></td></tr></table></figure></h2><h2 id="常见问题处理1-黑屏-无法进入桌面：-重启进入恢复模式，选择rootshell，卸载驱动：-重新尝试安装其他版本。2-禁用Nouveau开源驱动（通常自动处理）：-手动禁用（仅当冲突时）：添加以下内容：-更新并重启：3-安装最新版驱动（通过PPA）："><a href="#常见问题处理1-黑屏-无法进入桌面：-重启进入恢复模式，选择rootshell，卸载驱动：-重新尝试安装其他版本。2-禁用Nouveau开源驱动（通常自动处理）：-手动禁用（仅当冲突时）：添加以下内容：-更新并重启：3-安装最新版驱动（通过PPA）：" class="headerlink" title="###常见问题处理1.黑屏&#x2F;无法进入桌面：-重启进入恢复模式，选择rootshell，卸载驱动：-重新尝试安装其他版本。2.禁用Nouveau开源驱动（通常自动处理）：-手动禁用（仅当冲突时）：添加以下内容：-更新并重启：3.安装最新版驱动（通过PPA）："></a>###<strong>常见问题处理</strong><br>1.<strong>黑屏&#x2F;无法进入桌面</strong>：<br>-重启进入恢复模式，选择<strong>rootshell</strong>，卸载驱动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudoaptpurgenvidia-*</span><br><span class="line">sudoreboot</span><br></pre></td></tr></table></figure><br>-重新尝试安装其他版本。<br>2.<strong>禁用Nouveau开源驱动（通常自动处理）</strong>：<br>-手动禁用（仅当冲突时）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudonano/etc/modprobe.d/blacklist-nouveau.conf</span><br></pre></td></tr></table></figure><br>添加以下内容：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklistnouveau</span><br><span class="line">optionsnouveaumodeset=0</span><br></pre></td></tr></table></figure><br>-更新并重启：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudoupdate-initramfs-u</span><br><span class="line">sudoreboot</span><br></pre></td></tr></table></figure><br>3.<strong>安装最新版驱动（通过PPA）</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudoadd-apt-repositoryppa:graphics-drivers/ppa</span><br><span class="line">sudoaptupdate</span><br><span class="line">ubuntu-driversdevices#查看最新版本</span><br><span class="line">sudoaptinstallnvidia-driver-550#替换为目标版本</span><br></pre></td></tr></table></figure></h2><p>###<strong>总结</strong><br>-<strong>推荐驱动</strong>：优先使用<code>ubuntu-driversdevices</code>推荐的稳定版本。<br>-<strong>SecureBoot</strong>：启用时需设置密码，否则可能导致驱动无法加载。<br>-<strong>验证工具</strong>：使用<code>nvidia-smi</code>或系统设置确认驱动状态。<br>遇到问题可查阅[Ubuntu官方文档](https :&#x2F;&#x2F;help.ubuntu.com&#x2F;community&#x2F;NvidiaDriversInstallation)或社区论坛寻求帮助。<br>提问：用python生成一套pytorch多机多卡训练的代码<br>结论：70B和671B生成的代码基本逻辑一致，都没有问题，相差也不大。<br>本地部署70B：</p>
+<p>嗯，用户让我用Python生成一套PyTorch多机多卡训练的代码。首先，我得理解用户的需求。他们可能是在做一个分布式训练的项目，或者想提升训练速度，所以需要利用多台机器和多块GPU。</p>
+<p>接下来，数据的分布式加载是关键。使用DistributedSampler可以确保每个进程只处理一部分数据，避免重复。数据加载器需要用这个sampler，然后在每个进程中创建相同的模型，当然，这里我会用一个简单的卷积网络作为示例。<br>然后是包装模型为DDP模型，这样PyTorch会自动处理梯度同步等操作。在训练循环里，每个epoch开始前，设置sampler的epoch，这样可以打乱数据。如果不设置，可能每个epoch的数据分配会一样，影响多样性。<br>优化器和损失函数的选择，这里用SGD和交叉熵损失比较常见。训练过程中，每个进程只处理自己的那部分数据，计算损失，然后反向传播，最后更新参数。<br>在评估的时候，可能需要在主进程上进行，避免其他进程干扰。使用torch.no_grad()可以加快评估速度，节省内存。<br>最后，确保训练结束后，所有进程都能正确销毁，避免资源泄漏。<br>我还得考虑代码的结构，如何让它清晰易懂。可能分成几个部分：导入库、初始化分布式环境、定义模型和数据加载、训练循环、评估，最后销毁进程组。<br>另外，用户可能需要在不同的机器上运行，所以需要确保每台机器上的代码一致，并且可以通过主机名或IP连接。可能需要提醒用户设置正确的MASTER_ADDR，并在各台机器上启动相应的进程数。<br>测试的时候，可能需要使用多个终端，分别运行不同角色（主进程和其他进程）。或者，用户可能使用slurm或其他集群管理工具来启动多个任务。<br>总结一下，我需要提供一个完整的代码示例，涵盖初始化、数据加载、模型定义、训练和评估，同时添加注释，解释每个部分的作用，帮助用户理解和调整代码。这样用户就能根据自己的需求，修改数据集、模型结构和训练参数了。</p>
+<p>以下是使用PyTorch实现多机多卡训练的示例代码。这个代码使用了PyTorch的分布式训练功能（<code>torch.distributed</code>），支持多机多卡训练：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">importos</span><br><span class="line">importtorch</span><br><span class="line">importtorch.distributedasdist</span><br><span class="line">importtorch.nnasnn</span><br><span class="line">importtorch.optimasoptim</span><br><span class="line">fromtorch.utils.dataimportDataLoader,DistributedSampler</span><br><span class="line">importtorchvision</span><br><span class="line">importtorchvision.transformsastransforms</span><br><span class="line"><span class="comment">#设置随机种子</span></span><br><span class="line">torch.manual_seed(<span class="number">42</span>)</span><br><span class="line"><span class="comment">#定义训练的模型</span></span><br><span class="line">classNet(nn.Module):</span><br><span class="line">def__init__(<span class="variable language_">self</span>):</span><br><span class="line"><span class="built_in">super</span>(Net,<span class="variable language_">self</span>).__init__()</span><br><span class="line"><span class="variable language_">self</span>.conv1=nn.Conv2d(<span class="number">1</span>,<span class="number">10</span>,<span class="number">5</span>)</span><br><span class="line"><span class="variable language_">self</span>.conv2=nn.Conv2d(<span class="number">10</span>,<span class="number">20</span>,<span class="number">5</span>)</span><br><span class="line"><span class="variable language_">self</span>.conv2_drop=nn.Dropout2d()</span><br><span class="line"><span class="variable language_">self</span>.fc1=nn.Linear(<span class="number">320</span>,<span class="number">50</span>)</span><br><span class="line"><span class="variable language_">self</span>.fc2=nn.Linear(<span class="number">50</span>,<span class="number">10</span>)</span><br><span class="line">defforward(<span class="variable language_">self</span>,x):</span><br><span class="line">x=torch.relu(torch.max_pool2d(<span class="variable language_">self</span>.conv1(x),<span class="number">2</span>))</span><br><span class="line">x=torch.relu(torch.max_pool2d(<span class="variable language_">self</span>.conv2_drop(<span class="variable language_">self</span>.conv2(x)),<span class="number">2</span>))</span><br><span class="line">x=x.view(-<span class="number">1</span>,<span class="number">320</span>)</span><br><span class="line">x=torch.relu(<span class="variable language_">self</span>.fc1(x))</span><br><span class="line">x=<span class="variable language_">self</span>.fc2(x)</span><br><span class="line">returntorch.log_softmax(x,dim=<span class="number">1</span>)</span><br><span class="line">deftrain(rank,world_size,model,device,dataloader,optimizer,criterion,epoch):</span><br><span class="line">model.train()</span><br><span class="line">forbatch_idx,(data,target)inenumerate(dataloader):</span><br><span class="line">data,target=data.to(device),target.to(device)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">output=model(data)</span><br><span class="line">loss=criterion(output,target)</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br><span class="line">ifbatch_idx%<span class="number">10</span>==<span class="number">0</span>:</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Rank<span class="subst">&#123;rank&#125;</span>,Epoch[<span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;<span class="number">10</span>&#125;</span>],Batch[<span class="subst">&#123;batch_idx&#125;</span>/<span class="subst">&#123;<span class="built_in">len</span>(dataloader)&#125;</span>],Loss:<span class="subst">&#123;loss.item():<span class="number">.4</span>f&#125;</span>&#x27;</span>)</span><br><span class="line">defevaluate(model,device,dataloader,criterion):</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line">total_loss=<span class="number">0</span></span><br><span class="line">correct=<span class="number">0</span></span><br><span class="line">withtorch.no_grad():</span><br><span class="line">fordata,targetindataloader:</span><br><span class="line">data,target=data.to(device),target.to(device)</span><br><span class="line">output=model(data)</span><br><span class="line">loss=criterion(output,target)</span><br><span class="line">total_loss+=loss.item()</span><br><span class="line">_,predicted=torch.<span class="built_in">max</span>(output,<span class="number">1</span>)</span><br><span class="line">correct+=(predicted==target).<span class="built_in">sum</span>().item()</span><br><span class="line">accuracy=correct/<span class="built_in">len</span>(dataloader.dataset)</span><br><span class="line">average_loss=total_loss/<span class="built_in">len</span>(dataloader)</span><br><span class="line">returnaverage_loss,accuracy</span><br><span class="line">defmain():</span><br><span class="line">importargparse</span><br><span class="line">parser=argparse.ArgumentParser(description=<span class="string">&#x27;PyTorchMNISTDistributedTraining&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--rank&#x27;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">0</span>,</span><br><span class="line"><span class="built_in">help</span>=<span class="string">&#x27;rankofprocess&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--world_size&#x27;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">4</span>,</span><br><span class="line"><span class="built_in">help</span>=<span class="string">&#x27;numberofprocesses&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--batch_size&#x27;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">64</span>,</span><br><span class="line"><span class="built_in">help</span>=<span class="string">&#x27;batchsize&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--epochs&#x27;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">10</span>,</span><br><span class="line"><span class="built_in">help</span>=<span class="string">&#x27;numberofepochs&#x27;</span>)</span><br><span class="line">args=parser.parse_args()</span><br><span class="line"><span class="comment">#初始化分布式环境</span></span><br><span class="line">os.environ[<span class="string">&#x27;MASTER_ADDR&#x27;</span>]=<span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">os.environ[<span class="string">&#x27;MASTER_PORT&#x27;</span>]=<span class="string">&#x27;29500&#x27;</span></span><br><span class="line">dist.init_process_group(<span class="string">&#x27;gloo&#x27;</span>,rank=args.rank,world_size=args.world_size)</span><br><span class="line"><span class="comment">#设置设备</span></span><br><span class="line">device=torch.device(<span class="string">&#x27;cuda&#x27;</span>iftorch.cuda.is_available()<span class="keyword">else</span><span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line"><span class="comment">#载入数据集</span></span><br><span class="line">transform=transforms.Compose([transforms.ToTensor()])</span><br><span class="line">train_dataset=torchvision.datasets.MNIST(root=<span class="string">&#x27;./data&#x27;</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=transform)</span><br><span class="line">test_dataset=torchvision.datasets.MNIST(root=<span class="string">&#x27;./data&#x27;</span>,train=<span class="literal">False</span>,download=<span class="literal">True</span>,transform=transform)</span><br><span class="line"><span class="comment">#创建分布式数据加载器</span></span><br><span class="line">train_sampler=DistributedSampler(train_dataset,num_replicas=args.world_size,rank=args.rank)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#初始化模型、优化器和损失函数</span></span><br><span class="line">model=Net().to(device)</span><br><span class="line">optimizer=optim.SGD(model.parameters(),lr=<span class="number">0.01</span>,momentum=<span class="number">0.5</span>)</span><br><span class="line">criterion=nn.NLLLoss()</span><br><span class="line"><span class="comment">#包装模型为分布式模型</span></span><br><span class="line">model=torch.nn.parallel.DistributedDataParallel(model,device_ids=[device])</span><br><span class="line">forepochinrange(args.epochs):</span><br><span class="line">train_loader.sampler.set_epoch(epoch)</span><br><span class="line">train(args.rank,args.world_size,model,device,train_loader,optimizer,criterion,epoch)</span><br><span class="line">ifargs.rank==<span class="number">0</span>:</span><br><span class="line">test_loss,test_acc=evaluate(model.module,device,test_loader,criterion)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;TestLoss:<span class="subst">&#123;test_loss:<span class="number">.4</span>f&#125;</span>,Accuracy:<span class="subst">&#123;test_acc:<span class="number">.2</span>f&#125;</span>%&#x27;</span>)</span><br><span class="line">dist.destroy_process_group()</span><br><span class="line">if__name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>###使用说明<br>1.<strong>参数设置</strong>：<br>-<code>--rank</code>:进程的排名（0到world_size-1）。<br>-<code>--world_size&#39;:进程的总数量。 -</code>–batch_size’:每个进程的批次大小。<br>-<code>--epochs&#39;:训练的轮数。 2.**运行多机多卡训练**： -在每台机器上运行该脚本，确保每台机器的</code>rank<code>和</code>world_size&#96;参数正确。<br>-例如，使用4台机器训练，每台机器上运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>（假设每台机器有2块GPU，总共4台机器，8个GPU）<br>3.<strong>注意事项</strong>：<br>-确保所有机器之间可以通过网络互相通信。<br>-确保所有机器安装了相同版本的PyTorch，并且支持分布式训练。<br>-确保数据集路径一致，或者在不同的机器上共享数据集。<br>###代码结构<br>1.<strong>模型定义</strong>：定义了一个简单的卷积神经网络（<code>Net</code>）。<br>2.<strong>训练函数</strong>：定义了训练函数，接受分布式训练的参数。<br>3.<strong>评估函数</strong>：定义了模型评估函数。<br>4.<strong>主函数</strong>：解析参数，初始化分布式环境，加载数据集，定义模型和优化器，开始训练。<br>###其他说明<br>-该代码使用了PyTorch的<code>DistributedDataParallel</code>（DDP）来实现多机多卡训练。<br>-使用<code>DistributedSampler</code>来确保每个进程加载不同的数据子集。<br>-使用<code>gloo</code>作为通信后端，适合多机多卡训练。<br>-如果使用GPU，可以将<code>device</code>设置为<code>cuda</code>，否则使用<code>cpu</code>。<br>通过以上代码，你可以轻松实现多机多卡训练。只需在每台机器上运行该脚本，并确保通信参数正确即可。<br>DeepSeekR1（671B）<br>嗯，用户让我用Python生成一套PyTorch多机多卡训练的代码。首先，我需要理解多机多卡训练的基本概念。多机多卡通常指的是分布式数据并行（DDP），PyTorch提供了torch.distributed模块来支持这一点。所以，我需要使用DDP来实现。<br>接下来，我得考虑用户的需求。他们可能希望有一个可以直接运行的示例代码，可能用于图像分类任务，比如ResNet在CIFAR-10上训练。因此，我需要包含数据加载、模型定义、训练循环、分布式设置等部分。<br>然后，我需要确定代码的结构。通常，分布式训练需要初始化进程组，设置rank和world_size。主节点的地址和端口需要指定，所以用户可能需要修改这些参数。代码中应该包含参数解析，比如–nodes、–gpus、–nr等，这样用户可以根据自己的集群环境进行调整。<br>数据加载部分要注意使用DistributedSampler，确保每个进程读取不同的数据分片。数据集应该被正确划分，避免数据重复。DataLoader需要设置sampler参数，并且shuffle应该设为False，因为Sampler自己处理了数据的分发。</p>
+<p>训练循环里，每个epoch前需要调用sampler.set_epoch(epoch)，这样可以保证每个epoch的数据划分不同，增加随机性。打印损失和准确率的时候，可能需要使用torch.distributed.all_reduce来聚合各个进程的结果，然后只在主进程上输出。否则每个进程都会打印，导致信息重复。<br>还需要考虑模型保存，通常只在主进程（rank0）保存检查点，避免多个进程同时写入文件导致冲突。<br>然后，进程启动的部分，用户可能需要使用torch.distributed.launch或者torchrun来启动脚本。在示例中给出运行命令，比如使用两台机器，每台四个GPU的情况，用户可以根据实际情况调整参数。<br>可能遇到的坑：端口冲突，需要确保主节点的地址和端口正确，并且防火墙设置允许通信。另外，确保所有机器上的代码和数据集路径一致，否则可能导致错误。Batchsize的设置，每个GPU上的batch大小是总大小除以总的GPU数量，用户需要根据实际情况调整。<br>最后，测试代码是否能在多机多卡环境下正常运行，可能需要用户自己根据实际环境修改部分参数，比如主节点IP、数据集路径等。所以，在代码注释中需要提醒用户注意这些地方，确保他们正确配置。<br>以下是一个基于PyTorch的多机多卡分布式训练代码示例，使用<code>DistributedDataParallel</code>实现。代码包含数据加载、模型定义、训练循环和分布式设置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">importos</span><br><span class="line">importargparse</span><br><span class="line">importtorch</span><br><span class="line">importtorch.nnasnn</span><br><span class="line">importtorch.distributedasdist</span><br><span class="line">fromtorch.nn.parallelimportDistributedDataParallelasDDP</span><br><span class="line">fromtorch.utils.dataimportDataLoader,Dataset</span><br><span class="line">fromtorch.utils.data.distributedimportDistributedSampler</span><br><span class="line">fromtorchvisionimportmodels,transforms</span><br><span class="line"><span class="comment">#自定义数据集示例（替换为实际数据集）</span></span><br><span class="line">classCustomDataset(Dataset):</span><br><span class="line">def__init__(<span class="variable language_">self</span>,data_size=<span class="number">1000</span>):</span><br><span class="line"><span class="variable language_">self</span>.data=torch.randn(data_size,<span class="number">3</span>,<span class="number">224</span>,<span class="number">224</span>)</span><br><span class="line"><span class="variable language_">self</span>.labels=torch.randint(<span class="number">0</span>,<span class="number">1000</span>,(data_size,))</span><br><span class="line">def__len__(<span class="variable language_">self</span>):</span><br><span class="line">returnlen(<span class="variable language_">self</span>.data)</span><br><span class="line">def__getitem__(<span class="variable language_">self</span>,idx):</span><br><span class="line">returnself.data[idx],<span class="variable language_">self</span>.labels[idx]</span><br><span class="line">defmain():</span><br><span class="line"><span class="comment">#参数解析</span></span><br><span class="line">parser=argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(<span class="string">&quot;--nodes&quot;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">1</span>,<span class="built_in">help</span>=<span class="string">&quot;节点数量&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--gpus&quot;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">1</span>,<span class="built_in">help</span>=<span class="string">&quot;每个节点的GPU数量&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--nr&quot;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">0</span>,<span class="built_in">help</span>=<span class="string">&quot;当前节点排名&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--epochs&quot;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">10</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--batch_size&quot;</span>,<span class="built_in">type</span>=<span class="built_in">int</span>,default=<span class="number">32</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--master_addr&quot;</span>,default=<span class="string">&quot;localhost&quot;</span>,<span class="built_in">help</span>=<span class="string">&quot;主节点地址&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;--master_port&quot;</span>,default=<span class="string">&quot;12355&quot;</span>,<span class="built_in">help</span>=<span class="string">&quot;主节点端口&quot;</span>)</span><br><span class="line">args=parser.parse_args()</span><br><span class="line"><span class="comment">#分布式设置</span></span><br><span class="line">world_size=args.nodes*args.gpus</span><br><span class="line">os.environ[<span class="string">&quot;MASTER_ADDR&quot;</span>]=args.master_addr</span><br><span class="line">os.environ[<span class="string">&quot;MASTER_PORT&quot;</span>]=args.master_port</span><br><span class="line">local_rank=<span class="built_in">int</span>(os.environ.get(<span class="string">&quot;LOCAL_RANK&quot;</span>,<span class="number">0</span>))</span><br><span class="line">rank=args.nr*args.gpus+local_rank</span><br><span class="line"><span class="comment">#初始化进程组</span></span><br><span class="line">dist.init_process_group(</span><br><span class="line">backend=<span class="string">&quot;nccl&quot;</span>,</span><br><span class="line">init_method=<span class="string">&quot;env://&quot;</span>,</span><br><span class="line">world_size=world_size,</span><br><span class="line">rank=rank</span><br><span class="line">)</span><br><span class="line"><span class="comment">#设置GPU设备</span></span><br><span class="line">torch.cuda.set_device(local_rank)</span><br><span class="line">device=torch.device(<span class="string">&quot;cuda&quot;</span>,local_rank)</span><br><span class="line"><span class="comment">#创建模型</span></span><br><span class="line">model=models.resnet50(num_classes=<span class="number">1000</span>)</span><br><span class="line">model=model.to(device)</span><br><span class="line">model=DDP(model,device_ids=[local_rank],output_device=local_rank)</span><br><span class="line"><span class="comment">#数据加载</span></span><br><span class="line">transform=transforms.Compose([</span><br><span class="line">transforms.ToTensor(),</span><br><span class="line">transforms.Normalize(mean=[<span class="number">0.485</span>,<span class="number">0.456</span>,<span class="number">0.406</span>],std=[<span class="number">0.229</span>,<span class="number">0.224</span>,<span class="number">0.225</span>])</span><br><span class="line">])</span><br><span class="line">dataset=CustomDataset()</span><br><span class="line">sampler=DistributedSampler(dataset,num_replicas=world_size,rank=rank)</span><br><span class="line">dataloader=DataLoader(</span><br><span class="line">dataset,</span><br><span class="line">batch_size=args.batch_size,</span><br><span class="line">sampler=sampler,</span><br><span class="line">num_workers=<span class="number">4</span>,</span><br><span class="line">pin_memory=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">#定义损失函数和优化器</span></span><br><span class="line">criterion=nn.CrossEntropyLoss().to(device)</span><br><span class="line">optimizer=torch.optim.SGD(model.parameters(),lr=<span class="number">0.001</span>,momentum=<span class="number">0.9</span>)</span><br><span class="line"><span class="comment">#训练循环</span></span><br><span class="line">forepochinrange(args.epochs):</span><br><span class="line">sampler.set_epoch(epoch)<span class="comment">#设置epoch保证shuffle正确性</span></span><br><span class="line">model.train()</span><br><span class="line">fori,(inputs,labels)inenumerate(dataloader):</span><br><span class="line">inputs=inputs.to(device,non_blocking=<span class="literal">True</span>)</span><br><span class="line">labels=labels.to(device,non_blocking=<span class="literal">True</span>)</span><br><span class="line">outputs=model(inputs)</span><br><span class="line">loss=criterion(outputs,labels)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br><span class="line"><span class="comment">#打印训练信息（只在rank0打印）</span></span><br><span class="line">ifrank==<span class="number">0</span>andi%<span class="number">10</span>==<span class="number">0</span>:</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Epoch[<span class="subst">&#123;epoch+<span class="number">1</span>&#125;</span>/<span class="subst">&#123;args.epochs&#125;</span>],Step[<span class="subst">&#123;i&#125;</span>/<span class="subst">&#123;<span class="built_in">len</span>(dataloader)&#125;</span>],Loss:<span class="subst">&#123;loss.item():<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment">#保存模型（只在rank0保存）</span></span><br><span class="line">ifrank==<span class="number">0</span>:</span><br><span class="line">torch.save(model.module.state_dict(),<span class="string">f&quot;model_epoch_<span class="subst">&#123;epoch&#125;</span>.pth&quot;</span>)</span><br><span class="line"><span class="comment">#清理进程组</span></span><br><span class="line">dist.destroy_process_group()</span><br><span class="line">if__name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p><strong>启动训练的命令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在每台机器上执行（假设有2台机器，每台4个GPU）</span></span><br><span class="line"><span class="comment">#第一台机器（nr=0）：</span></span><br><span class="line">torchrun--nnodes=2--nproc_per_node=4--node_rank=0--master_addr=--master_port=12355train.py</span><br><span class="line"><span class="comment">#第二台机器（nr=1）：</span></span><br><span class="line">torchrun--nnodes=2--nproc_per_node=4--node_rank=1--master_addr=--master_port=12355train.py</span><br></pre></td></tr></table></figure>
+<p><strong>关键组件说明</strong>：<br>1.<strong>分布式初始化</strong>：使用NCCL后端和env:&#x2F;&#x2F;初始化方法<br>2.<strong>数据并行</strong>：使用<code>DistributedSampler</code>保证数据分片<br>3.<strong>模型并行</strong>：使用<code>DistributedDataParallel</code>包装模型<br>4.<strong>进程通信</strong>：自动处理梯度同步和参数更新<br>5.<strong>资源管理</strong>：通过LOCAL_RANK自动分配GPU设备<br><strong>注意事项</strong>：<br>1.需要所有节点保持相同代码和依赖环境<br>2.确保网络互通且防火墙开放指定端口<br>3.主节点需要固定IP地址（替换）<br>4.实际使用需修改数据集和模型结构<br>5.建议使用共享存储或定期同步模型参数<br>6.监控GPU使用情况（nvidia-smi）和网络带宽<br>可以根据具体需求调整模型结构、数据加载方式、优化器参数和训练策略。多机训练时需要注意网络延迟和带宽限制，建议使用高性能网络连接（如InfiniBand）。<br>提问：介绍哪吒之魔童闹海这部电影<br>结论：联网搜索可以获取到最新的讯息使得模型对于实时问题的回答更加准确，70B和671B的模型回答信息略有不同，但都没有事实错误。而70B不联网就会出现对一些实时新闻和知识的缺失并出现错误回答。<br>本地部署70B：</p>
+<p>嗯，我现在想介绍一下《哪吒之魔童闹海》这部电影。虽然我对这部电影不是很了解，但我会尽力回忆和查找相关信息，然后组织成一个有条理的介绍。<br>首先，我应该了解这部电影的基本信息，比如导演是谁，什么时候上映的，制作公司是哪家，还有电影的类型。这些基本信息能帮助读者快速了解电影的背景。<br>接下来，剧情简介是关键部分。我需要概述电影的主要故事，包括哪吒的身份、他的背景，以及他在故事中的冒险和挑战。比如，哪吒是李靖和袁氏的孩子，被贬下凡，如何闹海等等。<br>然后，角色部分也很重要。除了哪吒，还有李靖、袁氏、龙王、龙王女等主要角色，他们各自的特点和在故事中的作用需要简单介绍。<br>接下来，我应该谈谈电影的艺术表现，包括画面、音乐、动画技术等方面。比如，这部电影的画面很精美，色彩丰富，动画技术成熟，音乐也很出色，能增强观影体验。<br>此外，票房和口碑也是重要的信息。我需要查一下这部电影的票房情况，以及观众和媒体的评价，特别是它在国际上的表现，比如是否获得了奖项或者进入国际电影节。<br>最后，总结一下这部电影的意义和影响，为什么它在中国动画电影史上具有里程碑的意义，以及它对后续动画产业的影响。<br>在整理这些信息时，我要确保内容准确无误，如果不确定的地方，可能需要查阅可靠的资料来验证。同时，语言要通俗易懂，避免太过专业的术语，让更多的读者能够理解和感兴趣。<br>现在，我开始逐步整理这些部分，确保每个部分都涵盖必要的信息，并且逻辑清晰，结构合理。</p>
+<hr>
+<p><strong>《哪吒之魔童闹海》电影介绍</strong><br><strong>导演与制作</strong><br>《哪吒之魔童闹海》由YuYang执导，于2019年7月13日在中国内地上映。该片由光线影业和北京筝弦文化传媒有限公司联合出品，是一部动画奇幻冒险电影。<br><strong>剧情简介</strong><br>电影讲述了神话人物哪吒的成长故事。哪吒是李靖与蛇精袁氏的孩子，因天庭诸神对其身份的偏见，他被贬下凡间。在成长过程中，哪吒展现出非凡的能力，但也遭受歧视和误解。为了证明自己的清白，哪吒踏上了闹海的冒险旅程，挑战东海龙王，旨在洗刷冤屈并寻找自我认同。<br><strong>主要角色</strong><br>-<strong>哪吒</strong>：主角，拥有神勇与智慧，但性格孤傲，渴望证明自我。<br>-<strong>李靖</strong>：哪吒之父，原为天庭将领，因爱情坠入凡尘，成为普通百姓。<br>-<strong>袁氏</strong>：哪吒之母，蛇精之女，善良坚韧。<br>-<strong>东海龙王</strong>：掌管东海龙宫，实力强大，威严凶猛。<br>-<strong>龙王女</strong>：龙王之女，美丽而温柔，对哪吒产生好感。<br><strong>艺术表现</strong><br>电影以华丽的画面和细腻的情感描写见长，色彩鲜明，场景设计精美。动画技术成熟，人物刻画独具特色，音乐与情节完美契合，增强了观影体验。<br><strong>票房与口碑</strong><br>《哪吒之魔童闹海》取得了显著的票房成功，在中国内地票房超过11亿元人民币，成为当年的票房黑马。影片在国际上也获得了广泛关注，入围第92届奥斯卡金像奖动画长片短名单，并在多个国际电影节上获得奖项。<br><strong>总结</strong><br>《哪吒之魔童闹海》以其精彩的剧情、精湛的艺术表现和深刻的情感内核，成为中国动画电影史上的里程碑之作。它不仅推动了国产动漫的发展，也在国际上提升了中国动画的影响力。影片通过哪吒的故事，传递了勇于面对困境、追求自我价值的正能量主题，值得一看。<br>本地部署70B（联网）：</p>
+<p>好的，用户让我介绍一下《哪吒之魔童闹海》这部电影。我首先得看看我有什么已有的信息。<br>从搜索结果来看，有两条信息。第一条看起来是百度直播的结果，可能不相关，暂时可以忽略。第二条来自百度百科，详细介绍了这部电影的基本信息。<br>电影的中文名是《哪吒之魔童闹海》，简称《哪吒2》。制作方有可可豆动画和光线彩条屋影业，饺子担任编剧兼导演，主要配音演员包括吕艳婷、囧森瑟夫等。上映时间是2025年1月29日在中国大陆，2月14日在北美。内容方面，电影延续第一部的故事，讲述天劫后的哪吒和敖丙如何挣扎求生，揭示更多关于龙宫和混沌之力的秘密，并深入挖掘他们的情感纠葛。<br>了解这些，我可以组织一个有结构的介绍，包括影片的基本信息和剧情梗概，帮助用户快速了解这部电影的主要内容和亮点。</p>
+<p>《哪吒之魔童闹海》（简称《哪吒2》）是一部由可可豆动画和光线彩条屋影业联合出品的动画电影，饺子担任编剧兼导演。主要配音演员包括吕艳婷、囧森瑟夫、瀚墨、陈浩和绿绮。该片于2025年1月29日在中国大陆上映，2月14日在北美院线全面上映。这是《哪吒》系列电影的第二部，讲述了天劫之后，哪吒和敖丙的灵魂保住，但面临新的危机。影片延续了第一部的奇幻故事，并深入揭示了更多关于龙宫和混沌之力的秘密，同时展现了角色的情感纠葛与成长。<br>DeepSeekR1（671B）（联网）：<br>《哪吒之魔童闹海》是国产动画电影《哪吒之魔童降世》的续作，由导演饺子（杨宇）执导并担任编剧，于2025年1月29日在中国大陆正式上映。影片延续前作世界观，聚焦天劫后哪吒与敖丙的灵魂危机：两人虽保住元神，但肉身濒临消散。太乙真人以七色宝莲为媒介重塑其躯体的过程中，遭遇未知阻挠，两位主角的命运由此面临重大转折。<br>该片时长144分钟，融合奇幻、喜剧、动画与剧情元素，由吕艳婷、囧森瑟夫、瀚墨等原班配音阵容回归演绎核心角色。影片凭借精良制作与深刻情感内核，上映后票房表现强劲，截至2025年2月12日累计票房已突破92亿元，刷新国产动画电影票房纪录。此前，该片曾获2024年微博之夜“最受期待春节档电影”奖项，市场关注度与观众期待值在映前即持续攀升。<br>借助Cline，我们可以向deepseek模型提问并直接生成本地可运行代码文件。<br>目前借助OfficeAI插件可以直接在WPS中调用本地大模型，且具备排版、校对、润色、文案生成等现成功能，模型生成结果也可以一键导入左侧文档。<br>利用CherryStudio可以结合大模型和嵌入模型进行本地知识库的创建。<br>TTFT(timetothefirsttoken,首次生成token所需时间)：该指标表示的是第一个token生成时间，也即prefill阶段的总耗时。</p>
+<p>Throughput（每秒生成的token数）：(thenumberoftokenstobegenerated)&#x2F;Latency；<br>硬件方案1（单机<em>8卡）：GPU:8xNVIDIATeslaV10032GBCPU:Intel(R)Xeon(R)<a href="mailto:&#83;&#105;&#x6c;&#x76;&#101;&#x72;&#x34;&#49;&#49;&#54;&#67;&#80;&#x55;&#64;&#x32;&#46;&#x31;&#x30;&#71;&#72;&#122;">&#83;&#105;&#x6c;&#x76;&#101;&#x72;&#x34;&#49;&#49;&#54;&#67;&#80;&#x55;&#64;&#x32;&#46;&#x31;&#x30;&#71;&#72;&#122;</a>内存:512GB<br>硬件方案2（3机</em>8卡）：GPU:8xNVIDIAGeForceRTX2080TiCPU:Intel(R)Xeon(R)<a href="mailto:&#71;&#x6f;&#108;&#x64;&#x35;&#50;&#x31;&#x38;&#x43;&#x50;&#85;&#x40;&#x32;&#46;&#x33;&#x30;&#71;&#x48;&#x7a;">&#71;&#x6f;&#108;&#x64;&#x35;&#50;&#x31;&#x38;&#x43;&#x50;&#85;&#x40;&#x32;&#46;&#x33;&#x30;&#71;&#x48;&#x7a;</a>内存：376G<br>vLLM版本:0.7.2CUDA:11.8Python:3.11</p>
+<p>服务端：<br>客户端：<br>1)	TTFT<br>2)	TPOT<br>3)	ITL<br>4)	Throughput<br>随着并发请求数（RPS）增加，TTFT会显著增加，意味着用户等待回答的时间增加；<br>RPS的增加对TPOT、ITL和Throughput影响不大；<br>单机部署的TPOT和ITL均显著小于多机部署，吞吐量Throughput则大于多机部署，说明多机部署存在的通信瓶颈会显著影响吞吐量等使用体验；<br>参考文献：<br>https :&#x2F;&#x2F;huggingface.co&#x2F;deepseek-ai&#x2F;DeepSeek-V3#6-how-to-run-locally<br>https :&#x2F;&#x2F;github.com&#x2F;vllm-project&#x2F;vllm<br>https :&#x2F;&#x2F;docs.vllm.ai&#x2F;en&#x2F;latest&#x2F;index.html<br>下载1：OpenCV-Contrib扩展模块中文版教程<br>在「小白学视觉」公众号后台回复：扩展模块中文教程，即可下载全网第一份OpenCV扩展模块教程中文版，涵盖扩展模块安装、SFM算法、立体视觉、目标跟踪、生物视觉、超分辨率处理等二十多章内容。<br>下载2：Python视觉实战项目52讲<br>在「小白学视觉」公众号后台回复：Python视觉实战项目，即可下载包括图像分割、口罩检测、车道线检测、车辆计数、添加眼线、车牌识别、字符识别、情绪检测、文本内容提取、面部识别等31个视觉实战项目，助力快速学校计算机视觉。<br>下载3：OpenCV实战项目20讲<br>在「小白学视觉」公众号后台回复：OpenCV实战项目20讲，即可下载含有20个基于OpenCV实现20个实战项目，实现OpenCV学习进阶。<br>交流群<br>欢迎加入公众号读者群一起和同行交流，目前有SLAM、三维视觉、传感器、自动驾驶、计算摄影、检测、分割、识别、医学影像、GAN、算法竞赛等微信群（以后会逐渐细分），请扫描下面微信号加群，备注：”昵称+学校&#x2F;公司+研究方向“，例如：”张三+上海交大+视觉SLAM“。请按照格式备注，否则不予通过。添加成功后会根据研究方向邀请进入相关微信群。请勿在群内发送广告，否则会请出群，谢谢理解~</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/01/1000002440-2247629801-1/">https://zejuncao.github.io/2025/03/01/1000002440-2247629801-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">小白学视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/01/1000002700-2247571904-3/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002700_2247571904_3.jpg" class="responsive-img" alt="多所 985 明确：不提供宿舍！">
+                        
+                        <span class="card-title">多所 985 明确：不提供宿舍！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AI%E6%9C%89%E9%81%93/">
+                        <span class="chip bg-color">AI有道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/01/1000002440-2247629801-3/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002440_2247629801_3.jpg" class="responsive-img" alt="【Linux】Ubuntu的一些高(sao)效(cao)率(zuo)工具">
+                        
+                        <span class="card-title">【Linux】Ubuntu的一些高(sao)效(cao)率(zuo)工具</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">小白学视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

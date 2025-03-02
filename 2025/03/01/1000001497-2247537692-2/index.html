@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="高分辨目标检测创新，跨切片 NMS，视觉Transformer革命！, ZejunCao&#39;Blogs">
+    <meta name="description" content="高分辨目标检测创新，跨切片 NMS，视觉Transformer革命！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：集智书童作者：小书童链接：https :&amp;#x2F;&amp;#x2F;mp.we">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>高分辨目标检测创新，跨切片 NMS，视觉Transformer革命！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001497_2247537692_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">高分辨目标检测创新，跨切片 NMS，视觉Transformer革命！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/F6QGldjH6T9eaUnoWvpRXQ">高分辨目标检测创新，跨切片 NMS，视觉Transformer革命！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：集智书童<br>作者：小书童<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;5egzO0eupRKeK0VgSqSV6g<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>本文作者提出了一种新颖的模型无关Sparse视觉Transformer，称为SparseFormer，以弥合近距离和HRW拍摄之间的目标检测差距。所提出的SparseFormer选择性地使用注意力Token来仔细检查可能包含目标的Sparse分布窗口。通过这种方式，它可以通过融合粗粒度和细粒度特征来共同探索全局和局部注意力，以处理巨大的尺度变化。<br>近年来，使用像素级图像和视频捕捉系统以及具有高分辨率宽视角（HRW）的基准测试越来越多。然而，与MSCOCO数据集中的近距离拍摄不同，更高的分辨率和更宽的视野带来了独特的挑战，如极端Sparse性和巨大的尺度变化，导致现有的近距离检测器不准确且效率低下。<br>在本文中，作者提出了一种新颖的模型无关Sparse视觉Transformer，称为SparseFormer，以弥合近距离和HRW拍摄之间的目标检测差距。所提出的SparseFormer选择性地使用注意力Token来仔细检查可能包含目标的Sparse分布窗口。通过这种方式，它可以通过融合粗粒度和细粒度特征来共同探索全局和局部注意力，以处理巨大的尺度变化。SparseFormer还受益于一种新颖的跨切片非极大值抑制（C-NMS）算法，以精确地定位噪声窗口中的目标，以及一种简单而有效的多尺度策略来提高准确性。<br>在两个HRW基准测试PANDA和DOTA-v1.0上进行的广泛实验表明，所提出的SparseFormer在检测精度（高达5.8%）和速度（高达3倍）方面显著优于现有方法。<br>目标检测在过去十年中一直是计算机视觉领域的一项具有挑战性但基础的任务。如MSCOCO[28]等近距离场景已经展现出令人印象深刻的性能，并在实际应用中取得了成功。然而，随着成像系统的发展和无人机等新应用需求的出现，检测具有平方公里场景和吉比特级分辨率的超高分辨率宽幅（HRW）图像中的目标引起了越来越多的关注。<br>在HRW照片中使用近距离检测器检测物体并不有效，这是因为HRW照片具有一些独特的特性，如PANDA和DOTA所发现，与MSCOCO等近距离照片相比。最显著的挑战是HRW照片中的信息Sparse，物体通常只占据图像的不到5%。这使得检测器难以从背景噪声中提取关键特征，导致在训练和测试过程中背景中出现误报，物体区域中出现漏检。第二个挑战是HRW照片中物体的尺度变化，变化幅度可达100倍。依赖于感受野和Anchor点固定设置的检测器无法适应这些极端尺度，如图1所示。例如，YOLOv8在检测小物体方面表现不佳。虽然DINO有所改进，但它仍然难以适应这种夸张的尺度变化，导致对大物体的检测效果不佳（图2）。此外，典型的两阶段下采样方案[5,10,21,34]未能检测到更多的小物体。<br>切片策略[1]在使用NMS合并预测框时可能导致框不完整，如图5所示。因此，弥合近距离和HRW镜头中目标检测之间的差距至关重要。<br>受近期提高目标检测精度的先进技术[33,36,42,45,46,53]的启发，作者提出了一种针对HRW镜头的新型检测器，称为SparseFormer。SparseFormer通过选择性使用注意力Token来关注图像中物体Sparse分布的区域，从而促进细粒度特征的提取。为实现这一目标，它学习了一个ScoreNet来评估区域的重要性。通过检查所有区域的重要性得分的方差，SparseFormer优先考虑能够捕捉丰富细粒度细节的区域。因此，它可以专注于复杂的图像区域，而不是不那么重要的区域（例如，背景中的平滑内容）。同时，它将每个HRW镜头划分为非重叠窗口以提取粗粒度特征。与原始VisionTransformer[8]的接受场策略有相似精神，作者提出的SparseFormer结合了粗粒度和细粒度特征，比SwinTransformer实现了更高的效率。这极大地有助于处理大规模变化并准确检测大物体和小物体。<br>作者进一步提出了两种创新技术来提高对大规模变化检测的准确性。首先，作者观察到传统的非极大值抑制（NMS）仅参考置信度分数来合并检测结果，导致oversized目标的边界框不完整。<br>为了解决这个问题，作者提出了一种新颖的跨切片NMS方案（C-NMS），该方案优先考虑置信度高的较大边界框。所提出的C-NMS方案显著提高了oversized目标的检测准确性。其次，作者采用多尺度策略来提取粗粒度和细粒度特征。多尺度策略扩大了感受野，提高了对大目标和小目标的检测准确性。<br>总之，本工作的主要贡献如下：<br>•作者提出了一种基于Sparse视觉Transformer的新型检测器，用于处理HRW图像中的大规模变化。<br>•作者进一步采用跨窗口NMS和多尺度方案来提升对大、小目标的检测效果。<br>•作者在两个大规模HRWshot基准数据集PANDA和DOTA-v1.0上对方法进行了广泛验证。SparseFormer在性能上大幅超越了现有技术水平。<br>近距离拍摄检测模型。大多数常见的目标检测数据集，如PASCALVOC[9]和MSCOCO[28]，收集了高分辨率且包含近距离拍摄的图像，这对目标检测的发展做出了重大贡献。基于检测Head，文献可以大致分为两类：单阶段检测器和双阶段检测器。双阶段目标检测的主要目标是准确性，它将检测过程描述为“由粗到精”的过程[3,12,13,18,39]。另一方面，单阶段检测器在速度方面具有优势，例如YOLO[37]。后续工作尝试进行了改进，如增加Anchor点、改进架构和更丰富的训练技术[11,29,38]。总之，当前的检测器在近距离拍摄中表现出极高的速度和准确性。<br>高分辨率宽视角检测模型。成像系统的引入导致了用于高分辨率宽视角（HRW）检测的新基准PANDA[49]的开发。这个基准最近受到了广泛关注。以往关于吉像素级检测的研究主要集中在通过Patch选择或排列来实现更低延迟[5,10,23,24,34]。然而，它们无法解决HRW检测中面临的独特挑战。一些工作在Patch上使用Sparse策略[36]、自注意力头[33]和Transformer块[33]进行图像分类。PnP-DETR[46]利用投票和池化采样器从Backbone网络中提取图像特征，并将SparseToken输入到注意力编码器。这种方法在目标检测、全景分割和图像识别方面显示出有效性。然而，对Backbone网络上的Sparse采样尚未得到充分研究。DGE[42]是视觉Transformer的插件，但它不够灵活，无法扩展到基于ConvNet的模型或使用任意大小的图像作为输入。因此，如何设计一个灵活且模型无关的架构以用于HRW检测的目标检测问题仍然是一个未充分探索的领域。<br>TransformerBackbone。Transformer在自然语言处理（NLP）领域取得了成功，其在视觉任务上的潜力也引起了广泛关注。其中一个例子是视觉Transformer（ViT）[8]，它使用纯Transformer模型进行图像分类，并显示出有希望的结果。然而，ViT处理高分辨率图像的计算成本不切实际。已经尝试了多种方法来降低ViT模型成本，包括基于窗口的注意力[30]、自注意力中的下采样[47,50]和低秩投影注意力[52]。其他工作则使用Sparse策略在图像块[36]、自注意力头[33]和Transformer块[33]上进行图像分类。不幸的是，这些方法在检测高分辨率宽视角中的目标时，准确性显著下降。<br>作者通过提出Sparse视觉Transformer来解决HRW检测的独特挑战。该模型能够有效地从Sparse信息中提取有价值特征，同时扩大感受野以处理大规模变化。为了解决交切片区域中不完整的大物体问题，作者对传统的非极大值抑制（NMS）进行了修改。此外，作者引入了基于HRW的增强方法，用于训练和推理阶段，以提高大物体和小物体的检测精度。流程图如图3所示。<br>理想的视觉模型应能够利用有限的计算从Sparse数据中提取有意义的信息，就像作者的眼睛倾向于关注有价值区域而不是不重要背景信息一样。为了实现这一点，作者设计了一种名为SparseFormer的新型Sparse视觉Transformer。它能够动态选择关键区域，并启用动态感受野以覆盖各种尺度的目标。SparseFormer的整体框架如图4所示。<br>受SwinTransformer的启发，作者将输入图像分割成非重叠的块以生成Token。SparseFormer由四个阶段组成，它们协同工作以产生自适应表示。每个阶段都以一个块合并层开始，该层将每个2×2相邻块组的特征连接起来。然后，使用线性层将这些连接的特征投影到其维度的一半。<br>SparseFormer的每个阶段都围绕设计用于捕捉不同尺度上的长程和短程交互的注意力块展开。为了实现这一点，作者结合了标准自注意力Transformer块和SwinTransformer块的优势。因此，作者开发了两种不同类型的Sparse风格块。一种用于在粗粒度上捕捉长程交互，而另一种则专注于在更精细的尺度上捕捉短程交互。<br>为了便于这种方法的实现，作者引入了窗口的概念，将每个特征图划分为等间距的窗口。每个窗口内的操作被认为是“局部”的，而涵盖所有窗口的操作则是“全局”的。作者更详细地概述了全局和局部注意力块。作者使用标准的多头自注意力（MSA）[43]和聚合特征的多层感知器（MLP）模块，或仅使用卷积层来构建全局块，具体细节见第3.2节。作者通过在SwinTransformer[30]块前后添加Sparse化和逆Sparse化步骤来构建局部块，如第3.3节所述。与先前的工作[46,55]不同，作者并没有为全局和局部注意力构建独立的分支。相反，局部注意力被放置在全局注意力之后，以获得更多细节，而不是不同的特征。当一个阶段有多个块时，全局注意力块（G）和局部注意力块（L）的顺序遵循“GGLL”的模式。<br>特征聚合。全局注意力旨在通过长距离交互捕捉粗粒度特征。因此，作者通过在每个窗口中Sparse化特征来生成低分辨率信息。如图4所示，作者以全局注意力模块作为每个阶段的开始。该模块的主要功能是聚合每个窗口的特征。<br>为了实现这一点，作者将输入特征图划分为大小为的窗口，并确保它们不重叠。每个窗口的左上角位置由给出，窗口内的每个Token都有一个相对位置。然后，作者使用以下公式计算聚合特征：<br>在此，和，其中是每个Token的权重。在本文中，作者通过设置来对所有Token赋予相同的权重。使用上述公式对特征进行聚合后，作者得到聚合特征，该特征可以进一步用于注意力机制。<br>窗口级全局注意力。特征聚合是一种通过将Token数量减少到倍的技术，相当于分辨率下采样倍。这种Token数量的减少使作者能够在不进行昂贵计算的情况下使用全局注意力交互。使用聚合后的特征，连续的全局块的计算方法如下：<br>表示第个全局块的输出特征。<br>逆聚合特征。聚合特征包含有助于不同图像区域之间全局内容依赖交互的抽象信息。然而，它们的分辨率与输入特征图不同。因此，作者使用方程（1）的逆函数将窗口级特征转换回Token级，具体如下：<br>此处，和，其中和分别代表输入和输出特征图上的位置。此外，代表相对于的相对位置。作者将视为输出特征图上每个窗口的左上角，窗口的划分方式与特征聚合过程相同。<br>此步骤从连续的全局块中提取输出特征图。然后，作者使用方程（3）对其进行逆变换，并将得到的特征图表示为。值得注意的是，最终的全局特征与输入特征图具有相同的分辨率。尽管聚合特征具有较低的分辨率，但全局注意力操作可以在额外计算很少的情况下提供更多非局部信息。<br>基于方差评分。请注意，每个窗口的粗粒度特征可以实现高效率。然而，作者仍然需要细粒度特征来提取目标细节，以准确检测目标。因此，作者根据其低信息含量丢弃某些窗口以减少计算。作者的目标是识别需要进一步局部关注的窗口，因为这些窗口Level的特征无法代表其内部TokenLevel的特征。<br>作者从维度为的初始特征图开始，在应用全局和局部注意力之前。然后，作者使用公式（1）从中获取聚合特征，并通过公式（3）应用逆Sparse化函数，生成与具有相同分辨率的中间特征图。接下来，作者计算和之间的残差，并将每个窗口的特征连接起来，以获得尺寸为的Token，其大小为。作者使用MLP构建一个ScoreNet，根据每个残差生成分数。<br>MLP将每个窗口的维特征投影到1维，SoftMax操作计算每个窗口的得分。得分越高表示方差越大，意味着高方差窗口需要细粒度关注。换句话说，作者在局部注意力过程中丢弃得分较低的窗口。一旦作者对窗口进行排序，作者可以选择其中的一部分来生成更细粒度的特征。在此操作之前，作者使用全局特征更新特征图。<br>窗口Sparse化。作者首先分析全局注意力和基于方差的评分，以获得每个窗口的初始特征和评分。接下来，作者将分成与ScoreNet相同大小的窗口，即。作者将这些窗口表示为一个矩阵，其中是窗口的总数，即，。<br>为了确定保留哪些窗口，作者定义一个超参数来表示保留比率。作者维护一个二进制决策Mask向量，根据和评分来指示是否丢弃或保留每个窗口。的值将取决于具体任务，并可按需调整。Sparse矩阵收集向量的单热编码，其中是保留窗口的数量，即。使用这个Sparse矩阵，作者计算Sparse窗口的特征如下：<br>输出特征然后被用作局部注意力的输入。<br>基于平移窗口的注意力。作者利用了首次在SwinTransformer中提出的基于平移窗口的注意力模块。连续的局部块可以表示为：<br>表示局部块的输出特征。该层可以是自注意力或卷积模块。为了融合局部注意力的输出和输入特征，作者使用以下方法：<br>在此，通过局部注意力进行更新，而是SparseFormer每个阶段的输出。最后，作者将转换回的原始维度空间，以获得最终的特征图，记为。基于方差评分的窗口注意力可以以轻量级的形式提取更多局部信息，从而提高小物体的检测性能，同时节省背景的计算。<br>端到端优化。由于作者仅使用输出结果对窗口进行排序，无法进行梯度反向传播，因此优化ScoreNet具有挑战性。为了克服这一问题，作者实现了Gumbel-Softmax技巧，以放松采样过程，使其可微分。该技巧通过重新参数化，在软值和二值化值之间提供了一个梯度反向传播的桥梁。因此，作者将公式（5）重新写为：<br>在此，表示SoftMax函数的输出，它表示窗口的得分。<br>在HRW射击处理中，切片策略为每个切片生成候选框，这些候选框随后必须合并成一个互不冲突的框集。然而，使用非极大值抑制（NMS）来选择得分最高的框可能导致在目标位于多个切片的边缘区域时出现不完整的框（更详细的解释和可视化表示，请参阅图5）。为了解决这个问题，作者提出了一种跨切片非极大值抑制方法。<br>抑制（C-NMS）策略，如图1所示，该策略优先考虑多个切片中面积最大的框，而不仅仅是最高分数的框。C-NMS算法包括两个阶段：局部抑制阶段和跨切片抑制阶段。<br>由于内存限制，无法在原始尺寸下训练和测试超高分辨率数据集。因此，作者在训练和测试阶段都采用了切片策略。为了更好地利用多尺度信息，作者使用高分辨率图像，并利用切片策略将它们分割成不同大小的块。所有切片都被缩放到相同的大小，从而使得目标检测器能够进行有效的训练和推理。作者将图像分别划分为、、和的网格，并移除无目标的切片。这种方法使作者能够分析和理解这些图像的复杂特征，最终提高检测器的整体准确性和有效性。<br>在推理阶段，作者使用两种大小的切片窗口：原始大小和高度和宽度各为四分之一的大小。作者并非简单地将两个窗口合并，而是为两种类型的窗口设置了不同的感受野，并设定了一个阈值。基于第一个窗口，作者移除预测框中大于的部分。作者只保留第二个窗口中大于的框。这遵循了特定尺度设计的理念[40,41]，即作者应该安排每个窗口以覆盖适当的尺度以提高性能。使用这项技术，作者可以快速准确地处理高分辨率图像。<br>数据集。作者的评估基于两个包含HRW射击的公开基准数据集，PANDA[49]和DOTA-v1.0[51]。PANDA是第一个以人为中心的吉兆像素级数据集。它包含18个场景，标注了超过15,974.6k个边界框。具体来说，有13个场景用于训练，5个场景用于测试。DOTA是一个大规模数据集，用于评估空中图像中的定向目标检测，图像尺寸高达。它包含2,806张图像和188,282个带有定向边界框标注的实例，覆盖了15个目标类别。<br>评估指标。作者报告了FLOPs和标准COCO指标，包括，（），（）和（）。对于定量效率评估，作者使用每个检测器处理数据集中窗口的平均FLOPs。此外，作者分别计算前景和背景的FLOPs，以展示SparseFormer在减少背景计算上的效率。<br>实现细节。作者使用MMDe.tection[4]实现检测器。为确保公平比较，作者在四个不同的Backbone网络上评估这两个检测器，包括Swin、DEG以及作者自己的专有设计，所有配置均使用相同数量的超参数（例如，深度、嵌入维度、多头数量）。所有模型均从头开始训练36个epoch，与[17]中的观察结果一致。<br>PANDA上的结果。作者将SparseFormer与不同保持率与当前最先进的方法在首个吉比特级数据集PANDA上进行比较，该数据集不仅具有宽视场（FoV）的挑战，还具有超高分辨率。结果如表1所示。<br>首先，作者构建了两个Baseline模型，一个基于ATSS框架并采用动态头块，其GFLOPs为114.80，另一个基于DINO，其GFLOPs为132.84。然后，作者将Backbone网络修改为SparseFormer以进行进一步实验。请注意，保持比例指的是基于前一阶段的保留token比例，因此每个阶段基于token总数的比例为。作者可以观察到，SparseFormer在AP上比SotAs提高了超过5%，同时仅使用75.71GFLOPs，相比Swin-T减少了43%，相比PAN减少了63%。<br>最值得注意的是，减少的FLOPs主要来自背景区域，这也是作者能够显著减少计算量但保持高性能的原因。另外，GigaDet和PAN是通过优化过程来加速检测器。与这些方法不同，作者的工作并没有规定一个特定的流程。相反，作者提出了一种模型无关的策略，该策略可以无缝集成到现有的流程中。</p>
+<p>在表3中，SparseFormer将mAP从提升到，并将296.74GFLOPs减少到174.31GFLOPs。与SotATransformer-based方法-RepPoints相比，作者实现了的AP提升，并减少了的GFLOPs。与计算量相似的-Net方法相比，作者将其AP超越了。这表明在准确性和效率方面有显著提升。DOTA数据集提出了严峻的挑战，但SparseFormer以显著更少的FLOPs实现了当前SotAs的精度。这不仅验证了SparseFormer设计意图背后的减少计算需求，也展示了其在各种任务和领域中的泛化能力。<br>组件有效性。作者研究了全局块、C-NMS、多尺度训练（MSTrain）和多尺度推理（MSInference）的有效性。在PANDA数据集上，以进行评估。如表2所示，所有组件都能显著提升性能，同时增加的额外成本也表明，作者的策略对于高分辨率宽视角（HRW）图像中的目标检测是有益的。<br>保持比例。作者的策略包括丢弃被认为不重要的网格。作者研究了网格保持比例对最终性能的影响。表4展示了作者的研究结果，其中每个阶段的保持比例表示为。随着特征变得更加Sparse，作者观察到FLOPs显著减少，但准确度的下降不显著。<br>对ScoreNet的影响。作者研究了不同残差值后处理对ScoreNet（在3.3节中介绍）的影响。和分别表示原始特征和聚合特征，在方程（4）中它们是相同的。从最后三行可以看出，基于残差的一些变体在误差范围内有良好的性能，因此作者考虑使用更少的计算，并且不对它们进行任何冗余处理。与直接使用窗口中所有特征的相比，平均特征可以取得更好的结果。作者认为这是因为ScoreNet是一个简单的MLP，它不能很好地利用复杂的特征，而更容易根据颜色（蓝色代表天空，绿色代表眼镜）和其他模式进行分类。<br>HRW图像通常由边缘设备如无人机捕获。无人机检测器通常无法在大型计算设备上运行，而是运行在低功耗的边缘设备上。由于在边缘设备上通常难以量化FLOPs，作者使用NVIDIAAGXOrin（最大功率60W）来评估每个检测器在PANDA的千兆像素级图像上的平均推理时间，结果如表6所示。<br>值得注意的是，与先前方法相比，SparseFormer可以大幅减少推理时间。SparseFormer比PAN快3倍，AP提高了5.8%。由于Head结构的复杂性，作者可以看到dynamichead的推理速度并不理想。相反，DINO比先前工作显示了有希望的FPS，速度提升更为明显。与竞争方法DEG相比，SparseFormer在更快的速度下实现了更好的性能。<br>值得注意的是，作者的策略是模型无关的，能够与ConvNet或Transformer架构无缝集成。这种灵活性导致了SparseNet和SparseFormer的诞生。在先前提到的SparseFormer的基础上，作者进行了创新，将每个自注意力模块替换为卷积层。如表1和表3所示，SparseNet的表现不仅与著名的ResNet相当，而且更具竞争力。<br>特别值得一提的是，SparseNet将GFLOPs减少了高达56%，同时与CSL相比提高了准确率，在DOTA数据集上实现了最低的GFLOPs，这突显了它在复杂计算任务中的高效性和有效性。<br>为了更好地理解窗口Sparse化的工作原理，作者在图7中可视化了每个阶段的选定窗口。红色区域代表得分较高的区域，而蓝色区域代表得分较低的区域。SparseFormer将对得分较高的区域进行细粒度特征提取。这一插图突出了在背景区域和低熵前景上减少计算的优势。此外，结果验证了方法的有效性。PANDA和DOTA数据集关注不同的目标目标，它们共同的特点是包含大规模的背景区域，这使得Sparse化方法特别相关。作者相信，这种方法不仅将有助于HRW镜头中的目标检测，还将有助于各种其他视觉任务。<br>作者引入了SparseFormer，这是一种基于Sparse视觉Transformer的检测器，专为HRW镜头设计。它利用选择性Token利用来提取细粒度特征，并聚合窗口内的特征以提取粗粒度特征。细粒度和粗粒度的结合有效地利用了HRW镜头的Sparse性，便于处理极端尺度变化。作者的CrosssliceNMS方案和多尺度策略有助于检测超大和超小物体。<br>在PANDA和DOTA-v1.0基准上的实验表明，与现有方法相比，SparseFormer在HRW镜头目标检测方面取得了显著的改进，推动了该领域的最先进性能。<br>[1].SparseFormer:DetectingObjectsinHRWShotsviaSparseVisionTransformer<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/01/1000001497-2247537692-2/">https://zejuncao.github.io/2025/03/01/1000001497-2247537692-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/01/1000001497-2247537692-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001497_2247537692_1.jpg" class="responsive-img" alt="DeepSeek-R1模型部署全解析：从1.5B到671B，硬件需求与适用场景详解！">
+                        
+                        <span class="card-title">DeepSeek-R1模型部署全解析：从1.5B到671B，硬件需求与适用场景详解！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/28/1000000453-2247493254-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000453_2247493254_1.jpg" class="responsive-img" alt="HippoRAG 2发布，GraphRAG退位~">
+                        
+                        <span class="card-title">HippoRAG 2发布，GraphRAG退位~</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/PaperAgent/">
+                        <span class="chip bg-color">PaperAgent</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

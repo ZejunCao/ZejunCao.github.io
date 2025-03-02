@@ -1,0 +1,1132 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="从o1-mini到DeepSeek-R1，万字长文带你读懂推理模型的历史与技术, ZejunCao&#39;Blogs">
+    <meta name="description" content="从o1-mini到DeepSeek-R1，万字长文带你读懂推理模型的历史与技术
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+引自机器之心自OpenAI发布o1-mini模型以来，推理模型就一直是AI社区的热门话题，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>从o1-mini到DeepSeek-R1，万字长文带你读懂推理模型的历史与技术 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000863_2247499729_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">从o1-mini到DeepSeek-R1，万字长文带你读懂推理模型的历史与技术</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/DASOU/">
+                                <span class="chip bg-color">DASOU</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-02
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/eLk42XjUMi6K0gX09U0wqQ">从o1-mini到DeepSeek-R1，万字长文带你读懂推理模型的历史与技术</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>引自机器之心<br>自OpenAI发布o1-mini模型以来，推理模型就一直是AI社区的热门话题，而春节前面世的开放式推理模型DeepSeek-R1更是让推理模型的热度达到了前所未有的高峰。<br>近日，Netflix资深研究科学家CameronR.Wolfe发布了一篇题为「揭秘推理模型」的深度长文，详细梳理了自o1-mini开始至今的推理模型发展史，并详细介绍了让标准LLM变成推理模型的具体技术和方法。<br>特意编译了这篇文章以飨读者，同时我们还在文末梳理了17篇我们之前发布的与推理模型相关的文章一并奉上。<br>原文地址：https :&#x2F;&#x2F;cameronrwolfe.substack.com&#x2F;p&#x2F;demystifying-reasoning-models<br>前些年，大型语言模型（LLM）已经形成了相对固定的流程。<br>首先，在来自互联网的原始文本数据上预训练语言模型。之后，对齐这些模型，也就是让它们的输出更符合人类的偏好，这会用到监督微调（SFT）和基于人类反馈的强化学习（RLHF）等技术。<br>不管是预训练还是对齐，都对模型质量至关重要，但驱动这一范式发展的大部分动力却来自ScalingLaw——使用更多数据训练更大的模型，就能得到更好的结果。<br>标准LLM的训练流程<br>近段时间，LLM研究中出现了一个全新的范式：推理。与标准LLM相比，推理模型解决问题的方式完全不同。特别是，它们在提供问题的最终答案之前会花费一些时间「思考」。训练能够有效思考（例如，分解问题、检测思维中的错误、探索替代解决方案等）的模型需要新的策略，通常涉及大规模强化学习（RL）。此外，此类模型还会为通过强化学习和推理进行训练的范式涌现出新的ScalingLaw。<br>来自[4]<br>本文将介绍有关推理模型的最新进展的更多信息。首先，我们将重点介绍OpenAI最早提出的几种（封闭式）推理模型。我们将在上下文中解释LLM推理能力的基本思想。之后，我们将探索最近提出的（开放式）推理模型，概述从头开始创建此类模型的必要细节。推理模型与标准LLM不同。但不用担心。LLM的许多关键概念仍然适用于推理模型。我们将在整个过程中澄清它们之间的重要区别。<br>推理时代<br>就在AI发展看起来要放缓之际，推理模型开始普及，LLM的能力开始陡然提升。OpenAI首先发布了o1-preview[4]，随后是一系列蒸馏版（更小）模型，包括o1-mini以及o3的一些变体版本。其它公司也纷纷跟进，包括谷歌的Gemini2.0FlashThinking。这一节将探讨这些最早的封闭式推理模型及其工作原理背后的基本思想。<br>最早的推理模型：o1和o1-mini<br>OpenAI发布o1-preview[4,5]时明确了两件事：<br>推理模型可以非常准确地解决可验证的任务，比如数学和编程任务。<br>推理模型解决这些问题的方法与传统LLM的方法截然不同。<br>长思维链。推理模型与标准LLM的主要区别在于在回答问题之前会进行「思考」。推理模型的思考就是LLM输出的长思维链（有时也被称为推理迹线或轨迹）。长思维链的生成方式与任何其他文本序列无异。然而，这些推理轨迹表现出了非常有趣的特性——它们更类似于搜索算法而不是原始文本生成。举个例子，推理模型可能会：<br>仔细考虑复杂问题的每个部分。<br>将复杂问题分解为更小的可解决部分。<br>批评其自身的（部分）解决方案并发现错误。<br>探索许多替代解决方案。<br>有关这些推理轨迹的一些具体示例，请参阅OpenAI博客：https :&#x2F;&#x2F;openai.com&#x2F;index&#x2F;learning-to-reason-with-llms&#x2F;<br>值得注意的是，OpenAI推理模型使用的长思维链隐藏在其内部，这意味着在与模型交互时，用户看不见它们。用户只能看到模型编写的长思维链摘要，如下所示：<br>推理模型的长思维链输出为我们提供了一种控制LLM推理时间计算的简单方法。如果我们想花费更多计算来解决问题，我们可以简单地生成更长的思维链。同样，不太复杂的问题可以用较短的思维链解决，从而节省推理时间的计算。<br>推理能力。最初的推理模型实际上在许多方面都不如标准LLM，但它们将LLM的推理能力提高了几个数量级。例如，o1-preview的推理表现总是优于GPT-4o，甚至在大多数复杂推理任务上能与人类专家的表现相媲美。为了实现这些结果，o1-preview使用最大化的推理时间计算以及i)单个输出样本（柱状图主干）或ii)64个并行输出样本中的多数投票（柱状图增高部分）进行评估。<br>o1系列模型与GPT-4o在多个推理任务上的比较，来自[5]<br>o1-preview之后，OpenAI的o1（preview发布几个月后发布的o1的完整版本）在美国数学奥林匹克资格考试（AIME2024）中名列前500名，在Codeforces上排名在竞赛人类程序员的第11个百分位之内。作为参考，GPT-4o仅解决了12%的AIME问题，而o1解决了74%到93%的问题，具体取决于推理设置。有关o1和GPT-4o性能的更详细比较，请参见下图。<br>o1明显优于GPT-4o（来自[5]）<br>同样，o1-mini（o1的更便宜、更快的版本）也具有令人印象深刻的推理能力，不过相比于完整版o1模型，其成本降低了80%。虽然与o1相比，o1-mini的世界知识有限，但它在编程任务方面尤其出色，而且考虑到其效率，其表现非常出色。<br>当前最佳的推理模型：o3和o3-mini<br>OpenAIo3在ARC-AGI上的性能<br>在宣布和发布o1模型后不久，OpenAI宣布了o3——o1系列中最新的模型。这个模型最初只是宣布（未发布）。我们能够在几个值得注意的基准上看到该模型的性能（由OpenAI测量），但实际上无法使用该模型。OpenAI发布的指标非常惊人。事实上，o3的表现让很多人感到震惊。o3最显著的成就是：<br>在ARC-AGI基准测试中得分为87.5%——AGI的「北极星」，五年来一直保持不败——GPT-4o的准确率为5%。o3是第一个在ARC-AGI上超过人类水平85%的模型。<br>在SWE-BenchVerified上的准确率为71.7%，在Codeforces上的Elo得分为2727，使o3跻身全球前200名竞争性程序员之列。<br>在EpochAI的FrontierMath基准测试中的准确率为25.2%，相比之前最佳的2.0%的准确率大幅提高。<br>然而，公众无法访问o3模型来验证任何这些结果。在撰写本文时，完整的o3模型仍未发布，但OpenAI最近发布了该模型的较小版本——o3-mini[6]。<br>与OpenAI的其他推理模型相比，o3-mini更具成本效益且更易于投入生产。例如，此模型支持函数调用、Web搜索和结构化输出等功能。o3-mini还具有多种设置，包括low、medium和high，这指定了用于解决问题时执行的推理量。此设置可以直接在API请求中指定，并且该模型的表现非常惊人——在许多情况下与o1相当，具体取决于推理工作量的级别。<br>o3-mini性能详情（来自[6]）<br>在大多数情况下，推理工作量low的o3-mini与o1-mini的性能相当，而推理工作量high的o3-mini的性能则超过OpenAI发布的所有其他推理模型（包括完整版o1模型）。<br>与之前的推理模型相比，o3-mini还具有更好的世界知识（即提高了事实性），效率明显更高，并且在人类偏好研究中得分更高。特别是，[6]中提到，在内部A&#x2F;B测试期间，「o3-mini的响应速度比o1-mini快24%，平均响应时间为7.7秒，而o3-mini为10.16秒。」o3-mini是OpenAI的o1式推理模型中（迄今为止）发布的最高效的模型。<br>o3-mini与o1-mini在STEM&#x2F;非STEM提示词上的胜率（来自[6]）<br>其它模型提供方。OpenAI发布o1式模型后，其他模型提供方也迅速跟进。例如，谷歌最近发布了实验性的Gemini-2.0FlashThinking，它保留了Gemini模型的标志性长上下文——1Mtoken上下文窗口，并在关键可验证任务（例如AIME和GPQA）上取得了可观的指标。然而，这个模型的性能仍然落后于o1和o3-mini。<br>最近，Grok-3的推理测试版发布，非常引人注目。如下所示，Grok-3推理模型在high推理工作量下超过了o3-mini的性能，甚至在少数情况下接近完整的o3模型；例如，AIME’24的准确率为96%，而o3的准确率为97%。使用大型新计算集群进行训练的Grok-3令人印象深刻（尤其是考虑到xAI的年轻）。在撰写本文时，Grok-3的推理测试版是与OpenAI推理模型最接近的竞争对手。<br>推理模型的基准<br>在进一步了解推理模型的工作原理之前，让我们更深入地了解它们的性能。要真正了解这些模型的能力，我们需要做的不仅仅是查看指标——我们需要检查这些模型正在解决的问题的具体示例。例如，考虑GSM8K（如下所示），这是一个小学水平的数学基准。这些问题可能看起来微不足道，但LLM们多年来一直在努力准确地解决这个基准。<br>GSM8K中的示例问题<br>随着推理模型的出现，这个基准已经完全饱和——我们不再能用它来有意义地评估最佳推理模型。相反，我们开始用LLM解决更难的问题。<br>AIME2024中的示例问题<br>例如，考虑AIME2024中的第15个问题，如上所示。这个问题相当复杂，超过了GSM8K中的算术推理问题。有（至少）六种不同的方法可以解决这个问题，所有这些方法都需要掌握高级数学技巧（例如导数、数论或拉格朗日乘数）。<br>此外，推理模型正在解决的复杂基准还不仅仅是数学！例如，GPQA[7]包含来自多个科学领域的数百道多项选择题；例如，生物学、物理学和化学。所有这些问题都是由领域专家编写的，经过验证，它们既非常困难，又无法通过互联网搜索找到答案，这意味着即使有足够的时间和不受限制的互联网访问，非专家也很难解决这些问题。<br>「我们确保这些问题是高质量且极其困难的：拥有或正在攻读相应领域博士学位的专家的准确率达到65%，而技能娴熟的非专家验证者准确率仅为34%，并且他们即便可以不受限制地访问网络，也平均花费了超过30分钟的时间。」-来自[7]<br>ARC-AGI基准——被描述为「迈向AGI的重要垫脚石」——涉及各种基于网格的谜题，其中LLM必须在输入输出网格中学习模式，并在最终输出示例中完美复制这种学习到的模式。大多数LLM都很难解决这些难题（例如，GPT-4o的准确率仅为5%），但推理模型在这个基准上表现相当不错——准确率可达30-90%，具体取决于计算预算。<br>至少可以说，这些是推理LLM开始解决的不同级别的（非平凡）问题。尽管这些基准测试难度很大，但现代推理模型的能力也很强——据报道，OpenAI的o3模型在AIME2024上取得了近97%的分数。在人工检查其中一些问题后，我们可以真正理解这个结果的重要性。<br>推理模型基础<br>虽然上面介绍的推理模型显然令人印象深刻，但都是封闭模型。因此，我们不知道它们实际上是如何工作的。我们得到的唯一信息是上面的引文和如下所示的图表。<br>（来自[5]）<br>然而，从这些有限的信息中，我们可以得出一些有用的结论。主要而言，扩展推理模型涉及两个关键组件：<br>通过强化学习进行更多训练。<br>更多推理时间计算（即推理时间扩展）。<br>尽管OpenAI并未透露扩展推理模型这两个组件的方法背后的许多细节，但仍有大量关于此主题的研究发表。为了提供更多背景信息，让我们简要介绍一下其中一些工作，加上OpenAI分享的细节，可以让我们大致了解推理模型训练和使用的一些关键概念。<br>具有可验证奖励的强化学习<br>关于o1式模型，我们应该注意到的一个细节是，它们主要用于本质上可验证的问题并根据这些问题进行评估；例如数学和编程。但是，在这种情况下，「可验证（verifiable）」到底是什么意思？<br>首先，我们假设我们可以获取i）问题的基本答案或ii）可用于验证正确性的某些基于规则的技术。<br>通过精确字符串匹配验证数学问题<br>例如，我们可以为大多数数学问题定义一个基本答案——在GSM8K中，这是使用####语法完成的。然后，我们可以从LLM的输出中提取最终答案，并使用基本字符串匹配将此答案与groundtruth答案进行比较；见上图。类似地，如果我们为编程问题准备了测试用例，我们可以简单地执行由LLM生成的代码并检查提供的解决方案是否满足所有测试用例。<br>「可验证奖励的强化学习（RLVR）可以看作是现有引导语言模型推理方法的简化形式或具有执行反馈的更简单形式的强化学习，其中我们只需使用答案匹配或约束验证作为二进制信号来训练模型。」-来自[13]<br>说一个领域是「可验证的」并不意味着我们可以自动验证该领域问题的任意解决方案。相反，我们经常需要访问groundtruth答案（通常从人类那里获得）进行验证。<br>但是，有些行为可以使用简单规则而不是groundtruth来验证。例如，我们可以使用一组硬编码规则执行简单检查来确定推理模型是否具有正确的输出格式、是否遵循某些指令或是否产生特定长度的输出（例如，o3-mini使用的low、medium或high推理工作量）。<br>验证复杂性。根据我们正在解决的问题，验证LLM的输出可能会变得非常复杂。即使对于数学问题，验证LLM的答案与基本事实之间的匹配也很困难。例如，解答可能以不同的形式或格式呈现，从而导致假阴性验证。在这些情况下，简单的字符串匹配可能还不够！相反，我们可以提示LLM，让其告诉我们这两个解是否匹配，这已被发现可以大大减少不正确的验证[14]。对于代码，实现验证也很困难——它需要构建一个数据管道，并且其要非常有效地在训练设置中执行和验证测试用例。<br>神经验证。除了上面概述的可验证问题之外，我们还可以考虑较弱的验证形式。例如，创意写作是一项难以验证的任务。但是，我们可以：<br>训练神经奖励模型或验证器。<br>使用此模型对LLM输出进行评分。<br>使用预测分数作为奖励或验证信号。<br>这样的设置与基于人类反馈的强化学习（RLHF）非常相似。在这种情况下，会训练奖励模型根据模型响应的正确性或质量执行二元验证。但是，使用神经验证器会有奖励hacking的风险，尤其是在执行大规模强化学习时。模型的训练时间更长，并且会对奖励图景进行更多探索，从而增加了奖励hacking的风险。因此，许多最近的推理模型都避开了这种方法。<br>「我们在开发DeepSeek-R1-Zero时没有应用神经奖励模型，因为我们发现神经奖励模型在大规模强化学习过程中可能会受到奖励hacking攻击的影响，而重新训练奖励模型需要额外的训练资源，这会使整个训练流程变得复杂。」-来自[1]<br>用可验证的奖励学习。我们现在了解了验证，但如何使用验证来训练LLM？思路很简单：直接将验证结果用作使用强化学习进行训练的奖励信号。有很多不同的方法可以实现这个思路（例如，过程奖励或纯强化学习），但它们的共同主题是使用强化学习根据可验证的奖励学习。这是所有现代推理模型根基的基本概念。<br>（来自[13]）<br>对于使用强化学习从可验证的奖励中学习的方法，可以参考SashaRush的这个视频：https :&#x2F;&#x2F;youtu.be&#x2F;6PEJ96k1kiw<br>推理时间策略：思路链和解码<br>我们可以通过两种基本方法来增加语言模型在推理时消耗的计算量：<br>生成更多token（即更长的输出序列）。<br>生成多个输出。<br>在本节中，我们将更详细地介绍这些技术，探索如何通过思维链和不同的解码策略（如并行解码与顺序解码）在LLM中实际实现它们。<br>（来自[8]）<br>思维链。我们已经知道推理模型使用长思维链作为推理媒介。在[8]中提出，最简单的层面上，思维链只是LLM为其自身输出提供的一种解释。在大多数情况下，这些解释是在LLM生成最终答案之前编写的，允许模型在生成答案时将其解释用作上下文。<br>推理模型使用的长思维链与标准思维链有很大不同。标准思维链简洁易读。长思维链有几千个token。虽然它可以用于解释模型，但长思维链并未针对人类可读性进行优化。相反，它是一种宽泛的推理轨迹，以详细的方式解决问题，并包含各种复杂的推理行为（例如，回溯和自我优化）。<br>「我们决定不向用户展示原始的思维链……我们努力通过教导模型从答案中的思维链中重现有用的想法来部分弥补[这一决定]。对于o1模型系列，我们会展示模型生成的思维链摘要。」-来自[5]<br>此外，推理模型会在逻辑上将其思维链与模型的最终输出分开。例如，OpenAI不会向用户展示长思维链，而是提供LLM生成的长思维链摘要来补充推理模型的最终答案。由于思维链的长度，这种逻辑分离是有必要的。大多数用户只会阅读最终答案——阅读整个推理轨迹将非常耗时。<br>（来自[15]）<br>并行解码。为了提高LLM最终输出的准确性，我们还可以使用并行解码技术。思路很简单：不使用LLM生成单个输出，而是生成多个输出并聚合这些输出以形成单个最终答案。这种聚合可以通过多种方式完成；例如，使用多数投票或共识、使用加权投票、使用神经奖励模型或验证器（即也称为Best-of-N或拒绝采样）或其他特定领域算法找到最佳输出。<br>这些方法的主要好处是简单又有效。并行解码很容易扩展：我们只需生成、验证和聚合大量输出，就能得到有意义的性能提升[9,10,11]。o1式模型显然使用了并行解码技术——只需查看其博客中提供的图表细节（如下所示）！但是，并行解码技术本身无法解释最近发布的推理模型所表现出的一些更复杂的推理行为。<br>（来自[5]）<br>顺便说一句，我们还可以将拒绝采样的思想应用于训练（即训练与测试时间拒绝采样）。为此，我们只需：<br>采样几个输出或轨迹。<br>使用奖励模型（或其他评分机制）选择最佳输出。<br>使用这些输出进行训练。<br>在实践中，这种方法很常用；例如，LLaMA模型在应用RLHF之前，会在其后训练过程中执行几轮训练时间拒绝采样。拒绝采样在实践中非常有效，与基于PPO的RLHF相比，它更容易实现和扩展。<br>自我优化。除了并行解码之外，还可以考虑为解码采用批评或自我优化策略。首先，LLM生成初始响应。然后，为响应提供反馈（来自LLM或某些外部来源），LLM可以根据反馈修改其响应。此循环可以重复任意次数；参见下图。<br>（来自[15]）<br>目前已有不同的优化方法，但它们可以大致分为两类：<br>外部式：反馈来自某些外部验证器或模块。<br>内部式：LLM为其自身生成提供反馈。<br>优化的结果和实际效果有些复杂。有许多使用外部反馈（例如来自验证器[16]或代码解释器[17]）来优化LLM输出的成功案例。内部优化是否有效在很大程度上取决于LLM提供的反馈质量。内部优化可以很好地完成简单任务[18]。然而，这种方法很难泛化到更复杂的任务（例如数学）[19]。<br>开放式推理模型：DeepSeek-R1等<br>到目前为止，我们已经了解了LLM获得推理能力的基本概念。然而，我们所了解的所有模型都是封闭的——我们无法知道这些模型究竟是如何创建的。幸运的是，最近发布了几个开放式推理模型。这些模型中最引人注目的是DeepSeek-R1[1]。除了与OpenAIo1相媲美的性能外，该模型还附带了一份完整的技术报告，其中提供了足够的细节，因此完全揭开了创建强大推理模型所需过程的神秘面纱。<br>（来自[1]）<br>DeepSeek-R1背后的核心思想与我们迄今为止学到的知识非常吻合。该模型在可验证任务上使用强化学习进行训练，它学习利用长思维链来解决复杂的推理问题。有趣的是，强化学习训练过程是该模型强大推理能力的关键因素。该模型的多个版本——DeepSeek-R1-Zero和DeepSeek-R1——都已发布，具有相当的推理能力。正如我们将看到的，它是这类模型中第一个完全放弃了任何监督训练的模型，表明复杂的推理能力可自然地从使用强化学习的大规模训练中涌现。<br>「DeepSeek-R1-Zero是一种通过大规模强化学习（RL）训练的模型，没有监督微调（SFT）作为初步步骤，它展示了非凡的推理能力。通过强化学习，DeepSeek-R1-Zero自然地涌现出了许多强大而有趣的推理行为。」-来自[1]<br>DeepSeek-v3。DeepSeek-R1-Zero和DeepSeek-R1都始于一个强大的基础模型：DeepSeek-v3[2]。除了具有开放权重和详细的技术报告[2]之外，该模型还超越了之前的开放LLM的性能，甚至与封闭模型的质量相当。<br>（来自[2]）</p>
+<p>为了提高推理和训练效率，DeepSeek-v3做出了以下设计选择：<br>使用多头隐注意力（MLA)。<br>采用优化的MoE结构（例如，细粒度和共享专家）。<br>在预训练期间使用多token预测目标。<br>放弃通常用于训练MoE模型的负载平衡损失。<br>通过采用[2]中提出的新型量化训练策略，在整个训练过程中将精度降低到FP8。<br>出于这些原因，与其他模型相比，DeepSeek-v3的训练非常经济：该模型在性能和效率方面都表现出色。该模型的几个先前版本已经发布，这些版本启发了DeepSeek-v3做出的一些设计决策，例如DeepSeek-v2和DeepSeek-v2.5。<br>DeepSeek-R1-Zero<br>DeepSeek提出的第一个推理模型是DeepSeek-R1-Zero。该模型采用了一种有趣的训练策略，即教模型纯粹通过大规模强化学习进行推理，而无需任何SFT。该模型会自然探索并学习利用长思维链通过强化学习解决复杂的推理问题。DeepSeek-R1-Zero是第一个公开的研究成果，表明无需监督训练即可开发推理能力。<br>（来自[22]）<br>使用GRPO的强化学习。DeepSeek-R1-Zero的训练从DeepSeek-v3[2]基础模型开始。他们是直接通过强化学习微调这个基础模型。特别是，[1]中的作者选择了上图中所示的组相对策略优化（GRPO）[3]作为他们的强化学习算法。选择用于LLM训练的强化学习算法是一个开放且活跃的研究课题。传统上，研究人员使用PPO来训练LLM，但最近有一种趋势是采用更简单的强化学习算法（例如REINFORCE或GRPO）进行LLM训练。[1]中给出的选择GRPO的主要原因是：<br>降低强化学习训练成本。<br>不再需要批评模型，该模型（通常）与策略模型（即LLM本身）大小相同。<br>定义奖励。与大多数使用LLM的传统强化学习工作不同，DeepSeek-R1-Zero不使用神经奖励模型（即基于LLM的奖励模型，这些模型通过偏好数据进行训练）。相反，作者使用了基于规则的奖励系统，它i）避免奖励hacking，ii）节省计算成本，iii）更易于实现。特别要指出，目前使用的奖励有两种：<br>准确度奖励：评估模型的响应是否正确。<br>格式奖励：强制模型以一定格式输出。<br>DeepSeek-R1-Zero完全是在可自动验证的任务上进行训练的，例如数学和编程问题。对于具有确定性结果的数学问题，该模型可以以指定的格式提供答案，使我们能够通过基本的字符串匹配进行验证。同样，可以通过在预定义的测试用例上执行LLM在沙箱中生成的代码来验证编程问题。<br>如前所述，当模型的输出格式正确时，格式奖励会提供积极的训练信号。[1]中使用的格式只是将模型的长思维链（或思考&#x2F;推理过程）放在两个特殊token之间：和。然后，在推理过程完成后，模型会在和标签之间单独生成答案；如下所示。<br>（来自[1]）<br>通过强化学习进行学习。尽管没有使用SFT，但DeepSeek-R1-Zero在整个强化学习训练过程中的推理能力都有了明显的进步。随着训练的进行，模型在AIME2024上的表现如下图所示。<br>（来自[1]）<br>可以看到，模型的性能逐渐提高，最终达到与o1-preview相当的水平。训练完成后，DeepSeek-R1-Zero在AIME2024上的表现从最初的15.6%提高到了71.0%（或在使用16票多数投票时为86.7%）！这样的结果与我们在封闭式推理模型中看到的性能趋势是一致的——DeepSeek-R1-Zero在强化学习训练后实现了令人印象深刻的性能，并且可以通过并行解码策略进一步提高其性能。<br>下表给出了DeepSeek-R1-Zero和o1模型之间的完整性能比较。DeepSeek-R1-Zero在大多数情况下与o1-mini的性能相当或超过o1-mini，并且在几个任务上的表现与o1-preview相当。然而，OpenAI的推理模型在编程领域表现更好——DeepSeek-R1-Zero显然是一个较弱的编程模型。我们很快就会看到，这个问题在DeepSeek-R1（后续模型）中得到了解决。<br>（来自[1]）<br>发生了什么？显然，DeepSeek-R1-Zero从[1]中介绍的强化学习训练过程中获得了出色的推理能力。然而，模型学习过程的动态也相当明显！因为没有进行SFT式训练，所以可以在整个强化学习训练过程中密切监控模型推理策略的进展。如下所示，DeepSeek-R1-Zero学会了利用更多的「思考时间」，即生成越来越长的思维链，从而可以随着训练的进行改进其推理过程。该模型自然学会了利用更多的测试时间计算来解决更难的问题！<br>（来自[1]）<br>[1]的作者还观察到在强化学习训练过程中自然涌现的几种有趣趋势。例如，该模型通过重新审视和评估其推理过程的先前组成部分，发展出反思自身解决方案的能力。同样，该模型在解决问题的过程中开始显式地测试和探索替代解决方案或方法。这种行为不是现实编程在模型中的，而是在强化学习训练过程中自然涌现的！<br>在最基本的层面上，[1]中构建的强化学习环境允许模型探索不同的策略来得出正确的（由验证确定的）最终解答。在探索过程中，模型做到以下两点就能获得奖励：<br>使用了正确的推理模板或结构。<br>给出的最终解答是正确的。<br>仅凭这些奖励，模型就能学会如何解决复杂的推理问题。我们不需要显式地教模型如何分解问题、寻找解决方案、执行回溯或评估自己的思路。相反，我们只需在训练过程中为模型提供正确的激励（或奖励）。然后，LLM可以通过基于强化学习的「自我进化」过程自主学习解决问题所需的行为。<br>DeepSeek-R1<br>DeepSeek-R1-Zero表明，LLM可以使用没有SFT的纯强化学习获得出色的推理能力，但这个模型有一些小错误。例如，它的可读性很差，并且它会错误地将语言混合在一起。简而言之，DeepSeek-R1-Zero非常擅长推理，但它缺乏一些已良好对齐的LLM的理想属性。为了解决这些问题，[1]中的作者提出了一种新的多阶段训练过程，将一些「冷启动」SFT数据与其他一些技巧整合到了训练中。此训练流程得到的DeepSeek-R1是一款既已对齐又能进行复杂推理的LLM。<br>与DeepSeek-R1-Zero类似，DeepSeek-R1的基础也是DeepSeek-v3。然后，DeepSeek-R1经历四个阶段的训练，包括两个SFT阶段和两个强化学习阶段。SFT阶段的目的是在每个强化学习阶段为探索提供更好的起点。该训练流程是[1]的主要贡献之一：它提供了一种有效的方法，可将推理式训练与LLM的标准后训练方法相结合。下面更深入地介绍下DeepSeek-R1使用的训练方法的每个阶段。<br>第一阶段：冷启动（或面向推理的SFT）。在进行强化学习训练之前，R1通过SFT在一小组长思维链示例数据集上进行训练，[1]中将其称为「冷启动」数据。我们可以使用几种不同的方法来收集这些冷启动数据：<br>通过提示词调用一个模型（例如DeepSeek-v3）生成长思维链数据，可以使用少量示例，也可以指示模型生成详细答案并进行反思和验证。<br>使用R1-Zero模型生成大量长思维链输出，然后让人类进行后处理并选择模型的最佳输出。<br>[1]结合了这些方法，收集了「数千个冷启动数据」。基于这些数据再使用SFT对DeepSeek-V3直接进行微调。因为这里使用的是长思维链数据，所以这是一个面向推理的微调过程。从这个冷启动数据中，模型可以学习一个可行的（初始）模板来解决推理问题。<br>用于面向推理的SFT的数据可将人类先验引入DeepSeek-R1的训练过程。我们可以显式地选择模型在此阶段学习的数据风格和模式。例如，[1]中提到，他们将这些数据结构化为包含每个长思维链的摘要，从而教会模型在提供最终答案之前总结其整个推理过程。这些数据是强化学习训练过程的种子——模型通过匹配SFT训练数据的风格开始自我探索。<br>第二阶段：面向推理的强化学习。在SFT之后，就是重复R1-Zero提出的大规模强化学习训练过程了，这是为了增强底层模型处理推理密集型任务的能力。DeepSeek-R1的唯一变化是增加了语言一致性奖励，其在计算中是作为模型输出中采用所需目标语言编写的部分。[1]中发现这种语言一致性奖励会略微降低模型的推理能力。但是，语言一致性可提高最终模型与人类偏好的整体对齐程度——模型的输出更加流畅和可读。<br>第三阶段：拒绝采样。在面向推理的强化学习收敛之后，再使用最终模型来收集大量且多样化的SFT数据集。然而，与最初的冷启动SFT阶段不同，这里收集的不仅仅是面向推理的数据。也就是说是用通用数据扩充推理数据，以便模型可以从更广泛的问题和领域中学习。<br>为了收集更多的推理数据，DeepSeek-R1团队：<br>整编一组多样化的基于推理的提示词。<br>使用第二阶段的模型生成候选轨迹。<br>执行拒绝采样，即根据每个轨迹的质量和正确性过滤并选择最佳轨迹。<br>这与前文介绍的训练时间拒绝采样过程相同！有趣的是，在这个阶段，不仅仅是依赖基于规则的技术来进行验证。还会通过使用DeepSeek-v3作为生成奖励模型或弱验证器来整合来自不可验证域的额外数据。在应用启发式过滤（例如，删除带有多语言混合或长段落的输出）后，他们最终得到了一个包含60万个推理轨迹的集合。<br>此阶段的SFT数据集包含大量非推理数据（例如，写作或翻译示例）。这些数据来自DeepSeek-v3所用的相同的训练后数据集。但是，通过要求DeepSeek-v3生成长思维链来解释复杂查询的输出，这些数据得到了增强——不过，更简单的查询没有任何思维链。最终，他们总共收集了20万个非推理示例样本，加起来得到了一个包含80万个样本的SFT数据集。<br>第四阶段：通用RLHF。DeepSeek-R1最后训练阶段的目标是使模型与人类偏好对齐，同时继续磨练其推理能力。与前一阶段类似，这里会使用基于推理的数据和通用数据的组合来训练模型。具体来说，训练的方法是使用强化学习并针对每种类型的数据使用不同的奖励组合：<br>基于规则的奖励（与R1-Zero相同），用于基于推理的问题。<br>针对一般数据使用神经奖励模型——使用人类偏好对进行训练，正如RLHF一样。<br>DeepSeek-R1经过调整，在通用数据上更有帮助且无害。这是LLM研究中使用的两个非常常用的对齐标准。每个标准都使用单独的神经奖励模型进行建模，该模型通过人类偏好的（监督）数据集进行训练。有用性奖励仅针对模型的最终答案进行衡量（即排除长思维链），而无害奖励则考虑模型的整个输出轨迹。通过结合规则和基于偏好的奖励，DeepSeek-R1可以与人类偏好对齐，同时保持强大的推理性能。<br>（来自[1]）<br>它的表现如何？如上所示，R1在大多数推理任务上的表现与o1相当甚至超过o1。与R1-Zero不同，R1还具有相当强的编程能力。在通用任务上，由于其混合训练管道，R1继续表现良好。总的来说，R1是一个非常强大的模型，似乎与OpenAI的o1不相上下，并且可以高精度地解决各种任务（包括传统任务和推理导向任务）。<br>关于这个模型（和其他推理模型）的一个有趣的观察是，与标准LLM相比，它在指令遵循基准（例如IF-Eval）上表现不佳。目前，推理模型在遵循指令方面似乎比标准LLM更差。在未来，我个人认为这种趋势可能会逆转。理论上，推理模型应该能够利用它们的思维过程来更好地解释和遵循人类用户提供的提示词。例如，审议对齐（deliberativealignment）便采用了类似思想的方法。<br>SFT是必要的吗？R1-Zero展现了在没有SFT的情况下训练出强大推理模型的能力，而完整的R1模型使用多个SFT阶段来获得更强大的最终模型。因此，我们可能会开始怀疑：我们是否应该使用SFT？<br>对推理模型来说，SFT是否有必要？<br>对于标准LLM，SFT为RLHF提供了高质量的起点。如果我们将RLHF直接应用于基础模型，学习过程的效率就会大大降低。SFT的数据要么是合成的，要么是人类手动创建的。通常，收集SFT的数据是昂贵的（无论是在时间还是金钱方面）——我们必须为LLM从头开始手动编写一个好的响应！<br>由于它们的思维链较长，为推理模型收集此类SFT数据更加困难。要求人类手动创建长思维链数据将耗时且昂贵！我们唯一的选择是合成这些数据，但是：<br>可能很难使用模型生成这种特定风格的输出。<br>很难正确验证这种长输出。<br>考虑到为推理模型收集SFT数据的额外复杂性，[1]中的作者首先尝试了完全避开SFT！从这些实验中，我们看到推理能力自然地从纯强化学习中涌现——这是一个令人难以置信的发现！然而，由此产生的模型有几个缺点（例如混杂使用多种语言）。<br>而当在强化学习之前执行一些SFT训练（即「冷启动」）时，可为强化学习提供更好的先验，这i）可以消除强化学习训练初始阶段的不稳定性，ii）能加快训练速度，iii）能提高模型质量。因此，SFT并非完全必要，但如有数据，它仍会很有用！<br>蒸馏模型<br>知识蒸馏过程图示<br>除了DeepSeek-R1，DeepSeek还发布了一系列基于R1蒸馏得到的密集模型。人们早已发现，蒸馏过程可以显著增强更小、更高效的模型的推理能力。完整版DeepSeek-R1是有着6710亿参数的混合专家模型，非常大，因此这些蒸馏模型在实践中非常有用——它们的性能与R1相当，但成本更低且更易于使用。此外，这些蒸馏模型的发布与封闭推理模型（例如o1-mini和o3-mini）的最新趋势一致。<br>（来自[1]）<br>蒸馏R1。为了创建这些模型，他们首先选择了几种不同大小的Qwen-2.5[20]和LLaMA-3[21]模型。然后，通过SFT使用在DeepSeek-R1训练流程第三阶段整编的80万个监督训练样本对这些基础模型进行训练——就这么简单！<br>这是一个简单的知识蒸馏流程，但结果却非常惊艳。如上所示，经过蒸馏的Qwen2.5-14B模型的表现优于QwQ-32B-Preview，后者是R1发布之前最好的开放式推理模型。此外，即使是最小的蒸馏模型也比未针对推理进行优化的标准封闭式LLM表现更好（例如GPT-4o），而320亿和700亿参数的蒸馏模型在大多数基准测试中的性能都超过了o1-mini。<br>蒸馏与强化学习。虽然我们在上面的讨论中看到蒸馏是有效的，但我们可能想知道：如果将DeepSeek-R1使用的大规模强化学习训练过程直接应用于这些较小的模型，那么能获得更好的结果吗？<br>有趣的是，[1]中提到，使用上述蒸馏方法基于R1蒸馏Qwen2.5-32B基础模型比通过大规模强化学习直接训练该模型表现更好，如下所示。<br>（来自[1]）<br>换句话说，大型模型发现的推理模式对于提高这些较小、密集模型的推理能力至关重要。但是，[1]中的作者确实提出了以下补充观点：<br>通过增加强化学习训练，蒸馏模型的性能可能得到进一步提升。<br>「超越智能的边界」，即创建超过DeepSeek-R1等模型性能的新推理模型，仍然需要强大的基础模型和大规模的强化学习训练。<br>其他蒸馏推理模型。鉴于通过蒸馏训练高质量推理模型很简单，研究界在R1提出后发布了各种各样的推理模型。其中一些最吸引人的版本是：<br>Sky-T1和Sky-T1-Flash：https :&#x2F;&#x2F;novasky-ai.github.io&#x2F;posts&#x2F;sky-t1&#x2F;</p>
+<p>LIMO：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.03387<br>S1：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2501.19393<br>RedStar：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2501.11284<br>当然，还不止这些！当前推理模型发布的步伐让人想起了LLM研究的后LLaMA时代。在发布强大的开放基础模型（即LLaMA）之后，我们看到了基于该模型的各种模型变体（例如，Alpaca、Vicuna、Koala等等）。现在，我们可以使用强大的开放推理模型，因为我们看到了非常相似的趋势！该领域的研究非常有趣，值得单独写一篇文章。敬请期待！<br>主要的新趋势<br>我们现在已经了解了各种推理模型，从o1或o3等封闭模型开始，到DeepSeek-R1中对这些模型的完整复现。随着我们对这项研究的了解，开始出现了一些共同的趋势。这些趋势对推理模型和标准LLM的研究做出了一些重要区分。罗列如下：<br>长思维链（和推理时间扩展）。推理模型和标准LLM之间的关键区别在于它们的输出结构。推理模型不会直接生成最终答案（带有可选的简明解释），而是生成一个较长的思维链，其详细描述了模型的推理过程。这个较长的思维链长度不一，从而在推理时可实现可控的计算成本：较长的思维链&#x3D;更多的token&#x3D;更多的计算。这样，在推理时使用更多的计算（生成较长的思维链）已成为一种工具，可让用户动态调整模型的推理能力。<br>通过强化学习进行自我进化。显然，LLM使用较长的思维链执行复杂推理策略的能力是个新方向并且激动人心。从最近的研究中，这些特殊能力发展的关键因素是大规模强化学习训练。我们在[1]中看到，如果模型得到正确的激励，这种推理能力就会在强化学习期间自然涌现出来——通常是通过确定性和可靠的基于规则的奖励。此外，我们可以通过使用更多的计算进行强化学习训练来进一步提高模型的推理能力——这是我们可以利用的另一个ScalingLaw！<br>使用更少的监督。与标准LLM相比，推理模型对人类监督的依赖程度较低。特别是，强化学习训练期间的奖励主要来自基于规则的系统，而不是依赖于人类的偏好。当然，推理模型仍然有几个领域依赖于人类的监督；例如，基础模型使用人类整理的数据进行训练，验证依赖于人类提供的groundtruth标签。然而，像R1（尤其是R1-Zero）这样的推理模型仍然在大力发展，证明推理能力可以自主发展起来。<br>蒸馏是有效的。我们可以基于强大的大型推理模型，使用简单的策略将这些模型的能力蒸馏给更小、更密集的模型！这一发现导致了该领域研究的爆炸式增长，我们很可能会在不久的将来看到更多高效和蒸馏的推理模型发布。该领域的一个关键问题是较小的模型能否泛化，还是说难以完全匹敌其教师模型的广度。<br>需要解决的新问题。最重要的是，推理模型的出现也带来了各种有趣的新问题。我们还需解决的问题有：<br>如何为长思维链实现安全训练？<br>通用任务能力&#x2F;推理能力之间的最佳平衡是什么？<br>SFT在训练推理模型中的最佳作用是什么？<br>如何最大限度地减少长思维链中的「过度思考」？<br>如何实现推理模型的高效托管？<br>正如本文开头所述，推理模型是一种真正新型的LLM，它将迫使我们重新思考现有的框架。多年来一直使用的技术（例如，少样本提示）对于这些新模型来说已经过时了。LLM研究领域正在再次自我重塑。<br>参考文献</p>
+<p>[2]Liu,Aixin,etal.”Deepseek-v3technicalreport.”arXivpreprintarXiv:2412.19437(2024).</p>
+<p>[5]OpenAI.“LearningtoReasonwithLLMs”https :&#x2F;&#x2F;openai.com&#x2F;index&#x2F;learning-to-reason-with-llms&#x2F;(2024).<br>[6]OpenAI.“OpenAIo3-mini”https :&#x2F;&#x2F;openai.com&#x2F;index&#x2F;openai-o3-mini&#x2F;(2025).</p>
+<p>[12]Dubey,Abhimanyu,etal.”Thellama3herdofmodels.”arXivpreprintarXiv:2407.21783(2024).</p>
+<p>[17]Chen,Xinyun,etal.”Teachinglargelanguagemodelstoself-debug.”arXivpreprintarXiv:2304.05128(2023).</p>
+<p>[20]Yang,An,etal.”Qwen2.5technicalreport.”arXivpreprintarXiv:2412.15115(2024).<br>[21]Dubey,Abhimanyu,etal.”Thellama3herdofmodels.”arXivpreprintarXiv:2407.21783(2024).</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/02/1000000863-2247499729-1/">https://zejuncao.github.io/2025/03/02/1000000863-2247499729-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/DASOU/">
+                                    <span class="chip bg-color">DASOU</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/02/1000003416-2650957407-3/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000003416_2650957407_3.jpg" class="responsive-img" alt="ICLR 2025 | 机器人安灯泡、切东西都能拿捏，可操控轨迹跟踪的DexTrack来了">
+                        
+                        <span class="card-title">ICLR 2025 | 机器人安灯泡、切东西都能拿捏，可操控轨迹跟踪的DexTrack来了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/02/1000002441-2247629821-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002441_2247629821_2.jpg" class="responsive-img" alt="YOLOv12论文详解：以注意力机制为核心的实时目标检测">
+                        
+                        <span class="card-title">YOLOv12论文详解：以注意力机制为核心的实时目标检测</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">小白学视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
