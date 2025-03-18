@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="推理大模型的后训练增强技术-指令微调篇，如何用指令微调提升推理能力？, ZejunCao&#39;Blogs">
+    <meta name="description" content="推理大模型的后训练增强技术-指令微调篇，如何用指令微调提升推理能力？
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+指令微调定义：指令微调是一种在带有指令提示和相应输出的标记数据集上微调大模型的技术，通过提供一组概述">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>推理大模型的后训练增强技术-指令微调篇，如何用指令微调提升推理能力？ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000604_2247493055_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">推理大模型的后训练增强技术-指令微调篇，如何用指令微调提升推理能力？</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/ChallengeHub/">
+                                <span class="chip bg-color">ChallengeHub</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/c49UazaK4aOGroeVhGdcOg">推理大模型的后训练增强技术-指令微调篇，如何用指令微调提升推理能力？</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>指令微调定义：指令微调是一种在带有指令提示和相应输出的标记数据集上微调大模型的技术，通过提供一组概述所需操作的指南或指令，使预训练模型适应执行特定任务。<br>指令：“你是一个乐于助人、尊重他人且诚实的助手。始终尽可能有帮助地回答，同时确保安全。你的回答不应包含任何有害、不道德、种族主义、性别歧视、恶毒、危险或非法的内容。请确保你的回答在社会上不带有偏见，并且具有积极的性质。如果一个问题没有意义，或事实不连贯，请解释原因，而不是回答错误的内容。如果你不知道问题的答案，请不要分享错误信息。”<br>上下文：&gt;<br>问题：&gt;<br>输出：&gt;<br>指令微调是关于使用示例来训练模型，这些示例展示了模型应该如何响应查询，用于微调大模型的数据集必须服务于你的指令目的。例如：<br>文本总结：总结指令为开头，后面跟着文本或类似的短语<br>机器翻译：在翻译的情况下，应该包括像“翻译这段文本”这样的指令。<br>…….<br>关于指令微调的作用描述：<br>指令微调，在于预训练基座大模型并未针对对话或遵循指令进行优化。大模型不会回答提示：它们只是在提示后附加文本。指令微调有助于使生成的附加文本更有用。<br>指令微调是一种专门的微调技术，通过在大量包含指令和相应响应的数据集上训练模型，使其能够更好地理解和执行用户的指令。这种方法不仅提高了模型对指令的理解能力，还增强了其生成符合预期的高质量响应的能力。<br>通过指令微调，可以弥合LLM的下一个单词预测目标与LLM遵守人类指令的用户目标之间的差距。通过在指令数据集上微调LLM，可以使其更加符合用户需求，提高其可控性和可预测性。<br>我们举一个列例子，可以想象:<br>如果没有微调，基础大模型可能会对“教我如何游泳”的提示回复“去专业的游泳馆”。<br>这在语法上是一种合理的完成句子的方式，但显然不能满足用户的需求，用户的初始用意应该是让大模型输出游泳的姿势动作以及如何掌控等，以帮助其学会怎么游泳。<br>就像之前开玩笑说会出现大量的提示语工程师（PromptEngineer），提示语工程其实就是在做任务的微调（无参数更新），以便模型输出的结果更可能满足业务所需。<br>指令微调通过给予模型明确的指令和反馈，为使模型专门化提供了一种替代方法,与微调只是提供输入输出示例不同，指令微调能够利用自然语言和对话，解释期望的行为和评估标准。<br>目标不同：<br>传统微调：通常针对特定任务（如情感分析、机器翻译）或特定领域（如医学、法律）进行优化。<br>指令微调：旨在提升模型对各种通用指令的理解和执行能力，使其能够处理多样化的指令需求。<br>数据类型：<br>传统微调：使用专门针对某一任务或领域的数据集。<br>指令微调：使用包含各种指令及其理想响应的数据集，覆盖广泛的任务和应用场景。<br>指令微调和其他微调技术不冲突，指令微调通常与微调结合使用。微调提供领域知识基础，而指令微调允许高效适应<br>指令微调需要在标记的（输入、输出）对上进行有监督学习。指令微调与其他形式的有监督微调（SFT）的区别在于：<br>指令数据集中的输入样本完全由类似于用户在提示中可能提出的请求的任务组成；<br>输出展示了对这些请求的理想响应<br>指令数据集可以由人工创建，也可以由其他大模型生成：<br>从带注释的自然语言数据集集成数据。在这种方法中，通过使用模板将文本标签对转换为(指令、输出)对<br>使用LLMs生成输出：给定指令，使用LLMs，如GPT-3.5-Turbo或GPT4，快速生成输出<br>指令有两种来源：<br>人工构造，手工收集<br>使用llm扩展一个手写的小种子指令，将收集到的指令发送给大模型以获得输出，构造更多指令<br>指令数据集中的每个实例由三个元素组成：<br>指令：指定给定任务的自然语言文本输入。例如，“将这句话从英语翻译成中文。”<br>附加信息：可选的补充信息，提供与当前任务相关的上下文。例如，阅读理解任务的输入可能包括一段简短的文章（然后指示模型回答关于它的给定问题）。<br>期望输出：根据提供的指令和上下文生成的目标输出，即响应。作为模型预测的真实标准，模型根据此标准进行评估和优化。<br>指令微调结合了预训练-微调和提示工程这两种范式的优势。本质上，通过将提示工程的原则有机地融入到监督微调中，指令微调减少了为从微调模型中获得有效准确响应所需的提示工程和示例的数量。<br>下面我们一些指令数据集构建的例子<br>Alpaca数据集是用于指令微调语言模型的公开数据集之一。这个数据集被用于训练Alpaca模型(Llama2的指令微调版本)。该数据集包含52000个样本，这些样本是使用text-davinci-003模型生成的。数据集可以直接从HuggingFace数据集下载。<br>数据字段：<br>instruction（指令）：描述模型应执行的任务。52000条指令中的每一条都是唯一的<br>input（输入）：任务的可选上下文或输入。大约40%的示例有输入<br>output（输出）：由text-davinci-003生成的指令答案<br>text（文本）：指令、输入和输出按照作者用于微调他们的模型的提示模板进行格式化<br>Alpaca数据集构建方式是在Self-Instruct框架的数据生成管道基础上进行了以下修改：<br>使用text-davinci-003引擎生成指令数据<br>编写一个新的提示，明确向text-davinci-003给出了生成指令的要求<br>使用更激进的批量解码，即一次生成20条指令，这显著降低了数据生成的成本<br>通过舍弃分类指令和非分类指令之间的差异，简化数据生成管道。<br>每个指令只生成一个实例，而不像Self-Instruct中那样生成2到3个实例<br>https :&#x2F;&#x2F;huggingface.co&#x2F;datasets&#x2F;tatsu-lab&#x2F;alpaca<br>Self-Instruct过程是一种迭代自举算法，它从一组手动编写的指令种子集开始，并用它们来提示语言模型生成新的指令以及相应的输入-输出实例。然后对这些生成结果进行过滤以去除低质量或相似的实例，所得数据被添加回任务池中。这个过程可以重复多次，从而产生大量的指令数据集合，可用于微调语言模型以更有效地遵循指令。<br>InstructionTuningforLargeLanguageModels:ASurvey,https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2308.10792<br>微调通常涉及以下步骤：<br>加载预训练权重：模型的权重和偏置从预训练模型中加载。<br>特定任务数据：使用特定任务的数据集进行训练。<br>优化特定任务性能：模型通过优化损失函数来调整参数，以提高在特定任务上的性能。<br>指令微调和预训练模型架构一样，一般是因果解码器架构，下面左侧是模型架构，右侧是不同预训练模型在指令数据集进行微调后的变体。<br>指令微调阶段，模型的目标是通过最小化损失函数（通常是交叉熵损失），优化参数，使其更适应特定任务。对于指令微调，损失函数通常是：其中T是目标输出序列的长度，是目标输出的第个标记，x是输入序列（即指令和上下文）。<br>采样交叉熵损失，计算返回结果与输入的维度相同，然后采用loss_mask不计算prompt部分的损失，代码如下：<br>参数高效微调方法的分类。我们识别出三大类方法：基于加法的方法、基于选择的方法和基于重参数化的方法。在加法方法中，我们进一步区分出两个主要的子类：类似Adapter的方法和软提示方法。<br>ScalingDowntoScaleUp:AGuidetoParameter-EfficientFine-Tuning<br>近年来PEFT方法的演变发展。下面左图显示同一分支上的模型具有一些共同特点，模型的垂直位置表示它们发布的时间线，右图为大模型的参数高效微调方法的分类<br>Parameter-EfficientFine-TuningMethodsforPretrainedLanguageModels<br>2018年OpenAI推出GPT，标志着自然语言处理新时代的开始。<br>2019年发布的GPT-2率先使用零样本提示，直接利用预训练模型。<br>2020年推出的GPT-3展示了具有1750亿个参数的LLM的卓越能力，使它们能够通过少量提示有效地执行任务。<br>尽管GPT和BERT等模型取得了成功，但它们的预训练和微调方法仍存在局限性。文本补全目标可能无法提供足够的上下文理解，导致理解肤浅。此外，这些方法通常缺乏详细的任务描述，限制了模型的泛化能力。<br>2019年，多任务学习越来越受欢迎，T5等模型可以同时在多个任务上进行训练。T5数据格式由文本到文本格式和特定于任务的前缀组成，这是朝着正确方向迈出的一步。此前缀仅提供任务名称或简短提示以指示手头的任务。虽然这种方法提高了训练任务的性能，但它未能解决一个重大挑战：跨任务泛化。<br>T5数据格式由文本到文本格式组成，其中输入是具有任务特定前缀的文本序列，输出是生成的文本序列。<br>这一限制意味着模型无法有效地推广到新的、未见过的任务，这凸显了对更先进技术的需求，以增强模型理解和适应新指令的能力。<br>为了克服传统预训练和微调的局限性，2021年出现了一种新方法：指令微调。指令微调涉及在模型微调阶段向语言模型提供详细的自然语言指令。这种方法使模型能够更细致地理解任务上下文和元素之间的关系，从而使其能够更好地推广到新任务和上下文。<br>指令调整的泛化示例：在训练过程中，模型可能只会遇到翻译和摘要的任务。然而，在推理过程中，可以引入一个结合翻译和摘要的新任务。<br>指令调优的一个显著例子是谷歌的Wei等人于2021年9月推出的FLAN。FLAN通过利用更详细、更细致的指令来跟踪指令数据，标志着NLP领域的重大突破，从而显著提高了LLM的性能、多功能性和整体能力。FLAN的主要特点如下：<br>遵循指令的能力：FLAN旨在遵循自然语言指令，使其更加直观和用户友好。此功能允许用户使用普通语言与模型交互，而无需专门的提示或针对特定任务的微调<br>多样化的训练数据：该模型在广泛的任务和数据集上进行训练，确保它可以处理各种指令。FLAN论文的作者将62个NLP数据集汇编成12个任务集群，涵盖自然语言理解（例如情绪分析、常识推理）和自然语言生成（例如翻译、摘要）任务。训练数据的多样性有助于FLAN更好地推广到新的和未见过的任务，从而增强其鲁棒性和适应性。<br>泛化能力增强：通过在训练期间让模型接触各种指令，FLAN展示了增强的泛化能力。这意味着该模型可以在未经明确训练的任务上表现良好，展示了其有效理解和执行新指令的能力。</p>
+<p>性能增强：FLAN在各种NLP基准测试中都表现出了显著的性能提升。与传统的微调方法相比，该模型遵循指令并推广到新任务的能力带来了更高的准确率和更好的性能指标。<br>Flan与LaMDA-PT137B、GPT-3175B和GLaM64B&#x2F;64E在自然语言推理、阅读理解、闭卷问答和翻译方面的零样本性能比较。FLAN的性能是每项任务最多10个教学模板的平均值。监督模型是T5、BERT或翻译模型。<br>BigScience于2021年10月推出的T0代表了LLM多任务提示训练的重大进步。该模型旨在将各种NLP任务重新表述为自然语言提示格式，使其能够在未见过的任务上实现强大的零样本性能，而无需针对特定任务进行微调。T0的主要特点：<br>架构：T0基于T5（Text-to-TextTransferTransformer）架构，采用大规模预训练模型。该架构允许T0通过将多个NLP任务转换为文本到文本格式来统一处理它们。<br>2.指令遵循能力：T0专门设计用于遵循自然语言指令，使其易于使用。此功能允许用户使用通俗易懂的语言与模型进行交互，使其能够理解和执行各种指令。3.多样化的训练数据：该模型在包含大量任务和指令的广泛数据集上进行训练，从而增强了其推广到未知任务的能力。这种多样性有助于学习广泛的技能。T0数据集和任务分类法。（T0+和T0++在其他数据集上进行训练。完整列表见表5。）颜色表示监督级别。黄色数据集是训练混合数据集。绿色数据集是保留数据集，表示训练期间未见过的任务。由于输入长度较长，HotpotQA被重新定义为闭卷QA。<br>4.性能增强：T0在各种NLP基准测试中表现出色，通常比规模大得多的模型（最多大16倍）表现更好。其泛化和有效遵循指令的能力已显著提高了性能指标。<br>T0任务泛化实验结果与GPT-3的比较（Brown等人，2020年）。每个点代表一个评估提示的表现。基线T5+LM模型与T0相同，只是没有多任务提示训练。GPT-3仅报告每个数据集的单个提示。<br>Google的研究人员在FLAN和T0成功的基础上，研究了LLM中扩展指令调整的效果。他们的研究Flan-PaLM探索了三个关键因素：<br>扩大任务数量：增加任务的多样性会对模型的性能产生什么影响？<br>缩放模型尺寸：使用更大的模型（PaLM540B参数）有哪些好处或坏处？<br>对思路链（CoT）数据进行微调：对CoT数据进行微调能否提高模型的推理和算术能力？<br>思路链(CoT)是一种鼓励模型逐步解决复杂问题的技术。通过将问题分解为更小、更易于管理的部分，模型可以提供更透明、更准确的解决方案。这种方法允许模型“展示其工作”，从而更容易理解其答案背后的推理过程。<br>各种语言模型在1.8K任务上进行微调，这些任务以指令的形式表达，并在未见过的任务上进行评估。微调是在有和没有样例（即零样本和少样本）以及有和没有思路的情况下进行的，从而能够在一系列评估场景中进行泛化。<br>Flan-PaLM数据集和方法：在FLAN原有的指令调优数据集基础上，新增对话和程序合成任务，并与思维链推理任务进行合并，创建了包含1800个任务和36个任务的微调数据集，微调采用多种输入格式，包括零样本、少样本和思维链提示。Flan-PaLM微调数据包括473个数据集、146个任务类别和1,836个任务。<br>本研究中使用的微调数据格式的组合。我们在有或没有样本的情况下进行微调，在有或没有思路链的情况下也进行微调。<br>主要结果和发现：Flan-PaLM模型在多任务语言理解基准(MMLU)上实现了最佳性能，超越了PaLM和HyperMind的预测估计等之前的最佳模型。此外，他们的最佳模型：<br>显著提高了人类对难题的可用性，79%的示例中，注释者更喜欢我们模型的答案而不是PaLM的答案。<br>在零样本设置中释放更好的推理能力，这体现在其回答和解释棘手问题的能力上。<br>开源了五个模型供社区试用，这些模型已经在HuggingFace和公开演示中使用。<br>分析结果表明，即使在大规模的情况下，扩展模型大小和微调任务数量也会继续提高性能。研究还发现，使用ChainofThought数据进行微调可显著提高具有挑战性的未见任务的性能。此外，他们的结果表明，指令调整对不同的模型大小、架构和预训练目标都具有普遍的好处。<br>Self-Instruct论文研究了LLM是否可以为给定的指令生成实例。如果模型得到正确的提示，答案是肯定的。如下所示，向LLM提供了指令，并要求它为每个指令生成示例实例。<br>该模型针对各种任务生成输入和输出实例，例如报价、地址、工作申请表、代码编写等。构建了数据生成管道，其中包括生成指令、对任务进行分类以及过滤掉不相关的实例。<br>使用GPT-3模型生成了52,000条指令，并进行了严格的筛选过程以确保多样性和相关性。经过分析发现，模型为大约40-50%的指令生成了有意义且有效的实例。<br>使用生成的数据对模型进行微调，并在一系列任务上评估其性能。经过微调的模型在各种任务上都取得了强劲的表现，表明语言模型可用于为给定指令生成高质量的实例。<br>Self-Instruct方法在NLP领域尤其成功，LLaMA系列模型就是明证。从Meta的基础语言模型LLaMA开始，社区开发了各种指令调整版本，包括：<br>Alpaca：该模型使用GPT-3.5作为教师模型来生成指令调整数据<br>Vicuna：该模型使用ShareGPT数据，这是一种高质量的人机交互数据，以增强其指令遵循能力。<br>GPT-4：该模型使用GPT-4作为教师模型，利用其先进的功能生成指令调整数据。<br>在引入了包括FLAN、T0和超自然指令、MetalCL和InstructGPT在内的多种指令调整方法后，LLM取得了显著的进步，能够处理以前从未遇到过的任务指令。然而，推动这些进步的数据仍然大部分无法被更广泛的研究界所获取。GoogleResearch的论文“Flan集合：设计用于有效指令调整的数据和方法”通过研究和发布更广泛、更全面的公开可用的指令调整任务、模板和方法集合来解决这一差距。<br>论文首先提供了公共指令调优收集的时间表，重点介绍了自2020年以来该领域取得的快速进展。第一波收集工作侧重于扩展数据集和任务，而第二波收集工作则涉及合成数据生成和人工反馈信号。然而，FLAN收集工作侧重于没有人工反馈的指令泛化，展示了其前景和潜力。<br>FLAN集合是一个用于大型语言模型(LLM)指令调优的大型数据集。它是一系列可提高各种NLP任务性能的任务和方法。<br>数据集结构：<br>任务来源：FLAN2021、T0-SF、超自然指令、思维链、对话、程序合成<br>任务类型：零样本、少样本、思路链(CoT)、保留任务、保留外任务<br>提示设置：零次、少量、混合提示<br>输入反转：从答案生成问题<br>加权混合：优化任务源权重<br>与CoT数据集相比，为其他数据集创建反演非常简单。虽然其他数据集有问答对，但CoT数据集有一个额外的中间步骤。因此，对于CoT数据集，反演是作为三个组件的排列创建的<br>LLM相关资源整理<br>LLM的工作原理<br>LLM的工作原理：从训练前到训练后、神经网络、幻觉和推理|走向数据科学<br>【大语言模型基础】Transformer模型Torch代码详解和训练实战-LeonYi-博客园<br>训练ChatGPT<br>如何训练一个ChatGPT获得智商和情商?预训练和指令微调-<a target="_blank" rel="noopener" href="http://www.ytzr.com/">www.ytzr.com</a><br>【大模型系列】指令微调-CSDN博客<br>SinclairCoder&#x2F;Instruction-Tuning-Papers(GitHub)<br>WhatIsInstructionTuning?|IBM<br>大型语言模型的指令调整|作者：LMPo|Medium<br>InstructionFine-tuningofLargeLanguageModels|NiklasHeidloff<br>🧑🏫InstructionTuningVol.1-bySebastianRuder<br>大模型微调<br>聊聊大模型微调训练全流程的思考-又见阿郎-博客园<br>深入理解大语言模型微调技术-CSDN博客<br>大模型指令微调-技巧篇（R-tuning）-知乎<br>大模型微调技术-知乎<br>相关论文<br>2312.12148<br>2303.15647<br>230224-Instructiontuning&amp;Prompttuning-张琬悦.pdf<br>PromptTuning<br>Prompt-Tuning|Geeks_ZのBlog<br>五万字综述！Prompt-Tuning：深度解读一种新的微调范式-知乎<br>Fine-Tuning<br>Fine-tuning：大语言模型的三种训练技术<br>tatsu-lab&#x2F;alpaca·DatasetsatHuggingFace<br>【大模型理论篇】大模型微调之指令微调(InstructionFine-Tuning)-CSDN博客<br>万字长文｜大语言模型指令调优综述-智源社区<br>指令微调（InstructionFine-Tuning）与微调FineTuning的区别-CSDN博客<br>LLM指令调优综述：增强大语言模型能力和可控性的关键技术<br>综述文章<br>大模型综述11月最新升级<br>大模型参数高效微调技术原理综述-Stanlei-博客园<br>大语言模型指令调优综述-知乎<br>LLM指令微调技术：综述<br>大语言模型的指令调优：综述-腾讯云开发者社区-腾讯云<br>2308.10792<br>一篇关于LLM指令微调的综述-腾讯云开发者社区-腾讯云<br>大语言模型的指令微调（InstructionTuning）最全综述-CSDN博客<br>LLM损失函数与优化<br>请问在指令微调时损失函数与预训练有什么区别吗·Issue#115·CVI-SZU&#x2F;Linly(GitHub)<br>LLM中损失函数解析_llm损失函数-CSDN博客<br>SFT、RLHF、DPO、IFT——LLM微调的进化之路-知乎<br>搞懂大模型Fine-tuning-预训练和微调（Pre-trainingvsFine-tuning）_continuepretrain和全参微调区别-CSDN博客<br>添加微信，回复”LLM“进入交流群</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/08/1000000604-2247493055-1/">https://zejuncao.github.io/2025/03/08/1000000604-2247493055-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/ChallengeHub/">
+                                    <span class="chip bg-color">ChallengeHub</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/08/1000001239-2247510125-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001239_2247510125_1.jpg" class="responsive-img" alt="KAN备受审稿人青睐！结合小波变换就能发一区，厉害了">
+                        
+                        <span class="card-title">KAN备受审稿人青睐！结合小波变换就能发一区，厉害了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%A6%E5%A7%90%E5%B8%A6%E4%BD%A0%E7%8E%A9AI/">
+                        <span class="chip bg-color">学姐带你玩AI</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/08/1000003799-2247634959-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000003799_2247634959_1.jpg" class="responsive-img" alt="被骂惨的“现象级”Manus，今天我们来扒一扒它的真实水平！">
+                        
+                        <span class="card-title">被骂惨的“现象级”Manus，今天我们来扒一扒它的真实水平！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AI%E5%89%8D%E7%BA%BF/">
+                        <span class="chip bg-color">AI前线</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

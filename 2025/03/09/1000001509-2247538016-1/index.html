@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="小目标检测神器，基于YOLO11的动态图形网络，用于小目标检测和跟踪 !, ZejunCao&#39;Blogs">
+    <meta name="description" content="小目标检测神器，基于YOLO11的动态图形网络，用于小目标检测和跟踪 !
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：集智书童作者：小书童链接：https :&amp;#x2F;&amp;#x2F;mp.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>小目标检测神器，基于YOLO11的动态图形网络，用于小目标检测和跟踪 ! | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001509_2247538016_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">小目标检测神器，基于YOLO11的动态图形网络，用于小目标检测和跟踪 !</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-09
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/442vutisQ3SnAD30SfW3uA">小目标检测神器，基于YOLO11的动态图形网络，用于小目标检测和跟踪 !</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：集智书童<br>作者：小书童<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;PjXMaUvvaFdWjMdc3mRENQ<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>在交通监控中，准确检测和跟踪小目标至关重要，但受遮挡、低分辨率等因素影响。作者提出DGNN-YOLO，结合YOLO11精确检测与动态图神经网络时空建模，实现高效跟踪。多个数据集证明，DGNN-YOLO在精度、召回率和mAP方面超越现有方法，为智能交通系统提供可靠方案。<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2411.17251<br>准确检测和跟踪小目标，如行人、骑自行车的人和摩托车，对于交通监控系统至关重要，这对提高道路安全以及智能交通系统中的决策具有重要意义。<br>然而，传统方法面临诸如遮挡、低分辨率以及动态交通条件等挑战，需要创新的方法来解决这些问题。本文介绍了DGNN-YOLO，这是一个将动态图神经网络（DGNN）与YOLO11相结合的新颖框架，用于提高交通监控系统中小目标检测和跟踪的性能。<br>该框架利用YOLO11的高级空间特征提取能力进行精确目标检测，并集成DGNN动态建模空间-时间关系以实现实时跟踪。通过构建和更新图结构，DGNN-YOLO有效地将目标表示为节点，将目标之间的互动表示为边，从而确保在复杂和动态环境中进行自适应和准确跟踪。<br>大量实验表明，在各种交通条件下，DGNN-YOLO在检测和跟踪小目标方面始终优于最先进的方法，实现了最高的精确度（0.8382）、召回率（0.6875）和<a href="mailto:&#109;&#x41;&#80;&#64;&#48;&#x2e;&#53;">&#109;&#x41;&#80;&#64;&#48;&#x2e;&#53;</a>:0.95（0.6476），展示了其鲁棒性和可扩展性，特别是在涉及小和遮挡物的情况下。<br>本研究提供了一个可扩展的实时交通监控和分析解决方案，为智能交通系统做出了重要贡献。<br>智能交通系统（ITS）的快速发展已经彻底改变了交通管理和城市出行方式。ITS涵盖了众多技术，以提高道路安全、减少拥堵，并在城市环境中实时做出决策。ITS的关键方面之一是检测和跟踪小型物体，如行人、自行车和摩托车，这对于诸如交通监控、事故预防以及自动驾驶等应用至关重要。然而，由于遮挡、低分辨率、变量照明条件和高度物体密度，小型目标检测和跟踪仍然具有挑战性，传统的检测方法在动态现实世界场景中不足以满足需求（Nguyen和Patel，2021年）。<br>早期的目标检测和跟踪方法主要依赖手工设计的特征和传统的机器学习算法。这些方法在各种条件和动态交通环境中往往难以实现泛化（Brown和Wilson，2019）。深度学习的出现引入了诸如卷积神经网络（CNNs）等现代目标检测框架，通过直接从数据中学习复杂的空间特征，实现了显著的性能提升（Zhang和Chen，2020）。然而，CNNs在模拟时间关系方面存在固有的局限性，这对在视频帧之间跟踪目标至关重要（Li和Wang，2022）。为了解决这些问题，图神经网络（GNNs）作为一种建模空间-时间关系和动态捕捉目标间交互的有前景的方法（Wang和Zhao，2021）逐渐浮现。<br>这篇论文介绍了一种新颖的框架DGNN-YOLO，它将YOLO11用于小目标检测和动态图神经网络（DGNN）用于跟踪。YOLO11是YOLO家族的一种高级迭代版本，针对实时应用进行了优化，在交通场景中检测小目标表现出卓越性能（Ultralytics，2024a）。DGNN模块通过动态构建图结构，其中节点表示检测到的目标，边捕捉它们的空间-时间关系。这种集成允许在复杂和动态的环境中在视频帧之间进行强大的跟踪（Ahmed和Johnson，2023）。<br>DGNN-YOLO框架在_i2目标检测数据集上进行了评估，该数据集是专门为交通监控应用设计的一个基准数据集，重点关注小型物体。该数据集包括各种交通场景和挑战，如遮挡和不同的光照条件，使其成为测试提出的系统处理实际世界挑战的能力的理想选择。结果表明，与最先进的方法（Chen和Kumar，2023）相比，DGNN-YOLO在提高检测准确率和跟踪鲁棒性方面具有有效性。<br>本研究的主要贡献如下：<br>作者提出了一种新颖的DGNN-YOLO框架，该框架将YOLO11与DGNN相结合，用于实时检测和跟踪小目标，解决了遮挡和运动模糊等挑战。<br>本文介绍了一种动态图构建与更新机制，以有效模拟时空关系，提高在复杂交通环境中的跟踪精度。<br>提出的框架被广泛使用i2ObjectDetectionDataset进行评估，与现有方法相比在检测和跟踪小型目标方面取得了显著的性能提升。<br>近年来，由于遮挡、低分辨率和高动态环境等挑战，小型目标检测和跟踪领域取得了显著进展。准确检测和跟踪小型物体对于诸如交通监控和自主系统等应用至关重要；<br>然而，传统方法往往在复杂实际场景中难以进行泛化。深度学习的最新进展催生了对小型目标检测和动态交互建模的专门技术，而采用GNNs为跟踪任务捕捉时空关系提供了有效方法。本文回顾了这些领域的发展关键，为所提出的框架奠定了基础。<br>由于遮挡、低分辨率以及尺度变化，小目标检测一直是一个持续的挑战，特别是在交通监控中。早期的方法依赖于手工特征，如直方图方向梯度（HOG）和尺度不变特征变换（SIFT），并结合分类器，如支持向量机（SVMs）（Dalal和Triggs，2005；Lowe，2004）。尽管这些方法在受控环境下表现良好，但在复杂真实世界场景中，由于照明和运动引入了变化（Viola和Jones，2001），它们往往无法正常工作。<br>深度学习的出现彻底改变了目标检测。Ren等人推出了FasterR-CNN，这是一个结合区域Proposal网络和卷积层的两阶段检测器，旨在提高准确性和速度（Ren等人，2015年）。Redmon等人进一步推动了实时检测，使用YOLO，这是一个将检测和分类任务集成的单阶段框架（Redmon等人，2016a）。<br>然而，早期的YOLO版本由于依赖于粗糙的特征图，在检测小型目标（如行人、自行车、摩托车等）时存在困难。随后的迭代，如YOLOv3和YOLOv4，通过集成多尺度特征融合和改善Anchor点机制，解决了这些限制（Redmon和Farhadi，2018；Bochkovskiy等人，2020年）。在这些改进的基础上，YOLO11引入了注意力机制和细粒度特征提取，显著增强了在动态环境中的检测能力（Ultralytics，2024b）。这些特性使得YOLO11成为城市交通监控系统的理想候选者，特别是用于检测小型目标，如行人、自行车、摩托车、各种车辆（包括自动小巴和覆盖货车）。<br>除了YOLO，其他框架，如RetinaNet，也采用了聚焦损失来解决类别不平衡问题，而单次多框检测器（SSD）则使用多尺度特征图进行精确的定位（Lin等人，2017年；刘等人，2016a）。尽管它们有这些优点，但在低光、雨天和交通拥堵等条件下实现实时检测仍然是一个挑战（黄和张，2021年）。新兴的基于Transformer的架构，如检测Transformer（DETRs），在处理小目标检测方面显示出前景，尽管它们的高计算要求限制了其实际部署（Carion等人，2020年）。<br>跟踪交通监控中的小目标涉及到在连续帧中保持其身份，通常在具有遮挡、突然运动和密集交通环境等具有挑战性的条件下进行。早期的方法，如卡尔曼滤波器和粒子滤波器，依赖于运动建模，但在处理现实世界交通场景的动态和不可预测性质方面存在困难（卡尔曼，1960；Isard和Blake，1998）。Bolme等人引入了MOSSE跟踪器，该跟踪器在计算效率方面取得了显著提高，但在处理严重的遮挡方面效果不佳。<br>深度学习方法在目标跟踪方面取得了显著进展。例如，Bertinetto等人提出，对偶网络利用相似性学习实现鲁棒的目标关联（Bertinetto等人，2016）。同样，Wang等人利用长短时记忆（LSTM）网络建模时间依赖性，并解决了视频序列中运动预测的挑战（Wang和Song，2019）。<br>混合框架，如SORT和DeepSORT，通过集成运动和外观特征来实现检测和跟踪（Bewley等人，2016年；Wojke等人，2017年）。尽管这些方法在相对简单的环境中有效，但在涉及多个相互作用物体的密集交通场景中，如摩托车、人力车和自动人力车，它们存在局限性。Transformer基础的跟踪器如TransTrack通过建模帧间的长期依赖关系，进一步推动了该领域的发展，尽管在拥挤的交通设置下的可扩展性仍然是一个挑战（Chen和Zhang，2018年）。<br>GNNs作为一种强大的框架，已逐渐成为跟踪任务中建模时空关系的有力工具。通过将检测到的物体表示为节点，将它们之间的互动表示为边，GNNs能够有效地捕获连续帧之间的依赖关系，使其非常适合动态环境（Yan等人，2018年）。Kipf等人提出了DGNNs，它们根据物体的运动和互动自适应地调整图结构，从而显著提高了跟踪性能的基准测试。<br>在交通监控中，自适应图构建被证明在解决遮挡和复杂物体交互等问题方面具有重要作用。例如，TrackMPNN利用消息传递算法动态优化物体关联，从而在复杂的城市交通环境中实现强大的跟踪（Rangesh和Kumar，2020）。Ahmed等人（Ahmed和Wang，2023）将动态图更新纳入跟踪鲁棒性的增强策略，以应对密集和拥挤的环境。<br>最近，通过将注意力机制集成到GNN中，进一步提升了GNN的性能，增强了它们在拥挤场景中建模精确关系的的能力。例如，AST-GCN动态构建图来捕捉时空关联，而DGNN则将节点特定的注意力权重引入，以提高关联准确性（Chen和Zhang，2022年；赵和徐，2023年）。这些创新表明GNN在实时交通监控系统中解决跟踪小物体（如行人、自行车、摩托车、人力车和新能源汽车）等关键挑战的潜力。<br>所提出的交通监控系统中检测和跟踪小目标的系统包括四个相互关联的组件，旨在解决诸如遮挡、低分辨率和高运动模糊等挑战。DGNN-YOLO提供了检测和跟踪机制的高层集成，以处理实时处理需求。YOLO11检测机制是用于在复杂交通环境中识别小目标的最新模块。动态图构建利用动态图结构表示检测到的目标及其时空关系，实现交互的自适应建模。最后，基于DGNN的跟踪模块使用DGNN在帧间细化目标关联，从而确保了强大的准确跟踪。这些组件使得视频数据处理高效，并在多样化和具有挑战性的交通条件下实现了可靠的性能。<br>该部分介绍了研究中使用的符号和背景信息。表1详细列出了常用的符号及其定义，清晰地说明了所提出的DGNN-YOLO的数学和结构组件。这些符号构成了描述YOLO11与DGNN融合及其在交通监控中小目标检测和跟踪应用的基础。<br>输入视频序列可以表示为,其中表示总帧数。每一帧都会被YOLO11处理，生成一组检测到的物体，。在这个表示中，指的是物体的边界框坐标和尺寸，表示物体的置信度得分，表示其检测的确定性，而表示物体的类别标签，将其识别为类似于“自动三轮车”或“公交车”这样的物体。YOLO11还为所有检测到的物体提取了空间特征()，这对于跟踪是必要的。这些空间特征包含了几何和外观信息，被输入到基于图的跟踪机制中。<br>在每一帧时刻，构建一个动态图来表示检测到的物体及其相互作用。节点对应于检测到的物体，每个节点由一个特征向量表示，该特征向量融合了空间和时间特征。边捕获物体之间的关系，包括空间接近度和运动相似度，这些信息编码在邻接矩阵中，其中表示节点和之间的边权。随着物体进入或离开场景，图动态演变，实现对物体位置和运动模式变化的实时更新，从而确保模型始终对动态交通状况保持响应。<br>每个图中的节点由特征向量表示，其中捕获了YOLO11提取的空间特征以编码几何和外观信息，表示由DGNN计算的时间特征以模拟物体位置和随时间变化的相互作用。节点之间的边根据三个因素进行加权（）：（1）接近度，计算为节点和之间的欧几里得距离；（2）速度相似度，由它们在时间处的速度差（）确定；（3）外观，使用边界框特征推导出的视觉相似度以确保在视觉复杂场景中的稳健关联。<br>提出的DGNN-YOLO模型通过两个关键组件实现有效目标跟踪，这两个组件分别是：<br>首先，空间特征（）通过YOLO11从每个物体中提取几何和外观信息，实现精确的局部定位和识别。其次，时间动态（）由DGNN计算得出，表示连续帧中物体位置和相互作用的演变，使模型能够理解运动模式。此外，边能够动态更新以反映物体关系随时间的变化，确保在复杂且快速变化的环境中实现强大的跟踪。<br>DGNN-YOLO框架优化了两个损失函数，以确保准确的检测和强大的跟踪。检测损失函数（）通过惩罚框定位和分类中的错误来评估目标检测的准确性，从而确保每个帧中物体的精确识别。跟踪损失函数（）最小化帧间物体身份的不一致性。它关注于在动态构建的图中保持边缘和节点特征的一致性，以确保强大的时空关联。<br>该系统逐帧处理视频帧，关注预定义的感兴趣区域（），以提高效率。这种方法优先考虑具有显著交通活动的区域，使DGNN-YOLO能够集中计算资源。通过限制处理范围为相关区域，系统显著降低了计算开销，同时保持了检测和跟踪的高精度。这种优化确保了DGNN-YOLO在实时场景中有效运行，即使在物体密度高和动态条件的环境中。<br>图1说明了DGNN-YOLO框架，它将YOLO11用于检测小目标，并将DGNN用于有效跟踪。该框架从视频输入开始，YOLO11识别目标，绘制边界框，并分配置信度分数。这些检测被转换为动态图，其中节点表示目标，边表示它们的运动、接近和视觉相似性。DGNN随视频的进行动态更新此图，以保持准确的跟踪，即使目标重叠或移动不可预测。最后，该模型结合邻居聚合、特征投影和语义融合，提供具有详细跟踪和分类的标注输出。这种端到端方法确保在交通场景中最可靠的表现。<br>算法1中显示，DGNN-YOLO框架从YOLO11检测模块处理的视频帧开始。YOLO11检测物体并生成边界框、类别标签和置信度分数。这些输出用于动态构建一个图，其中节点表示检测到的物体，边捕获连续帧之间的空间-时间关系，例如接近度和速度相似性。构建的图然后使用DGNN处理，以在连续帧之间精炼物体之间的关联，确保一致和强大的跟踪。<br>将检测和跟踪集成到一个统一Pipeline中，DGNN-YOLO解决了传统方法依赖单独、分离阶段所面临的限制。YOLO11模块确保在困难条件下实现精确可靠的检测，而DGNN动态更新跨帧目标之间的关系。这种适应性使得系统能够有效处理诸如遮挡和物体运动变化的环境变化。DGNN-YOLO的模块化设计提高了检测准确性和跟踪可靠性，使其适用于实时交通监控应用（Wang等，2019年）。<br>图2显示了DGNN-YOLO框架中的YOLO11架构，该架构旨在实现实时准确的小目标检测。backbone使用堆叠卷积层来提取多尺度的详细特征，这对于识别最微小的目标至关重要。neck使用先进的模块动态处理这些特征，例如SPFF用于结合全局和局部上下文，C2PSA用于锐化空间和位置感知，使其在杂乱环境中有效。最后，head使用这些精炼的特征来生成精确的边界框、自信的分类和可靠的结果。这种设计使YOLO11在具有挑战性和拥挤场景下具有高度的鲁棒性和适应性。<br>YOLO11利用卷积Backbone网络从输入帧中提取层次特征，实现强大的目标检测。该架构融入了高级组件，如空间金字塔池化（SPP），通过聚合多个感受野的特征来捕获全局和局部上下文。路径聚合网络（PAN）也被用于细化物体边界并提高分类准确度。这些改进使得YOLO11能够检测到细微的细节，使其在复杂且拥挤的环境中识别小目标（Redmon等，2016；林等，2017）方面特别有效。<br>YOLO11生成的输出包括边界框、置信度分数和类别标签。边界框由坐标定义，其中和表示边界框的中心，和分别表示其宽度和高度。置信度分数表示目标在边界框内的可能性，而类别标签则识别出目标的类型，如“汽车”、“行人”或“摩托车”。为了提高精度，应用了非极大值抑制（NMS）以移除非重叠且重叠的检测，保留每个目标的置信度最高的预测。这一精炼步骤在高密度场景中频繁重叠检测的情况下尤为重要。过滤后的输出，包括精炼的边界框、置信度分数和类别标签，构成了构建动态图的基础，从而在后续跟踪阶段实现强大的空间-时间建模。<br>图3展示了DGNN-YOLO框架如何构建并更新一个动态图以有效追踪物体。在这里，物体被表示为节点（），它们之间的关系，如运动和接近，被表示为边（）。图实时调整，在物体出现或消失时添加或删除节点，并更新边以反映变化的作用。更新组件处理这些变化，而传播组件确保每个节点的影响力在图中传播。这个过程使系统能够准确地追踪物体，即使在繁忙或复杂的环境中也是如此。<br>每棵树中的节点对应于检测到的目标，并具有一个包含空间、运动和外观嵌入特征的集合。空间属性，由坐标和以及宽度和高度和表示，表示目标的定位和尺寸。从目标的和的加速度分量中派生的运动属性，捕获它们在帧之间的运动。此外，从YOLO11中提取的外观嵌入用于编码目标的视觉特征。通过结合这些特征，图有效地模型化单个目标属性及其在场景中的交互，从而实现强大的跟踪和关系建模（张等，2020年）。<br>在图中，边通过模拟三个关键因素：接近度，运动相似度和外观相似度来捕获节点之间的关系。接近度是物体中心之间的欧几里得距离，有助于确定其空间接近度，对于识别潜在互动至关重要。运动相似度是通过运动向量计算的，量化了目标运动在帧间的对齐，有助于区分一致的运动轨迹。外观相似度是通过从YOLO11中提取的特征嵌入的余弦相似度确定的，确保在视觉歧义情况下具有鲁棒性关联。通过集成这些因素，边可以动态地更新以反映目标关系的变化，使图形能够有效地模拟场景中的复杂交互（周等，2020）。<br>每帧都通过几个关键过程动态更新图以保持与现实世界物体交互的一致性。首先，为当前帧中检测到的物体创建新的节点，以确保最近进入的物体被包括在图中。同时，删除对应于离开帧的物体的节点，保持图表示高效且相关。此外，重新计算边以反映节点之间的更新关系，考虑附近性、速度和外观相似度的变化。这种动态更新机制使图能够无缝适应物体交互的变化，如新物体出现或现有物体消失。通过与现实世界动态同步，DGNN-YOLO确保在复杂和高密度环境中准确建模交通场景。<br>DGNN通过利用图中的空间-时间依赖性来优化物体跟踪。它使用图卷积层来模拟物体之间的相互作用，捕捉它们的空间关系和时间动态。DGNN通过在每个帧上处理图来动态更新节点和边表示，以确保跟踪在遮挡、快速运动或拥挤环境下的一致性。<br>这种方法使得DGNN-YOLO能够有效处理复杂的交互，如物体进入或离开场景或轨迹重叠，使其在应对实际交通场景的挑战方面具有鲁棒性。<br>DGNN使用图卷积层来聚合邻居节点的信息，使得网络能够有效地模拟时空关系。每一层通过邻接矩阵更新节点特征，其中编码了节点之间的边关系。第层的正向传播定义为：<br>在深度学习中，表示第层的节点特征，是第层的可学习权重矩阵，表示非线性激活函数，如ReLU。<br>此迭代过程通过图传播信息并在每个层中优化节点嵌入。通过利用邻接矩阵，网络捕获物体之间的诸如接近性、速度相似性和外观相似性等关系。这些优化的嵌入使得DGNN能够区分具有相似外观的物体，从而增强在拥挤或视觉上存在歧义的环境中物体的跟踪鲁棒性（Wang等人，2019年）。<br>DGNN输出精化的节点表示和更新的边权重，这些用于为物体分配唯一的跟踪ID。这些ID确保了连续帧中物体的恒定识别。DGNN通过建模不断发展的时空关系，有效地处理了遮挡、物体突然运动和重叠轨迹等挑战。这种能力使系统即使在复杂交通环境中也能保持强大的跟踪。<br>DGNN-YOLO利用一种组合损失函数来提高检测和跟踪性能。检测损失()包括局部化、框回归和分类三个部分，其中局部化用于惩罚边界框回归的错误，分类用于确保准确的目标识别。此外，跟踪损失()旨在最小化目标轨迹中的时间不一致性，从而在帧之间实现平滑和可靠的跟踪。总损失函数定义为：<br>和是用于平衡检测和跟踪损失的加权因子。这种组合优化确保了DGNN-YOLO能够在各种条件下实现高性能，包括密集交通和动态环境，以及动态环境（刘等，2016）。<br>本文全面评估了提出的DGNN-YOLO框架在小型目标检测和跟踪方面的性能。<br>实验是在针对交通监控任务的_i2目标检测数据集_上进行的。该数据集包括在各种条件下的多样交通场景，如遮挡、不同光线和密集的物体分布。该数据集包括50,000张带有24个物体类别的标注图像，包括车辆（汽车、公共汽车、卡车）、非机动物体（自行车、人力车）和行人（人）。数据划分分为两个主要组。训练组占80%，包括40,000张图像，而验证组占20%，总计10,000张图像。<br>为了应对类别不平衡问题，数据增强技术如翻转、缩放和亮度调整已经得到应用。图4中的类别分布突显了某些类（如Car和Bus）占主导地位，而其他类（如ambulance）则被低估。这种分布强调了在处理不平衡数据集时采用健壮的训练策略的重要性。<br>DGNN-YOLO框架使用PyTorch库在Python中实现，并在NVIDIARTX4050GPU上进行训练。训练包含40个周期，输入图像分辨率为280x280像素。YOLO11模块使用预训练的COCO权重初始化，以利用已学习的特征进行目标检测，而DGNN模块从头开始训练。这种设置确保DGNN有效地捕捉物体之间的动态关系，提高在复杂交通场景下的跟踪性能。实验期间，训练参数（如学习率和批量大小）动态调整以优化模型收敛性和性能。<br>DGNN-YOLO框架的性能通过一套全面的指标来评估其在小型目标检测和跟踪方面的准确性和鲁棒性。<br>精度衡量了所有预测为阳性的病例中，正确预测的阳性病例所占的比例。这反映了系统最小化假阳性率的能力。从数学上讲，精度可以表示为：<br>精确度<br>4.3.2Recall<br>其中FN表示假阴性，即检测系统漏检的物体。<br>平均平均精确度评估了在不同置信阈值下，精确率和召回率之间的权衡。它等于目标类别的总体平均精确度的平均值。AP的计算方法如下：在精确率-召回曲线下的面积。<br>两种具体的评价指标被使用：<a href="mailto:&#109;&#65;&#x50;&#64;&#48;&#46;&#53;">&#109;&#65;&#x50;&#64;&#48;&#46;&#53;</a>，它评估了在固定IntersectionoverUnion(IoU)阈值0.5处的AP，<a href="mailto:&#x6d;&#x41;&#x50;&#64;&#x30;&#46;&#x35;">&#x6d;&#x41;&#x50;&#64;&#x30;&#46;&#x35;</a>:0.95，它将AP平均在从0.5到0.95的多个IoU阈值上，间隔为0.05。后者提供了对系统检测性能的整体评估。<br>错误指标量化了系统在检测和跟踪任务中的准确性，强调了预测误差的幅度。<br>平均绝对误差（MAE）计算预测误差的平均绝对值。它定义为：<br>在这段话中，表示真实值，表示预测值，表示总样本数。<br>均方根误差（RMSE）：RMSE通过取差异的平方来更严重地惩罚较大的错误。它由以下公式给出：<br>均绝对百分比误差（MAPE）：MAPE将误差作为真实值的百分比进行评估，提供相对解释。它定义为：<br>通过利用精确度、召回率、mAP和误差指标，对DGNN-YOLO框架进行了全面的评估。这些指标确保了检测和跟踪任务上的稳健性，并捕捉了系统在多样化和挑战性条件下的有效性。<br>这一部分利用定量指标和定性观察分析了DGNN-YOLO框架的性能。结果表明DGNN-YOLO在各种具有挑战性的条件下有效检测和跟踪小目标的能力。<br>作者将提出的DGNN-YOLO（YOLO11+DGNN）模型与各种目标检测模型进行了比较，包括标准YOLO版本和FasterR-CNN。如表2所示，YOLO11+DGNN在所有模型中实现了最高的精确度（0.8382）和召回率（0.6875）。此外，它对于<a href="mailto:&#x6d;&#65;&#80;&#x40;&#x30;&#46;&#53;">&#x6d;&#65;&#80;&#x40;&#x30;&#46;&#53;</a>和<a href="mailto:&#x6d;&#65;&#80;&#64;&#x30;&#x2e;&#x35;">&#x6d;&#65;&#80;&#64;&#x30;&#x2e;&#x35;</a>:0.95的性能也优于其他模型，分别取得了0.7830和0.6476的值。这些结果证实了将DGNN引入YOLO11的有效性，尤其是在改善小目标检测精度方面。<br>YOLO11的性能在去掉DGNN后有所下降，其精确度为0.8176，召回率为0.5248。YOLO11在0.5mAP和0.5:0.95mAP方面的表现也显著低于带DGNN的YOLO11，这说明DGNN在改善空间关系建模方面起着关键作用。其他模型，如YOLO10、YOLO9和YOLO8，表现出逐步降低的性能指标，而FasterR-CNN实现了竞争力的结果，但仍落后于YOLO11+DGNN。这种分析突显了DGNN-YOLO在解决小目标检测和跟踪挑战方面的优越性能。<br>图5展示了DGNN-YOLO模型在40个epoch内的训练和验证性能，显示了其优化和检测能力。顶部一行显示了边界框回归、分类和分布式FocalLoss的训练损失，而底部一行显示了相应的验证损失。所有损失都呈稳定下降趋势，表明有效学习和收敛。精度与召回率指标随着召回率的逐渐增加而稳定改善，反映了更好的TP识别。<a href="mailto:&#109;&#65;&#80;&#64;&#x30;&#46;&#53;">&#109;&#65;&#80;&#64;&#x30;&#46;&#53;</a>和<a href="mailto:&#109;&#65;&#x50;&#x40;&#48;&#46;&#53;">&#109;&#65;&#x50;&#x40;&#48;&#46;&#53;</a>:0.95也持续改善，最终<a href="mailto:&#x6d;&#x41;&#x50;&#64;&#48;&#46;&#x35;">&#x6d;&#x41;&#x50;&#64;&#48;&#46;&#x35;</a>达到约0.8，<a href="mailto:&#109;&#x41;&#x50;&#x40;&#48;&#x2e;&#53;">&#109;&#x41;&#x50;&#x40;&#48;&#x2e;&#53;</a>:0.95接近0.65，表明强大的检测性能。这些趋势证实了DGNN-YOLO模型能够有效地学习和泛化到不同的数据集。<br>图6展示了DGNN-YOLO模型的检测能力，该模型在实际交通场景中识别和定位多个不同类别物体。检测到的物体，如“三轮车”、“汽车”、“公共汽车”、“摩托车”、“人”等，都包含有边界框和类别标签。该模型有效地识别出重叠的物体，并区分大小实例，从而突显其在处理多样物体类型、大小和空间布局的复杂场景中的强大鲁棒性。准确的检测表明模型具有有效泛化的能力，并适用于实际环境中的多目标检测任务。<br>图7显示了DGNN-YOLO模型在多个目标类别上的性能。值得注意的是，该模型在0.5平均mAP上的平均值为0.812，突显了其在大多数类别上的强大检测能力。高性能类别如”Leguna”（0.995）、”Scooty”（0.995）和”Bus”（0.986）表明了模型在识别独特物体类型方面的熟练程度，可能得益于明显的类别特定特征。然而，像”Ambulance”（0.036）和”Special-Purpose-Vehicle”（0.199）这样的类别明显表现不佳，可能归因于训练样本有限或特征区分不足。一些类别（如”Truck”）在更高召回水平上的精度急剧下降，表明在全面检测下保持一致置信水平存在挑战。总体而言，DGNN-YOLO展示了强大的泛化能力，尽管优化低代表性或视觉相似类别的性能可能进一步提高其实用性。<br>如图8所示，DGNN-YOLO模型的混淆矩阵，展示了其在多个类别上的分类性能。每一行对应预测标签，每一列对应真实标签。对角线上的条目表示每个类别中正确分类的实例，较深的蓝色表示较高的计数，反映更好的性能。非对角线上的条目表示错误分类，较浅的蓝色突出错误频率较低。例如，模型在识别诸如“人”、“公交车”和“摩托车”等类别时表现良好，因为这些类别在对角线上具有较高的值。然而，它在与某些较小的类别（如“吉普车”和“专用车辆”）的识别上存在困难，这些类别在对角线上的值较低，并且明显错误分类数量较多。附带的彩色条带视觉上表示预测的密度，某些类别的预测数量甚至达到了400以上，如“汽车”和“人”。这个矩阵强调了DGNN-YOLO的优缺点，表明其在识别常见类别方面的有效性，同时也暗示了可能需要改进的潜在领域，即识别较少出现的类别或视觉上相似的类别。<br>消融实验对提出的YOLO11-DGNN框架进行了全面的分析，评估了在不同配置下的鲁棒性，并突显了其空间和时间组件的贡献。表3呈现了在五个配置（全DGNN框架、无外观嵌入的DGNN、无速度相似度的DGNN、无时间特征的DGNN和恒定边缘权重）下定量指标（mAP、精确度、召回率和每秒帧数）。全DGNN框架实现了最高的mAP（0.716）、精确度（0.776）和召回率（0.636），处理速度约为60FPS，证实了其优越性能。去除外观嵌入或速度相似度会导致mAP和召回率的适度下降，这强调了这些因素在维持鲁棒目标关联中的重要性。排除时间特征的影响更大，导致mAP和召回率最低，这表明时间动力学在跟踪移动目标中起着关键作用。使用恒定边缘权重会降低框架的适应能力，导致精确度和召回率的轻微下降。<br>表4强调了空间和时间组件对DGNN-YOLO框架性能的关键影响。YOLO11-DGNN配置取得了最佳结果，最低的均方根误差（10.5）、平均绝对误差（23.0）和平均百分比误差（15.0%），证明了集成两个组件的重要性。去除空间特征（DGNN无空间）稍微增加了均方根误差和平均百分比误差，表明在杂乱场景中物体区分的减少导致性能略有下降。空间特征（DGNN无时间）导致所有指标上的最大错误，因为时间动态对于在帧间维持目标身份至关重要，尤其是在遮挡或重叠场景下。这些发现强调了在复杂环境中实现稳健检测和跟踪需要同时使用这两个特征。<br>图9显示了在40个训练周期内，<a href="mailto:&#109;&#x41;&#80;&#x40;&#48;&#x2e;&#53;">&#109;&#x41;&#80;&#x40;&#48;&#x2e;&#53;</a>和<a href="mailto:&#x6d;&#65;&#80;&#64;&#48;&#x2e;&#53;">&#x6d;&#65;&#80;&#64;&#48;&#x2e;&#53;</a>:0.95的趋势。两种指标的稳定一致的改进反映了学习过程的有效性以及DGNN-YOLO模型进行泛化的能力。具体而言，<a href="mailto:&#x6d;&#x41;&#80;&#x40;&#48;&#x2e;&#x35;">&#x6d;&#x41;&#80;&#x40;&#48;&#x2e;&#x35;</a>显示出显著的增长，在最后一个周期达到0.716，这表明在固定的IoU阈值0.5下具有强大的检测性能。相比之下，<a href="mailto:&#109;&#65;&#80;&#64;&#x30;&#x2e;&#x35;">&#109;&#65;&#80;&#64;&#x30;&#x2e;&#x35;</a>:0.95显示出逐步但稳定的改进，在训练结束时达到0.575，这突显了DGNN-YOLO模型在不同的IoU阈值下保持一致性能的能力，进一步强调了其在小型目标检测和跟踪方面的能力。总体而言，这些指标的持续上升趋势验证了模型在训练中的收敛性，并表明其在复杂交通场景中调整检测和跟踪能力的能力。<br>图10展示了使用DGNN-YOLO框架获得的定性结果，突显了该框架在实际交通场景中的鲁棒性。DGNN-YOLO有效地检测和跟踪了小而重叠的目标，如摩托车和人力车，即使在密集的交通条件下也能实现。主要观察结果包括准确检测出具有明确边界框和类别标签的大小目标，并有效处理遮挡和重叠目标，尤其是在交通紧密排列的车辆之间。此外，DGNN-YOLO在次优照明条件下展示了强大的性能，证明了其在挑战环境中的适应性。这些结果说明了DGNN-YOLO在实时交通监控中的实际应用价值，其中准确检测和跟踪对于监测和决策至关重要。<br>DGNN-YOLO框架为动态交通场景下的小型目标检测和跟踪提供了创新解决方案，结合了YOLO11的精确检测能力和DGNN的强大时空建模能力。<br>它们共同实现了卓越性能，实现了0.8382的精度，0.6875的召回率，以及<a href="mailto:&#109;&#x41;&#x50;&#64;&#x30;&#46;&#53;">&#109;&#x41;&#x50;&#64;&#x30;&#46;&#53;</a>:0.95的0.6476，超过了当前最先进的方法。其动态图基方法确保了其能够有效地适应并精确地执行，即使在具有遮挡、交通拥堵和小目标检测等具有挑战性的情况下也是如此。<br>尽管该框架具有令人印象深刻的能力，但它仍有一些改进的空间，例如对重叠目标的偶尔分类错误以及代表性不足的类别。<br>未来的工作可以探索使用基于Transformer的模型来改进目标关联，应用半监督学习来提高罕见类别的检测，并优化模型以实现更好的实时性能。这些改进将提高DGNN-YOLO的潜力，并使其成为智能交通系统中的关键工具，为更安全、更创新的都市交通解决方案奠定基础。<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/09/1000001509-2247538016-1/">https://zejuncao.github.io/2025/03/09/1000001509-2247538016-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/09/1000001648-2247513430-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001648_2247513430_1.jpg" class="responsive-img" alt="阿里最新推理模型，效果媲美满血R1！">
+                        
+                        <span class="card-title">阿里最新推理模型，效果媲美满血R1！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/kaggle%E7%AB%9E%E8%B5%9B%E5%AE%9D%E5%85%B8/">
+                        <span class="chip bg-color">kaggle竞赛宝典</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/09/1000001509-2247538016-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001509_2247538016_2.jpg" class="responsive-img" alt="olmOCR-7B，基于Qwen2的文档提取OCR专用模型">
+                        
+                        <span class="card-title">olmOCR-7B，基于Qwen2的文档提取OCR专用模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

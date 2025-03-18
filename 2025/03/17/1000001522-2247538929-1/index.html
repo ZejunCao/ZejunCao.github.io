@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="DM-YOLO小目标检测，轻量边缘设备部署，参数减少38%，精度上升4.1%！, ZejunCao&#39;Blogs">
+    <meta name="description" content="DM-YOLO小目标检测，轻量边缘设备部署，参数减少38%，精度上升4.1%！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：集智书童作者：小书童链接：https :&amp;#x2F;&amp;#x2F;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>DM-YOLO小目标检测，轻量边缘设备部署，参数减少38%，精度上升4.1%！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001522_2247538929_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">DM-YOLO小目标检测，轻量边缘设备部署，参数减少38%，精度上升4.1%！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_uJ9wPfQavfaOBbNiewJmA">DM-YOLO小目标检测，轻量边缘设备部署，参数减少38%，精度上升4.1%！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：集智书童<br>作者：小书童<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;kFVgcowTQGW3Y0pNC0LHzw<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>FDM-YOLO是一种针对小目标检测优化的轻量化模型。它基于YOLOv8改进了检测Head、引入Fast-C2f结构、动态上采样和EMA注意力机制，以提升精度并降低计算成本。实验表明，在Visdrone数据集上，FDM-YOLO参数减少38%，推理速度几乎不变，适用于边缘设备部署。<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.04452<br>小目标检测尤其困难，因为它们像素计数低、背景复杂、拍摄角度多变，这使得模型难以提取有效特征。虽然一些大规模模型提供了高精度，但它们的长时间推理时间使得它们不适合在边缘设备上进行实时部署。另一方面，为低计算能力设计的模型通常检测精度较差。本文专注于小目标检测，并探索在低计算约束下的目标检测方法。基于YOLOv8模型，作者提出了一种新的网络架构，称为FDM-YOLO。作者的研究包括以下关键贡献：作者通过分析YOLOv8检测Head的输出引入了FDM-YOLO。作者添加了一个高分辨率层并移除了大目标检测层，以更好地处理小目标。基于PConv，作者提出了一种轻量级网络结构，称为Fast-C2f，并将其集成到模型的PAN模块中。为了减轻模型轻量化带来的精度损失，作者采用了动态上采样（Dysample）和轻量级EMA注意力机制。<br>FDM-YOLO模型在Visdrone数据集上进行了验证，参数数量减少了38%，Mapo.5分数从38.4%提高到42.5%，同时保持了几乎相同的推理速度。这证明了FDM-YOLO在平衡精度和效率以适应边缘设备部署方面的有效性。<br>在计算机视觉领域，目标检测在众多行业中扮演着关键角色，例如自动驾驶汽车[1]、交通场景监控[2]、提升智能驾驶系统[3]以及辅助搜救行动[4]。精确识别如行人、汽车、摩托车、自行车、交通标志和信号等小型物体对于自动驾驶汽车和智能驾驶系统中的安全导航和决策至关重要[5]。此外，识别小型物体有助于改善交通流量管理、行人保护和交通场景的综合分析。这项技能对于提升城市规划和交通网络至关重要[4]。<br>在图像中检测小物体面临着重大挑战，因为它们的空间覆盖范围有限、分辨率较低，并且与较大物体相比，视觉特征不够显著。在网络架构如YOLOv8[6]中，浅层可能会无意中丢弃识别这些小物体所必需的临界空间信息，导致数据丢失。此外，在特征提取过程中，小物体可能会被大物体所主导，可能导致重要细节的丢失，这些细节对于精确检测至关重要。解决这些问题对于提高实际应用中目标检测的准确性和可靠性至关重要。<br>随着生产成本的降低和无人机飞行控制技术的进步，这些紧凑且灵活的设备越来越多地被用于智能交通监控。无人机通常在较高的海拔运行以捕捉更广阔的视野，但这一增加的距离会减小地面物体的可见尺寸。这种距离使得在捕获的图像中进行目标检测变得复杂。尽管目标检测取得了显著进展，但由于行人、摩托车、自行车和车辆在城市交通中的尺寸各异、形状多样以及背景杂乱，检测这些小型物体仍然具有挑战性。当使用有限的计算机视觉和目标检测任务硬件资源时，这一挑战更为突出。平衡检测性能和模型大小是一个需要解决的临界挑战。<br>为解决无人机航拍图像和交通场景中小目标检测的挑战，并优化部署性能，作者开发了一种基于YOLOv8的新型模型。作者扩展了PAN（路径聚合网络）的长度，并添加了一个额外的检测Head，同时移除了大检测Head，旨在更有效地利用高分辨率的空间细节，同时保持性能的平衡。此外，作者将Pconv[8]方法集成到C2f模块中，以进一步减少部署过程中的性能开销。另外，作者引入了EMA[9]（高效多尺度注意力）机制和动态上采样方法到PAN[10]中。<br>R-CNN算法于2014年出现，是一种基于深度学习的两阶段目标检测算法。该算法将目标检测建模为两个步骤：首先，生成候选区域；其次，对每个候选区域进行分类和回归操作。它使用SVM分类来确定区域是否包含特定目标，并使用回归来获取目标边界框的具体位置。Fast-RCNN通过允许每个候选区域共享相同的神经网络，显著优化了算法的时间。Faster-RCNN[11]通过提出RPN网络架构进一步优化了候选区域生成算法。RPN消除了算法依赖传统基于特征的选择性搜索来生成候选区域的必要性。2018年，CascadeRCNN[12]采用级联检测机制，逐步增加IOU阈值，使模型在每一步都能提供更准确的预测。FPN网络引入了特征金字塔，对不同Level的特征进行不同的处理，从而提高了模型检测多尺度目标的能力。<br>两阶段算法将目标检测建模为首先生成候选区域，然后进行分类和回归的方法，每个步骤都需要独立的计算资源，导致两阶段算法的运行时间更长。这种方法在早期阶段通常实现了更高的精度，但检测速度较慢。相比之下，YOLO算法是一种单阶段目标检测算法。YOLO直接将整个检测任务建模为回归问题，在分割每个图像后直接预测图像的边界框和类别概率，从而满足实时性能要求。<br>YOLO算法直接将图像划分为网格，并对每个网格预测一定数量的边界框和置信度分数。YOLO的早期版本准确度较低，对小型物体的检测灵敏度也较低。YOLOv2引入了Anchor框机制以增强对小型物体的检测能力[13]，并支持多尺度训练和批量归一化等High-Level技术。<br>YOLOv3通过使用多尺度预测头来进一步提升了小物体的检测能力。2020年4月，YOLOv4[14]采用了一种增强的架构，集成了特殊物品的包（bag-of-specialsintegration），并使用了如免费物品包（bag-of-freebies）等先进的训练方法。为了增强模型的鲁棒性，它对输入图像进行了对抗攻击，并使用遗传算法进行超参数优化。该模型在COCO数据集[15]上实现了平均精度均值和AP50。YOLOv5采用了更新的训练策略，包括马赛克（Mosaic）和Cutmix。2022年6月，美团技术团队发布了YOLOv6，它使用了EfficientRep以实现更高效的网络结构。在部署方面，YOLOv6[16]还使用了参数归一化技术来加速部署阶段模型的使用。<br>随着YOLO系列持续改进，YOLO算法的准确性也得到了提升。YOLOv7[17]采用了扩展高效层聚合网络（E-ELAN）。通过控制最短和最长梯度路径，它使得更深的模型能够更有效地学习和收敛。YOLOv7提出了一种基于ConCat模型的新缩放策略，其中块的深度和宽度通过相同的因子进行缩放，以保持模型的最佳结构。<br>YOLOv8的核心网络采用了C2F架构。如今，YOLO系列持续更新[18]。在通用目标检测数据集COCO上，YOLO系列的大版本已经实现了高精度。<br>目标检测领域的另一个热门研究方向是DETR，它将Transformer引入到目标检测任务中。该方法不需要进行非极大值抑制的后处理或引入先验知识Anchor点。它预测固定数量的边界框，并使用匈牙利算法在预测集和标签集之间进行二分图匹配，以固定数量的标签完成检测。该方法在大目标检测方面表现良好，但在小目标检测方面表现较差。<br>朱旭提出了一种可变形注意力机制和迭代边界框校正方法来优化检测结果[19]。王宇[20]提出了一种基于先验知识的Anchor点Query方法，提高了模型性能。然而，DETR模型的训练不易收敛，尤其是在小物体数据集上，数据量通常不足。<br>高效DETR[21]分析了各种模型初始化方法，并结合了集合预测和密集检测的特点以加速模型训练。Li[22]通过使用噪声目标Query作为额外的解码器输入，降低了DETR中二分图匹配机制的不稳定性，提出了DN-DETR。DINO[23]提出了一种混合目标Query选择方法用于Anchor点初始化，以及用于框预测的两个前向传播机制，提供了一个对比去噪模块，并添加了额外的DN损失，这进一步提高了对小目标的检测能力和实时性能。<br>尽管DETR系列模型的准确性很高，但它们的实时性能较差。为了便于部署，LiteDETR[24]通过关键感知可变形注意力机制降低了模型复杂性，但计算负载本身并未减少。RT-DETR[25]利用Vit[26]高效处理多尺度特征，通过解耦跨尺度融合和跨尺度交互，实现了实时性能并保持了高准确性。<br>除了基本模型架构之外，还有许多针对小目标检测的策略。在损失函数方面，文献[27]提出了通过增加定位损失中小物体权重的反馈驱动损失。文献[28]认为基于IOU的损失对小物体匹配不公平，并将边界框建模为高斯分布，使用Wasserstein距离提供尺度不变性和对小物体的更平滑的位置差异处理。<br>从提高小物体尺寸的角度出发，一些研究首先在检测前放大图像，利用超分辨率方法来提升检测效果。CuiZ[29]集成了一种超分辨率自监督框架，提出了AERIS端到端融合方法。多模态方法也被应用于目标检测研究中。文献[30]研究了基于RGB和热成像相机的多模态目标检测，在贝叶斯规则和独立性假设下，提出了一种针对不同模态信息的概率融合策略。文献[31]提出了一种基于滑动窗口的目标检测方法，该方法将图像划分为块进行顺序检测，然后合并结果，合并后的结果远优于独立检测。<br>尽管现有研究取得了一定的进展，小型目标检测方法在无人机航拍和交通场景中仍面临挑战。难以平衡大量模型的准确性、实时性能和参数数量。受局部卷积的启发，作者构建了一个轻量级的Fast-c2f结构。此外，引入了EMA注意力机制以重新分配特征权重，增强特征提取。与其它注意力机制不同，它克服了忽视空间细节与1x1卷积核有限感受野之间交互的局限性，这限制了局部跨通道交互和上下文信息建模。此外，通过使用动态上采样方法提高了模型的准确性。<br>在本节中，作者将探讨如何基于YOLOv8提升网络架构。这一升级后的网络显著提升了检测小目标的能力，同时将模型的参数数量减少了高达40%。重要的是，它实现了这一目标而没有明显增加推理延迟或额外开销，使其非常适合在低计算环境中检测小目标。该模型被称为FDM-YOLO。<br>在原始YOLOv8中，最小的目标检测层输出维度为（256,80,80），这是对原始图像的下采样。这种程度的下采样对于检测小物体来说非常显著。为了增强模型检测较小目标的能力，作者扩展了PAN和FPN的长度，并添加了一个具有4倍下采样率的新的检测层。为了保持性能平衡，作者移除了最大的检测层。<br>轻量级部署一直是研究行人追求的效果。自从ResNet问世以来，模型通过残差连接缓解了梯度消失问题，从而使得构建越来越深的网络架构成为可能[30]。<br>然而，网络结构的加深对模型部署有害。轻量级卷积的使用也引起了研究者的广泛关注。在本文中，作者将轻量级卷积PConv[46]引入YOLOv8，以实现轻量化和减少模型参数数量。<br>该图展示了Pconv的计算方法，该方法通过给定的缩放因子对输入特征图进行分割。其中一部分卷积使用标准卷积方法进行操作，而另一部分则直接复制。这两部分的拼接构成了最终的输出。这种方法显著降低了计算负载和内存访问量。就计算负载而言，假设输出特征图的维度为，标准卷积的计算负载如下：<br>在上面的方程中，k代表卷积核的大小。在Pconv中，计算量取决于卷积因子，其整体算法复杂度为：<br>通常定义为，因此整体计算负载降低到原来的十六分之一。在上面的计算中，加法运算已被省略。<br>通过利用Pconv和1x1卷积的ConCat组合，作者可以构建一个Fast-block，然后将其应用于C2f架构中，以创建FastC2f模块。<br>在神经网络中，Backbone网络主要负责提取核心特征。为了防止重要特征的丢失，Fast-C2f并未在Backbone网络中使用。然而，在模型的特征融合阶段，它被利用以实现一个更轻量级的模型。<br>在YOLO系列中，最近邻插值方法被统一用于上采样。另一种方法，双线性插值，通过使用新像素与周围四个像素之间的相对距离作为权重，对周围四个像素的颜色值进行加权平均来估计新的像素值。这两种方法都是经典的上采样方法，此外，立方插值等常见方法也被用于上采样。<br>然而，传统方法属于静态上采样方法，这意味着给出一个规则并统一应用于所有数据集。实际上，不同数据集之间可能存在固有的差异。上采样方法应具备动态特性。<br>本文借鉴了文献[48]中提出的Dysample方法来优化YOLOv8目标检测模型。<br>注意力机制是神经网络中一种常见的技巧，灵感来源于人类的视觉注意力。在处理信息时，人类并非全局关注每一个细节，而是自动选择性地集中注意力于某些部分。对于一个输入特征图，允许模型动态地为不同部分分配不同的权重至关重要，从而使得模型能够增强对重要特征的识别。<br>EMA方法具备跨通道交互和跨空间学习的双重能力，在性能和有效性方面比传统注意力方法更高效。以下是EMA注意力计算过程的介绍。<br>假设为输入特征图，EMA在通道维度上执行平均分组。作者将命名为，随后对每个段进行并行计算操作。每个段同时执行三个操作：第一个是沿轴的平均池化，第二个是沿y轴的平均池化，第三个是传统的卷积操作。<br>前两部分通过张量连接，然后进行1x1卷积，随后进行分割。经过Sigmoid函数处理后，获得空间注意力分数。接着，原始输入与这些分数相乘，以完成计算的第一部分。<br>上述过程完成了空间注意力的计算。随后，重新加权的Ti和计算出的Gi沿通道维度依次进行池化和softmax操作，以获得通道维度的注意力权重。Ti的注意力分数与Gi相乘，Gi的注意力分数与Ti相乘。然后将这两个乘积相加，并通过sigmoid函数得到最终的注意力分数。这些注意力分数与原始结果在通道维度变化后的乘积构成了EMA的计算结果。<br>YOLOv8的原始版本没有选择使用注意力机制，而作者将其独立集成到检测Head层。这种集成以相对较低的成本实现了检测精度的提升。添加方法如图所示。<br>本节首先概述了用于评估实时目标检测模型性能的指标。随后，介绍了用于测试的数据集，接着详细解释了实验设置和训练策略。研究使用YOLOv8作为基准，依次验证每个创新对模型的影响。此外，该模型与其他常见的前沿（SOTA）方法进行了比较。此外，本节还包括了对模型性能的评估和相关讨论。<br>为了评估作者改进模型的检测性能，作者采用了几个关键指标：精确率、召回率、mAP0.5、mAP0.5:0.95以及模型参数数量。这些指标的详细公式在本节中进行了概述。<br>精确度：一个量化正确预测为正例（TP）的比例的指标，该比例是基于所有预测为正例的实例（TP和FP之和）。精确度由以下公式给出：<br>召回率：本指标计算正确识别出的正样本比例与实际正样本总数的比例，具体如公式所示：<br>平均精度（AP）：表示精度-召回率曲线下的面积，使用公式6进行计算：<br>平均平均精度（mAP）：表示所有类别上的平均平均精度（AP）值，反映了模型在整个数据集上的综合检测性能。该计算方法在公式7中详细说明。<br>其中，代表按索引分类后的平均精度值，而表示数据集中类别的总数。<br>mAPo.s：将交并比（IoU）阈值设置为0.5时计算的平均精度。<br>mAPo.5:o.95：指在IoU阈值为0.5到0.95之间，以0.05为步长计算mAP，并给出最终的平均值。<br>VisDrone2019数据集是由天津大学机器学习与数据挖掘实验室和AISKYEYE数据挖掘团队共同开发的重要的无人机航拍图像集合。该数据集包含288个视频片段，共计261,908帧图像和10,209张静态图像。这些图像由安装在多种无人机上的相机拍摄，展示了我国十多个城市的多样化场景。该数据集内容极为丰富，涵盖了广泛的地理区域、环境背景和物体类型。在地理上，它包括中国14个不同城市的图像，从城市到乡村景观提供了全面覆盖。<br>该数据集包含多种类型的目标，如行人、汽车、自行车等。此外，数据集覆盖了不同人口密度的区域，从Sparse到拥挤，且在多种光照条件下进行采集，包括白天和夜晚场景。VisDrone2019数据集的一个显著特点是包含了大量不同尺寸的小目标，这些目标在不同场景中以不同的角度呈现。这种多样性使得该数据集相较于其他计算机视觉数据集更加复杂和具有挑战性。<br>为了便于记录比较实验，作者对具有各种改进的模型分配了以下命名规范：YOLOv8s作为基础模型，Token为模型ID1。直接添加小型目标检测Head的模型Token为模型ID2。模型ID3由模型2通过移除大型检测层以平衡性能得到。模型ID4基于模型3，并集成了Faster-C2f结构。模型ID5是模型4的改进，采用了增强的上采样方法。模型ID6通过添加EMA注意力机制从模型5派生而来。<br>在本研究中，YOLOv8s被选作基础模型进行研究和进一步改进。该模型在VisDrone数据集上使用NVIDIARTX4090GPU（24GB）和Linux操作系统进行训练，采用了PyTorch1.13和CUDA11.6。实验主要依赖于Ultralytics库，版本为8.3.18，Python环境为3.9.13。训练过程中，通过优化关键参数，使用随机梯度下降（SGD）优化器，动量设置为0.937，运行了200个epoch。初始学习率从0.01开始。学习率通过预热和余弦退火策略动态调整。为了高效使用内存和稳定训练，选择了16个批次的批量大小，输入图像调整为像素。还应用了0.0005的权重衰减，以防止过拟合并提高模型泛化能力。<br>为确保对模型结构对算法影响的公平比较，所有训练策略保持一致。图6展示了随着训练轮数的增加，模型mAP的变化情况。从图中可以看出，所有模型都已达到收敛状态。<br>模型1作为Baseline方法，其模型达到了最低的准确率。通过引入一个小的目标检测层，整体准确率提高至43.6%。模型3表明，移除大目标检测层对检测性能没有影响，从而在不牺牲任何性能的情况下提高了速度。模型4在模型3的基础上引入了PConv，导致mAP性能略有下降，这是为了实现更轻量级的模型而做出的权衡。模型5和模型6中添加的策略被证明是有益的，因为它们有助于提高验证集上的mAPo.5。<br>作者使用精确率、召回率和mAP0.5来评估所提出改进的准确性。此外，作者根据参数数量和计算复杂度评估模型的部署优势。表1展示了与模型准确性相关的结果，而表2展示了与部署相关的成果。所有比较均基于所提出的改进。<br>综合考虑表1和表2，可以得出结论：FDM-YOLO在部署便利性和推理性能之间实现了良好的平衡。与Baseline模型相比，FDM-YOLO在计算负载上仅略有增加，同时参数数量减少了40%。此外，它在<a href="mailto:&#x6d;&#x41;&#80;&#x40;&#x30;&#x2e;&#53;">&#x6d;&#x41;&#80;&#x40;&#x30;&#x2e;&#53;</a>上实现了4个百分点的提升。作者还比较了FDM-YOLO与其他常见的SOTA模型。所有实验都使用了相同的训练策略，输入图像大小设置为640像素。YOLO系列包括各种尺寸的模型，所有测试都使用与YOLOv8s相似的模型尺寸进行。<br>表3表明，在推理准确率方面，FDM-YOLO在小目标检测中实现了最佳的整体性能。<br>与表4相关的参数主要关注模型的轻量级部署。如表所示，FDM-YOLO具有最小的参数数量。此外，在推理速度方面，FDM-YOLO表现出强大的竞争力。总体而言，FDM实现了高推理精度、快速推理速度和低参数数量的优势，使其成为低计算场景中小目标检测的强大模型。<br>在本节中，作者展示了FDM-YOLOv8在多个场景下针对低计算场景中的小目标检测的可视化结果，突出了其在BaselineYOLOv8模型上的优势。本节中使用的所有图像均来自VisDrone数据集的测试集。<br>在检测目标较少的场景中，特别是在检测简单、常见的小目标结果中，作者依次拼接并比较了原始图像、YOLOV8s检测后的图像以及FDM-YOLO检测后的图像，如图所示。<br>detectedit.在图像的左侧，YOLOV8s模型未能检测到右下角的车厢，而FDM-YOLO成功识别出它。在图像的中间，有一个非常小的目标，YOLOV8s未能检测到，但FDM-YOLO成功检测到。<br>至于右侧较简单的图像，有两个微小的汽车目标位于上方中间。这两个目标被YOLOV8s检测遗漏；然而，FDMYOLO模型能够捕捉到这些小型目标的类别和位置信息。<br>图8展示了在密集检测场景下，YOLOV8与FDM-YOLO检测性能的比较。在左侧图像中，可以观察到YOLOV8模型未能检测到图像最远端的微小目标。FDM-YOLO有效地缓解了这一问题，尽管最远端的目标仍然未被检测到。在图像的下半部分，FDM-YOLO成功检测到了YOLOV8未能检测到的行人。至于右侧图像，待检测的目标高度集中。FDM-YOLO模型的检测密度明显高于YOLOV8。<br>对于左侧的图像，直观上可以看出，在夜间条件下，FDM-YOLO（底部）的检测密度超过了YOLOV8（中部）。图像中央部分有一些行人，两个模型都没有成功检测到，但FDM-YOLO模型对行人的整体检测率更好。至于右侧的图像，可以观察到在低光照条件下，YOLOV8和FDM-YOLO都表现出较强的竞争力。然而，YOLOV8在图像中央的建筑区域产生了误检，而FDM-YOLO没有出现如此明显的错误。<br>在交通场景中检测小型物体面临着显著挑战，这些挑战可能会降低整体检测效果。为了解决这些问题，作者提出了FDMYOLO，这是一种专门针对航空摄影和以小型物体为主体的交通场景设计的目标检测模型。该模型基于YOLOv8构建，专注于小型目标检测，增强了特征融合能力，并提高了精确定位性能，同时没有显著增加额外的计算开销。<br>FDM-YOLO模型在各种评估指标上优于广泛使用的模型，如YOLOv6和YOLOv7。与YOLOv8s相比，作者的高效模型在显著提高目标检测性能的同时，并未大幅增加计算成本或检测时间。它将召回率从37.6%提升至41.3%，将精确率从49.0%提升至51.9%，并将mAP0.5从38.0%提升至42.5%。即使在光照条件差或背景拥挤等具有挑战性的条件下，FDM-YOLO也能实现更高的IoU值，并检测到比YOLOv8s更多的微小物体。这些能力使其非常适合用于基于无人机（UAV）的交通监控应用。<br>[1].AlightweightmodelFDM-YOLOforsmalltargetimprovementbasedonYOLOv8<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/17/1000001522-2247538929-1/">https://zejuncao.github.io/2025/03/17/1000001522-2247538929-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/17/1000001522-2247538929-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001522_2247538929_2.jpg" class="responsive-img" alt="DeepSeek一体机，阻碍推理性能的最大绊脚石！">
+                        
+                        <span class="card-title">DeepSeek一体机，阻碍推理性能的最大绊脚石！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/17/1000000437-2247494447-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000437_2247494447_1.jpg" class="responsive-img" alt="零帧起手，3个典型场景范例带你上手uv一站式环境管理~">
+                        
+                        <span class="card-title">零帧起手，3个典型场景范例带你上手uv一站式环境管理~</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E7%BE%8E%E9%A3%9F%E5%B1%8B/">
+                        <span class="chip bg-color">算法美食屋</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

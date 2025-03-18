@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="澳门大学提出DC-ControlNet！解耦控制条件！灵活性和精度超过ControlNet！, ZejunCao&#39;Blogs">
+    <meta name="description" content="澳门大学提出DC-ControlNet！解耦控制条件！灵活性和精度超过ControlNet！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+论文名：DC-ControlNet:DecouplingInter-andI">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>澳门大学提出DC-ControlNet！解耦控制条件！灵活性和精度超过ControlNet！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000405_2247490584_3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">澳门大学提出DC-ControlNet！解耦控制条件！灵活性和精度超过ControlNet！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                <span class="chip bg-color">开源项目</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                <span class="chip bg-color">微信公众号聚合平台</span>
+                            </a>
+                        
+                            <a href="/tags/AIGC-Studio/">
+                                <span class="chip bg-color">AIGC Studio</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sJvuqoCG4h7G34y_RTkOLA">澳门大学提出DC-ControlNet！解耦控制条件！灵活性和精度超过ControlNet！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>论文名：DC-ControlNet:DecouplingInter-andIntra-ElementConditionsinImageGenerationwithDiffusionModels<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2502.14779<br>开源代码：https :&#x2F;&#x2F;um-lab.github.io&#x2F;DC-ControlNet&#x2F;<br>条件控制在图像生成中起着至关重要的作用，要求输出图像与设计者的规格紧密相符，包括风格、内容、布局等属性。大多数图像生成方法依赖文本提示作为条件控制的主要机制。由于自然语言具有表达性和通用性，文本提示将条件的多个方面整合到单一输入中，从而实现对生成图像的整体控制。<br>在本文中，我们介绍了DC（Decouple）-ControlNet，这是一个用于多条件图像生成的高度灵活且可精确控制的框架。DC-ControlNet背后的核心思想是解耦控制条件，将全局控制转变为一个集成不同元素、内容和布局的分层系统。这使用户能够更灵活地组合这些单独的条件，从而实现更高效、准确的图像生成控制。以往基于ControlNet的模型仅依赖全局条件，这些条件会影响整个图像，且缺乏对元素或区域进行特定控制的能力。这一局限性降低了灵活性，并可能在多条件图像生成中导致条件理解错误。为应对这些挑战，我们在DC-ControlNet中提出了元素内控制器和元素间控制器。元素内控制器处理单个元素内不同类型的控制信号，准确描述对象的内容和布局特征。对于元素之间的交互，我们引入了元素间控制器，它能根据用户定义的关系准确处理多元素交互和遮挡问题。大量评估表明，在多条件控制的灵活性和精度方面，DC-ControlNet显著优于现有的ControlNet模型和布局到图像生成模型。<br>该论文提出了一种名为InstructSeg的端到端模型，通过结合对象感知视频感知器和视觉引导的多粒度文本融合模块，统一了图像和视频领域的指令视觉分割任务，并利用多模态大语言模型实现了卓越的性能。<br>扩散模型（DMs）是强大的生成模型，在图像和视频生成方面取得了显著成功。通过在潜在空间中反转添加噪声的过程，潜在扩散模型（LDMs）将随机噪声转换为目标潜在变量。时间步时的预测由和确定。前向添加噪声过程和反向去噪过程可以表示为：<br>其中是一个系数，用于控制步骤中的噪声强度，表示用于给出预测的训练模型。扩散模型的损失函数是均方误差（MSE）损失，它通过给定的噪声数据、时间步和条件来拟合噪声。<br>为了提供详细的控制，控制网络（ControlNet）[9]引入了逐像素条件作为额外输入。损失函数可以表示如下：<br>原始的控制网络（ControlNet）要求用户提供全局条件来控制整个图像的生成。<br>这种方法迫使用户将所有元素（如前景对象、背景及其相对位置）组合成一个输入，显著降低了控制的灵活性。如引言中所述，这会使编辑过程变得复杂，导致混淆和潜在的伪影。为了解决这一局限性，我们的流程通过将控制网络（ControlNet）的全局条件分解为一个分层结构来解耦控制条件，该结构管理不同的元素及其各自的内容和布局。这种方法增强了用户编辑的灵活性，允许对每个元素及其内部条件进行精确、独立的控制。<br>图3将我们的方法与控制网络（ControlNet）进行了比较。在这种情况下，用户希望融合多种条件，如背景和前景车辆的边缘以及车辆的颜色。控制网络（ControlNet）要求对条件图像进行手动逐像素编辑，然后将其合并到全局条件中。这个过程耗时且容易导致模型产生误解。此外，控制网络（ControlNet）不支持特定元素的条件，这限制了用户在不影响背景的情况下控制车辆颜色等特征的能力。相比之下，我们的方法允许通过简单的点选和拖动交互进行精确的条件设置，支持特定元素的控制，以准确实现用户期望的前景<br>图3：(a)ControlNet[9]与(b)我们的DC-ControlNet之间的用户交互比较。用户可以有选择地识别并分别控制特定元素，从而实现高效的可控生成。<br>如图4所示，我们的流程由四个主要组件组成：扩散模型、内容编码器、元素内控制器和元素间控制器。内容编码器负责对每个元素的内容条件进行编码，捕捉元素内的不同方面。元素内控制器将每个单独元素的内容条件及其相应布局进行整合。元素间控制器整合多个元素的条件，将它们合并为最终的统一条件，然后将其传递给扩散模型以生成所需的图像。<br>图4：我们的DC-ControlNet的整体流程。我们的DC-ControlNet的目的是将输出内容特征转换到目标布局上。元素内控制器由10个布局块组成，每个块接收一个内容特征和布局特征。为了使模型能够控制不同类型的布局{点、框、掩码}，我们插入了一个布局类型嵌入。然后，如果涉及多个元素，条件特征将通过元素间控制器进一步融合以解决冲突。<br>在实际的创意任务中，用户通常依靠各种控制条件来指导目标生成的不同方面。例如，边缘条件可以调节图像的细节和纹理，而深度和法线条件定义几何属性，颜色条件控制表面颜色。然而，由于每个条件都侧重于不同的方面，一个统一的编码器很难准确地对所有这些条件进行编码。为了解决这个问题，我们的流程支持多种内容编码器，允许用户将合适的编码器集成到所提出的DC-ControlNet框架中。<br>图5(a)展示了我们方法中使用的几种内容编码器，包括用于边缘信息的ControlNet[9]编码器、用于几何属性的ControlNetPlus[10]编码器、用于编码颜色信息的简单卷积神经网络ConvEncoder，以及用于文本信息的BERT[41]。此外，我们为每种类型的条件分配相应的位置嵌入。最后，我们在将特征传递到元素内控制器之前，沿着长度维度将多条件内容进行拼接。<br>图5：我们的DC-ControlNet组件。(a)我们的元素内控制器中不同的内容编码器，用于从各个方面控制生成的图像；(b)元素间控制器的结构，用于调整不同元素的顺序。<br>一旦元素内内容由内容编码器定义，下一步就是考虑如何将这些内容注入到给定布局中。对于布局图像，我们将其定义为点图、框图或掩码图，布局控制强度从弱到强，它们可以指定元素的位置（即点图）、元素的大致大小和位置（即框图）或元素的确切形状和位置（即掩码图）。<br>我们的元素内控制器的核心思想是从布局条件中提取逐像素的空间关系，然后以可学习的方式将内容特征注入到相应区域。在这个注入过程中，元素内控制器会考虑元素之间的相对关系以及它们与环境的关联，确保整体布局准确和谐。具体来说，对于元素的布局表示，我们首先通过几个卷积层将其嵌入到布局嵌入中，然后将其添加到扩散UNet中的中。接下来，我们应用控制类型嵌入来指示内容条件的类型，并以类似于时间嵌入的方式将其注入到残差块（ResBlock）中。<br>考虑到从内容编码器中提取的内容特征，我们的目标是为这些特征配备布局信息，并以其原始分辨率输出，以便它们仍然可以作为ControlNet特征有效地注入到Unet中。如图4所示，控制器包含多个融合块，用于提取不同分辨率的布局特征并将内容特征注入其中。具体来说，我们的布局块包含一个残差块（ResBlock）和一个Transformer块，其中残差块接收时间嵌入和布局控制类型嵌入，Transformer块采用以内容特征作为键和值的交叉注意力机制，然后通过一个卷积层进行输出。<br>由于布局和内容在像素上未对齐，我们在交叉注意力机制中应用差分定位策略，为条件赋予与查询不同的位置嵌入，以更好地放大这种差异。我们采用带有旋转位置编码（RoPE）[42]的注意力机制，并在键的位置嵌入中添加一个固定偏移向量[43]。<br>其中表示图像标记的位置。<br>经过残差块（ResBlock）和Transformer块后，我们获得了带有布局信息的内容特征，可用于Unet。不幸的是，经过这个融合模块后，布局控制网络（Layout-ControlNet）会在原始内容特征的分布中引入失真，导致收敛速度变慢。因此，我们应用交叉归一化（Cross-Normalization），利用原始内容特征的均值和标准差来恢复输出特征。这样，输出特征的分布与原始ControlNet的特征一致，避免了由于分布差异较大而导致的突然崩溃，或者避免了使用零卷积（zero-conv）来缓慢对齐Unet的额外成本。<br>通过这种方式，可以充分利用布局信息，实现指定布局的可控生成。此外，其输出仍与原始ControlNet功能完全兼容，以保持其可扩展性。<br>原始的ControlNet通过直接添加特征来实现多类型条件的可控生成。然而，这种策略会导致特征融合不合理，因为各个特征图在空间上共享单一强度，从而产生不必要的伪影。<br>在处理遮挡问题时，例如当“物体A在物体B前面”时，仅仅调整比例并不能实现这样的融合。这是因为模型不能仅根据比例推断元素的相对位置。然而，我们的方法能够实现多个元素不同条件的融合，即使在存在冲突的情况下也是如此。<br>顺序嵌入。我们将这种遮挡问题定义为层顺序问题。具体来说，在重叠区域，上层的特征应该具有更高的优先级，并且不应被下层的特征遮挡。在推理时，只需简单调整层顺序，就可以轻松实现物体在物体前面的效果。我们处理个元素，并根据它们的时间顺序将它们拼接起来，形成一个类似于视频潜在特征的输入。同样，为了使模型能够感知层顺序，我们为其提供一个顺序嵌入，以确定这些元素的顺序关系。<br>考虑一组个元素，我们首先对遮挡关系进行顺序排序，然后将它们拼接成一个四维输入：<br>其中和分别表示批量大小、层维度、空间维度和通道维度。<br>在分配顺序嵌入后，我们得到一个多条件表示，它描述了顺序和空间关系。在我们的实现中，由于使用了旋转位置编码（RoPE），顺序嵌入是在注意力机制之前应用的，而不是直接添加到特征中。<br>空间和层重加权变换器。为了准确区分每个元素在空间和层维度中所占的位置，我们采用空间和层变换器来预测用于重加权的空间和层权重。融合模块的结构如图5(b)所示。具体来说，我们分别应用空间变换器和层变换器来预测特征在空间维度和层维度上的权重。这些变换器仅用于预测权重，而不是直接修改特征。在空间&#x2F;层变换器之前，我们首先合并不相关的维度，然后将它们输入到相应的变换器中。在这一步中，我们应用旋转位置编码（RoPE）对空间或层维度的位置进行编码，帮助模型感知元素的相对空间位置或顺序。空间变换器和层变换器的过程可以分别用算法1和算法2表示。<br>算法1空间重加权变换器<br>算法2层重加权变换器<br>这里，b、l、n、c分别表示批量大小、层数、图像标记数量和通道维度。请注意，在空间重加权变换器中，我们应用位置嵌入。为了表达简便，我们将位置嵌入和顺序嵌入统一用符号表示。<br>然后，输出会经过一个线性层和一个激活函数，以获得空间或层权重。空间权重用于强调每个元素的主要内容，而层权重则突出显示每个图像标记中哪个元素起着重要作用。由于同一像素不同层之间的关系是相互排斥的，我们应用softmax函数来获得最终权重，这使我们的方法有别于空间重新加权变换器。在获取空间权重时，我们使用一个初始化为零的线性层，随后进行sigmoid激活。通过这些改进，我们能够沿着空间和层维度对特征进行重新加权，从而实现精确控制。此外，这种重新加权方法可以防止模型通过直接修改特定元素的内容来走捷径。最终输出是通过沿层维度求和得到的。<br>为了进一步促使模型学习前景的分布，我们参考文献[39]，采用重新加权策略，为前景分配更大的权重。具体来说，我们将前景区域的权重设置为其相对于总潜在区域面积的反比。<br>在这里，像素的权重是根据前景区域的面积分配的，该面积被设置为与整个图像的面积相等。这意味着前景区域的优化目标与背景的优化目标相同。前景区域越小，其权重越大，以确保目标不会被忽略。请注意，当前景区域的面积等于图像总面积时，损失函数将恢复为原始形式。其次，特征级L1损失通过比较变换后的特征与来自ControlNet的目标特征，对元素内控制器中特征的空间变换进行监督。这两种损失都由进行加权。最终的优化目标可以定义如下：<br>其中是一个用于平衡损失权重的系数。<br>为了充分发挥我们的多条件图像生成方法的潜力，我们引入了一个新的高质量数据集DMC-120k以及一个新的基准。该数据集背后的核心创新理念是将包含多个元素的复杂图像解耦为几个独立的条件。然后，这些解耦后的条件被用作训练数据，以指导模型重建原始图像。具体而言，DMC-120k数据集包含120,000个样本，每个样本至少包含两个带有其的独立元素，以及一个最终目标图像。该数据集被划分为一个包含120,000个样本的训练集和一个包含1,000个样本的测试集。整个数据集将公开提供。数据集构建的完整流程如图6所示。<br>图6：所提出的DMC-120k数据集。我们首先生成具有随机采样类别和场景的多元素图像，并按顺序对元素进行修复。然后通过相应的条件提取器获得条件。<br>图像创建。第一步是生成由多个不同元素组成的复杂图像。为此，我们定义了100多个不同的类别标签，包括动物、家具、家居用品等。然后，我们根据随机选择的类别和场景构建提示词。这些提示词会进一步使用ChatGPT进行优化，以提高其对生成模型的适用性，并增加生成提示词的多样性。对于每个提示词，我们使用一个随机种子，并以像素生成高分辨率图像，采用开源的SDXL[16]和FLUX[15]模型在各种条件下生成高质量的图像数据。<br>元素解耦。接下来，我们使用GroundingDino[44]检测图像中每个物体的位置和形状。获得掩码后，我们裁剪前景物体并将其上采样到像素，然后用其提取前景条件。如果两个或更多前景元素掩码重叠，我们将它们标记为可能相互遮挡。为了解决遮挡问题，我们首先擦除其中一个掩码，并应用SDXL-图像修复[16]对图像进行修复。然后，我们重新检测剩余的物体，以确保它们完好无损。对所有相互遮挡的元素重复此过程，直到不再存在遮挡。为了提取背景条件，我们使用所有前景物体的掩码应用SDXL-图像修复对图像进行修复。<br>条件生成。最后一步是获取条件。我们通过对前景和背景图像使用各种条件检测器来实现这一点。在我们的数据集中，我们提供了详细的条件，如Canny边缘检测图、HED边缘检测图、深度图、分割图和法线图，用于内容控制。此外，我们还包括点图、框图和掩码图作为布局控制条件。<br>我们的DC-ControlNet基于SDXL[16]实现可控生成。所有实验均在八块A100GPU上进行混合精度训练。我们的训练分为三个阶段，分别用于训练联合控制网络（Union-ControlNet）、元素内控制器（Intra-ElementController）和元素内控制器（Intra-ElementController）。对于联合控制网络，我们使用以下八种条件进行训练：Canny边缘检测（canny）、霍尔边缘检测（HED）、深度图（depth）、分割图（segmentationmap）、法线图（normal）、点图（dotmap）、掩码图（maskmap）和框图（boxmap）。该模型使用AdamW优化器进行训练，固定学习率为1e-4，训练50000步。对于元素内控制器，我们采用AdamW优化器，固定学习率为1e-4，训练50000步，批量大小为32，训练约一天。训练时提示词的丢弃率（dropoutrate）设置为0.2。模型中所有训练图像，包括目标图像和条件图像，均设置为。对于元素间控制器（Inter-ElementController），我们使用与元素内控制器相同的超参数进行训练。<br>在图7中，我们展示了我们方法的可视化结果，该方法将元素的布局条件、内容条件和背景作为输入。与需要用户提供详细布局和内容信息的ControlNet不同，我们的方法将内容和空间布局控制解耦为独立的条件，允许用户独立控制。图8展示了元素内控制器的结果，我们的元素内控制器能够根据不同的布局条件控制不同条件下ControlNet的输出。<br>图7：我们的DC-ControlNet的结果。每个元素都可以通过给定的内容条件以及布局条件生成像素对齐的输出。此外，在重叠区域，用户可以通过调整图层顺序并利用我们的图层融合模块来解决冲突，以实现感知遮挡的生成。<br>为了更好地与其他可控图像生成模型进行比较，我们给出了与现有模型的对比。我们比较的方法主要有两类，一类侧重于定制不同条件类型的内容，然后将它们融合（例如，ControlNet[9]、UniControlNet[32]和ControlNet++[18]）。然而，这类方法在冲突区域进行融合时忽略了融合策略，导致冲突区域出现明显的伪影。例如，如图9所示，“包”和“熊”在重叠区域出现了融合现象。<br>图8：仅使用我们的元素内控制器的结果。元素内控制器能够有效且准确地将给定的条件内容转换为目标布局。<br>另一种方法侧重于根据给定的提示在特定区域内生成指定的对象。这些方法只能指定大致的对象，无法对内容进行细粒度的控制（例如，布局扩散（LayoutDiffusion）[11]、HiCo[13]）。此外，它不能有效地指定元素的顺序，而是依赖于训练数据集中的先验知识。如图9所示，生成的内容无法被指定，元素出现的顺序是随机的。<br>如图9所示，我们提出的模块很好地解决了重叠和冲突问题。只需调整图层顺序就可以生成相应的图像。例如，如果按照“一个包”、“一只熊”和“一个舒适的客厅”的顺序输入条件，就可以生成一张客厅里包在熊前面的图像。同样，调整“一个包”和“一只熊”的条件顺序会生成不同的图像，相同的元素以不同的顺序出现。</p>
+<p>元素间控制器解决了以下两个问题：多元素融合时的不自然性以及多元素融合时的遮挡问题。为了表示不同元素之间的层序关系，我们为排序后的元素特征分配了一维顺序嵌入，使模型能够感知顺序关系。如图10所示，有了顺序嵌入，模型会错误解读元素的顺序，导致出现类似于传统ControlNet在不同实例间的融合问题。在没有层变换器的情况下也会出现同样的问题，模型无法区分应该显示哪个元素，从而无法执行用户将特定元素定位在前景中的指令。此外，由于直接混合多个元素，图像质量会下降。另外，缺少空间变换器可能会导致生成图像中出现伪影或不自然的区域，这在图10中也能观察到。<br>图10：元素间控制器的消融研究。顺序嵌入提供了元素之间的顺序信息，使模型能够生成具有遮挡感知的输出。缺少图层变换器和空间变换器会引入伪影。<br>基于ControlNet的生成方法通常依赖全局条件来引导图像生成。然而，这些方法在多条件图像生成任务中面临灵活性和精度方面的问题，常常导致对条件的误解以及生成输出中出现伪影。为了解决这个问题，本文提出将全局条件解耦为独立的元素、内容和布局，引入了DC-ControlNet。具体来说，DC-ControlNet包括一个元素内控制器，用于管理单个元素内的内容和布局条件，确保元素内的不同条件相互独立且互不干扰。另一方面，DC-ControlNet中的元素间控制器管理不同元素之间的交互，准确处理遮挡和交互关系。此外，我们还提出了一个用于训练和评估多条件生成模型的新数据集。我们的实验结果表明，DC-ControlNet优于现有方法，为可控图像生成提供了更精细、更灵活的解决方案。<br>感谢你看到这里，也欢迎点击关注下方公众号并添加公众号小助手加入官方读者交流群，一个有趣有AI的AIGC公众号:关注AI、深度学习、计算机视觉、AIGC、StableDiffusion、Sora等相关技术，欢迎一起交流学习💗～</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/05/1000000405-2247490584-3/">https://zejuncao.github.io/2025/03/05/1000000405-2247490584-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                                    <span class="chip bg-color">开源项目</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                                    <span class="chip bg-color">微信公众号聚合平台</span>
+                                </a>
+                            
+                                <a href="/tags/AIGC-Studio/">
+                                    <span class="chip bg-color">AIGC Studio</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/05/1000000405-2247490584-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000405_2247490584_1.jpg" class="responsive-img" alt="阿里发布新开源视频生成模型Wan-Video, 支持文生图和图生图,最低6G就能跑, ComfyUI可用!">
+                        
+                        <span class="card-title">阿里发布新开源视频生成模型Wan-Video, 支持文生图和图生图,最低6G就能跑, ComfyUI可用!</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/05/1000000405-2247490584-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000405_2247490584_2.jpg" class="responsive-img" alt="电商领域利器来了！港大&amp;阿里提出MimicBrush，可模仿参考图进行零样本图像编辑。">
+                        
+                        <span class="card-title">电商领域利器来了！港大&amp;阿里提出MimicBrush，可模仿参考图进行零样本图像编辑。</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">开源项目</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
+                        <span class="chip bg-color">微信公众号聚合平台</span>
+                    </a>
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
