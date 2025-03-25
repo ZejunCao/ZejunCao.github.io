@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                                 <span class="chip bg-color">量子位</span>
                             </a>
@@ -420,7 +412,7 @@
 <p>每个模型基于MMPG-set生成1,050个视频，最终总计6,300个视频。<br>为了保证公平比较，作者严格按照各模型官方项目的超参数设定进行实验。每个提示词（prompt）仅生成一段视频，并且固定初始种子（seed）以保证可复现性。推理过程运行在8张NvidiaH20GPU上。<br>此外，作者从每个模型的输出结果中随机抽取200段视频，共1,200段视频，用于人类感知对齐验证实验（human-alignedvalidationexperiments）。<br>以下是比较指标（ComparisonMetrics）。<br>1)基于规则的指标<br>基于规则的方法评估四个维度：<br>可感知动态幅度（PerceptibleAmplitude）：采用RAFT光流幅值分析结合结构运动一致性检测（基于4帧SSIM平均值）进行评估，遵循既定评测协议。<br>时间一致性（TemporalCoherence）：使用DINO和CLIP特征跟踪，通过计算相邻帧余弦相似度来衡量帧间一致性。<br>运动平滑度（MotionSmoothness）：结合插值误差与Dover视频质量评估的混合方法进行测量。<br>物体完整性（ObjectIntegrity）：通过光流扭曲误差（opticalflowwarpingerror）与语义一致性检查进行双重验证。<br>2)多模态大语言模型（MLLM）评估<br>团队选取五个前沿的多模态大模型进行运动评测：<br>LLaVA-NEXT-Video<br>MiniCPM-V-2.6<br>InternVL2.5<br>Qwen2.5-VL<br>InternVideo2.5<br>这些模型的评估采用标准化流程，即对每个视频以2帧&#x2F;秒（fps）的采样率进行处理，以保持运动模式完整性并控制计算成本。</p>
 <p>每个维度采用1-5分制进行评分。为保证公平性，在所有模型间保持一致的帧序列与评估标准。<br>接下来是评估指标（Metrics）。<br>1)斯皮尔曼相关系数（SpearmanCorrelation）<br>斯皮尔曼秩相关系数（Spearman’sRankCorrelationCoefficient,ρ）用于衡量两个变量之间的单调关系。该方法是非参数统计方法，特别适用于变量不服从正态分布的数据集。<br>与皮尔逊相关系数（PearsonCorrelation）不同，皮尔逊主要衡量线性关系，而斯皮尔曼相关性关注基于排名的关联性，因此对异常值（outliers）更加鲁棒，并适用于有序数据（ordinaldata）或非线性依赖关系的场景。<br>2)准确性（Accuracy）<br>为了验证运动评估指标与人类偏好的一致性，作者在1,200段带有人类标注的视频（200个提示×6个模型）上进行了成对比较（pairwisecomparisons）。<br>对于每个提示（prompt），作者比较所有15种可能的视频对（由不同模型生成的6选2组合），最终得到3,000组视频对进行评估。<br>人类偏好标注（groundtruth）通过比较五个核心维度（OIS,MSS,CAS,TCS,PAS）下的平均专家评分确定。得分较高的视频被认定为“偏好样本”（preferredsample）。<br>PMM评估指标计算各视频在相同标准下的综合PMM评分，并基于此进行视频对比。<br>一致性准确率（AlignmentAccuracy）计算PMM偏好与人类标注结果一致的比率（不包括评分相同的样本，以确保决策的明确性）。<br>这一过程确保本研究的评估指标能够更好地对齐人类感知，并提供精确的运动质量评估方法。<br>人类感知对齐验证机制（Human-AlignedValidationMechanism）</p>
 <p>最终，共收集到6,000条详细评分，并达到了高度的标注一致性（highinter-annotatoragreement）。<br>为了评估评测指标与人类感知的一致性，作者计算了斯皮尔曼相关系数（SpearmanCorrelation），用于衡量评测指标分数与专家评分之间的对齐程度。较高的Spearman相关系数意味着更强的与人类感知的一致性。<br>与其他评测指标的比较（ComparisonwithAlternativeMetrics）<br>上标*和†分别表示遵循VBench和EvalCrafter的实现。在规则基（Rule-based）方法中，黄色背景表示特定维度的基线。<br>从表1可以看出，在运动平滑度（MSS）评估方面，即便是先进的指标，如AMT（18.1%）和WarpingError（-19.1%），在面对复杂形变时仍然表现出有限的区分能力，并产生了违反直觉的评估结果。<br>在物体完整性（OIS）评估中，也存在类似问题。例如，DINO的对齐度仅为27.4%，而Dover仅为34.5%，二者都未能有效捕捉人类对运动中结构保持性的敏感度。<br>在可感知动态幅度（PAS）评估中，基于规则的方法，如SSIM和RAFT，其人类对齐度分别仅为17.8%和47.7%。<br>相比之下，本研究方法达到了65.2%的对齐度，表现出明显优势。对于时间一致性（TCS）评估，基于规则的指标，如CLIP和DINO，其对齐度仅为28.0%和27.4%，无法准确反映人类对轻微不一致性的容忍度，同时也未能维持物理合理性。<br>而本研究评测方法达到了54.5%的对齐度，大幅领先。<br>与现有基准（VBench和EvalCrafter）的比较<br>VBench评测方法包含RAFT、CLIP、DINO和AMT。<br>EvalCrafter采用Dover技术评估和WarpingError。<br>然而，从表中数据可以看出，与本研究方法相比，VBench和EvalCrafter的运动评估指标与人类感知的相关性明显较低，表明它们无法有效评估运动质量。<br>与多模态大语言模型（MLLMs）的比较<br>尽管多模态大模型（MLLMs）在物理适应性评分（PAS）方面表现出一定能力（例如InternVideo2.5取得44.3%），但整体来看，MLLMs在所有维度上的平均相关性仅为10.0%-30.0%。<br>这表明当前的MLLMs在运动质量评估方面存在根本性的不匹配（fundamentalmisalignment），难以准确对齐人类的感知标准。<br>运动评估指标的消融研究（AblationStudyofMotionMetrics）<br>基于移除的消融实验展示了单独去除每个度量的影响，而基于添加的消融实验则逐步加入各个度量，以观察其影响。<br>根据表2，去除任意单一指标都会导致整体评估准确率显著下降，凸显出每个评估维度在整体框架中的重要性。<br>值得注意的是，去除CAS（常识一致性，CommonsenseAdherence,CAS）指标后，准确率下降最为显著，降至64.1%，其影响超过其他单个维度的消融效果。<br>这表明CAS指标在评估视频质量中的关键作用，并且高度契合人类在感知视频质量时优先关注的关键因素。<br>对于面向性能优化的变体（performance-orientedvariants），作者模拟人类的感知信息处理流程，通过逐步增加评估维度，结果显示每新增一个评估维度，整体准确率均有显著提升。<br>这一结果不仅验证了增量评估方法的有效性，还进一步证明了本研究提出的评估框架与人类感知机制的一致性。<br>PMM评估与人类感知的一致性（AlignmentofPMMwithHumanPerception）<br>(a)人类标注的斯皮尔曼相关性矩阵；(b)PMM指标的斯皮尔曼相关性矩阵。<br>如图6所示，人类评分在五个评估维度（OIS、CAS、MSS、TCS、PAS）与PMM评估指标之间的相关性保持一致。<br>例如，OIS（物体完整性）、CAS（常识一致性）和MSS（运动平滑度）之间存在较强的相关性，而PAS（可感知动态幅度）与其它指标的相关性较弱。<br>具体来看：<br>图6(a)显示，PAS与其它维度呈负相关，例如与OIS的相关系数ρ&#x3D;-0.18。<br>可能的原因是，视频中的高动态振幅（highdynamicamplitudes）会导致形变和伪影，进而降低结构完整性（OIS）和时间一致性（TCS）评分。</p>
-<p>TCS（时间一致性）与其它维度的相关性较低，表明该指标可提供更加独立和全面的评估视角。<br>PAS与结构&#x2F;时间相关指标的负相关性挑战了传统基于光流（optical-flow-based）的视频运动评估框架，突显出在运动视频评估中，单独衡量运动幅度的重要性。<br>此外，图6(b)显示，作者提出的评估指标相互关联性符合人类感知特性，进一步验证了PMM评估框架的合理性。<br>使用PMM评估视频生成模型（AssessingVideoGenerationModelswithPMM）<br>使用VMBench评估了六个开源视频生成模型。分数越高表示该类别的性能越优。<br>如表3所示，作者使用PMM评估指标对多个领先的视频生成模型进行了评测，包括Mochi1、OpenSora、CogVideoX、OpenSora-Plan、HunyuanVideo和Wan2.1。<br>评测结果表明，Wan2.1在运动视频生成方面表现最佳，其生成的视频在视觉真实性（realism）方面优于其它模型。<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.10076代码仓库链接：https :&#x2F;&#x2F;github.com&#x2F;GD-AIGC&#x2F;VMBench<br>一键三连「点赞」「转发」「小心心」<br>欢迎在评论区留下你的想法！<br>—完—<br>学术投稿请于工作日发邮件到：<br><a href="mailto:&#97;&#x69;&#x40;&#x71;&#98;&#105;&#116;&#97;&#x69;&#46;&#x63;&#x6f;&#109;">&#97;&#x69;&#x40;&#x71;&#98;&#105;&#116;&#97;&#x69;&#46;&#x63;&#x6f;&#109;</a><br>标题注明【投稿】，告诉我们：<br>你是谁，从哪来，投稿内容<br>附上论文&#x2F;项目主页链接，以及联系方式哦<br>我们会（尽量）及时回复你<br>🌟点亮星标🌟<br>科技前沿进展每日见</p>
+<p>TCS（时间一致性）与其它维度的相关性较低，表明该指标可提供更加独立和全面的评估视角。<br>PAS与结构&#x2F;时间相关指标的负相关性挑战了传统基于光流（optical-flow-based）的视频运动评估框架，突显出在运动视频评估中，单独衡量运动幅度的重要性。<br>此外，图6(b)显示，作者提出的评估指标相互关联性符合人类感知特性，进一步验证了PMM评估框架的合理性。<br>使用PMM评估视频生成模型（AssessingVideoGenerationModelswithPMM）<br>使用VMBench评估了六个开源视频生成模型。分数越高表示该类别的性能越优。<br>如表3所示，作者使用PMM评估指标对多个领先的视频生成模型进行了评测，包括Mochi1、OpenSora、CogVideoX、OpenSora-Plan、HunyuanVideo和Wan2.1。<br>评测结果表明，Wan2.1在运动视频生成方面表现最佳，其生成的视频在视觉真实性（realism）方面优于其它模型。<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.10076代码仓库链接：https :&#x2F;&#x2F;github.com&#x2F;GD-AIGC&#x2F;VMBench<br>一键三连「点赞」「转发」「小心心」<br>欢迎在评论区留下你的想法！<br>—完—<br>学术投稿请于工作日发邮件到：<br><a href="mailto:&#x61;&#105;&#64;&#113;&#x62;&#105;&#x74;&#x61;&#105;&#46;&#x63;&#111;&#x6d;">&#x61;&#105;&#64;&#113;&#x62;&#105;&#x74;&#x61;&#105;&#46;&#x63;&#111;&#x6d;</a><br>标题注明【投稿】，告诉我们：<br>你是谁，从哪来，投稿内容<br>附上论文&#x2F;项目主页链接，以及联系方式哦<br>我们会（尽量）及时回复你<br>🌟点亮星标🌟<br>科技前沿进展每日见</p>
 
                 
             </div>
@@ -484,14 +476,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                                     <span class="chip bg-color">量子位</span>
@@ -606,14 +590,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                         <span class="chip bg-color">量子位</span>
                     </a>
@@ -657,14 +633,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                         <span class="chip bg-color">量子位</span>
@@ -912,6 +880,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -418,7 +410,7 @@
 </blockquote>
 <p>机器之心报道<br>编辑：佳琳、杜伟<br>近年来，大型语言模型（LLM）通过大量计算资源在推理阶段取得了解决复杂问题的突破。推理速度已成为LLM架构的关键属性，市场对高效快速的LLM需求不断增长。<br>其中，采用Transformer架构的模型虽然占据了主流，但在输入序列长度增加时，计算量会呈二次方增长。因此，自上个世纪90年代兴起的LSTM卷土重来，它的提出者和奠基者SeppHochreiter在去年5月推出了xLSTM，将LSTM扩展到数十亿参数，成为Transformer的有力替代品，提供了与序列长度线性相关的计算扩展和稳定的内存占用。<br>然而，xLSTM在扩展至更大参数规模时存在限制，推理速度和效率具体如何也没做系统测评。<br>近日，SeppHochreiter等来自NXAI、JKU的研究者再次对xLSTM进行了优化，现在可以扩展到70亿参数了。<br>具体来讲，xLSTM7B模型基于DCLM数据集，使用128块H100GPU，在8192上下文长度下训练了2.3万亿token。研究者对原始xLSTM架构进行了改进，确保训练效率和稳定性，同时保持任务性能。新架构依靠mLSTM单元和并行训练模式，实现高性能的同时最大化速度。<br>论文标题：xLSTM7B:ARecurrentLLMforFastandEfficientInference<br>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.13427<br>代码地址：https :&#x2F;&#x2F;github.com&#x2F;NX-AI&#x2F;xlstm<br>HuggingFace地址：https :&#x2F;&#x2F;huggingface.co&#x2F;NX-AI&#x2F;xLSTM-7b<br>通过修改模块架构，研究者优化了吞吐量，在低维空间运行mLSTM并添加前馈MLP层，同时去除了不必要的组件以提高GPU利用率。优化后的架构在保持相似性能的同时，将token吞吐量提高了2到4倍。研究者还优化了训练稳定性，特别是mLSTM单元的门控机制，有效解决了梯度问题。<br>在各类任务评估中，xLSTM7B与同规模Transformer和Mamba模型表现相当。通过架构优化，该模型在推理效率测试中实现了最高的预填充和生成吞吐量，同时保持最低的GPU内存占用。<br>论文作者之一GünterKlambauer表示，xLSTM7B成为了最快、最高效的7B语言模型！<br>优化的xLSTM7B架构<br>xLSTM7B架构的核心是mLSTM单元，它的循环和并行模式可以实现高效的训练和推理。为了充分发挥该单元的潜力，研究者重新审视了相邻块结构的设计。<br>与Mamba等其他线性RNN类似，以前的xLSTM架构将与通道卷积相结合的mLSTM单元置于线性上投影和下投影之间，这被称为预上投影（preup-projection）块。这些块将序列混合和通道混合结合在一个块中，因此均匀堆叠，而无需交错位于前馈MLP层。尽管预上投影块架构已展示出了对1.4B参数xLSTM的竞争性语言建模性能，但由于以下几方面的原因，它在计算效率方面付出了很大代价：<br>在预上投影块中，mLSTM在比模型嵌入维数高得多的维数上运行，这导致mLSTM操作的计算成本和GPU内存使用量大幅增加。<br>省略位置前馈MLP层会导致模型中高效线性层FLOP的比例下降。<br>以前的xLSTM架构使用几个额外的组件，例如可学习的残差连接、通道卷积以及用于计算查询、键和值的小（块对角化）投影层。如果没有自定义内核融合，这些小操作会导致GPU上出现多个短内核调用，无法有效利用张量核心，从而大幅降低GPU利用率。<br>以前，输入和遗忘门预激活是通过连接的查询、键和值投影计算出来的。而在大规模张量并行训练设置中，这需要每个mLSTM块进行额外的全归约操作，从而增加总体通信成本。<br>因此，为了将xLSTM扩展到更大的模型大小，研究者通过解决以上四个限制来优化mLSTM块以实现最大效率。<br>对于优化mLSTM块，研究者首先在模型的嵌入维数而不是更高维数的空间中操作mLSTM单元，并在每个mLSTM层之后放置位置前馈MLP层。此修改增加了高度优化的线性层（即矩阵乘法）FLOP的比例，并降低了mLSTM操作的计算成本。显著减少的GPU内存使用量使得在训练期间可以使用更大的批大小，从而提高了训练效率。<br>此外，研究者放弃了通道卷积和可学习的残差连接等操作，并用密集线性层替换块查询、键和值投影。这再次增加了线性层FLOP，并确保有效使用mLSTM层内的张量核。最后，确保每个head的门预激活都是独立计算的。<br>这些优化产生了下图1和下图8中改进后的mLSTM块和xLSTM架构，其中在xLSTM7B架构中堆叠了32个mLSTM块。<br>下表4为xLSTM7B的超参数，包括模型参数（近70亿）、词表大小（50257）、块数量（32）、模型维数（4096）以及head数（8）。<br>研究者观察到，本文优化在1.4B参数的模型训练中实现了3.5倍的加速，但在验证困惑度方面略有损失，可以通过增加几个训练步骤来缓解，详见下表2。<br>优化稳定性<br>研究者发现，先前在7B参数规模下的xLSTM架构在训练初期阶段常出现不稳定现象。具体而言，他们观察到在较高学习率条件下训练会导致梯度幅度和损失值剧烈波动。本文通过以下方法解决了这些稳定性问题：<br>使用RMSNorm替代LayerNorm；<br>对输入门和遗忘门实施软上限限制；<br>对输入门偏置进行负初始化。<br>1.使用RMSNorm的预归一化（Pre-NormwithRMSNorm）</p>
 <p>2.门控软上限限制（GateSoft-Capping）<br>为了降低潜在的大幅异常特征和相关损失峰值，研究者对输入门和遗忘门的预激活值应用了软上限限制，使其值被限制在特定上限值a的-a与a之间。本文采用a&#x3D;15对门控进行限制，所使用的函数为<br>3.负输入门偏置初始化（NegativeInputGateBiasInitialization）<br>研究者发现，在训练初期，xLSTM模型会出现较大的梯度范数峰值，这对模型的最终性能产生不利影响（详见下图11）。将输入门初始化为较大的负值（如-10）能有效缓解这些梯度范数峰值，从而提升模型性能。<br>综上所述，这些优化措施使xLSTM7B的预训练过程变得极为稳定，如下图2所示。<br>语言建模性能评估<br>Huggingface排行榜<br>研究者首先在7B参数规模上，将xLSTM7B与最先进的Transformer和循环神经网络（RNN）大语言模型进行了基准测试。<br>结果总结在下表1中，显示xLSTM7B在7B规模模型中排名居中，其中一些表现更好的模型受益于更大规模的训练数据集。研究者认为，如果使用更大且更精心策划的训练数据集，尤其是在早期训练阶段更加注重数学和代码数据，xLSTM7B可能会达到最强7B模型的性能水平。<br>长文本评估与微调</p>
-<p>下表3展示了RULER评估结果。对于xLSTM7B，预训练中的长文本降温（cooling）阶段极大地提升了其长文本处理能力，使其性能与状态空间模型相当，并且优于RWKV-5&#x2F;6。<br>值得注意的是，长文本xLSTM7B在131K上下文长度时实现了20%的平均准确率，尽管在降温阶段训练时仅使用了最多32K的上下文长度。这一点尤为显著，因为与具有不断增长的KV缓存（Key-Valuecache）的Transformer不同，xLSTM7B必须在有限容量的固定大小内存中存储整个序列的信息（见表3）。<br>速度基准测试<br>本研究主要关注本地单用户推理场景，这在模型部署到边缘设备时较为常见。除非另有说明，研究在单个英伟达H100GPU上对批大小为1的xLSTM7B模型进行生成式推理基准测试，并将其与Llama2和Llama3模型进行了比较。<br>生成吞吐量<br>如下图4所示，由于注意力机制随输入上下文长度呈二次方增长，Transformer模型在较长预填充长度下的文本生成速度显著降低。<br>研究表明，xLSTM7B的文本生成速度比Mamba快约50%，这主要得益于其优化的块设计。即使在预填充长度为0的情况下，xLSTM7B也比采用类似块设计的基于Llama的Transformer模型更快。<br>生成效率与内存消耗分析<br>研究者测量了不同生成长度下的token生成时间和GPU内存使用情况（不包括预填充）。图5（左）展示了循环模型在计算时间上呈线性增长，与Transformer呈二次方增长的对比；图5（右）则显示了循环模型内存占用保持恒定，而Transformer的KV缓存随生成长度线性增长的对比。<br>得益于优化的模块设计，mLSTM在低维空间中运行，使得xLSTM7B模型与Mamba模型相比具有显著更低的内存占用（如下图5右侧所示）和更短的生成时间（如图5左侧所示）。<br>TTFT（TimeToFirstToken）<br>在语言模型作为用户界面（可能在边缘设备上）的应用场景中，较短的响应时间至关重要。下图6展示了不同模型在处理各种长度的预填充（prefill）内容后，生成1个或100个token所需的响应时间或延迟。在所有预填充长度条件下，xLSTM7B模型均表现出最快的响应速度。<br>更多实验结果请参阅原论文。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#x79;&#97;&#x7a;&#x68;&#x6f;&#x75;&#x40;&#x6a;&#x69;&#113;&#x69;&#122;&#104;&#105;&#x78;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#109;">&#108;&#x69;&#x79;&#97;&#x7a;&#x68;&#x6f;&#x75;&#x40;&#x6a;&#x69;&#113;&#x69;&#122;&#104;&#105;&#x78;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>下表3展示了RULER评估结果。对于xLSTM7B，预训练中的长文本降温（cooling）阶段极大地提升了其长文本处理能力，使其性能与状态空间模型相当，并且优于RWKV-5&#x2F;6。<br>值得注意的是，长文本xLSTM7B在131K上下文长度时实现了20%的平均准确率，尽管在降温阶段训练时仅使用了最多32K的上下文长度。这一点尤为显著，因为与具有不断增长的KV缓存（Key-Valuecache）的Transformer不同，xLSTM7B必须在有限容量的固定大小内存中存储整个序列的信息（见表3）。<br>速度基准测试<br>本研究主要关注本地单用户推理场景，这在模型部署到边缘设备时较为常见。除非另有说明，研究在单个英伟达H100GPU上对批大小为1的xLSTM7B模型进行生成式推理基准测试，并将其与Llama2和Llama3模型进行了比较。<br>生成吞吐量<br>如下图4所示，由于注意力机制随输入上下文长度呈二次方增长，Transformer模型在较长预填充长度下的文本生成速度显著降低。<br>研究表明，xLSTM7B的文本生成速度比Mamba快约50%，这主要得益于其优化的块设计。即使在预填充长度为0的情况下，xLSTM7B也比采用类似块设计的基于Llama的Transformer模型更快。<br>生成效率与内存消耗分析<br>研究者测量了不同生成长度下的token生成时间和GPU内存使用情况（不包括预填充）。图5（左）展示了循环模型在计算时间上呈线性增长，与Transformer呈二次方增长的对比；图5（右）则显示了循环模型内存占用保持恒定，而Transformer的KV缓存随生成长度线性增长的对比。<br>得益于优化的模块设计，mLSTM在低维空间中运行，使得xLSTM7B模型与Mamba模型相比具有显著更低的内存占用（如下图5右侧所示）和更短的生成时间（如图5左侧所示）。<br>TTFT（TimeToFirstToken）<br>在语言模型作为用户界面（可能在边缘设备上）的应用场景中，较短的响应时间至关重要。下图6展示了不同模型在处理各种长度的预填充（prefill）内容后，生成1个或100个token所需的响应时间或延迟。在所有预填充长度条件下，xLSTM7B模型均表现出最快的响应速度。<br>更多实验结果请参阅原论文。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#105;&#x79;&#x61;&#122;&#104;&#111;&#x75;&#64;&#x6a;&#x69;&#113;&#x69;&#x7a;&#x68;&#x69;&#120;&#x69;&#110;&#x2e;&#99;&#x6f;&#109;">&#108;&#105;&#x79;&#x61;&#122;&#104;&#111;&#x75;&#64;&#x6a;&#x69;&#113;&#x69;&#x7a;&#x68;&#x69;&#120;&#x69;&#110;&#x2e;&#99;&#x6f;&#109;</a></p>
 
                 
             </div>
@@ -482,14 +474,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -575,12 +559,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/19/1000003045-2650031349-4/">
+                <a href="/2025/03/19/1000003045-2650031349-3/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003045_2650031349_4.jpg" class="responsive-img" alt="黄仁勋年度演讲来了，Scaling Law失效只是假象，推理需求暴涨100倍，AI模型优化迎来新挑战｜GTC 2025">
+                        <img src="/medias/frontcover/1000003045_2650031349_3.jpg" class="responsive-img" alt="AI Agent 发展史：从 RL 驱动到大模型驱动 ｜AIR 2025">
                         
-                        <span class="card-title">黄仁勋年度演讲来了，Scaling Law失效只是假象，推理需求暴涨100倍，AI模型优化迎来新挑战｜GTC 2025</span>
+                        <span class="card-title">AI Agent 发展史：从 RL 驱动到大模型驱动 ｜AIR 2025</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -603,14 +587,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E5%AE%B6/">
                         <span class="chip bg-color">人工智能学家</span>
@@ -655,14 +631,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -910,6 +878,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

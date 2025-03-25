@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -420,7 +412,7 @@
 <p>角度一：跨模型形状(ModelShape)的稳定性<br>研究还深入探讨了不同模型形状（如宽度与深度的不同组合）对缩放规律的影响，发现无论模型是以宽度为主还是深度为主，抑或是宽深平衡的设计，StepLaw均表现出了高度的稳定性。这表明，缩放规律不仅适用于特定类型的模型结构，在更广泛的架构设计空间中依然适用，为复杂模型架构的设计和优化提供了指导意义。<br>图四：最优超参在不同ModelShape下的拓扑不变性。这里的是固定了模型的非词表参数量的大小，且固定了模型的训练Token数，但研究团队使用了不同的ModelShape。例如变换了层数，从左到右分别是14&#x2F;10&#x2F;8层；变换了ModelHiddenDimension，分别包括1280&#x2F;1536&#x2F;2048这三种；同时变换了6种不同的FFN倍数(FFN_media_dim&#x2F;model_dim)，从1.1倍到～6.25倍。其中红色五角星的点是StepLaw预测的点位，可以观察到Step_law在6个不同的Shape上都预测到了GlobalMinimum附近。然而也可以同时观察到，不同的ModelShape，Bottom的一片区域的位置是会发生shift的。<br>角度二：跨模型架构的泛化性<br>研究结果发现，这一缩放规律不仅适用于Dense模型，还能很好地推广到不同稀疏度的MoE模型（Mixture-of-Experts），展示了极强的泛化能力。<br>图五：不同稀疏比下MoE模型的超参-损失等高线图。左：低稀疏度（N_a&#x2F;N&#x3D;0.27），中间：中等稀疏度（N_a&#x2F;N&#x3D;0.58，D&#x2F;N&#x3D;10），右：中等稀疏度、较少训练Token数（N_a&#x2F;N&#x3D;0.58，D&#x2F;N&#x3D;4）。研究员们在不同稀疏度，不同D&#x2F;N的MoE模型配置，每一种配置都从头训练了45个小模型，来做最优超参搜取。共计从头训练了495个不同稀疏度、不同超参、不同D&#x2F;N的MoE模型。从而得到了不同配置下的基于真实值的GlobalMinimumTrainSmoothedLoss。其中除了一组D&#x2F;N&#x3D;1的实验，其余实验StepLaw预测位置都在GlobalMinimum+0.5%的范围之内。并且大多数配置下都在GlobalMinimum+0.25%的范围之内。充分的验证了StepLaw的鲁棒性。详细结果可以参考论文的附录部分。<br>角度三：跨数据分布的稳定性<br>那么StepLaw是否能兼容不同的预训练数据分布呢？研究团队进一步验证了不同数据分布下的规律一致性：无论是英语主导、中英双语、Code和英语混合，还是代码主导的数据分布，StepLaw都表现出了稳定的性能。这为多语言、多任务场景下的实际应用提供了可靠支持。</p>
 <p>研究细节解读<br>1.学习率调度策略优化<br>图七：不同学习率策略的比较。蓝色等高线(传统衰减策略):学习率会从一个最大值(max_lr)逐渐减小到一个最小值(min_lr，常是峰值的十分之一)。红色等高线(固定最终学习率策略):保持一个固定的最小学习率(min_lr&#x3D;1e-5)，而不是像传统方法那样与最大学习率挂钩。两张图都分别为120个从头训练的模型，在相同的batchsize&#x2F;learningrate范围内做的GridSearch。红色和蓝线的GlobalMinimum都是各自配置下的真值-最小的FinalTrainSmoothedLoss。可以观察到改成max_lr&#x2F;10之后，蓝点会向左上方偏移，即更小的LearningRate和更大的Batchsize。如果不是对比相对值，而是对比真值，min_lr&#x3D;1e-5的最终收敛loss普遍小于max_lr&#x2F;10。相关的真值将陆续开源。相关的真值开源在https :&#x2F;&#x2F;github.com&#x2F;step-law&#x2F;steplaw<br>研究团队通过对比分析发现，学习率调度策略对最优超参选择产生显著影响。研究揭示了传统学习率衰减与固定最小学习率方案间的重要差异：<br>传统学习率衰减方案将最小学习率设为最大值的十分之一(max_lr&#x2F;10)，而团队提出的固定方案则采用恒定的绝对最小值(1e-5)。等高线图分析清晰表明，传统衰减方法使得最优学习率区域出现明显的左偏分布——即损失最小区域向较低学习率区间显著偏移。<br>团队通过分析了传统学习率（min_lr&#x3D;max_lr&#x2F;10）调度方案的局限性：采用较高初始峰值学习率时，其退火机制会同步抬升最低学习率阈值。这种耦合设计在训练末期会使学习率超出理想区间，过大的参数更新幅度引发损失函数在收敛阶段持续振荡。相比之下，固定最小学习率策略通过解耦初始学习率与终值学习率的关联，在训练后期始终维持符合梯度下降动态特性的更新步长。<br>此外，这种固定最终较小最终学习率的策略也与业界的训练经验相匹配，更有实际应用价值。<br>2.训练损失与验证损失的最优超参一致性</p>
 <p>在429M模型上训练40B的Token进行验证，当平滑训练损失达到最优时，学习率为1.95×10^-3，批量大小为393,216，这一点与验证损失最优时的超参数完全重合。此外，学习率和批量大小的变化趋势在平滑训练损失和验证损失中表现出高度一致性。这一发现表明，平滑的训练损失曲线可以为实际超参数选择提供可靠的指导。尽管采用TrainSmoothedLoss可以降低实验成本（节省了FinalCheckpoint在ValidationSet上推理的算力），但仍然具有一定的局限性，例如训练数据不能重复。研究团队将会陆续开源这近4000个模型的FinalCheckpoint，供广大研究员进行进一步的分析。<br>最优超参的ScalingLaw拟合<br>图九：(a)散点图表示模型规模为N时，经验最优学习率与批量大小的关系；(b)散点图表示数据集规模为D时，经验最优学习率与批量大小的关系。曲线表示超参数缩放定律的预测结果，阴影区域表示基于采样拟合策略得到参数不确定性范围。图上的每一个点，背后都代表着45~120个采用了不同的超参的从头训练的模型。图上的每一个点位都在不同的ModelSize、DataSize下通过GridSearch得到的最优的超参(OptimalLearningRate，OptimalBatchSize)。这张图总共涉及了1912个从头训练的LLM。拟合方法开源在https :&#x2F;&#x2F;github.com&#x2F;step-law&#x2F;steplaw<br>通过从头训练了1912个LLM，研究团队分析发现：<br>最优学习率：随模型规模增大而减小，随数据规模增大而增大。<br>最优批量大小：随数据规模增大而增大，与模型规模弱相关。<br>研究通过对数变换将幂律关系转化为线性形式，采用最小二乘法拟合参数，并通过Bootstrap采样方法提升稳健性。最终，团队提出了一套精确的预测公式，为大模型预训练的超参数设置提供了一个开箱即用的工具。据了解，在阶跃星辰真正的研发过程中，他们已经广泛使用了StepLaw，主要是在大于1B的模型和非极端的D&#x2F;N下适用。<br>讨论与未来工作<br>研究团队坦言，尽管付出了很多的算力，和大量的精力来分析相关的实验。但是很多子Topic分析仍然是值得深究的。研究团队认为他们的这份工作仅仅是一个开始，他们会陆续将实验的各个细节整理并且开源出来，供整个社区的研究人员进行进一步分析和深入的理论解释。这些子Topic包括以下话题：<br>在给定模型、训练Token数的情况下，(Loss,bs,lr)这三维空间是否是真正的凸性。<br>是否有更好的optimalBSLR的拟合方法，并且可以兼容BS、LR的内在关系。<br>尽管StepLaw在不同ModelShape、不同稀疏的MoE模型是鲁棒的，但是次优的区域是在不同配置下是变化的，有无更好的解释方法。<br>上文中这些基于海量GridSearch的数据驱动的结论的理论解释。<br>不同的超参、不同ModelSize、ModelShape、ModelSparsity下的TrainingDynamic研究。</p>
-<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#121;&#x61;&#x7a;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#x71;&#105;&#122;&#x68;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#109;">&#x6c;&#x69;&#121;&#x61;&#x7a;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#x71;&#105;&#122;&#x68;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#121;&#97;&#122;&#x68;&#111;&#x75;&#x40;&#x6a;&#105;&#x71;&#x69;&#x7a;&#104;&#x69;&#x78;&#x69;&#110;&#x2e;&#x63;&#x6f;&#109;">&#x6c;&#x69;&#121;&#97;&#122;&#x68;&#111;&#x75;&#x40;&#x6a;&#105;&#x71;&#x69;&#x7a;&#104;&#x69;&#x78;&#x69;&#110;&#x2e;&#x63;&#x6f;&#109;</a></p>
 
                 
             </div>
@@ -484,14 +476,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -606,14 +590,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -657,14 +633,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/IT%E5%92%96%E5%95%A1%E9%A6%86/">
                         <span class="chip bg-color">IT咖啡馆</span>
@@ -912,6 +880,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

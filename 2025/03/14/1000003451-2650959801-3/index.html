@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -417,7 +409,7 @@
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
 <p>尽管DeepSeek-R1在单模态推理中取得了显著成功，但已有的多模态尝试（如R1-V、R1-Multimodal-Journey、LMM-R1）尚未完全复现其核心特征。<br>例如，R1-V仅在简单计数任务上表现出进步，未能实现回答长度的增长和顿悟时刻；R1-Multimodal-Journey则在训练过程中回答长度反而降低；LMM-R1虽然有所进步，但尚未在大规模图文数据训练中得到验证。而Kimi1.5尽管表现突出，但并未开源其模型或数据。<br>论文标题：MM-EUREKA：EXPLORINGVISUALAHAMOMENTWITHRULE-BASEDLARGE-SCALEREINFORCEMENTLEARNING<br>代码地址：https :&#x2F;&#x2F;github.com&#x2F;ModalMinds&#x2F;MM-EUREKA<br>技术报告：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.07365<br>模型地址：https :&#x2F;&#x2F;huggingface.co&#x2F;FanqingM&#x2F;MM-Eureka-Zero-38B<br>https :&#x2F;&#x2F;huggingface.co&#x2F;FanqingM&#x2F;MM-Eureka-8B<br>数据集地址：https :&#x2F;&#x2F;huggingface.co&#x2F;datasets&#x2F;FanqingM&#x2F;MM-Eureka-Dataset<br>我们这篇工作聚焦于一个核心问题：如何在多模态环境中复现DeepSeek-R1的关键特性，包括稳定的回答长度增长、准确率奖励以及Visualaha-moment？<br>为了解答这一问题，来自上海人工智能实验室、上海创智学院、上海交通大学和香港大学的研究人员提出了多模态学科推理模型MM-Eureka。<br>我们的探索<br>开源框架：我们基于OpenRLHF开发了一个高效可扩展的多模态大规模强化学习框架，支持InternVL等多种模型和RL算法。相比R1-V等已有框架，我们的方案成功训练了InternVL2.5-38B等大型模型。</p>
-<p>极大的数据效率：仅使用54K图文数据进行规则型RL训练，平均性能超过使用1M数据的MPO模型；整体基准准确率与使用12M数据进行CoTSFT训练的模型相当！MM-Eureka-Zero仅使用8K图文数学推理数据（指令模型的0.05%），在我们自建的K12基准测试上超越指令模型8.2%，在MathVerse上表现相当。<br>重要发现<br>极简的RL设计足以获得出色效果。在instruct模型上实验时，添加KL散度会限制模型探索，导致无法观测到responselength的提高。<br>数据选择对于稳定RL训练很重要！基于难度的数据过滤策略对RL训练稳定性至关重要。在8B-instruct模型上进行RL训练时，若不进行数据过滤，训练过程极其不稳定。<br>模型在RL训练中展现类似DeepSeek-R1的aha-moment，特别是模型不仅学会反思和回溯，还学会重新审视图像中的关键信息，我们认为这是Visualaha-moment的关键特征。<br>我们的成果<br>无论在Instruct还是PretrainedModel上，我们均在极简RL设计以及数据筛选策略下实现了稳定的AccuracyReward提升和ResponseLength提升。<br>在Instruct模型上，几乎全部使用开源数据（50K），便在所有多模态数学推理基准上取得稳定提升。相比其他后训练策略，比如MPO（1M数据）和CoTSFT（12M数据），我们发现简单的rule-basedRL具备极强的数据高效性，使用几十分之一的数据，平均性能超过MPO，与CoTSFT相当。<br>在Pretrained模型上进一步挖掘RL潜力，仅需8K多模态数学推理数据，即可在奥林匹克数学测试集（部分）和K12数学推理测试集上，超过使用16.3M数据进行SFT的指令模型。在MathVerse上，两种模型表现也相似。我们仅使用了指令模型数据量的0.05%，凸显了强化学习的巨大潜力！<br>其他尝试与反思<br>我们在复现过程中进行了许多其他的尝试，在此分享一些我们认为有帮助，但并未成功验证的操作。我们认为这并不代表这些方法有问题，而是需要进一步探索。<br>CurriculumLearning：尽管我们基于难度划分数据并尝试从易到难训练，但未观察到明显性能提升。我们认为简单问题的学习难以直接泛化到难题，如何更有效地组织课程学习数据仍需探索。<br>OnlineDataFilter：我们将预先基于难度的数据筛选策略记为OfflineDataFilter。这种方案虽然可以帮助RL进行稳定训练，但其数据利用率降低了，因此我们希望在模型训练过程中动态进行基于难度的数据筛选（类似PRIME）。然而，我们发现训练结果不如offlinedatafilter稳定，我们认为这是因为每次更新时的数据量不同，导致梯度不稳定。<br>ModelSize：尽管目前一些工作，比如ORZ、SimpleRL在7Blevel的LLM上也复现了R1的表现，但我们在多模态推理场景下，难以通过8B的InternVLPretrained进行成功复现。我们认为这受制于多模态推理数据质量以及多模态预训练数据中很少存在longCoT数据。<br>我们的期望<br>我们开源了全套数据（包括自助收集的高质量多模态K12数据集）、代码和模型，并发布了详细的技术报告，涵盖所有复现过程及未成功的尝试。希望我们的工作能帮助社区共同推进多模态推理的发展！我们同样在持续推进模型训练，请继续关注！<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#105;&#121;&#97;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#x69;&#113;&#x69;&#122;&#104;&#105;&#x78;&#x69;&#110;&#46;&#x63;&#x6f;&#x6d;">&#108;&#105;&#121;&#97;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#x69;&#113;&#x69;&#122;&#104;&#105;&#x78;&#x69;&#110;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>极大的数据效率：仅使用54K图文数据进行规则型RL训练，平均性能超过使用1M数据的MPO模型；整体基准准确率与使用12M数据进行CoTSFT训练的模型相当！MM-Eureka-Zero仅使用8K图文数学推理数据（指令模型的0.05%），在我们自建的K12基准测试上超越指令模型8.2%，在MathVerse上表现相当。<br>重要发现<br>极简的RL设计足以获得出色效果。在instruct模型上实验时，添加KL散度会限制模型探索，导致无法观测到responselength的提高。<br>数据选择对于稳定RL训练很重要！基于难度的数据过滤策略对RL训练稳定性至关重要。在8B-instruct模型上进行RL训练时，若不进行数据过滤，训练过程极其不稳定。<br>模型在RL训练中展现类似DeepSeek-R1的aha-moment，特别是模型不仅学会反思和回溯，还学会重新审视图像中的关键信息，我们认为这是Visualaha-moment的关键特征。<br>我们的成果<br>无论在Instruct还是PretrainedModel上，我们均在极简RL设计以及数据筛选策略下实现了稳定的AccuracyReward提升和ResponseLength提升。<br>在Instruct模型上，几乎全部使用开源数据（50K），便在所有多模态数学推理基准上取得稳定提升。相比其他后训练策略，比如MPO（1M数据）和CoTSFT（12M数据），我们发现简单的rule-basedRL具备极强的数据高效性，使用几十分之一的数据，平均性能超过MPO，与CoTSFT相当。<br>在Pretrained模型上进一步挖掘RL潜力，仅需8K多模态数学推理数据，即可在奥林匹克数学测试集（部分）和K12数学推理测试集上，超过使用16.3M数据进行SFT的指令模型。在MathVerse上，两种模型表现也相似。我们仅使用了指令模型数据量的0.05%，凸显了强化学习的巨大潜力！<br>其他尝试与反思<br>我们在复现过程中进行了许多其他的尝试，在此分享一些我们认为有帮助，但并未成功验证的操作。我们认为这并不代表这些方法有问题，而是需要进一步探索。<br>CurriculumLearning：尽管我们基于难度划分数据并尝试从易到难训练，但未观察到明显性能提升。我们认为简单问题的学习难以直接泛化到难题，如何更有效地组织课程学习数据仍需探索。<br>OnlineDataFilter：我们将预先基于难度的数据筛选策略记为OfflineDataFilter。这种方案虽然可以帮助RL进行稳定训练，但其数据利用率降低了，因此我们希望在模型训练过程中动态进行基于难度的数据筛选（类似PRIME）。然而，我们发现训练结果不如offlinedatafilter稳定，我们认为这是因为每次更新时的数据量不同，导致梯度不稳定。<br>ModelSize：尽管目前一些工作，比如ORZ、SimpleRL在7Blevel的LLM上也复现了R1的表现，但我们在多模态推理场景下，难以通过8B的InternVLPretrained进行成功复现。我们认为这受制于多模态推理数据质量以及多模态预训练数据中很少存在longCoT数据。<br>我们的期望<br>我们开源了全套数据（包括自助收集的高质量多模态K12数据集）、代码和模型，并发布了详细的技术报告，涵盖所有复现过程及未成功的尝试。希望我们的工作能帮助社区共同推进多模态推理的发展！我们同样在持续推进模型训练，请继续关注！<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#121;&#97;&#x7a;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#x71;&#x69;&#x7a;&#x68;&#105;&#x78;&#105;&#x6e;&#46;&#99;&#x6f;&#x6d;">&#x6c;&#x69;&#121;&#97;&#x7a;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#x71;&#x69;&#x7a;&#x68;&#105;&#x78;&#105;&#x6e;&#46;&#99;&#x6f;&#x6d;</a></p>
 
                 
             </div>
@@ -481,14 +473,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -574,12 +558,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/14/1000003451-2650959801-1/">
+                <a href="/2025/03/14/1000003451-2650959801-2/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003451_2650959801_1.jpg" class="responsive-img" alt="FP8模型不再挑卡！DeepSeek推理成本减半速度翻番，清华团队开源「赤兔」推理引擎">
+                        <img src="/medias/frontcover/1000003451_2650959801_2.jpg" class="responsive-img" alt="出海应用也能享受高速稳定的DeepSeek-R1？亚马逊云科技出手了">
                         
-                        <span class="card-title">FP8模型不再挑卡！DeepSeek推理成本减半速度翻番，清华团队开源「赤兔」推理引擎</span>
+                        <span class="card-title">出海应用也能享受高速稳定的DeepSeek-R1？亚马逊云科技出手了</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -603,14 +587,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -626,12 +602,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/14/1000003451-2650959801-5/">
+                <a href="/2025/03/14/1000003451-2650959801-4/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003451_2650959801_5.jpg" class="responsive-img" alt="arXiv科研神器：Mistral OCR、Claude 3.7合体实现论文速读">
+                        <img src="/medias/frontcover/1000003451_2650959801_4.jpg" class="responsive-img" alt="CVPR 2025 | VAST和北航开源MIDI，从单张图像端到端生成三维组合场景">
                         
-                        <span class="card-title">arXiv科研神器：Mistral OCR、Claude 3.7合体实现论文速读</span>
+                        <span class="card-title">CVPR 2025 | VAST和北航开源MIDI，从单张图像端到端生成三维组合场景</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -654,14 +630,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -909,6 +877,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

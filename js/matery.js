@@ -63,9 +63,10 @@ $(function () {
     });
 
     AOS.init({
-        easing: 'ease-in-out-sine',
-        duration: 700,
-        delay: 100
+        once: true,  // 只触发一次
+        easing: 'ease-in-out-sine',  // 动画效果
+        duration: 700,  // 动画持续时间
+        delay: 100  // 延迟时间
     });
 
     /*文章内容详情的一些初始化特性*/

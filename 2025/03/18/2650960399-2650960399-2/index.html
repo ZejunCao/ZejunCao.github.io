@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -420,7 +412,7 @@
 <p>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.11882<br>项目地址：https :&#x2F;&#x2F;github.com&#x2F;sjtu-marl&#x2F;DPT-Agent<br>DPT-Agent和OvercookedChallenge环境现已开源，有兴趣的朋友可以试试接入大模型和DPT-Agent一起玩Overcooked。<br>看到这里，你一定会问，平时话很多的ChatGPT输出一次要好几秒，还有在对话时要思考几十秒的DeepSeek-R1，虽然推理能力很强也很会思考，但似乎延迟巨大，如何做到和人实时同步协作？<br>答案就是双过程理论（DualProcessTheory）——让大模型学会「边煎牛排边写策略」！<br>人脑同款双系统：快慢双脑破解AI协作难题<br>大模型在实时同步协作中为何频频翻车？问题出在「大模型想得慢做的慢」与「小模型做的快但做不对」的矛盾：<br>大模型往往生成一个决策至少需数秒，推理模型则可能达到惊人的几分钟，在分手厨房以秒计算的游戏进程里难以实施决策，而小模型响应的确很快，但往往由于能力不足，出现失误决策。<br>左：OvercookedChallenge的关卡1，同时支持单人和双人游戏；右：OvercookedChallenge的关卡2<br>作者使用了一系列的大小模型在OvercookedChallenge单人游戏上进行了测试，可以明显的看到绝大多数非推理模型在直接决策（ActasSystem1）以及推理模型先思考再决策（LongCoT+ActasSystem2）的情况下都无法得分，即使强如GPT-4o，也无法超越简单的有限状态机（FSM）。<br>横轴为得分效率：正得分（即不含扣分）&#x2F;有效宏操作，纵轴为每局游戏平均得分，圆的大小代表模型每一次决策从输入到输出的平均延时（秒）<br>这使得我们思考一个问题，模型是否能像人一样，一边不间断地做手上的工作，一边思考更复杂的策略，而不是想一步做一步？<br>借鉴人类双过程理论（DualProcessTheory），DPT-Agent通过System1和System2的结合，为Agent装上「人脑同款双系统」：<br>「快脑」System1——条件反射级响应<br>代码即策略（Code-as-Policy）：将高频操作（灭火、递食材）固化为有限状态机（FSM）规则，优化初始FSM策略；<br>持续输出保障：即使System2在后台思考，System1也能按FSM中最新策略持续行动，杜绝“宕机卡顿”，原子动作响应延迟&lt;0.1秒。<br>「慢脑」System2——战略级读心术<br>心智理论（ToM）：让LLM通过分析玩家动作历史，实时构建人类意图模型（例：「TA连续取牛肉→今晚主打牛肉汉堡」）；<br>异步反思：在「快脑」指挥智能体做菜的同时，「慢脑」根据游戏历史优化策略，如发现「生菜总是不够」，自动调整备菜优先级，边协作边进化。<br>DPT-Agent框架图<br>硬核实验：20个模型+两大主流框架与DPT-Agent的大比拼<br>在全新的难度加强OvercookedChallenge环境上，20个主流模型（涵盖GPT-o3-mini、DeepSeek-R1系列以及最新发布的QwQ-32b等）在ReAct、Reflexion和DPT-Agent的两个版本（带有&#x2F;不带有心智理论能力）上进行了单智能体、多智能体以及真实人类合作测试，证明了DPT-Agent在实时同步协作上的超强能力。<br>「单人游戏实战」：高延迟模型的逆袭<br>在单人游戏中，DPT-Agent在得分效率和得分上均优于ReAct和Reflexion，而高延迟模型更是得到逆袭级别的表现。绝大多数高延迟模型在DPT-Agent框架的帮助下取得从有得分能力到能够真正得分的转变，相比ReAct和Reflexion取得大幅提升。DeepSeek-R1-70B使用DPT-Agent框架后，在延迟基本不变的情况下，得分从使用ReAct的-17.0以及Reflexion的-20.0变为+60.0，逆袭成「厨房战神」。而其他非推理模型也有不同程度的提升。<br>轴为得分效率：正得分（即不含扣分）&#x2F;有效宏操作，纵轴为每局游戏平均得分，圆的大小代表模型每一次决策从输入到输出的平均延时（秒）<br>「智能协作实战」：当DPT-Agent遇上「偏科队友」<br>在真实的协作场景中，AI常需面对能力参差不齐的伙伴——可能是只会切菜的规则机器人，或是专注煎牛排却绝不上菜的「一根筋」AI。DPT-Agent如何应对？团队设计了残酷的多智能体实验：<br>极端测试：与「偏科AI」组队让DPT-Agent搭档三类规则AI（专精切生菜&#x2F;煎牛排&#x2F;组装汉堡）。<br>为了公平比较，ReAct和Reflexion使用和DPT-Agent相同的System2输出方式与动作执行器来实现为System1+System2框架。</p>
 <p>非推理模型表现也亮眼：DeepSeek-V3在DPT_Agent框架加持下表现与满血DeepSeek-R1接近，展现不俗实力。<br>ToM模块的双刃剑：<br>神助攻案例：<br>当规则AI是专注取牛肉的Agent时，DeepSeek-R1-70b驱动的DPT-Agent通过ToM推断「玩家专注牛肉汉堡」，主动改变策略备好面包+生菜<br>人类持续传递牛肉表明其偏爱处理肉类，所以智能体应专注于其他任务以优化团队合作。<br>当规则AI是专注组装汉堡并上菜的Agent时，o3-mini-low驱动的DPT-Agent通过ToM推断“玩家专注于组装汉堡并上菜”，及时调整策略为准备所有的食材来进行配合<br>人类玩家优先处理紧急的牛肉订单并进行快速组装，通常专注于组装和提供即食食品。智能体应通过准备熟透的牛肉并迅速传递完成的食材来支持这一点，以确保更顺畅的协作。<br>翻车现场：「ToM模块是协作上限的钥匙，但锁眼必须匹配模型自身的心智推理能力」。<br>Llama3-70B可能因自身ToM能力薄弱，搭载完整DPT-Agent后反而得分下降，没有观察到显著的推断现象</p>
 <p>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2409.08811<br>「真实人类协作」：主客观均是协作王者<br>团队在学校内招募了68位学生和多智能体实验中所有的Agent进行了协作实验，并在先前实验的基础上增加了一个关卡。实验参与者在完全未知Agent身份的情况下与所有Agent以随机顺序进行实验，对Agent进行了协作能力和偏好程度的打分。<br>DPT-Agent展现了超强协作能力，得分在两个地图上碾压其他框架，主观协作能力和人类主观偏好得分最高。<br>DPT-Agent和人类玩家在关卡1的游戏过程（蓝色帽子为人类玩家，红色帽子为DPT-Agent，视频为2倍速）<br>人类玩家借助关卡2的中间操作台无缝合作（蓝色帽子为人类玩家，红色帽子为DPT-Agent，视频为2倍速）<br>同时有趣的是，人类对agent的偏好和协作程度，可能与agent的得分贡献率有关，人类会展现出更多的对贡献率更高的模型的喜爱。<br>与人类协作游戏得分与各Agent的得分贡献率<br>人类主观评价得分<br>开源评估框架</p>
-<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#105;&#121;&#x61;&#x7a;&#x68;&#111;&#117;&#64;&#106;&#105;&#x71;&#105;&#122;&#104;&#105;&#x78;&#105;&#110;&#46;&#99;&#111;&#109;">&#108;&#105;&#121;&#x61;&#x7a;&#x68;&#111;&#117;&#64;&#106;&#105;&#x71;&#105;&#122;&#104;&#105;&#x78;&#105;&#110;&#46;&#99;&#111;&#109;</a></p>
+<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#x61;&#x7a;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#122;&#104;&#x69;&#120;&#105;&#110;&#46;&#99;&#111;&#x6d;">&#x6c;&#105;&#121;&#x61;&#x7a;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#122;&#104;&#x69;&#120;&#105;&#110;&#46;&#99;&#111;&#x6d;</a></p>
 
                 
             </div>
@@ -484,14 +476,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -606,14 +590,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -629,12 +605,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/18/2247617248-2247617248-1/">
+                <a href="/2025/03/18/2247617248-2247617248-2/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/2247617248_2247617248_1.jpg" class="responsive-img" alt="【源头活水】谷歌团队再次证明Scaling Law的准确性，即使总通信量减少99%，仍能超越数据并行训练">
+                        <img src="/medias/frontcover/2247617248_2247617248_2.jpg" class="responsive-img" alt="【他山之石】比传统语言模型快10倍，首个商业规模的扩散语言模型，究竟是什么来头？">
                         
-                        <span class="card-title">【源头活水】谷歌团队再次证明Scaling Law的准确性，即使总通信量减少99%，仍能超越数据并行训练</span>
+                        <span class="card-title">【他山之石】比传统语言模型快10倍，首个商业规模的扩散语言模型，究竟是什么来头？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -657,14 +633,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
                         <span class="chip bg-color">人工智能前沿讲习</span>
@@ -912,6 +880,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

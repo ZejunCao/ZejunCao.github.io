@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -418,7 +410,7 @@
 </blockquote>
 <p>机构:北京大学人工智能研究院北京通用人工智能研究院<br>作者:毛彦升徐宇飞李佳琪孟繁续杨昊桐郑子隆王希元张牧涵<br>长文本任务是当下大模型研究的重点之一。在实际场景和应用中，普遍存在大量长序列（文本、语音、视频等），有些甚至长达百万级tokens。扩充模型的长文本能力不仅意味着可以在上下文窗口中装入更长的文本，更是能够更好地建模文本段落间信息的长程依赖关系，增强对长文的阅读理解和推理。<br>现有大模型解决长文本任务的难点之一是传统的dot-productattention对输入长度呈平方复杂度，且存储KVcache的开销随输入长度增加，时间和空间开销都较高。<br>此外，模型难以真正理解散落在长文本各处信息间的长程依赖。主流的长文本解决方法包括Retrieval-AugmentedGeneration（RAG）[1]、long-contextadaption等。<br>RAG从长文本中抽取与问题相关的信息放入contextwindow进行推理，但它依赖准确的检索方法，大量的噪声和无关信息会进一步引起模型幻觉。<br>long-contextadaption通过在大量长文本的数据集上后训练[2]扩展模型的contextwindow，但其推理复杂度随文本长度平方增长、显存占用高，且contextwindow仍然有限。<br>为了应对长文本开销大、难以建立长程依赖的挑战，北京大学张牧涵团队提出全新的框架LongInputFine-Tuning（LIFT）。通过将长输入文本训练进模型参数中，LIFT可以使任意短上下文窗口模型获得长文本能力。<br>题目:LIFT:ImprovingLongContextUnderstandingofLargeLanguageModelsthroughLongInputFine-Tuning<br>文章链接:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.14644<br>表1是LIFT和现有常见方法的对比。<br>表1.LIFT与传统长文本处理方法的对比<br>LIFT首次提出将长文本知识存储在模型参数中，而不是外部数据库或上下文窗口中，类比人类将workingmemory转成long-termmemory，实现知识的内化。<br>与此相比，我们认为无限地扩充contextwindow无法真正解决长文本、长历史的挑战，因为无论再长的contextwindow仍然有耗尽的一天，而只有将上下文持续地转变成parametricknowledge，才能实现无限地学习。<br>研究创新<br>我们的方案具有以下优势：<br>动态高效的长输入训练。LIFT能够通过调整模型参数，动态适应新的长输入文本，将其作为新的知识源，无需进行资源密集型的long-contextadaptation。针对每一篇需要处理的长文本，LIFT通过分段的languagemodeling以及精心设计的辅助任务来微调模型，实现用模型参数来记忆和理解长文本，从而避免过长的context造成的推理复杂度提升和长程依赖丢失。<br>平衡模型参数知识和原有能力。由于模型原有参数（比如Llama38B）通常显著大于记忆长文本所需的参数量，全参数微调面临过拟合长文本而损失模型基础能力的风险。为了在模型原有能力和微调后新的参数内知识之间找到平衡，我们提出了一种专门的参数高效微调模块——门控记忆适配器（GatedMemoryAdapter），它能平衡原始模型的In-ContextLearning（ICL）能力和LIFT训练后对长输入的记忆理解能力。<br>在流行的长上下文任务上取得了巨大提升。在几个广泛认可的长上下文基准集（例如LooGLE[3]、Longbench[4]）上的评估表明，不同LLM始终能通过LIFT在常见的长&#x2F;短依赖问答和摘要等通用任务上受益。例如，在非常具有挑战性的LooGLE长依赖问答上，相较仅通过ICL，LIFT过后的Llama38B的正确率从15.44%提升至29.97%。在LooGLE短依赖问答上，LIFT将Gemma29B的正确率从37.37%提升至50.33%。<br>图1.LIFT框架以及和现有方法对比<br>LIFT方法<br>长文本切段训练<br>受LLM预训练的启发，LIFT将「记忆长文本」的任务建模为语言建模（LanguageModeling）任务。但在整篇长文本上进行语言建模训练开销过大，且短上下文模型不具备直接在长文本上训练的能力。为此，LIFT将长文本切分为固定长度的片段，对所有片段并行进行语言建模训练。<br>如果将长文本切分为互不相交的片段（如图2中Trivialsegmentation所示），模型将丢失片段间的正确顺序，而顺序对于长文本中的长程依赖和总体理解非常重要。因此，LIFT要求相邻片段有一定重叠（如图2中的Oursegmentation所示）——每个片段的末尾就是下一个片段的开头。<br>这样，如果模型能够记忆某个片段，那么它就能够续写出下一个片段，直到按顺序续写出全文。在实验中，我们取重叠的长度为片段长度的5&#x2F;8，因此训练的复杂度对长文本的长度呈线性。<br>图2.LIFT的文章切段方法<br>辅助任务训练<br>在特定任务上微调LLM通常会导致其在其他任务上能力下降。同理，长文本切段训练可能导致LLM的reasoning、instruction-following等能力损失。<br>研究团队提出在合成的辅助任务上训练，一方面弥补模型的能力损失，另一方面帮助模型学会应用长文本中的信息回答问题。具体而言，研究团队用预训练的LLM基于长文本片段自动生成几十个问答类型的辅助任务。<br>于是LIFT训练分为两个阶段，第一个阶段只在长文本切段任务上进行语言建模训练，第二个阶段在辅助任务上训练模型基于长文本回答问题的能力。<br>GatedMemory架构<br>尽管LIFT可以任意使用全参数微调或LoRA&#x2F;PiSSA等参数高效微调方法来训练模型，我们提出了一个专用的GatedMemoryAdapter来平衡长文本记忆和能力。其核心在于用短窗口模型模拟假设长文本在上下文窗口中时模型的行为和内部表示。<br>为此我们将假设的「全上下文」分为窗口外（out-of-context）和窗口中（in-context）两部分——窗口外放置的是预计将通过微调放入参数中的长文本，而窗口中放置的是关于长文本的问题。<br>我们的目的是设计一个模型，用LIFT参数+窗口外内容（短上下文）去模拟全上下文的行为，以此达成只用短上下文模型实现长上下文的注意力机制。<br>为此，我们设计了一个门控记忆模块（GatedMemory）（见图3）。该模块为每个注意力层增加了两个特殊的MLP（图3中的MemoryMLP和GateMLP），均以每个位置的queryvector为输入，分别用于学习「窗口外部分的权重」（gate）和「窗口外部分的记忆提取内容」（memory）。<br>这样，当一个新的query进入，模型可以动态地调控其使用多少LIFT记忆的窗口外内容：当gate&#x3D;0，模型将恢复为纯ICL，不用任何LIFT记忆的信息；当gate&#x3D;1，模型将完全依赖LIFT知识而忽略当前窗口中的上下文。<br>这种动态分配机制可以有效地平衡对长文本的记忆和模型原本的ICL能力。LIFT训练过程中，我们将只微调GatedMemory中的参数，实现了模型在微调较小参数量的情况下，有效地记忆长文本内容并用于下游任务。<br>实验证明了这一结构的有效性（见下文表4）。<br>图3.GatedMemory模块<br>实验测评<br>为了评估LIFT的有效性，研究团队在Llama38B和Gemma29B两个短文本开源模型（上下文窗口为8k）上和GPT3.5商用模型（上下文窗口为16k）上比较了LIFT方法和使用截断ICL的baselines。<br>baselines使用原模型，尽可能将长文本填入模型的上下文窗口（优先填入开头和末尾tokens，其余截断），并保证问题prompt全部填入。LIFT在测试时的输入与baseline相同，但使用的模型为经过LIFT训练的模型，并默认使用GatedMemory适配器。<br>对于GPT3.5，我们直接调用GPT3.5的训练API。我们主要在两个代表性的长文本评测集LooGLE和LongBench上评测，其中LooGLE包含大量人工标注的极具挑战性的长依赖问答（LongQA）和LLM自动生成的短依赖问答（ShortQA），LongBench包含问答、摘要等多种任务。<br>结果如表2、表3所示，实验表明：<br>LIFT极大提升了短文本模型在LooGLE上的表现。LIFT稳定提升了被测模型在ShortQA和LongQA中的平均指标。值得注意的是，Llama3在LongQA上的指标从15.44%提升至29.97%，Gemma2在ShortQA上的指标从37.37%提升至50.33%。<br>LIFT提升了短文本模型在Longbench的大多数子任务上的表现。研究团队从LongBench中选取了5个具有代表性的子任务进行测试，任务包括多篇文章间的多跳推理、阅读理解和概括、检索召回等，Llama3通过LIFT在其中4个子任务上均有提升。<br>LIFT的效果与模型的原有能力以及测试任务有关。LIFT虽然普遍提升了模型的长文本能力，但在部分子任务上仍有改进空间。通过分析各个子任务，研究团队认为与测试问题相似的辅助任务可以促进模型关注对测试任务有用的长上下文信息，有助于下游任务表现。<br>表2.LIFT在LooGLE上的GPT4_score指标<br>表3.LIFT在LongBench上的表现（评测指标和原数据集一致）<br>表4.LIFTGatedMemory架构的消融实验</p>
 <p>总结、展望和讨论<br>在本文中，我们提出了一种新颖的框架——LIFT，以增强LLMs的长上下文理解能力。LIFT通过高效微调模型参数，利用参数内知识（in-parameterknowledge）来动态适应长输入，从而提升长上下文任务的能力。实验结果表明，在LooGLE和LongBench等流行基准测试中，LIFT显著提升了短上下文LLMs在长上下文任务中的表现。<br>然而，LIFT仍然存在一定局限性。首先，在contextwindow不够的情况下，我们经常需要截断上下文来做长文本推理，但对于需要精确信息提取的任务，如「大海捞针任务」（NeedleinaHaystack），该方法仍然性能欠佳。<br>其次，LIFT通过将长文本输入注入模型参数，增强了模型对数据的熟悉度，但下游任务的效果仍然依赖于模型能否自主提取和利用LIFT过程中获得的参数化知识。分析表明，模型在「in-context」和「out-of-context」问题上的表现存在显著差距，表明LIFT后的参数化知识提取能力仍需进一步优化。<br>此外，我们发现在LIFT过程中引入辅助任务并不能总是显著提高模型能力，其性能严重依赖下游测试任务和辅助任务的相似程度，甚至可能因过拟合而导致性能下降。因此，如何设计更通用的辅助任务是未来的研究重点。<br>最后，尽管GatedMemory架构显著提升了长文本记忆和ICL能力的平衡，我们发现LIFT后的模型仍存在对原有能力的破坏，如何设计更好的适配器来平衡记忆和能力，也留作未来工作。<br>LIFT的理念非常有趣，因为人类的短期记忆也会转化为长期记忆，这一过程类似于LIFT将上下文中的知识转换为参数化知识。虽然距离彻底解决LLMs的长上下文挑战仍然任重道远，但我们的初步结果表明，LIFT提供了一个极具潜力和前景的研究方向。<br>我们鼓励社区一同探索LIFT在更广泛的训练数据、更丰富的模型、更先进的辅助任务设计以及更强计算资源支持下的潜在能力。<br>参考文献</p>
-<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#97;&#122;&#104;&#111;&#117;&#64;&#x6a;&#105;&#113;&#105;&#x7a;&#104;&#105;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#105;&#121;&#97;&#122;&#104;&#111;&#117;&#64;&#x6a;&#105;&#113;&#105;&#x7a;&#104;&#105;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#x79;&#x61;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#105;&#113;&#105;&#122;&#x68;&#105;&#x78;&#105;&#110;&#46;&#x63;&#x6f;&#109;">&#108;&#x69;&#x79;&#x61;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#105;&#113;&#105;&#122;&#x68;&#105;&#x78;&#105;&#110;&#46;&#x63;&#x6f;&#109;</a></p>
 
                 
             </div>
@@ -482,14 +474,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -575,12 +559,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/17/1000003457-2650960201-4/">
+                <a href="/2025/03/17/1000003457-2650960201-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003457_2650960201_4.jpg" class="responsive-img" alt="大模型怎么做好角色扮演？最大的真实数据集、SoTA开源模型、最深入的评估在这里">
+                        <img src="/medias/frontcover/1000003457_2650960201_1.jpg" class="responsive-img" alt="不是CG？没加速？这个国产机器人跳「斧头帮」舞火了，网友：流畅到不像真的">
                         
-                        <span class="card-title">大模型怎么做好角色扮演？最大的真实数据集、SoTA开源模型、最深入的评估在这里</span>
+                        <span class="card-title">不是CG？没加速？这个国产机器人跳「斧头帮」舞火了，网友：流畅到不像真的</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -604,14 +588,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -627,12 +603,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/17/1000003247-2247783065-1/">
+                <a href="/2025/03/17/1000003457-2650960201-2/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003247_2247783065_1.jpg" class="responsive-img" alt="一手实测文心X1/4.5：又强又全面！歪果网友疯求英文版">
+                        <img src="/medias/frontcover/1000003457_2650960201_2.jpg" class="responsive-img" alt="真正的AI智能体时代即将到来，我们发现了几点「苦涩的教训」">
                         
-                        <span class="card-title">一手实测文心X1/4.5：又强又全面！歪果网友疯求英文版</span>
+                        <span class="card-title">真正的AI智能体时代即将到来，我们发现了几点「苦涩的教训」</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -656,16 +632,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
-                        <span class="chip bg-color">量子位</span>
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
                     </a>
                     
                 </div>
@@ -910,6 +878,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

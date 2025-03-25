@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -416,7 +408,7 @@
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>机器之心报道<br>机器之心编辑部<br>虽然大多数强化学习（RL）方法都在使用浅层多层感知器（MLP），但普林斯顿大学和华沙理工的新研究表明，将对比RL（CRL）扩展到1000层可以显著提高性能，在各种机器人任务中，性能可以提高最多50倍。<br>论文标题：1000LayerNetworksforSelf-SupervisedRL:ScalingDepthCanEnableNewGoal-ReachingCapabilities<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.14858<br>GitHub链接：https :&#x2F;&#x2F;github.com&#x2F;wang-kevin3290&#x2F;scaling-crl<br>研究背景<br>最近在人工智能领域里，强化学习的重要性因为DeepSeekR1等研究再次凸显出来，该方法通过试错让智能体学会在复杂环境中完成任务。尽管自监督学习近年在语言和视觉领域取得了显著突破，但RL领域的进展相对滞后。<br>与其他AI领域广泛采用的深层网络结构（如Llama3和StableDiffusion3拥有数百层结构）相比，基于状态的强化学习任务通常仅使用2-5层的浅层网络。相比之下，在视觉和语言等领域，模型往往只有在规模超过某个临界值时才能获得解决特定任务的能力，因此研究人员一直在寻找RL中类似的能力涌现现象。<br>创新方法<br>普林斯顿大学和华沙理工的最新研究提出，通过将神经网络深度从常见的2-5层扩展到1024层，可以显著提升自监督RL的性能，特别是在无监督目标条件任务中的目标达成能力。<br>这一发现挑战了传统观点。过去认为训练大型RL网络困难是因为RL问题提供的反馈极为稀少（如长序列观测后的稀疏奖励），导致反馈与参数比率很小。传统观点认为大型AI系统应主要以自监督方式训练，而强化学习仅用于微调。<br>研究团队从三个关键方面进行创新：<br>范式融合：重新定义「强化学习」和「自监督学习」的关系，将它们结合形成自监督强化学习系统，采用对比强化学习（ContrastiveRL,CRL）算法；<br>增加数据量：通过近期的GPU加速强化学习框架增加可用数据量；<br>网络深度突破：将网络深度增加到比先前工作深100倍，并融合多种架构技术稳定训练过程，包括：残差连接（ResidualConnections）、层归一化（LayerNormalization）、Swish激活函数。<br>此外，研究还探究了批大小（batchsize）和网络宽度（networkwidth）的相对重要性。<br>关键发现<br>随着网络深度的扩大，我们能发现虚拟环境中的强化学习智能体出现了新行为：在深度4时，人形机器人会直接向目标坠落，而在深度16时，它学会了直立行走。在人形机器人U-Maze环境中，在深度256时，出现了一种独特的学习策略：智能体学会了越过迷宫高墙。<br>进一步研究，人们发现在具有高维输入的复杂任务中，深度扩展的优势更大。在扩展效果最为突出的HumanoidU-Maze环境中，研究人员测试了扩展的极限，并观察到高达1024层的性能持续提升。<br>另外，更深的网络可以学习到更好的对比表征。仅在导航任务中，Depth-4网络使用到目标的欧几里得距离简单地近似Q值，而Depth-64能够捕捉迷宫拓扑，并使用高Q值勾勒出可行路径。<br>扩展网络深度也能提高AI的泛化能力。在训练期间未见过的起始-目标对上进行测试时，与较浅的网络相比，较深的网络在更高比例的任务上取得了成功。<br>技术细节<br>该研究采用了来自ResNet架构的残差连接，每个残差块由四个重复单元组成，每个单元包含一个Dense层、一个层归一化（LayerNormalization）层和Swish激活函数。残差连接在残差块的最终激活函数之后立即应用。<br>在本论文中，网络深度被定义为架构中所有残差块的Dense层总数。在所有实验中，深度指的是actor网络和两个criticencoder网络的配置，这些网络被共同扩展。<br>研究贡献<br>本研究的主要贡献在于展示了一种将多种构建模块整合到单一强化学习方法中的方式，该方法展现出卓越的可扩展性：<br>实证可扩展性：研究观察到性能显著提升，在半数测试环境中提升超过20倍，这对应着随模型规模增长而涌现的质变策略；<br>网络架构深度的扩展：虽然许多先前的强化学习研究主要关注增加网络宽度，但在扩展深度时通常只能报告有限甚至负面的收益。相比之下，本方法成功解锁了沿深度轴扩展的能力，产生的性能改进超过了仅靠扩展宽度所能达到的；<br>实证分析：研究表明更深的网络表现出增强的拼接能力，能够学习更准确的价值函数，并有效利用更大批量大小带来的优势。<br>不过，拓展网络深度是以消耗计算量为代价的，使用分布式训练来提升算力，以及剪枝蒸馏是未来的扩展方向。<br>预计未来研究将在此基础上，通过探索额外的构建模块来进一步发展这一方法。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#121;&#x61;&#x7a;&#x68;&#111;&#x75;&#x40;&#x6a;&#x69;&#x71;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#110;&#46;&#99;&#x6f;&#x6d;">&#108;&#x69;&#121;&#x61;&#x7a;&#x68;&#111;&#x75;&#x40;&#x6a;&#x69;&#x71;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#110;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>机器之心报道<br>机器之心编辑部<br>虽然大多数强化学习（RL）方法都在使用浅层多层感知器（MLP），但普林斯顿大学和华沙理工的新研究表明，将对比RL（CRL）扩展到1000层可以显著提高性能，在各种机器人任务中，性能可以提高最多50倍。<br>论文标题：1000LayerNetworksforSelf-SupervisedRL:ScalingDepthCanEnableNewGoal-ReachingCapabilities<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.14858<br>GitHub链接：https :&#x2F;&#x2F;github.com&#x2F;wang-kevin3290&#x2F;scaling-crl<br>研究背景<br>最近在人工智能领域里，强化学习的重要性因为DeepSeekR1等研究再次凸显出来，该方法通过试错让智能体学会在复杂环境中完成任务。尽管自监督学习近年在语言和视觉领域取得了显著突破，但RL领域的进展相对滞后。<br>与其他AI领域广泛采用的深层网络结构（如Llama3和StableDiffusion3拥有数百层结构）相比，基于状态的强化学习任务通常仅使用2-5层的浅层网络。相比之下，在视觉和语言等领域，模型往往只有在规模超过某个临界值时才能获得解决特定任务的能力，因此研究人员一直在寻找RL中类似的能力涌现现象。<br>创新方法<br>普林斯顿大学和华沙理工的最新研究提出，通过将神经网络深度从常见的2-5层扩展到1024层，可以显著提升自监督RL的性能，特别是在无监督目标条件任务中的目标达成能力。<br>这一发现挑战了传统观点。过去认为训练大型RL网络困难是因为RL问题提供的反馈极为稀少（如长序列观测后的稀疏奖励），导致反馈与参数比率很小。传统观点认为大型AI系统应主要以自监督方式训练，而强化学习仅用于微调。<br>研究团队从三个关键方面进行创新：<br>范式融合：重新定义「强化学习」和「自监督学习」的关系，将它们结合形成自监督强化学习系统，采用对比强化学习（ContrastiveRL,CRL）算法；<br>增加数据量：通过近期的GPU加速强化学习框架增加可用数据量；<br>网络深度突破：将网络深度增加到比先前工作深100倍，并融合多种架构技术稳定训练过程，包括：残差连接（ResidualConnections）、层归一化（LayerNormalization）、Swish激活函数。<br>此外，研究还探究了批大小（batchsize）和网络宽度（networkwidth）的相对重要性。<br>关键发现<br>随着网络深度的扩大，我们能发现虚拟环境中的强化学习智能体出现了新行为：在深度4时，人形机器人会直接向目标坠落，而在深度16时，它学会了直立行走。在人形机器人U-Maze环境中，在深度256时，出现了一种独特的学习策略：智能体学会了越过迷宫高墙。<br>进一步研究，人们发现在具有高维输入的复杂任务中，深度扩展的优势更大。在扩展效果最为突出的HumanoidU-Maze环境中，研究人员测试了扩展的极限，并观察到高达1024层的性能持续提升。<br>另外，更深的网络可以学习到更好的对比表征。仅在导航任务中，Depth-4网络使用到目标的欧几里得距离简单地近似Q值，而Depth-64能够捕捉迷宫拓扑，并使用高Q值勾勒出可行路径。<br>扩展网络深度也能提高AI的泛化能力。在训练期间未见过的起始-目标对上进行测试时，与较浅的网络相比，较深的网络在更高比例的任务上取得了成功。<br>技术细节<br>该研究采用了来自ResNet架构的残差连接，每个残差块由四个重复单元组成，每个单元包含一个Dense层、一个层归一化（LayerNormalization）层和Swish激活函数。残差连接在残差块的最终激活函数之后立即应用。<br>在本论文中，网络深度被定义为架构中所有残差块的Dense层总数。在所有实验中，深度指的是actor网络和两个criticencoder网络的配置，这些网络被共同扩展。<br>研究贡献<br>本研究的主要贡献在于展示了一种将多种构建模块整合到单一强化学习方法中的方式，该方法展现出卓越的可扩展性：<br>实证可扩展性：研究观察到性能显著提升，在半数测试环境中提升超过20倍，这对应着随模型规模增长而涌现的质变策略；<br>网络架构深度的扩展：虽然许多先前的强化学习研究主要关注增加网络宽度，但在扩展深度时通常只能报告有限甚至负面的收益。相比之下，本方法成功解锁了沿深度轴扩展的能力，产生的性能改进超过了仅靠扩展宽度所能达到的；<br>实证分析：研究表明更深的网络表现出增强的拼接能力，能够学习更准确的价值函数，并有效利用更大批量大小带来的优势。<br>不过，拓展网络深度是以消耗计算量为代价的，使用分布式训练来提升算力，以及剪枝蒸馏是未来的扩展方向。<br>预计未来研究将在此基础上，通过探索额外的构建模块来进一步发展这一方法。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#x79;&#x61;&#x7a;&#x68;&#111;&#117;&#x40;&#106;&#x69;&#113;&#105;&#122;&#x68;&#x69;&#120;&#x69;&#x6e;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#x69;&#x79;&#x61;&#x7a;&#x68;&#111;&#117;&#x40;&#106;&#x69;&#113;&#105;&#122;&#x68;&#x69;&#120;&#x69;&#x6e;&#46;&#x63;&#x6f;&#x6d;</a></p>
 
                 
             </div>
@@ -480,14 +472,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -573,12 +557,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/22/1000003472-2650961352-3/">
+                <a href="/2025/03/22/1000003472-2650961352-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003472_2650961352_3.jpg" class="responsive-img" alt="CVPR 2025 高分论文 | 单图秒变3D真人！IDOL技术开启数字分身新时代">
+                        <img src="/medias/frontcover/1000003472_2650961352_1.jpg" class="responsive-img" alt="揭秘DeepSeek R1-Zero训练方式，GRPO还有极简改进方案">
                         
-                        <span class="card-title">CVPR 2025 高分论文 | 单图秒变3D真人！IDOL技术开启数字分身新时代</span>
+                        <span class="card-title">揭秘DeepSeek R1-Zero训练方式，GRPO还有极简改进方案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -601,14 +585,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -653,14 +629,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -908,6 +876,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

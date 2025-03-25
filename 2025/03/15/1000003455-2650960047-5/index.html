@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -416,7 +408,7 @@
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>论文第一作者为香港中文大学（深圳）理工学院在读博士生郭永新，指导老师为通讯作者为香港中文大学（深圳）理工学院&#x2F;人工智能学院助理教授唐晓莹，课题组研究方向包括大模型、联邦学习、充电智能优化与博弈等。<br>下班回家后你正深陷于一部两小时的综艺节目中，渴望找到那些让人捧腹的爆笑片段，却如同大海捞针。或者，在紧张刺激的足球赛中，你渴望捕捉到那决定性的绝杀瞬间，但传统AI视频处理技术效率低下，且模型缺乏泛化能力。为解决这些问题，香港中文大学（深圳）唐晓莹课题组联合腾讯PCG发布TRACE技术，通过因果事件建模为视频理解大模型提供精准的时间定位能力。该论文已入选ICLR2025。<br>论文标题：TRACE:TemporalGroundingVideoLLMviaCausalEventModeling<br>VTG-LLM:IntegratingTimestampKnowledgeintoVideoLLMsforEnhancedVideoTemporalGrounding<br>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.05643<br>https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2405.13382<br>Github：https :&#x2F;&#x2F;github.com&#x2F;gyxxyg&#x2F;TRACE<br>一.背景<br>在长视频内容检索的研究领域中，用户常面临时间线导航效率低下的困境。传统的视频检索方法采用逐帧分析的线性处理策略，如同逐帧查字典，效率低下且泛化能力差。而现有的多模态大模型，虽然泛化能力更强，但是效果仍然差强人意。<br>我们认为这背后的矛盾本质上源于视频理解大模型的输出依然使用自然语言建模，无法清晰准确地描述视频本身的结构。TRACE的绝妙之处是给视频事件构建结构化表征，将每个模型的输出表示为一系列事件，进一步把每个事件拆成三元组「时间戳-显著性分数-文本描述」，通过因果推理链重构视频逻辑骨架。<br>TRACE技术突破了传统方法的局限，不再依赖没有清晰结构的文字描述，而是通过事件级别的因果建模，显著提升了时序理解与定位精度，为视频内容检索实现了“大海捞针”。<br>二.方法<br>TRACE方法引入了结构化建模创新：把视频理解大模型的输出拆解成「时间戳-显著性分数-文本描述」三元事件单元，实现因果事件建模——通过视觉输入、文本指令和已有事件预测下一个事件<br>I：文本指令，F：视频帧的输入，tk,sk和ck：时间戳、显著性分数和文本描述。<br>我们通过条件概率分解发现，因果事件建模可表示为自回归模型，具有特殊的token顺序。基于这一发现，我们提出了视频大模型TRACE（TemporalgroundingviaCausalEventmodeling）。而且，TRACE还为时间和分数设计了专用的tokenizer，就像给它们创建了特定的表征系统。这样，模型就能更准确地理解和生成时间戳和显著性分数了，并为每个任务设计不同的编码器和解码器头，解码器头能根据任务自动切换，从而提高整体性能和适应性。<br>针对时间和分数的特殊编码器<br>我们为时间和分数设计专用tokenizer：时间用6位编码（例：[10.23,125.37]→），分数用3位编码（例：[4.5]→）。每个词库含13个token，包括10个数字token以及三个特殊token：，通过组合实现精确数值表达。<br>通过切换head来生成不同的任务<br>在推理阶段，模型通过令牌切换任务专用解码器：依次生成时间→分数→描述，每个任务配备独立解码头。出现时自动切换解码任务。<br>视频帧的特征编码<br>TRACE使用CLIPViT-L从每帧提取大量的原始token，然后通过基于slot的token压缩方案将每一帧压缩为8个token。这些精炼后的token既保留了关键视觉信息的完整性，又有效地将时间感知元素融入特征表征中。<br>训练策略和数据<br>模型backbone模型基于Mistral-7B架构，分两阶段训练：<br>第一阶段：训练视觉压缩模块+任务头（抽128帧，学习率1e-3）<br>第二阶段：冻结上述模块，专注调LLM基座（同抽128帧，学习率5e-6）<br>三.评测<br>zero-shot<br>我们在三大zero-shot任务测试表现：<br>Densevideocaption：Youcook2<br>Momentretrieval：Charades-STA<br>Videohighlightdetection：QVHighlights<br>从表中可以看出，TRACE模型都取得了“碾压”其他通用videoLLM的效果，比TemporalgroudingLLM有更大优势。<br>Ablationstudy<br>在zero-shot模式下，我们测试了causaleventmodeling和independentencoder&#x2F;heads等关键模块在消融实验下的结果，如下表所示。<br>实验结果验证了我们提出的因果事件建模以及对时间&#x2F;分数使用独立的编解码器的有效性。另外，从结果中我们还可以发现，随着采样帧数的增加，模型的效果随之增加。<br>Finetune<br>在实验中，我们还比较了TRACE与其他模型在finetune之后的效果。<br>在评测中，TRACE相比TimeChat等模型有了巨大的提升，在Youcook2数据集上取得了SOTA效果。无论是zero-shot任务还是finetune后的效果，TRACE都取得了优于其他模型的成绩。<br>四．结语<br>总之，TRACE用“因果事件建模”撕开了长视频的迷雾，以“任务分治”策略破解了效率与精度的不可能。它为AI理解视频的方式提供了一种新的可能——不是囫囵吞枣，而是逻辑推演。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#x79;&#97;&#x7a;&#x68;&#x6f;&#117;&#x40;&#x6a;&#x69;&#113;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#x6e;&#x2e;&#x63;&#111;&#109;">&#x6c;&#105;&#x79;&#97;&#x7a;&#x68;&#x6f;&#117;&#x40;&#x6a;&#x69;&#113;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#x6e;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>论文第一作者为香港中文大学（深圳）理工学院在读博士生郭永新，指导老师为通讯作者为香港中文大学（深圳）理工学院&#x2F;人工智能学院助理教授唐晓莹，课题组研究方向包括大模型、联邦学习、充电智能优化与博弈等。<br>下班回家后你正深陷于一部两小时的综艺节目中，渴望找到那些让人捧腹的爆笑片段，却如同大海捞针。或者，在紧张刺激的足球赛中，你渴望捕捉到那决定性的绝杀瞬间，但传统AI视频处理技术效率低下，且模型缺乏泛化能力。为解决这些问题，香港中文大学（深圳）唐晓莹课题组联合腾讯PCG发布TRACE技术，通过因果事件建模为视频理解大模型提供精准的时间定位能力。该论文已入选ICLR2025。<br>论文标题：TRACE:TemporalGroundingVideoLLMviaCausalEventModeling<br>VTG-LLM:IntegratingTimestampKnowledgeintoVideoLLMsforEnhancedVideoTemporalGrounding<br>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.05643<br>https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2405.13382<br>Github：https :&#x2F;&#x2F;github.com&#x2F;gyxxyg&#x2F;TRACE<br>一.背景<br>在长视频内容检索的研究领域中，用户常面临时间线导航效率低下的困境。传统的视频检索方法采用逐帧分析的线性处理策略，如同逐帧查字典，效率低下且泛化能力差。而现有的多模态大模型，虽然泛化能力更强，但是效果仍然差强人意。<br>我们认为这背后的矛盾本质上源于视频理解大模型的输出依然使用自然语言建模，无法清晰准确地描述视频本身的结构。TRACE的绝妙之处是给视频事件构建结构化表征，将每个模型的输出表示为一系列事件，进一步把每个事件拆成三元组「时间戳-显著性分数-文本描述」，通过因果推理链重构视频逻辑骨架。<br>TRACE技术突破了传统方法的局限，不再依赖没有清晰结构的文字描述，而是通过事件级别的因果建模，显著提升了时序理解与定位精度，为视频内容检索实现了“大海捞针”。<br>二.方法<br>TRACE方法引入了结构化建模创新：把视频理解大模型的输出拆解成「时间戳-显著性分数-文本描述」三元事件单元，实现因果事件建模——通过视觉输入、文本指令和已有事件预测下一个事件<br>I：文本指令，F：视频帧的输入，tk,sk和ck：时间戳、显著性分数和文本描述。<br>我们通过条件概率分解发现，因果事件建模可表示为自回归模型，具有特殊的token顺序。基于这一发现，我们提出了视频大模型TRACE（TemporalgroundingviaCausalEventmodeling）。而且，TRACE还为时间和分数设计了专用的tokenizer，就像给它们创建了特定的表征系统。这样，模型就能更准确地理解和生成时间戳和显著性分数了，并为每个任务设计不同的编码器和解码器头，解码器头能根据任务自动切换，从而提高整体性能和适应性。<br>针对时间和分数的特殊编码器<br>我们为时间和分数设计专用tokenizer：时间用6位编码（例：[10.23,125.37]→），分数用3位编码（例：[4.5]→）。每个词库含13个token，包括10个数字token以及三个特殊token：，通过组合实现精确数值表达。<br>通过切换head来生成不同的任务<br>在推理阶段，模型通过令牌切换任务专用解码器：依次生成时间→分数→描述，每个任务配备独立解码头。出现时自动切换解码任务。<br>视频帧的特征编码<br>TRACE使用CLIPViT-L从每帧提取大量的原始token，然后通过基于slot的token压缩方案将每一帧压缩为8个token。这些精炼后的token既保留了关键视觉信息的完整性，又有效地将时间感知元素融入特征表征中。<br>训练策略和数据<br>模型backbone模型基于Mistral-7B架构，分两阶段训练：<br>第一阶段：训练视觉压缩模块+任务头（抽128帧，学习率1e-3）<br>第二阶段：冻结上述模块，专注调LLM基座（同抽128帧，学习率5e-6）<br>三.评测<br>zero-shot<br>我们在三大zero-shot任务测试表现：<br>Densevideocaption：Youcook2<br>Momentretrieval：Charades-STA<br>Videohighlightdetection：QVHighlights<br>从表中可以看出，TRACE模型都取得了“碾压”其他通用videoLLM的效果，比TemporalgroudingLLM有更大优势。<br>Ablationstudy<br>在zero-shot模式下，我们测试了causaleventmodeling和independentencoder&#x2F;heads等关键模块在消融实验下的结果，如下表所示。<br>实验结果验证了我们提出的因果事件建模以及对时间&#x2F;分数使用独立的编解码器的有效性。另外，从结果中我们还可以发现，随着采样帧数的增加，模型的效果随之增加。<br>Finetune<br>在实验中，我们还比较了TRACE与其他模型在finetune之后的效果。<br>在评测中，TRACE相比TimeChat等模型有了巨大的提升，在Youcook2数据集上取得了SOTA效果。无论是zero-shot任务还是finetune后的效果，TRACE都取得了优于其他模型的成绩。<br>四．结语<br>总之，TRACE用“因果事件建模”撕开了长视频的迷雾，以“任务分治”策略破解了效率与精度的不可能。它为AI理解视频的方式提供了一种新的可能——不是囫囵吞枣，而是逻辑推演。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#121;&#x61;&#x7a;&#x68;&#x6f;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#x6e;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#x69;&#121;&#x61;&#x7a;&#x68;&#x6f;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#x7a;&#x68;&#105;&#x78;&#x69;&#x6e;&#x2e;&#99;&#x6f;&#x6d;</a></p>
 
                 
             </div>
@@ -480,14 +472,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -602,14 +586,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -653,14 +629,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/DASOU/">
                         <span class="chip bg-color">DASOU</span>
@@ -908,6 +876,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

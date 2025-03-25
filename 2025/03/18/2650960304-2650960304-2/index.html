@@ -367,14 +367,6 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -416,7 +408,7 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统，也促进了多模态大模型的蓬勃发展。<br>然而，这些经过图像级监督或弱语义训练的基座，并不是处理细粒度密集预测任务的最佳选择，尤其在理解包含密集文字的文档图像上。<br>为解决这一限制，上交联合美团实现了图文对齐粒度的新突破，其具备三大核心优势：<br>构建业内首个token级图文数据集TokenIT：该数据集包含2000万条公开图像以及18亿高质量的Token-Mask对。图像中的每个BPE子词均对应一个像素级掩码。数据体量是CLIP的5倍，且比SAM多出7亿数据对。<br>构建图文领域首个细粒度大一统基座TokenFD：仅需通过简单的一层语言编码，依托亿级的BPE-Mask对打造出细粒度基座TokenFD。真正实现了图像Token与语言Token在同一特征空间中的共享，从而支持Token级的图文交互和各种下游任务。<br>TokenVL打通模态GAP：进一步开放图像即文本的语义潜力，首次实现在大语言模型中进行token级的模态对齐，赋能密集型的多模态文档理解任务。<br>论文和demo已发布，相关数据、模型及代码资源将陆续向社区全面开放。<br>项目主页：https :&#x2F;&#x2F;token-family.github.io&#x2F;project_page&#x2F;<br>体验地址：https :&#x2F;&#x2F;huggingface.co&#x2F;spaces&#x2F;TongkunGuan&#x2F;Token-level_Text_Image_Foundation_Model<br>GitHub：https :&#x2F;&#x2F;github.com&#x2F;Token-family&#x2F;TokenFD<br>论文地址:https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.02304<br>首个Token级图文数据集TokenIT<br>据不完全统计，大约30%至40%的互联网图像包含可识别的文字，而这一比例在社交媒体平台上更为显著。<br>如何有效利用这些数据来增强行业基础AI生态的发展，一直是研究者们持续探索的方向。然而，目前真实场景数据中的文字标签多为单词级或行级，这与大语言模型所采用的BPEtoken编码规则不完全兼容。<br>此类数据集的不足，不仅限制了视觉基础模型在细粒度视觉感知方面的表现，也影响了多模态大语言模型在视觉与语言模态间的对齐能力。<br>为了解决这一限制，他们采用自研的token级的视觉语言分词打标技术，提出了业内首个token级别的图像文本数据集，填补了这一领域的数据空白，其亮点包括：<br>规模与多样性<br>包含2000万张图像与18亿Token-Mask对，覆盖自然场景、文档、图表、代码截图、图形用户界面等全场景文本图像类型。<br>数据量远超CLIP（5倍）、SAM（多7亿），提供更丰富的语义信息。<br>细粒度对齐<br>首创BPE分词+像素级掩码标注：将文本分割为BPE子词（如「un-」、「-able」），每个子词（token）精确对应图像中的局部区域。<br>支持「图像即文字」的语义映射，为多模态大模型理解字符、公式、表格等复杂结构奠定基础。<br>首个细粒度基座TokenFD<br>先前的视觉基座模型（如CLIP、DINO）依赖图像级监督，难以捕捉文档、表格等场景中的密集小文本语义，导致下游任务（如OCR、视觉问答）性能受限。<br>SAM具备像素级的分割能力，其受限的语义表示限制了其在文本图像场景的全生态应用。依托自主研发的数亿级BPE-Mask对，他们首次实现了token级的视觉和语言模态对齐，支持细粒度交互，填补了这一技术空白。<br>在实现上，TokenFD并不依赖复杂的语言编码器，而是通过简化的tokenembeddinglayer，将视觉编码器提取的视觉特征映射到语言编码空间。<br>对于token级的视觉和语言特征，正样本对确保数值与方向相似，而负样本对则相反。在百亿级token-mask数据的显式监督下，TokenFD真正实现了「图像即文字」，其亮点包括：<br>支持多任务<br>文本分割（Zero-Shot性能提升18.78%）<br>文本理解（Zero-Shot性能提升1.48%）<br>文本检索（Zero-Shot性能提升50.33%）<br>未来盼望他们支持可控文本生成&#x2F;擦除等更多任务<br>推动MLLM发展<br>赋能多模态大模型（例如TokenVL）细粒度文字感知能力，显著提升OCR、文档解析等任务表现。<br>商业化应用<br>图像安全审查<br>基于文字的图像检索（适用于搜索引擎、电商平台、社交平台）<br>知识检索增强的大模型<br>据了解，demo已在HuggingFace上线，欢迎体验。它突破了传统基于文字识别的图文检索方式，通过特征空间直接进行相似度匹配，支持任意文字输入进行图像内容查找。<br>文档理解多模态大模型TokenVL<br>通用视觉基础模型在多模态大语言模型中作为图像编码器被广泛应用，推动了图像理解能力的快速发展。<br>然而，现有的视觉模型在涉及图像中细粒度文本（如密集小文本）的下游任务中仍面临显著挑战，例如文本感知、理解与推理的准确性不足。<br>这一问题的根源在于当前基座模型缺乏针对文本密集场景的细粒度语义监督，导致在文档理解、图文问答等实际场景中频繁出现预测偏差。<br>因此作者们系统性地探索了TokenFD作为基座模型在通用文档智能领域的潜力。<br>基座适配度百分百<br>无需额外训练，TokenFD可直接替换其他多模态大模型的基座，各项评估基准都得到了提升。<br>文档理解多模态大模型对齐新范式<br>基于TokenFD作为视觉基础模型，作者们进一步推出了TokenVL，一种全新的多模态大模型图文对齐预训练范式。<br>通过利用TokenIT作为预训练数据，创新性地通过索引方法提取大语言模型（LLM）中的语言token，并将其与图像特征图中对应的图像token直接匹配，在此过程中引入约束函数以实现精准对齐。<br>这一方法允许LLM在回答问题时能够更直接地参考图像内容，而不仅仅依赖于其强大的语义上下文理解能力，尤其在理解答案的空间位置时更具优势。在多个UDV数据集上进行了评测，结果显示出卓越的性能和令人满意的效果。<br>更多方法和实验细节请参照论文。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#x61;&#x7a;&#104;&#x6f;&#117;&#64;&#x6a;&#105;&#x71;&#x69;&#122;&#x68;&#105;&#x78;&#x69;&#110;&#46;&#99;&#x6f;&#109;">&#x6c;&#105;&#121;&#x61;&#x7a;&#104;&#x6f;&#117;&#64;&#x6a;&#105;&#x71;&#x69;&#122;&#x68;&#105;&#x78;&#x69;&#110;&#46;&#99;&#x6f;&#109;</a></p>
+<p>CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统，也促进了多模态大模型的蓬勃发展。<br>然而，这些经过图像级监督或弱语义训练的基座，并不是处理细粒度密集预测任务的最佳选择，尤其在理解包含密集文字的文档图像上。<br>为解决这一限制，上交联合美团实现了图文对齐粒度的新突破，其具备三大核心优势：<br>构建业内首个token级图文数据集TokenIT：该数据集包含2000万条公开图像以及18亿高质量的Token-Mask对。图像中的每个BPE子词均对应一个像素级掩码。数据体量是CLIP的5倍，且比SAM多出7亿数据对。<br>构建图文领域首个细粒度大一统基座TokenFD：仅需通过简单的一层语言编码，依托亿级的BPE-Mask对打造出细粒度基座TokenFD。真正实现了图像Token与语言Token在同一特征空间中的共享，从而支持Token级的图文交互和各种下游任务。<br>TokenVL打通模态GAP：进一步开放图像即文本的语义潜力，首次实现在大语言模型中进行token级的模态对齐，赋能密集型的多模态文档理解任务。<br>论文和demo已发布，相关数据、模型及代码资源将陆续向社区全面开放。<br>项目主页：https :&#x2F;&#x2F;token-family.github.io&#x2F;project_page&#x2F;<br>体验地址：https :&#x2F;&#x2F;huggingface.co&#x2F;spaces&#x2F;TongkunGuan&#x2F;Token-level_Text_Image_Foundation_Model<br>GitHub：https :&#x2F;&#x2F;github.com&#x2F;Token-family&#x2F;TokenFD<br>论文地址:https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.02304<br>首个Token级图文数据集TokenIT<br>据不完全统计，大约30%至40%的互联网图像包含可识别的文字，而这一比例在社交媒体平台上更为显著。<br>如何有效利用这些数据来增强行业基础AI生态的发展，一直是研究者们持续探索的方向。然而，目前真实场景数据中的文字标签多为单词级或行级，这与大语言模型所采用的BPEtoken编码规则不完全兼容。<br>此类数据集的不足，不仅限制了视觉基础模型在细粒度视觉感知方面的表现，也影响了多模态大语言模型在视觉与语言模态间的对齐能力。<br>为了解决这一限制，他们采用自研的token级的视觉语言分词打标技术，提出了业内首个token级别的图像文本数据集，填补了这一领域的数据空白，其亮点包括：<br>规模与多样性<br>包含2000万张图像与18亿Token-Mask对，覆盖自然场景、文档、图表、代码截图、图形用户界面等全场景文本图像类型。<br>数据量远超CLIP（5倍）、SAM（多7亿），提供更丰富的语义信息。<br>细粒度对齐<br>首创BPE分词+像素级掩码标注：将文本分割为BPE子词（如「un-」、「-able」），每个子词（token）精确对应图像中的局部区域。<br>支持「图像即文字」的语义映射，为多模态大模型理解字符、公式、表格等复杂结构奠定基础。<br>首个细粒度基座TokenFD<br>先前的视觉基座模型（如CLIP、DINO）依赖图像级监督，难以捕捉文档、表格等场景中的密集小文本语义，导致下游任务（如OCR、视觉问答）性能受限。<br>SAM具备像素级的分割能力，其受限的语义表示限制了其在文本图像场景的全生态应用。依托自主研发的数亿级BPE-Mask对，他们首次实现了token级的视觉和语言模态对齐，支持细粒度交互，填补了这一技术空白。<br>在实现上，TokenFD并不依赖复杂的语言编码器，而是通过简化的tokenembeddinglayer，将视觉编码器提取的视觉特征映射到语言编码空间。<br>对于token级的视觉和语言特征，正样本对确保数值与方向相似，而负样本对则相反。在百亿级token-mask数据的显式监督下，TokenFD真正实现了「图像即文字」，其亮点包括：<br>支持多任务<br>文本分割（Zero-Shot性能提升18.78%）<br>文本理解（Zero-Shot性能提升1.48%）<br>文本检索（Zero-Shot性能提升50.33%）<br>未来盼望他们支持可控文本生成&#x2F;擦除等更多任务<br>推动MLLM发展<br>赋能多模态大模型（例如TokenVL）细粒度文字感知能力，显著提升OCR、文档解析等任务表现。<br>商业化应用<br>图像安全审查<br>基于文字的图像检索（适用于搜索引擎、电商平台、社交平台）<br>知识检索增强的大模型<br>据了解，demo已在HuggingFace上线，欢迎体验。它突破了传统基于文字识别的图文检索方式，通过特征空间直接进行相似度匹配，支持任意文字输入进行图像内容查找。<br>文档理解多模态大模型TokenVL<br>通用视觉基础模型在多模态大语言模型中作为图像编码器被广泛应用，推动了图像理解能力的快速发展。<br>然而，现有的视觉模型在涉及图像中细粒度文本（如密集小文本）的下游任务中仍面临显著挑战，例如文本感知、理解与推理的准确性不足。<br>这一问题的根源在于当前基座模型缺乏针对文本密集场景的细粒度语义监督，导致在文档理解、图文问答等实际场景中频繁出现预测偏差。<br>因此作者们系统性地探索了TokenFD作为基座模型在通用文档智能领域的潜力。<br>基座适配度百分百<br>无需额外训练，TokenFD可直接替换其他多模态大模型的基座，各项评估基准都得到了提升。<br>文档理解多模态大模型对齐新范式<br>基于TokenFD作为视觉基础模型，作者们进一步推出了TokenVL，一种全新的多模态大模型图文对齐预训练范式。<br>通过利用TokenIT作为预训练数据，创新性地通过索引方法提取大语言模型（LLM）中的语言token，并将其与图像特征图中对应的图像token直接匹配，在此过程中引入约束函数以实现精准对齐。<br>这一方法允许LLM在回答问题时能够更直接地参考图像内容，而不仅仅依赖于其强大的语义上下文理解能力，尤其在理解答案的空间位置时更具优势。在多个UDV数据集上进行了评测，结果显示出卓越的性能和令人满意的效果。<br>更多方法和实验细节请参照论文。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#x61;&#122;&#x68;&#x6f;&#x75;&#64;&#x6a;&#105;&#x71;&#105;&#122;&#104;&#x69;&#120;&#x69;&#x6e;&#46;&#99;&#111;&#x6d;">&#x6c;&#105;&#121;&#x61;&#122;&#x68;&#x6f;&#x75;&#64;&#x6a;&#105;&#x71;&#105;&#122;&#104;&#x69;&#120;&#x69;&#x6e;&#46;&#99;&#111;&#x6d;</a></p>
 
                 
             </div>
@@ -480,14 +472,6 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -573,12 +557,12 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/18/1000002457-2247630099-3/">
+                <a href="/2025/03/18/2650960304-2650960304-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000002457_2247630099_3.jpg" class="responsive-img" alt="目标检测 评价指标">
+                        <img src="/medias/frontcover/2650960304_2650960304_1.jpg" class="responsive-img" alt="ChatGPT创始成员、后训练负责人官宣离职！自立门户并将获OpenAI投资">
                         
-                        <span class="card-title">目标检测 评价指标</span>
+                        <span class="card-title">ChatGPT创始成员、后训练负责人官宣离职！自立门户并将获OpenAI投资</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,16 +586,8 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
-                        <span class="chip bg-color">小白学视觉</span>
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
                     </a>
                     
                 </div>
@@ -625,12 +601,12 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/18/2650960304-2650960304-1/">
+                <a href="/2025/03/18/1000000243-2247492538-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/2650960304_2650960304_1.jpg" class="responsive-img" alt="ChatGPT创始成员、后训练负责人官宣离职！自立门户并将获OpenAI投资">
+                        <img src="/medias/frontcover/1000000243_2247492538_1.jpg" class="responsive-img" alt="13.1K+ Star！Dagger：一个高效的容器化工作流工具">
                         
-                        <span class="card-title">ChatGPT创始成员、后训练负责人官宣离职！自立门户并将获OpenAI投资</span>
+                        <span class="card-title">13.1K+ Star！Dagger：一个高效的容器化工作流工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -654,16 +630,8 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
-                        <span class="chip bg-color">机器之心</span>
+                    <a href="/tags/AIGC%E5%88%9B%E6%83%B3%E8%80%85/">
+                        <span class="chip bg-color">AIGC创想者</span>
                     </a>
                     
                 </div>
@@ -908,6 +876,10 @@ CLIP、DINO、SAM基座的重磅问世，推动了各个领域的任务大一统
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

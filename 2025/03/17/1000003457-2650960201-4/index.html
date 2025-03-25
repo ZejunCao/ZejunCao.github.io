@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -417,7 +409,7 @@
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
 <p>王鑫涛，复旦大学博士生，师从肖仰华、汪卫教授，致力于探索用AI创造具有人格的数字生命。研究方向聚焦大语言模型与Agent技术，在AI角色扮演领域发表多篇ACL&#x2F;EMNLP论文，以及该领域首篇研究综述，总计引用量三百余次。他的研究寻求AI技术与人类情感需求的结合。科研之外，他是一位二次元爱好者、业余Coser。该研究完成于他在阶跃星辰实习期间，指导者为王亨老师。<br>论文标题：CoSER:CoordinatingLLM-BasedPersonaSimulationofEstablishedRoles<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.09082<br>角色扮演AI（Role-PlayingLanguageAgents，RPLAs）作为大语言模型（LLM）的重要应用，近年来获得了广泛关注。无论是用于情感陪伴、故事创作、游戏中的AI角色，还是真人的数字分身，都需要模型能够准确捕捉和模拟特定角色的设定、个性和行为模式。特别是当扮演小说、动漫中的知名角色时，模型需要获取并利用关于这些角色的大量知识。然而，现有的角色扮演AI面临两大核心挑战：缺乏高质量的真实角色数据集，以及缺少有效的评估方法。<br>为解决这些问题，复旦大学和阶跃星辰合作发表了一篇工作，CoSER（CoordinatingLLM-BasedPersonaSimulationofEstablishedRoles），一个包含当下最大的真实数据集、SoTA开源模型和最深入的评估方法的完整框架，用于高效构建和评估角色扮演AI。本文的代码、数据集和模型已在Github和Huggingface上开源，用于促进角色扮演AI在研究和应用中的发展。<br>CoSER8B:https :&#x2F;&#x2F;huggingface.co&#x2F;Neph0s&#x2F;CoSER-Llama-3.1-8B<br>CoSER70B:https :&#x2F;&#x2F;huggingface.co&#x2F;Neph0s&#x2F;CoSER-Llama-3.1-70B<br>CoSERDataset:https :&#x2F;&#x2F;huggingface.co&#x2F;datasets&#x2F;Neph0s&#x2F;CoSER<br>CoSERCode:https :&#x2F;&#x2F;github.com&#x2F;Neph0s&#x2F;COSER<br>SeeandChatwithYourFavoriteBookCharacters:https :&#x2F;&#x2F;ch.rhineai.com&#x2F;characters<br>CoSERDataset<br>最大、最真实、最丰富的角色扮演数据<br>从世界最知名的771本书中，本文构建了CoSERDataset，迄今为止最大、最真实、最丰富的角色扮演数据集，包含：<br>来自771本知名文学作品的17,966个角色<br>29,798段书中的真实对话，而非由大模型生成<br>全面的数据类型：角色概述、对话（包含详细的上下文情景）、关键剧情的摘要和角色经历和等<br>语言、动作和想法：除了语言的对白，对话中还包括角色的动作和想法。<br>上图将CoSERDataset与之前的数据集进行了比较。概括来说，CoSER的独特之处在于：<br>1.真实性：不同于此前数据集中大量使用的LLM生成的角色问答对，CoSER数据集从经典文学作品中提取真实角色对话，在忠实刻画角色的同时，保留了真实对话的复杂性，是天然的多轮、多角色的优质对话数据。<br>2.全面性：CoSER数据集不仅包含角色概述和对话，还包括剧情摘要、角色经历和对话背景等丰富内容。详细的对话背景在角色扮演的训练和评估中非常重要，而剧情摘要、角色经历提供了更丰富的角色知识。<br>3.多维表达：对话内容涵盖语言（speech）、动作（action）和想法（thought）三个维度，使角色表现更为立体。其中，想法数据能帮助模型在训练中更好地理解角色的行为和语言。<br>4.环境作为特殊角色：将环境视为特殊角色，扩展了角色对话能表达的信息，使对话数据可以表示书中的环境反馈、大众角色反应等信息。<br>Given-CircumstanceActing<br>角色扮演的训练与评估方法<br>本文引入了给定情境表演（Given-CircumstanceActing，GCA）方法用于训练和评估LLM的角色扮演能力，这一方法受到了《演员的自我修养》的作者-斯坦尼斯拉夫斯基-的表演理论的启发。<br>在训练阶段，给定一段对话及其上下文情景，本文让模型每次扮演对话中的一个角色，并在相应的台词上进行训练。基于这一方法，本文训练了CoSER8B和CoSER70B两个模型，它们基于LLaMA-3.1构建，展现了真实、生动的角色表现能力，并在多项角色扮演评估上取得SoTA成绩。<br>在评估阶段，GCA评估由两个步骤组成：<br>1.多智能体模拟（Multi-agentSimulation）：构建一个多智能体系统，让被评估模型依次扮演不同角色，在给定情境下进行模拟，获得一段由多个角色AI交互生成的对话。<br>2.基于惩罚的LLM评判（Penalty-basedLLMJuding）：让LLM扮演评判者，使用详细评分标准（rubrics）和原始对话作为参考，按照“采点扣分制”识别明确的表演缺陷来评估模拟对话的质量。下图展示了“人物忠实度”维度的扣分标准：<br>本文将评估维度按照1.关注自身质量or关注忠于原作；2.关注单一角色or关注整体模拟，分成了以下四个维度。<br>GCA评估方法的优势在于：1.通过多智能体模拟，全面反映模型的多轮、多角色的扮演能力；2.基于原著中的真实对话作为Groundtruth，并提供专家级评分标准指导LLM评判者。<br>关键实验与结论<br>在本文提出的GCA评估中，CoSER-70B、GPT-4o、Step-2、Doubao-pro取得了最好的表现，其中，CoSER-70B的表现远超其他开源模型。进一步，本文在实验中还汇报了BLEU、ROUGE-L等指标来比较模型生成对话与Groundtruth对话的一致性，在这一指标上CoSER-70B超过了所有的现有模型。</p>
-<p>在论文中，作者还进行了其他实验，证明了想法数据在训练&#x2F;推理阶段的重要性、将CoSER数据用于检索增强（RAG）的有效性等结论，感兴趣的读者可以在论文原文中找到相应的实验。<br>CaseStudy<br>最后，下图列出了CoSER测试集中的一个例子（出自《权力的游戏》），包括其中的对话场景、Groundtruth对话及CoSER-70B生成的结果。在这个例子中，我们看到，CoSER-70B不仅将角色的背景、性格模仿得活灵活现，还用上了原作的角色的经典台词（不在数据中出现），体现了CoSER模型在扮演小说角色时的优秀表现。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#x69;&#x79;&#x61;&#x7a;&#x68;&#x6f;&#117;&#x40;&#106;&#x69;&#x71;&#105;&#x7a;&#104;&#105;&#120;&#105;&#x6e;&#46;&#99;&#111;&#109;">&#x6c;&#x69;&#x79;&#x61;&#x7a;&#x68;&#x6f;&#117;&#x40;&#106;&#x69;&#x71;&#105;&#x7a;&#104;&#105;&#120;&#105;&#x6e;&#46;&#99;&#111;&#109;</a></p>
+<p>在论文中，作者还进行了其他实验，证明了想法数据在训练&#x2F;推理阶段的重要性、将CoSER数据用于检索增强（RAG）的有效性等结论，感兴趣的读者可以在论文原文中找到相应的实验。<br>CaseStudy<br>最后，下图列出了CoSER测试集中的一个例子（出自《权力的游戏》），包括其中的对话场景、Groundtruth对话及CoSER-70B生成的结果。在这个例子中，我们看到，CoSER-70B不仅将角色的背景、性格模仿得活灵活现，还用上了原作的角色的经典台词（不在数据中出现），体现了CoSER模型在扮演小说角色时的优秀表现。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#x79;&#x61;&#x7a;&#104;&#x6f;&#117;&#64;&#106;&#x69;&#x71;&#105;&#122;&#x68;&#x69;&#120;&#x69;&#x6e;&#x2e;&#x63;&#111;&#x6d;">&#x6c;&#105;&#x79;&#x61;&#x7a;&#104;&#x6f;&#117;&#64;&#106;&#x69;&#x71;&#105;&#122;&#x68;&#x69;&#120;&#x69;&#x6e;&#x2e;&#x63;&#111;&#x6d;</a></p>
 
                 
             </div>
@@ -481,14 +473,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -603,14 +587,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -626,12 +602,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/17/1000003457-2650960201-3/">
+                <a href="/2025/03/17/1000003247-2247783065-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003457_2650960201_3.jpg" class="responsive-img" alt="北大团队提出LIFT：将长上下文知识注入模型参数，提升大模型长文本能力">
+                        <img src="/medias/frontcover/1000003247_2247783065_1.jpg" class="responsive-img" alt="一手实测文心X1/4.5：又强又全面！歪果网友疯求英文版">
                         
-                        <span class="card-title">北大团队提出LIFT：将长上下文知识注入模型参数，提升大模型长文本能力</span>
+                        <span class="card-title">一手实测文心X1/4.5：又强又全面！歪果网友疯求英文版</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -655,16 +631,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
-                        <span class="chip bg-color">机器之心</span>
+                    <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
+                        <span class="chip bg-color">量子位</span>
                     </a>
                     
                 </div>
@@ -909,6 +877,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

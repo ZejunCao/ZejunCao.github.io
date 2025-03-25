@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -417,7 +409,7 @@
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
 <p>在NeurIPS2024大会上，OpenAI联合创始人兼前首席科学家IlyaSutskever在其主题报告中展望了基础模型的未来研究方向，其中包括了InferenceTimeCompute[1]，即增强模型在推理阶段的能力，这也是OpenAIo1和o3等核心项目的关键技术路径。<br>作为InferenceTimeCompute的重要方向之一，Test-timeAdaptation（TTA）旨在使预训练模型动态适应推理阶段中不同分布类型的数据，能够有效提高神经网络模型的分布外泛化能力。<br>然而，当前TTA的应用场景仍存在较大局限性，主要集中在单模态任务中，如识别、分割等领域。<br>近日，四川大学XLearning团队将TTA拓展至跨模态检索任务中，有效缓解了查询偏移（QueryShift）挑战的负面影响，有望推动Inferencetimecompute向跨模态应用发展。<br>目前，该论文已被机器学习国际顶会ICLR2025接收并评选为Spotlight（入选比例5.1%）。<br>论文题目：Test-timeAdaptationforCross-modalRetrievalwithQueryShift<br>论文地址：https :&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;BmG88rONaU<br>项目地址：https :&#x2F;&#x2F;hbinli.github.io&#x2F;TCR&#x2F;<br>背景与挑战<br>跨模态检索旨在通过构建多模态共同空间来关联不同模态的数据，在搜索引擎、推荐系统等领域具有重要的应用价值。如图1(a)所示，现有方法通常基于预训练模型来构建共同空间，并假设推理阶段的查询数据与训练数据分布一致。然而，如图1(b)所示，在现实场景中，用户的查询往往具有高度个性化的特点，甚至可能涉及不常见的需求，导致查询偏移（QueryShift）挑战，即模型推理时查询数据与源域数据的分布显著不同。<br>图1：(a)主流范式：利用预训练模型Zero-shot检索或者Fine-tune后检索。(b)导致查询偏移的原因：难以对数据稀缺的领域进行微调；即使微调模型，也会面临“众口难调”的问题。(c)观察：查询偏移会降低模态内的均匀性和增大模态间的差异。<br>如图1(c)所示，本文观察到，查询偏移不仅会破坏查询模态的均匀性（ModalityUniformity），使得模型难以区分多样化的查询，还会增大查询模态与候选模态间的差异（ModalityGap），破坏预训练模型构建的跨模态对齐关系。这两点都会导致预训练模型在推理阶段的性能急剧下降。<br>尽管TTA作为能够实时应对分布偏移的范式已取得显著成功，但现有方法仍无法有效应对查询偏移挑战。一方面，当前TTA范式面向单模态任务设计，无法有效应对查询偏移对模态内分布和模态间对齐关系的影响。另一方面，现有TTA方法主要应用于识别任务，无法应对检索任务中的高噪声现象，即候选项远大于类别数量会导致更大的错误几率。<br>主要贡献<br>针对上述挑战，本文提出了TCR，贡献如下：<br>从模态内分布和模态间差异两个层面，揭示了查询偏移导致检索性能下降的根本原因。<br>将TTA范式扩展至跨模态检索领域，通过调整模态内分布、模态间差异以及缓解检索过程中的高噪声现象，实现查询偏移下的鲁棒跨模态检索。<br>为跨模态检索TTA建立了统一的基准，涵盖6个广泛应用的数据集和130种风格各异、程度不同的模态损坏场景，支持包括BLIP[2]、CLIP[3]等主流预训练模型。<br>观察与方法<br>本文通过一系列的分析实验和方法设计，深入探究了查询偏移对公共空间的负面影响以及造成的高噪声现象，具体如下：<br>图2：TCR的框架图<br>1）挑战一：查询偏移对模态内和模态间的负面影响<br>为了进一步探究查询偏移对公共空间的负面影响，本文以一种Untrain的方式进行量化实验，即对推理阶段的数据特征如下变换：<br>其中，Q和G分别代表查询模态与候选模态，代表查询模态的第i个样本，和分别代表查询模态的样本中心。换句话说，通过放缩样本离中心的距离，调整模态内分布的均匀性；通过对查询模态的样本进行位移，控制两个模态之间的差异。实验结论如下：<br>如图3（a），当增大模态内均匀性（）和降低模态间差异（）时，检索性能有所提升，反之不然。正如[4]中讨论的，过度消除模态间差异不会改善甚至会降低模型性能。本文进一步观察到当降低模态间差异至源域的ModalityGap附近时，能够借助预训练模型构建的良好跨模态关系，保障模型性能。<br>图3：模态内均匀性与模态间差异的观察<br>基于上述观察，本文提出了如下损失：<br>模态内分布约束。让当前查询远离查询模态的样本中心，从而显式增大模态内均匀性：<br>其中，B代表当前批次。<br>模态间差异约束。对齐目标域和源域的模态间差异：<br>其中，代表推理时的模态间差异，代表预估的源域模态间差异。<br>如图4所示，本文提出的TCR不仅增大了模态内均匀性，而且降低了模态间差异，进而提升了跨模态检索性能。<br>图4：TTA前后的特征分布<br>2）挑战二：查询偏移造成的高噪声现象<br>过去的TTA方法依赖熵最小化范式，且主要应用于分类任务。尽管可以通过将检索视为分类任务，进而使用熵最小化，但检索任务中候选项远大于类别的数量，直接应用该范式会导致模型欠拟合。针对此，本文提出查询预测优化如下：<br>其中，代表最近邻筛选操作。该模块不仅能够排除不相关的候选项，而且排除的候选项能够避免对正确候选的大海捞针，从而避免模型欠拟合。如图5所示，使用查询预测优化（Ref.）能够显著提升TTA的稳定性。<br>图5：温度系数的消融实验<br>尽管上述优化缓解了欠拟合现象，但是查询偏移仍然会导致大量的噪声预测。针对此，本文提出噪声鲁棒学习：<br>其中，代表查询预测的熵，代表自适应阈值。噪声鲁棒学习不仅通过自适应阈值来过滤高熵的预测，还为低熵的预测分配更高的权重，进而实现对噪声预测的鲁棒性。<br>基准与实验<br>为了更好地研究查询偏移对跨模态检索任务的影响，本文提出以下两中评估方法：<br>仅查询偏移：只有查询模态的分布与源域数据不同。依据[5]，在COCO[6]和Flickr[7]数据集上分别引入了16种图像损坏和15种文本损坏（按照不同严重程度共计130种损坏）。为了保证仅查询偏移，先让模型在对应数据集上进行微调，随后将微调后的模型应用于仅有查询偏移的推理数据集中。<br>查询-候选偏移：查询模态和候选模态的分布都与源域数据不同。为了保证查询-候选偏移，本文直接将预训练模型应用于各领域的推理数据中，包括电商领域的Fashion-Gen[8]、ReID领域的CUHK-PEDES[9]和ICFG-PEDES[10]、自然图像领域的Nocaps[11]等。<br>部分实验结果如下：<br>1）仅查询偏移<br>表1：仅查询偏移下的性能比较<br>2）查询-候选偏移<br>表3、4：查询-候选偏移下的性能比较<br>总结与展望<br>本文提出的TCR从模态内分布和模态间差异两个层面揭示了查询偏移对跨模态检索性能的负面影响，并进一步构建了跨模态检索TTA基准，为后续研究提供了实验观察和评估体系。<br>展望未来，随着基础模型的快速发展，TTA有望在更复杂的跨模态场景（如VQA等）中发挥关键作用，推动基础模型从”静态预训练”迈向”推理自适应”的发展。<br>参考文献：</p>
-<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#x79;&#97;&#x7a;&#104;&#111;&#x75;&#x40;&#106;&#x69;&#113;&#105;&#x7a;&#x68;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#111;&#109;">&#108;&#x69;&#x79;&#97;&#x7a;&#104;&#111;&#x75;&#x40;&#106;&#x69;&#113;&#105;&#x7a;&#x68;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#111;&#109;</a></p>
+<p>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#121;&#x61;&#122;&#x68;&#x6f;&#117;&#64;&#x6a;&#105;&#x71;&#105;&#x7a;&#104;&#x69;&#x78;&#x69;&#110;&#46;&#x63;&#x6f;&#x6d;">&#108;&#x69;&#121;&#x61;&#122;&#x68;&#x6f;&#117;&#64;&#x6a;&#105;&#x71;&#105;&#x7a;&#104;&#x69;&#x78;&#x69;&#110;&#46;&#x63;&#x6f;&#x6d;</a></p>
 
                 
             </div>
@@ -481,14 +473,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -574,12 +558,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/17/2650960293-2650960293-1/">
+                <a href="/2025/03/17/1000002242-2247617213-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/2650960293_2650960293_1.jpg" class="responsive-img" alt="想与顶级AI人才互动？来和机器之心一起共赴这4场全球学术顶会">
+                        <img src="/medias/frontcover/1000002242_2247617213_1.jpg" class="responsive-img" alt="【他山之石】比传统语言模型快10倍，首个商业规模的扩散语言模型，究竟是什么来头？">
                         
-                        <span class="card-title">想与顶级AI人才互动？来和机器之心一起共赴这4场全球学术顶会</span>
+                        <span class="card-title">【他山之石】比传统语言模型快10倍，首个商业规模的扩散语言模型，究竟是什么来头？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -603,16 +587,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
-                        <span class="chip bg-color">机器之心</span>
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
                     </a>
                     
                 </div>
@@ -626,12 +602,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/17/1000003043-2650030753-1/">
+                <a href="/2025/03/17/2650960293-2650960293-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003043_2650030753_1.jpg" class="responsive-img" alt="谷歌团队再次证明Scaling Law的准确性，即使总通信量减少99%，仍能超越数据并行训练">
+                        <img src="/medias/frontcover/2650960293_2650960293_1.jpg" class="responsive-img" alt="想与顶级AI人才互动？来和机器之心一起共赴这4场全球学术顶会">
                         
-                        <span class="card-title">谷歌团队再次证明Scaling Law的准确性，即使总通信量减少99%，仍能超越数据并行训练</span>
+                        <span class="card-title">想与顶级AI人才互动？来和机器之心一起共赴这4场全球学术顶会</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -655,16 +631,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E5%AE%B6/">
-                        <span class="chip bg-color">人工智能学家</span>
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
                     </a>
                     
                 </div>
@@ -909,6 +877,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

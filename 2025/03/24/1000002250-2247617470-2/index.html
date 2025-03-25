@@ -1,0 +1,1100 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="【源头活水】院士领衔万字长文，全面系统梳理多模态LLM对齐算法, ZejunCao&#39;Blogs">
+    <meta name="description" content="【源头活水】院士领衔万字长文，全面系统梳理多模态LLM对齐算法
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研究问题的本质有更清">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【源头活水】院士领衔万字长文，全面系统梳理多模态LLM对齐算法 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002250_2247617470_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【源头活水】院士领衔万字长文，全面系统梳理多模态LLM对齐算法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能前沿讲习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/DKjMTJIJ-0v-lScylX4qOg">【源头活水】院士领衔万字长文，全面系统梳理多模态LLM对齐算法</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研究问题的本质有更清晰的认识和理解，是自我提高的不竭源泉。为此，我们特别精选论文阅读笔记，开辟“源头活水”专栏，帮助你广泛而深入的阅读科研文献，敬请关注！<br>万字长文，对多模态LLM中对齐算法进行全面系统性回顾！<br>从现有对齐算法涵盖的应用场景，到构建对齐数据集的核心因素，再到用于评估对齐算法的基准，还有对齐算法未来潜在发展方向，全都梳理了一遍。<br>大语言模型（LLMs）能够通过简单的提示完成多种任务，且无需进行任务特定的训练。然而，这些模型主要处理文本数据，对于多模态数据的处理存在局限。<br>由于世界本质上是多模态的，包括视觉、听觉和文本等数据，研究者开始在LLM的基础上开发多模态大语言模型（MLLMs），以处理更复杂的数据形式。<br>然而，现有的MLLMs仍面临一系列挑战，尤其是在真实性、安全性、推理能力和与人类偏好对齐方面，这些问题尚未得到充分解决。<br>因此，针对这些问题的对齐算法应运而生，成为解决这些挑战的有效途径。<br>本文这项研究的主要贡献是对多模态大型语言模型（MLLMs）中的对齐算法进行全面的系统性回顾。<br>具体而言，探讨了以下四个关键问题：<br>现有对齐算法的应用场景：文章通过分类当前的对齐算法，清晰地展示了它们在不同应用领域的适用性，并为研究者提供了一个统一的符号系统，帮助理解各算法之间的区别与联系。<br>对齐数据集的构建：对齐数据集的构建涉及数据源、模型响应和偏好注释三个核心因素。文章对这些因素进行了系统分析与分类，并总结了公开数据集的优势与不足，为未来的改进提供参考。<br>对齐算法的评估方法：鉴于大多数对齐算法针对特定任务，如减少幻觉、确保安全性和改善推理能力，文章整理了常用的评估基准，提出了清晰的评估框架。<br>未来发展方向：文章提出了对齐算法发展的潜在未来方向，特别是视觉信息的整合、LLM对齐方法的经验启示，以及MLLM作为智能体面临的挑战与机遇。<br>这项研究由来自中国科学院自动化研究所、南京大学、中国科学技术大学、南洋理工大学、清华大学深圳国际研究生院、腾讯优图实验室、新加坡国立大学、理海大学、香港科技大学、松鼠Ai学习等机构的研究人员共同完成。<br>中国科学院院士谭铁牛、中国计算机学会会士王亮领衔。<br>以下是更多细节。<br>应用场景与代表性方法<br>应用场景<br>文章介绍了多模态大语言模型（MLLM）对齐算法的应用场景，分为三大层次：<br>通用图像理解：主要集中在减少幻觉（模型生成不准确或无关的输出），并提升模型在其他功能（如对话、推理能力）方面的表现。<br>多图像、视频和音频：针对复杂多模态数据，如多图像和视频，提出了不同的架构和训练方法来处理这些任务，尤其是如何在这些任务中减少幻觉并提高模型的能力。<br>扩展应用：探讨了将MLLM应用于领域特定任务，如医学、数学推理、安全系统等，介绍了如何根据这些特定领域的需求对模型进行优化。<br>通用图像理解与多模态o1<br>一般图像理解<br>MLLM对齐算法的初衷是解决多模态系统中的幻觉问题。最近的研究表明，这些算法不仅能提升幻觉的处理，还能增强模型的安全性、对话能力、推理能力等多个功能属性。<br>本节将系统地介绍几种创新的方法，按其主要应用场景分类：减少幻觉和提升其他能力。<br>减少幻觉<br>MLLM对齐算法的最初设计目的是减少幻觉现象。<br>例如，Fact-RLHF是第一个多模态的RLHF算法，使用了10K个人工标注的样本来训练奖励模型，并引入了每个token的KL惩罚、事实信息校准、以及正确性和长度惩罚等机制。<br>DDPO通过提高更正数据的权重，进一步优化了标准的DPO。<br>HA-DPO则利用MLLM生成图像描述，通过GPT-4验证幻觉并对正负样本进行重写，加入了辅助的因果语言建模损失以减少幻觉。<br>mDPO通过引入视觉损失函数来解决视觉信息忽视问题，并增加锚定机制来避免选定响应的概率下降。<br>提升综合能力<br>除了减少幻觉，一些算法还专注于提升模型的多方面能力。<br>例如，Silkie通过收集多样的指令数据集，并使用GPT-4V评估生成的响应，从而为应用DPO提供偏好数据。CLIP-DPO利用CLIP分数对数据进行标注，并应用DPO损失，从而同时提升幻觉减缓和零样本分类任务的表现。<br>SIMA通过让模型自我评估其生成的响应来构建偏好对，进一步提升了多图像任务的表现。<br>近期，MM-RLHF等方法通过更多样性的数据和算法，将alignment的效果进一步提升。<br>多模态o1发展<br>DeepSeek-R1的流行给MLLM社区带来了新的启示。<br>LMM-R1使用纯文本数学数据集，通过RLOO训练，并在多模态数学基准上取得了改进。<br>Open-R1-Video则利用GRPO方法提升了模型在视频领域的表现。<br>VLM-R1应用R1方法处理指代表达理解任务，进一步扩展了多模态推理的能力。<br>多图像、视频和音频<br>在这一部分，文章讨论了多图像、视频和音频任务中的挑战和解决方法。<br>多图像任务：现有的MLLM在多图像理解方面常常遇到困难，MIA-DPO通过构建多图像偏好数据来解决这一问题，取得了较好的效果。<br>视频任务：视频理解任务比单图像任务更加复杂，DPO和交错视觉指令的结合，能够有效提升视频任务的处理能力，如LLaVA-NeXT-Interleave方法。<br>音频任务：音频-视觉理解存在音频盲视问题，Video-SALMONN2通过引入音频-视觉对齐机制，成功解决了这一问题。<br>扩展多模态应用<br>文章还介绍了在特定领域的扩展应用，提出了针对性更强的对齐方法。<br>医学应用：3D-CT-GPT++通过对医学影像分析进行优化，成功减少了诊断中的误差，达到了临床级别的准确性。<br>数学应用：MAVIS方法通过改进视觉数学问题解决框架，提高了MLLM在数学推理中的表现。<br>安全性：为应对多模态大语言模型的对抗性攻击，文章介绍了AdPO和VLGuard等方法，它们通过优化训练数据和模型结构来提高模型的鲁棒性。<br>代理和智能系统：INTERACTIVECOT和EMMOE方法通过动态优化推理流程和分解任务，提高了多模态大语言模型在嵌入式智能中的表现，尤其是在复杂决策过程中。<br>作者分析多模态大语言模型的不同应用场景，详细介绍了多种算法和方法，涵盖了从通用图像理解到特定领域应用的各个方面。<br>主要贡献在于展示了如何通过优化对齐算法来减少幻觉现象并提升模型在不同任务中的综合能力，尤其在视频、音频、医学、数学等复杂领域的应用。<br>随着这些方法的不断优化，MLLM将在更多领域展现其强大的处理能力。<br>下表总结了目前alignment策略常见的损失函数形式：<br>MLLM对齐数据构造与现有数据总结<br>主要内容总结<br>在多模态大型语言模型（MLLM）的研究中，对齐数据集是关键组成部分。由于多模态数据集的构建涉及到大量的数据来源、生成方法和注释技术，研究者们对不同构建方法进行了分类。<br>这些数据集大致可以分为两类：引入外部知识的数据集和依赖自我标注的数据集。<br>通过这些分类，研究者可以更清晰地了解不同数据集的特点，进而为多模态系统的优化提供支持。<br>作者对现有MLLM对齐数据集进行了全面的分类与分析，详细介绍了不同构建方法的优缺点以及应用场景。研究主要关注以下几个方面：<br>引入外部知识的数据集：讨论了通过人类注释和闭源模型（如GPT-4系列）构建的数据集，这些方法提高了数据的质量，但也面临高成本和主观性等挑战。<br>自我标注的数据集：探讨了利用模型自身生成偏好对进行数据集构建的方法，包括单一文本模态、单一图像模态和图像-文本混合模态三种类型的数据构建方法。<br>数据质量和规模的平衡：文章还讨论了如何平衡数据质量、规模与成本的关系，并展望了未来自动化数据增强技术的潜力，特别是如何利用自我标注方法提升数据质量。<br>通过这项工作，研究者们可以更加清楚地理解多模态数据集的构建策略，为未来的研究提供有力的支持。<br>引入外部知识的数据集<br>人工注释：通过人工标注，收集了不同领域的高质量数据。<br>例如，LLaVA-RLHF通过人工选择正负响应收集了10k个样本，RLHF-V通过人工修正幻觉响应收集了1.4k个样本。<br>闭源LLM&#x2F;MLLM：利用GPT-4系列模型生成的偏好数据，通过这种方法可以大规模构建数据集，同时减少成本。<br>像LRV-Instruction通过GPT-4生成了400k个视觉指令，涵盖16个视觉语言任务。<br>开源LLM&#x2F;MLLM：使用开源模型（如CLIP-DPO）来构建偏好数据，减少成本但可能牺牲数据质量。<br>例如，INTERACTIVECOT通过预定义分数构建了具身智能的偏好数据集。<br>自我标注的数据集<br>单一文本模态：<br>SQuBa使用微调后的模型生成负样本，并将其与正样本进行DPO对比。SymDPO通过将VQA&#x2F;分类数据转化为ICL格式，以增强视觉学习。<br>单一图像模态：<br>ImageDPO通过对图像进行扰动（如高斯模糊或像素化），而保持文本不变，构建DPO偏好对。<br>图像-文本混合模态：<br>AdPO通过构建原始&#x2F;对抗图像及其模型响应的偏好对，在优化过程中，两者的图像和文本内容在正负样本中有所不同。<br>实验发现<br>在实验部分，研究发现：<br>数据集规模与质量的平衡：通过引入外部知识的数据集，能够提高数据的质量，但这也增加了构建成本。而自我标注的方法虽然能够大规模生成数据，但由于MLLM的性能限制，当前的自我标注数据集质量仍较低，且存在一定的分布偏移问题。<br>自动化增强的潜力：随着自动化数据增强技术的发展，未来的自我标注方法将可能解决当前数据质量低的问题，并提高数据的多样性和可信度。<br>总的来说，数据集的构建方法和质量控制是影响MLLM对齐效果的关键因素，未来的研究应关注如何在保证数据质量的同时，降低成本并提高数据集的规模。<br>模型评估<br>现有的MLLM对齐评估基准被分为六个关键维度：<br>通用知识（评估基础能力）、幻觉（衡量生成内容与事实的一致性）、安全性（评估响应中降低风险的能力）、对话（测试模型是否能输出用户要求的内容）、奖励模型（评估奖励模型的表现）和与人类偏好的对齐。<br>通用知识<br>大多数基准优先考虑高质量、人工注释的数据集，这些数据集专门为实际应用场景量身定制。<br>例如，MME-RealWorld包含来自13K张图像的29K个问答对，MMMU包含来自学术来源的11.5K个问题。MMStar通过减少数据泄漏和强调视觉依赖性来增强可靠性。<br>许多基准引入了创新方法，如MMBench的双语评估与CircularEval，MMT-Bench的任务图用于域内外分析，以及BLINK专注于视觉感知任务。这些框架提升了评估精度，揭示了模型的局限性。<br>任务通常需要高级的多模态推理能力，例如MathVista的数学视觉整合、SQA3D的3D情境问答以及MMMU对图表和地图的覆盖。<br>这些基准推动模型解决跨学科的挑战，通过策划具有挑战性的、细粒度的任务（如MVBench中的时间理解、Mantis-Instruct中的多图像处理），旨在提升模型解决现实世界问题的能力，特别是在细致感知和推理方面。<br>幻觉<br>这些基准系统地识别并分类多模态模型中的幻觉问题，包括对象幻觉（ObjectHalBench）、内在和外在幻觉（VideoHallucer）以及关联偏差（VALOR-Eval）。它们强调在视觉、文本和序列上下文中的细粒度评估。</p>
+<p>这些方法强调自动化、可扩展的评估，同时解决数据泄漏和语言先验等问题。</p>
+<p>一些基准专注于特定任务，如多语言支持（MHumanEval），而另一些则处理更广泛的问题，如偏见和干扰（Bingo）。所有这些都旨在提高模型在实际场景中的鲁棒性。<br>通过提出对齐策略（如RLAIF-V的开源反馈）并提出统一框架（HQH），这些基准为开发更可靠的多模态系统提供了指导。<br>安全性<br>一些研究引入了新颖的技术，例如基于扩散的对抗性攻击（AdvDiffVLM）、红队框架（RTVLM）和后期微调策略（VLGuard）。<br>这些方法通过模拟现实世界威胁或提升模型的抗干扰能力来增强评估的严谨性。<br>像MultiTrust和RTVLM这样的基准通过多个维度统一了可信度评估（如真实性、公平性），而另一些基准则专注于特定挑战，如超出分布（OOD）泛化（VLLM-safety-bench）或过度敏感性（MOSSBench）。这些基准为模型的限制提供了整体的见解。<br>MM-RLHF-SafetyBench从现有数据集中进行采样，进一步涵盖了如对抗性攻击、隐私、红队攻击和有害内容检测等领域。<br>对话<br>这些基准优先评估基础的视觉技能，如低级感知能力（Q-Bench、LLVisionQA）、低级信息的描述能力（LLDescribe）和质量评估。<br>它们强调模型解释和表达细粒度视觉信息的能力。<br>几个基准测试了模型在具有挑战性场景中的泛化能力，包括非常规图像（LLaVABench-Wilder）、跨领域任务（LiveBench的数学&#x2F;新闻整合）和对抗性提示（Vibe-Eval的高难度问题）。这些基准揭示了模型在标准数据集之外的适应能力。<br>奖励模型<br>每个基准都针对特定的评估维度，例如多语言能力（M-RewardBench中的23种语言）、对齐&#x2F;安全性&#x2F;偏见（MJ-Bench）、通过人类注释增强可解释性和最终模型评分能力（MM-RLHF-RewardBench）以及MLLM在辅助评判者跨多种模态中的能力（MLLM-as-a-Judge的评分与成对比较）。<br>这些框架揭示了模型在结构化和OOD场景中的优缺点。<br>高质量的数据集通过人类与AI合作（如VL-RewardBench的注释管道）或结构化三元组设计（RewardBench）策划而成，任务从简单的偏好排序到复杂的推理，推动模型处理如幻觉和伦理对齐等细致挑战。<br>对齐<br>一些基准研究了模型与人类偏好的对齐能力。<br>Arena-Hard是一个全面的多维度基准，旨在评估中文LLM的对齐能力。AlpacaEval-V2提出了一种简单的回归分析方法，用于控制自评中的长度偏差。Arena-Hard通过增加模型性能的分离度三倍，达到了98.6%的与人类偏好排名的相关性。MM-AlignBench是一个专门设计的手工注释基准，旨在评估与人类价值观的对齐。<br>总体而言，许多当前的MLLM对齐算法侧重于防止模型生成幻觉，同时探索如何利用对齐算法提升MLLM的通用知识和对话能力，这是未来的重要方向。<br>一些研究者将不安全的响应视为与人类偏好不对齐，因此应用MLLM对齐算法来解决安全问题。这些框架中奖励模型的有效性，尤其是在引导对齐方面的表现，值得进一步研究。<br>此外，针对与人类偏好的对齐，基准也从LLM领域发展到了MLLM领域。<br>未来工作与挑战<br>随着多模态大型语言模型（MLLM）的迅速发展，将它们与人类偏好对齐已经成为研究的重点。然而，仍然存在若干挑战。<br>首先，高质量和多样化数据集的稀缺问题仍然未得到有效解决。其次，许多方法未能有效利用视觉信息，往往主要依赖文本来构建正负样本，忽略了多模态数据的全部潜力。此外，缺乏全面的评估标准，当前的方法通常仅在幻觉或对话任务等特定类型的基准上进行验证，这使得它们的普适性难以评估。<br>通过借鉴LLM后期训练策略和智能体研究的进展，可以揭示现有MLLM对齐方法中的局限性。克服这些挑战对于开发更强大和全面的对齐方法至关重要。<br>数据挑战<br>MLLM对齐面临两个关键的数据相关挑战：数据质量和覆盖范围。<br>首先，高质量的MLLM对齐数据的可用性有限。与LLM相比，获取和注释多模态数据要复杂得多，因为它涉及多个模态的处理。<br>其次，现有数据集在涵盖多样化多模态任务方面存在不足，例如光学字符识别、数学问题和图表理解等任务。构建一个涵盖广泛任务的综合数据集是一项极具挑战的工作。<br>据作者所知，目前没有一个公开的、完全人工注释的多模态数据集样本量超过200,000个。<br>这些在数据质量和覆盖范围方面的限制，成为有效对齐MLLM的重大障碍。<br>利用视觉信息进行对齐<br>D&#x3D;(x,I,y,y)<br>，其中x是问题，I是图像，<br>yy<br>分别表示正确和错误的响应。<br>在当前的研究中，主要有三种方法用于利用视觉信息来增强对齐性能，但每种方法都有其局限性：<br>使用破损或无关图像作为对齐阶段的负样本。<br>(y｜X,I)<br>基于破损图像生成新的问题和答案。<br>(y｜X,I)<br>使用像CLIP这样的余弦相似度度量来评估文本-图像匹配。<br>该方法通过计算文本与图像之间的相似度分数来筛选数据，或将其作为强化学习奖励函数的一部分。虽然这种方法有助于减少数据噪声，但评分的质量依赖于评估模型的质量，可能受到模型偏见的影响。<br>每种方法在利用视觉数据增强MLLM对齐方面都有一定的作用，但在效率、成本和潜在偏见方面存在权衡。<br>综合评估<br>大多数MLLM对齐研究主要评估其算法在幻觉、对话能力或安全性等几个关键领域的表现。<br>然而，未来的研究应采用更全面的评估方法，跨更广泛的任务评估对齐方法，以更好地展示其普适性和有效性。<br>全模态对齐<br>Align-anything开创了通过多模态数据集“align-anything-200k”实现全模态对齐的研究，涵盖了文本、图像、音频和视频。这项研究展示了不同模态之间的互补效应。<br>然而，他们的工作仍处于初期阶段，每种模态的数据集相对较小，限制了其任务覆盖范围。<br>此外，提出的算法仅是DPO方法的初步改进，未能充分利用每种模态固有的独特结构信息。<br>未来，超越图像&#x2F;文本领域的对齐算法设计，尤其是针对其他模态的对齐，将是一个关键的趋势。<br>MLLM推理<br>最近，由OpenAI（o1）和DeepSeek-R1代表的推理LLM已经证明，强化学习算法和偏好数据对于提高LLM在复杂问题求解、长时上下文理解和生成任务中的表现至关重要。<br>本文将探讨从LLM推理增强研究中获得的洞察及其对对齐MLLM的影响，主要从数据和优化框架两个维度进行分析。<br>(1)数据。<br>规模与质量。对应的方法逐渐从小模型重采样（如OpenMathInstruct）发展到高质量合成数据（如AceMath），并逐步采用尖端模型（如OpenAIo1）和通过领域专用模型合成数据实现可扩展的知识迁移（如DeepSeek-V3）。<br>目前，用于推理增强的数据集普遍达到百万样本规模（如Qwen-2.5-MATH）。<br>效率。采用“少即是多”的对齐（如LIMA的1k样本用于65BLlama）证明了最少的高质量数据能够最优地激活预训练能力，同时减少对数据规模的依赖。<br>(2)优化框架。<br>采样策略。最近的进展表明，在线强化学习（RL）逐渐成为主流方法，DeepSeek-V3和Qwen-2.5-MATH的在线采样方法有效地缓解了分布偏移。<br>此外，Mini-Max采用了离线+在线采样策略，进一步提升了模型性能。<br>训练范式。多阶段、协作优化已成为主流方法。<br>例如，Llama3包含了六轮DPO迭代，而DeepSeek通过温度变化的采样和反射&#x2F;验证提示来优化推理深度（长链式推理）和简洁性。<br>算法。强化学习算法从早期的策略梯度方法发展到更复杂的PPO，最近基于PPO的改进主要有两个方向：<br>一个是去除评估模型并用稀疏奖励训练策略，从而减少一半的参数量（如DPO和GRPO）；另一个是精炼评估模型的设计，例如引入比率作为优势函数的PRIME和通过重塑正负样本奖励的OREAL。<br>通过优先考虑高质量数据和创新的优化框架，MLLM领域正朝着更有效、可扩展的模型发展，这些模型也能更好地解锁MLLM的推理潜力。<br>LLM对齐的启示<br>对LLM的对齐已经成为最近研究的一个关键焦点，提供了许多有价值的见解，可以为MLLM的开发提供指导。通过审视现有LLM对齐策略的经验教训，可以揭示出有助于提升MLLM研究的关键原则：<br>(1)提高训练效率。<br>当前MLLM的对齐方法依赖于DPO损失函数。然而，由于DPO需要同时加载策略模型和参考模型，训练速度会显著下降。是否可以利用类似SimPO的无参考方法进一步提升训练效率？<br>这一方法可能加速训练过程，同时减少对参考模型的依赖。进一步研究参考模型在MLLM对齐中的具体作用和影响，对于提高效率和优化模型设计至关重要。<br>(2)减轻过度优化&#x2F;奖励黑客问题。<br>在使用DPO或RLHF进行LLM对齐时，过度优化仍然是一个关键挑战，即通过学习到的代理奖励模型来提高性能，但真正的质量可能停滞或退化。<br>为应对这一挑战，解决策略包括：<br>使用平衡的训练数据集确保多样性和代表性，防止过于狭窄的优化；<br>在验证性能平稳时实施早停；<br>引入正则化技术，减少对训练数据的过度依赖，提高模型的泛化能力。<br>MLLM作为智能体<br>MLLM结合了LLM强大的推理能力和处理来自多种模态（如图像、文本和音频）数据的能力。这使得它们能够从多种信息源中提取知识并进行综合分析，在处理复杂的现实任务中具有很大优势。<br>然而，要将MLLM转变为高效的智能体，仍然需要解决几个待处理的问题。<br>多智能体协作。目前，针对基于文本的智能体的多智能体协作框架已取得显著进展，但基于MLLM的多智能体系统仍缺乏成熟的解决方案。<br>鲁棒性。MLLM智能体在开放环境中的鲁棒性尚未得到系统验证，需引入对抗性鲁棒性测试和保障技术。<br>安全性。MLLM智能体中引入更多复杂组件增加了安全风险，未来的研究应探索多种安全保护机制，以减轻这些风险。</p>
+<p>本文目的在于学术交流，并不代表本公众号赞同其观点或对其内容真实性负责，版权归原作者所有，如有侵权请告知删除。<br>收藏，分享、在看，给个三连击呗！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/24/1000002250-2247617470-2/">https://zejuncao.github.io/2025/03/24/1000002250-2247617470-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能前沿讲习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/24/1000002250-2247617470-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002250_2247617470_1.jpg" class="responsive-img" alt="【他山之石】AAAI2025 | 北大和数原提出MMGDreamer">
+                        
+                        <span class="card-title">【他山之石】AAAI2025 | 北大和数原提出MMGDreamer</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/24/1000002249-2247617469-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002249_2247617469_2.jpg" class="responsive-img" alt="【他山之石】CVPR 2025 | 清华提出MambaIRv2：图像复原超强SOTA模型">
+                        
+                        <span class="card-title">【他山之石】CVPR 2025 | 清华提出MambaIRv2：图像复原超强SOTA模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

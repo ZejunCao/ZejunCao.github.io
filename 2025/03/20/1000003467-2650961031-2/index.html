@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -416,7 +408,7 @@
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>机器之心报道<br>编辑：Panda<br>如果你让当今的LLM给你生成一个创意时钟设计，使用提示词「acreativetimedisplay」，它可能会给出这样的结果：<br>或许我们能在其中看到一些创新点，但整体来说这些设计并无特别出彩之处，依然还在预期之内。<br>但近日的一项研究成果却可以让LLM设计出下面这些让人眼前一亮的时钟，而使用的提示词却和上面的一样：<br>这是怎么做到的呢？简而言之：一种基于LLM的进化算法。<br>这种算法名为Lluminate，来自洛克菲勒大学生物信息学研究者、生成式设计公司Morphogen创始人JoelSimon。<br>Lluminate将进化方法与原则性创造性思维策略结合到了一起。结果发现，通过将进化压力与形式化的创意策略相结合，可以持续对隐含创造空间进行开放式探索。JoelSimon将这个过程称为illumination，即启迪。这也是该算法得名的由来。他表示：「这能为辅助式创造性探索提供新的可能性，对抗同质化，甚至可能发现新的想法。」<br>当然，这种算法不仅能用来创建创意时钟和以上推文演示的纹理动画，也可以用来生成前有未有的建筑风格。<br>提示词：anarchitecturalstylethathasneverbeenseenbefore<br>这是基线生成结果：<br>而下面是应用了Lluminate算法之后的生成结果。看起来，至少在新颖性方面，Lluminate确实带来了非常显著的提升。<br>Lluminate算法<br>项目地址：https :&#x2F;&#x2F;github.com&#x2F;joel-simon&#x2F;lluminate<br>该算法结合了进化计算原理与大型语言模型。所有突变都发生在遗传密码上，并被渲染成了嵌入的表型。其执行过程如下所示：<br>摘要生成：创建当前种群的摘要，为后代提供上下文；<br>创意策略注入：随机选择并应用创造性思维策略来引导LLM；<br>进化运算符：使用当前摘要和策略来提示模型，通过修改或组合现有artifact来创建新artifact；<br>嵌入和新颖性计算：使用嵌入（与k个最近邻的平均距离）测量每个artifact与其他artifact的差异；<br>种群管理：为下一代选择最多样化的artifact。<br>「thinkstepbystep」这个著名提示词可以提升语言模型解决逻辑问题的能力。为了测试提升创造性思维的能力如何，JoelSimon的做法是通过提示词让推理模型在创建新的artifact之前先完成以下其中一种创意策略的步骤。<br>实验结果<br>该研究者在纹理动画和时钟这两个领域进行了实验（使用了p5.js软件库）。模型是OpenAIo3-mini。需要指出，余弦距离的微小变化可以会带来较大的感知变化。他测试了两种进化的提示词模式，变化（variation）意味着一个随机artifac发生变异，而创造（creation）的意思是基于当前种群摘要从头开始创建一个全新的artifact。<br>新颖性和长度比较<br>比较每个配置的最终种群新颖性和基因组长度（源代码字符串长度）。每个都使用OpenAI的o3-mini模型运行。运行30代，种群规模为每代20和10个新子代。所有测试重复三次。新颖性是最终种群每个成员到3个最近邻的平均距离。以上是随机种群基线的倍数增加情况。<br>每个artifact都标有用于创建它的创意策略，这可让我们比较每个策略的改进情况。以下是每种策略在种群中的使用百分比。<br>Website和ShaderArtifac域中策略使用情况比较<br>散点图展示了两个域中不同创意策略的使用百分比，x轴表示网站使用情况，y轴表示ShaderArtifact使用情况。误差线表示多次实验运行的标准差。对角虚线表示两个域中的使用情况相等。<br>该图表明，跨域的策略使用模式之间没有显著相关性（r&#x3D;-0.02，p&#x3D;0.963），一些策略显示出特定于域的偏好。值得注意的是，替换模板在ShaderArtifact生成中的使用率要高得多，而概念混合在网站生成中的使用率更高。其他策略，如SCAMPER变换、距离关联、斜策略和假设反转，在两个域中的使用率都更加均衡。<br>获得的洞察<br>该研究者也总结了从实验中获得的洞察：<br>创意策略可促进多样性：与基线输出相比，形式化的创造性思维策略显著提高了新颖性指标。<br>变化胜过创造：修改现有artifact产生的结果比从头开始生成新artifact产生的结果更加多样化。<br>特定域某个域的有效性：替换模板在纹理动画方面表现出色，而概念混合在网站上表现更好。<br>交叉会放大新颖性：将来自多个解决方案的元素组合在一起在实验中产生了最高的新颖性分数，表明约束可以帮助抵消天生的懒惰。<br>新颖性-复杂性联系：更复杂的artifact（更长的代码）在隐含空间中探索了更多新颖的领域。使用交叉和创造性策略的最多样化运行产生的输出平均长度几乎是没有交叉和创造性策略的运行的两倍。<br>推理的收益递减：更高的推理水平并没有显著增加多样性，尽管它可能会提高质量。<br>上下文意识很重要：种群摘要可以持续提高性能，突出了进化上下文的重要性。<br>你对此研究有何看法？会尝试使用该算法来生成创新性的视觉艺术吗？<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#x61;&#122;&#104;&#x6f;&#x75;&#64;&#x6a;&#x69;&#x71;&#x69;&#x7a;&#104;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#105;&#121;&#x61;&#122;&#104;&#x6f;&#x75;&#64;&#x6a;&#x69;&#x71;&#x69;&#x7a;&#104;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>机器之心报道<br>编辑：Panda<br>如果你让当今的LLM给你生成一个创意时钟设计，使用提示词「acreativetimedisplay」，它可能会给出这样的结果：<br>或许我们能在其中看到一些创新点，但整体来说这些设计并无特别出彩之处，依然还在预期之内。<br>但近日的一项研究成果却可以让LLM设计出下面这些让人眼前一亮的时钟，而使用的提示词却和上面的一样：<br>这是怎么做到的呢？简而言之：一种基于LLM的进化算法。<br>这种算法名为Lluminate，来自洛克菲勒大学生物信息学研究者、生成式设计公司Morphogen创始人JoelSimon。<br>Lluminate将进化方法与原则性创造性思维策略结合到了一起。结果发现，通过将进化压力与形式化的创意策略相结合，可以持续对隐含创造空间进行开放式探索。JoelSimon将这个过程称为illumination，即启迪。这也是该算法得名的由来。他表示：「这能为辅助式创造性探索提供新的可能性，对抗同质化，甚至可能发现新的想法。」<br>当然，这种算法不仅能用来创建创意时钟和以上推文演示的纹理动画，也可以用来生成前有未有的建筑风格。<br>提示词：anarchitecturalstylethathasneverbeenseenbefore<br>这是基线生成结果：<br>而下面是应用了Lluminate算法之后的生成结果。看起来，至少在新颖性方面，Lluminate确实带来了非常显著的提升。<br>Lluminate算法<br>项目地址：https :&#x2F;&#x2F;github.com&#x2F;joel-simon&#x2F;lluminate<br>该算法结合了进化计算原理与大型语言模型。所有突变都发生在遗传密码上，并被渲染成了嵌入的表型。其执行过程如下所示：<br>摘要生成：创建当前种群的摘要，为后代提供上下文；<br>创意策略注入：随机选择并应用创造性思维策略来引导LLM；<br>进化运算符：使用当前摘要和策略来提示模型，通过修改或组合现有artifact来创建新artifact；<br>嵌入和新颖性计算：使用嵌入（与k个最近邻的平均距离）测量每个artifact与其他artifact的差异；<br>种群管理：为下一代选择最多样化的artifact。<br>「thinkstepbystep」这个著名提示词可以提升语言模型解决逻辑问题的能力。为了测试提升创造性思维的能力如何，JoelSimon的做法是通过提示词让推理模型在创建新的artifact之前先完成以下其中一种创意策略的步骤。<br>实验结果<br>该研究者在纹理动画和时钟这两个领域进行了实验（使用了p5.js软件库）。模型是OpenAIo3-mini。需要指出，余弦距离的微小变化可以会带来较大的感知变化。他测试了两种进化的提示词模式，变化（variation）意味着一个随机artifac发生变异，而创造（creation）的意思是基于当前种群摘要从头开始创建一个全新的artifact。<br>新颖性和长度比较<br>比较每个配置的最终种群新颖性和基因组长度（源代码字符串长度）。每个都使用OpenAI的o3-mini模型运行。运行30代，种群规模为每代20和10个新子代。所有测试重复三次。新颖性是最终种群每个成员到3个最近邻的平均距离。以上是随机种群基线的倍数增加情况。<br>每个artifact都标有用于创建它的创意策略，这可让我们比较每个策略的改进情况。以下是每种策略在种群中的使用百分比。<br>Website和ShaderArtifac域中策略使用情况比较<br>散点图展示了两个域中不同创意策略的使用百分比，x轴表示网站使用情况，y轴表示ShaderArtifact使用情况。误差线表示多次实验运行的标准差。对角虚线表示两个域中的使用情况相等。<br>该图表明，跨域的策略使用模式之间没有显著相关性（r&#x3D;-0.02，p&#x3D;0.963），一些策略显示出特定于域的偏好。值得注意的是，替换模板在ShaderArtifact生成中的使用率要高得多，而概念混合在网站生成中的使用率更高。其他策略，如SCAMPER变换、距离关联、斜策略和假设反转，在两个域中的使用率都更加均衡。<br>获得的洞察<br>该研究者也总结了从实验中获得的洞察：<br>创意策略可促进多样性：与基线输出相比，形式化的创造性思维策略显著提高了新颖性指标。<br>变化胜过创造：修改现有artifact产生的结果比从头开始生成新artifact产生的结果更加多样化。<br>特定域某个域的有效性：替换模板在纹理动画方面表现出色，而概念混合在网站上表现更好。<br>交叉会放大新颖性：将来自多个解决方案的元素组合在一起在实验中产生了最高的新颖性分数，表明约束可以帮助抵消天生的懒惰。<br>新颖性-复杂性联系：更复杂的artifact（更长的代码）在隐含空间中探索了更多新颖的领域。使用交叉和创造性策略的最多样化运行产生的输出平均长度几乎是没有交叉和创造性策略的运行的两倍。<br>推理的收益递减：更高的推理水平并没有显著增加多样性，尽管它可能会提高质量。<br>上下文意识很重要：种群摘要可以持续提高性能，突出了进化上下文的重要性。<br>你对此研究有何看法？会尝试使用该算法来生成创新性的视觉艺术吗？<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#x79;&#x61;&#x7a;&#104;&#x6f;&#117;&#x40;&#106;&#x69;&#x71;&#x69;&#122;&#104;&#105;&#120;&#x69;&#110;&#46;&#99;&#x6f;&#109;">&#x6c;&#105;&#x79;&#x61;&#x7a;&#104;&#x6f;&#117;&#x40;&#106;&#x69;&#x71;&#x69;&#122;&#104;&#105;&#120;&#x69;&#110;&#46;&#99;&#x6f;&#109;</a></p>
 
                 
             </div>
@@ -480,14 +472,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -602,14 +586,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -625,12 +601,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/20/1000003467-2650961031-4/">
+                <a href="/2025/03/20/1000002562-2648996792-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003467_2650961031_4.jpg" class="responsive-img" alt="华为诺亚综述：生成式模型如何用于决策？">
+                        <img src="/medias/frontcover/1000002562_2648996792_1.jpg" class="responsive-img" alt="极简教程，大模型量化实践，1张4090跑QwQ？">
                         
-                        <span class="card-title">华为诺亚综述：生成式模型如何用于决策？</span>
+                        <span class="card-title">极简教程，大模型量化实践，1张4090跑QwQ？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -654,16 +630,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
-                        <span class="chip bg-color">机器之心</span>
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E4%B8%8EPython%E5%AE%9E%E6%88%98/">
+                        <span class="chip bg-color">机器学习算法与Python实战</span>
                     </a>
                     
                 </div>
@@ -908,6 +876,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                                 <span class="chip bg-color">量子位</span>
                             </a>
@@ -416,7 +408,7 @@
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>事关路由LLM（RoutingLLM），一项截至目前最全面的研究，来了——<br>共计收集和整理了涉及8500+个LLM，在12个Benchmark上的共2亿条性能记录！<br>先来简单科普一下路由LLM。<br>这种方法主要是把像ChatGPT、Qwen、DeepSeek这些成型的LLM当作“专家”，当给一个输入的时候，有分类能力的Router（路由器）就会把这个输入分配给合适的LLM处理。<br>如此一来，就能实现高性能、低计算消耗、低幻觉等目标。<br>而来自中山大学和普渡大学的研究人员在基于上述海量的记录做了一番探索之后，发现了一个现象，叫做Model-levelScalingUp。<br>一言蔽之，就是一个好的Router，可以让路由LLM范式的性能随着LLM候选数量的增加迅速变强。<br>随后，他们通过这些数据构建了针对Router设计的评测RouterEval。<br>值得注意的是，其他研究人员，也可以通过RouterEval在很少的计算资源下（如笔记本、单卡GPU上）就能参与到该路由LLM的研究当中。<br>当大多数研究人员和开发者第一次听到Mixture-of-Expert(MoE)的时候，可能第一反应不是现在常见的对结构中的FFN层进行扩展，以FFN层作为”expert”。<br>而是直接将每一个成型的LLM，比如ChatGPT、Qwen、DeepSeek等直接看做是”expert”。<br>实际上，这种范式也称为路由LLM（RoutingLLMs）。<br>简单地说，就是给定一个输入input，一个具有一定分类能力的Router(路由器)会将input分配给指定的LLM进行处理，以达到高性能、低计算消耗或者是低幻觉等各种各样的目标，或组合目标。<br>这类问题可以被认为是分类问题、推荐系统问题、Agent规划甚至是检索问题（注意，不是检索数据forLLM，而是检索LLMfor数据）。<br>一些典型的例子有：<br>人机客服切换：机器人客服无法解决问题的时候自动切换到更高级的客服，比如更智能的机器人，甚至人类；<br>强弱LLM切换：比如困难问题给GPT4解决（费用贵），简单问题给GPT3解决（费用低）<br>路由LLM具有很高的应用潜力和兼容性，不同LLM都可以被添加到LLM候选Pool中参与routing（包括异构LLM，各种tuning&#x2F;pretraining方法下得到的LLM，等等），而且可以发挥很强的性能。<br>比如最近UCB提出的Prompt-to-Leaderboard以很低的训练成本，以路由LLM的范式下实现和需要数十万个GPU训练得到的Grok3相当的性能，并登上Arena排行榜第一。<br>然而当前路由LLM领域仍然存在一些挑战影响了Router的发展：<br>缺乏统一的benchmark。各个研究都在小范围的构建各种的benchmark进行研究；<br>当前benchmark不够全面：当前的工作一般只涉及少量的LLM、evaluations，而且大多数是闭源不公开。<br>于是，研究团队收集并整理且开源了涉及8567个不同LLMs在12个evaluations下2亿条性能记录，并通过这些记录发现：<br>Model-levelScalingUp现象：有一定能力的Router，可以使得routingllm范式下的性能随着llmpool的扩大而迅速上升。过去的研究由于涉及的不同LLM较少，不容易观察到这个现象。<br>通过这些数据，我们构建了全面的针对Router设计的评测RouterEval。其全面性可以大大帮助Router设计的探索。鉴于该测评已经整理良好且很简洁，可以被看做是传统的分类问题，所有研究者都可以以很少的计算消耗（甚至单卡或笔记本电脑）参与该大模型的研究当中。<br>利用2亿条性能记录，可以构建完美Router，即oracleRouterro：<br>接着，根据上式可以构建不同性能的Routerro(p)，其中wm为随机Router，当p→1时，Routerro(p)越解决上界分类性能，当p→0时，ro(p)越接近随机Router。<br>从上图结果来看，随着LLM候选的数量增加，不同的evaluation在具有一定能力的Router下呈现了ScalingUp现象。<br>而性能一般的Router，比如随机Router则几乎没有ScalingUp现象。<br>且快速超过参考模型Ref.LLM的性能（参考模型一般是GPT4）。<br>另外团队还可以发现两个有趣的现象：<br>RouterEval涉及的LLM的参数分布<br>弱LLM也能组合出非常强的性能。上图给出了RouterEval中涉及的LLM的参数分布，LLM的参数为7B或以下的情况占优。文章发现，即使较弱的LLM也可以组合出不错的性能，比如5个性能在少于0.3的情况下，ro可以让他们互补优势在MMLU上达到0.95（超越GPT4）的性能。<br>少量的LLM候选已经足够。从Model-levelScalingUp现象示意图可以看到3-10个LLM候选的时候已经可以达到非常不错的性能。而且此时的部署成本并不高，具有很高的性价比。<br>通过测试当前的已有的Routers的性能，可以发现现在Router仍然有很大的提升空间。<br>不过幸运的是，RouterEval进行的Router设计的实验不需要大量的计算资源，且可以融入不同的已有技术，包括few-showlearning，数据增强、推荐系统、正则化方法、预训练模型、额外数据等等.<br>因此Router将有希望快速得到实质性改进。<br>以及，和当前一些其他范式的区别和关系如下：<br>推荐系统：RoutingLLM其实是特殊的推荐系统，LLM的input是推荐系统中的user信息，LLM候选是推荐系统中的商品item，而性能记录则是推荐系统中的历史用户书记记录；<br>LLM集成：一般LLM集成是post-decision，即让多个LLM完成推理后再合并。而RoutingLLM是pre-decision，即在LLM推理前就要决定是哪个LLM来处理；<br>LLMFusion：LLM融合主要针对是同质的LLM的“合作”，而RoutingLLM可以让“异质”（包括不开源）的LLM进行“合作”<br>Mixture-of-Experts(MoE):RoutingLLM是model-level的MoE<br>当然，研究团队也提出一些未来的挑战。<br>首先就是缺乏数据。<br>要获得足够好的Router，当然的数据仍然远远不够，因为这些性能记录的数据一般不开源，且掌握在大公司手中，这需要全社区的共同努力。目前也可以通过算法一定程度缓解数据缺乏的问题。<br>其次是如何保持在多LLM候选情况下的Router性能的问题。<br>当LLM候选越多的时候，意味着Router要进行更多类的分类，这对于Router的训练来说具有很高的挑战性；<br>除此之外，还包括RouterEval目前只关注在性能。<br>尽管routingllm可以考虑计算消耗、幻觉等其他目标。但是目前性能的水平还远远不够，如果现在就过度关注其他目标的话，可能言辞尚早。另外，计算消耗和幻觉等目标的数据不容易搜集，可能采集不到足够多的LLM的记录数据，仍然需要全社区的努力。<br>最后，就是部署的难度。<br>即使足够强的Router可以获得，但是此时LLM候选的部署可能是新的瓶颈，这在计算机系统等领域中也有很多的研究角度，如计算负载，高效分配、动态模型激活等。幸运的是，从论文的观察来看，3-10个LLM已经能得到出色的结果。<br>GitHub和论文等地址放下面了，感兴趣的小伙伴可以深入研究一下哦~<br>代码地址：https :&#x2F;&#x2F;github.com&#x2F;MilkThink-Lab&#x2F;RouterEval<br>论文地址:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.10657<br>论文合集：https :&#x2F;&#x2F;github.com&#x2F;MilkThink-Lab&#x2F;Awesome-Routing-LLMs<br>一键三连「点赞」「转发」「小心心」<br>欢迎在评论区留下你的想法！<br>—完—<br>学术投稿请于工作日发邮件到：<br><a href="mailto:&#97;&#105;&#x40;&#x71;&#x62;&#x69;&#x74;&#x61;&#x69;&#46;&#x63;&#x6f;&#x6d;">&#97;&#105;&#x40;&#x71;&#x62;&#x69;&#x74;&#x61;&#x69;&#46;&#x63;&#x6f;&#x6d;</a><br>标题注明【投稿】，告诉我们：<br>你是谁，从哪来，投稿内容<br>附上论文&#x2F;项目主页链接，以及联系方式哦<br>我们会（尽量）及时回复你<br>🌟点亮星标🌟<br>科技前沿进展每日见</p>
+<p>事关路由LLM（RoutingLLM），一项截至目前最全面的研究，来了——<br>共计收集和整理了涉及8500+个LLM，在12个Benchmark上的共2亿条性能记录！<br>先来简单科普一下路由LLM。<br>这种方法主要是把像ChatGPT、Qwen、DeepSeek这些成型的LLM当作“专家”，当给一个输入的时候，有分类能力的Router（路由器）就会把这个输入分配给合适的LLM处理。<br>如此一来，就能实现高性能、低计算消耗、低幻觉等目标。<br>而来自中山大学和普渡大学的研究人员在基于上述海量的记录做了一番探索之后，发现了一个现象，叫做Model-levelScalingUp。<br>一言蔽之，就是一个好的Router，可以让路由LLM范式的性能随着LLM候选数量的增加迅速变强。<br>随后，他们通过这些数据构建了针对Router设计的评测RouterEval。<br>值得注意的是，其他研究人员，也可以通过RouterEval在很少的计算资源下（如笔记本、单卡GPU上）就能参与到该路由LLM的研究当中。<br>当大多数研究人员和开发者第一次听到Mixture-of-Expert(MoE)的时候，可能第一反应不是现在常见的对结构中的FFN层进行扩展，以FFN层作为”expert”。<br>而是直接将每一个成型的LLM，比如ChatGPT、Qwen、DeepSeek等直接看做是”expert”。<br>实际上，这种范式也称为路由LLM（RoutingLLMs）。<br>简单地说，就是给定一个输入input，一个具有一定分类能力的Router(路由器)会将input分配给指定的LLM进行处理，以达到高性能、低计算消耗或者是低幻觉等各种各样的目标，或组合目标。<br>这类问题可以被认为是分类问题、推荐系统问题、Agent规划甚至是检索问题（注意，不是检索数据forLLM，而是检索LLMfor数据）。<br>一些典型的例子有：<br>人机客服切换：机器人客服无法解决问题的时候自动切换到更高级的客服，比如更智能的机器人，甚至人类；<br>强弱LLM切换：比如困难问题给GPT4解决（费用贵），简单问题给GPT3解决（费用低）<br>路由LLM具有很高的应用潜力和兼容性，不同LLM都可以被添加到LLM候选Pool中参与routing（包括异构LLM，各种tuning&#x2F;pretraining方法下得到的LLM，等等），而且可以发挥很强的性能。<br>比如最近UCB提出的Prompt-to-Leaderboard以很低的训练成本，以路由LLM的范式下实现和需要数十万个GPU训练得到的Grok3相当的性能，并登上Arena排行榜第一。<br>然而当前路由LLM领域仍然存在一些挑战影响了Router的发展：<br>缺乏统一的benchmark。各个研究都在小范围的构建各种的benchmark进行研究；<br>当前benchmark不够全面：当前的工作一般只涉及少量的LLM、evaluations，而且大多数是闭源不公开。<br>于是，研究团队收集并整理且开源了涉及8567个不同LLMs在12个evaluations下2亿条性能记录，并通过这些记录发现：<br>Model-levelScalingUp现象：有一定能力的Router，可以使得routingllm范式下的性能随着llmpool的扩大而迅速上升。过去的研究由于涉及的不同LLM较少，不容易观察到这个现象。<br>通过这些数据，我们构建了全面的针对Router设计的评测RouterEval。其全面性可以大大帮助Router设计的探索。鉴于该测评已经整理良好且很简洁，可以被看做是传统的分类问题，所有研究者都可以以很少的计算消耗（甚至单卡或笔记本电脑）参与该大模型的研究当中。<br>利用2亿条性能记录，可以构建完美Router，即oracleRouterro：<br>接着，根据上式可以构建不同性能的Routerro(p)，其中wm为随机Router，当p→1时，Routerro(p)越解决上界分类性能，当p→0时，ro(p)越接近随机Router。<br>从上图结果来看，随着LLM候选的数量增加，不同的evaluation在具有一定能力的Router下呈现了ScalingUp现象。<br>而性能一般的Router，比如随机Router则几乎没有ScalingUp现象。<br>且快速超过参考模型Ref.LLM的性能（参考模型一般是GPT4）。<br>另外团队还可以发现两个有趣的现象：<br>RouterEval涉及的LLM的参数分布<br>弱LLM也能组合出非常强的性能。上图给出了RouterEval中涉及的LLM的参数分布，LLM的参数为7B或以下的情况占优。文章发现，即使较弱的LLM也可以组合出不错的性能，比如5个性能在少于0.3的情况下，ro可以让他们互补优势在MMLU上达到0.95（超越GPT4）的性能。<br>少量的LLM候选已经足够。从Model-levelScalingUp现象示意图可以看到3-10个LLM候选的时候已经可以达到非常不错的性能。而且此时的部署成本并不高，具有很高的性价比。<br>通过测试当前的已有的Routers的性能，可以发现现在Router仍然有很大的提升空间。<br>不过幸运的是，RouterEval进行的Router设计的实验不需要大量的计算资源，且可以融入不同的已有技术，包括few-showlearning，数据增强、推荐系统、正则化方法、预训练模型、额外数据等等.<br>因此Router将有希望快速得到实质性改进。<br>以及，和当前一些其他范式的区别和关系如下：<br>推荐系统：RoutingLLM其实是特殊的推荐系统，LLM的input是推荐系统中的user信息，LLM候选是推荐系统中的商品item，而性能记录则是推荐系统中的历史用户书记记录；<br>LLM集成：一般LLM集成是post-decision，即让多个LLM完成推理后再合并。而RoutingLLM是pre-decision，即在LLM推理前就要决定是哪个LLM来处理；<br>LLMFusion：LLM融合主要针对是同质的LLM的“合作”，而RoutingLLM可以让“异质”（包括不开源）的LLM进行“合作”<br>Mixture-of-Experts(MoE):RoutingLLM是model-level的MoE<br>当然，研究团队也提出一些未来的挑战。<br>首先就是缺乏数据。<br>要获得足够好的Router，当然的数据仍然远远不够，因为这些性能记录的数据一般不开源，且掌握在大公司手中，这需要全社区的共同努力。目前也可以通过算法一定程度缓解数据缺乏的问题。<br>其次是如何保持在多LLM候选情况下的Router性能的问题。<br>当LLM候选越多的时候，意味着Router要进行更多类的分类，这对于Router的训练来说具有很高的挑战性；<br>除此之外，还包括RouterEval目前只关注在性能。<br>尽管routingllm可以考虑计算消耗、幻觉等其他目标。但是目前性能的水平还远远不够，如果现在就过度关注其他目标的话，可能言辞尚早。另外，计算消耗和幻觉等目标的数据不容易搜集，可能采集不到足够多的LLM的记录数据，仍然需要全社区的努力。<br>最后，就是部署的难度。<br>即使足够强的Router可以获得，但是此时LLM候选的部署可能是新的瓶颈，这在计算机系统等领域中也有很多的研究角度，如计算负载，高效分配、动态模型激活等。幸运的是，从论文的观察来看，3-10个LLM已经能得到出色的结果。<br>GitHub和论文等地址放下面了，感兴趣的小伙伴可以深入研究一下哦~<br>代码地址：https :&#x2F;&#x2F;github.com&#x2F;MilkThink-Lab&#x2F;RouterEval<br>论文地址:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.10657<br>论文合集：https :&#x2F;&#x2F;github.com&#x2F;MilkThink-Lab&#x2F;Awesome-Routing-LLMs<br>一键三连「点赞」「转发」「小心心」<br>欢迎在评论区留下你的想法！<br>—完—<br>学术投稿请于工作日发邮件到：<br><a href="mailto:&#97;&#105;&#x40;&#113;&#x62;&#x69;&#116;&#97;&#105;&#46;&#99;&#x6f;&#x6d;">&#97;&#105;&#x40;&#113;&#x62;&#x69;&#116;&#97;&#105;&#46;&#99;&#x6f;&#x6d;</a><br>标题注明【投稿】，告诉我们：<br>你是谁，从哪来，投稿内容<br>附上论文&#x2F;项目主页链接，以及联系方式哦<br>我们会（尽量）及时回复你<br>🌟点亮星标🌟<br>科技前沿进展每日见</p>
 
                 
             </div>
@@ -480,14 +472,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                                     <span class="chip bg-color">量子位</span>
@@ -573,12 +557,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/19/2247783511-2247783511-1/">
+                <a href="/2025/03/19/1000000473-2247493536-2/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/2247783511_2247783511_1.jpg" class="responsive-img" alt="AI一周写出ICLR研讨会论文！成果简洁有效获审稿人大赞">
+                        <img src="/medias/frontcover/1000000473_2247493536_2.jpg" class="responsive-img" alt="AI Agents+推理，英伟达开源Llama Nemotron系列模型与工具">
                         
-                        <span class="card-title">AI一周写出ICLR研讨会论文！成果简洁有效获审稿人大赞</span>
+                        <span class="card-title">AI Agents+推理，英伟达开源Llama Nemotron系列模型与工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,16 +586,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
-                        <span class="chip bg-color">量子位</span>
+                    <a href="/tags/PaperAgent/">
+                        <span class="chip bg-color">PaperAgent</span>
                     </a>
                     
                 </div>
@@ -625,12 +601,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/03/19/2247783511-2247783511-3/">
+                <a href="/2025/03/19/2247783511-2247783511-1/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/2247783511_2247783511_3.jpg" class="responsive-img" alt="招聘｜量子位智库AI分析师">
+                        <img src="/medias/frontcover/2247783511_2247783511_1.jpg" class="responsive-img" alt="AI一周写出ICLR研讨会论文！成果简洁有效获审稿人大赞">
                         
-                        <span class="card-title">招聘｜量子位智库AI分析师</span>
+                        <span class="card-title">AI一周写出ICLR研讨会论文！成果简洁有效获审稿人大赞</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -653,14 +629,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
                         <span class="chip bg-color">量子位</span>
@@ -908,6 +876,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

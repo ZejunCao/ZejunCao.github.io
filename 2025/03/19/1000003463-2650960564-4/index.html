@@ -367,14 +367,6 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -416,7 +408,7 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
 <blockquote>
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
-<p>LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港科技大学准博士生吴显峰，主要研究方向为生成式人工智能和AI4Science。通讯作者为香港科技大学助理教授HarryYang和中佛罗里达副教授SernamLim。<br>共同一作有香港科技大学访问学生白亚靖，香港科技大学博士生郑皓泽，EverlynAI实习生陈浩东，香港科技大学博士生刘业鑫。还有来自香港科技大学博士生王子豪，马煦然，香港科技大学访问学生束文杰以及EverlynAI实习生吴显祖。<br>文本到图像（Text-to-Image,T2I）生成任务近年来取得了飞速进展，其中以扩散模型（如StableDiffusion、DiT等）和自回归（AR）模型为代表的方法取得了显著成果。然而，这些主流的生成模型通常依赖于超大规模的数据集和巨大的参数量，导致计算成本高昂、落地困难，难以高效地应用于实际生产环境。<br>为了解决这一难题，香港科技大学HarryYang教授团队联合EverlynAI和UCF，提出了一种名为LightGen的新型高效图像生成模型，致力于在有限的数据和计算资源下，快速实现高质量图像的生成，推动自回归模型在视觉生成领域更高效、更务实地发展与应用。<br>论文标题：LightGen:EfficientImageGenerationthroughKnowledgeDistillationandDirectPreferenceOptimization<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.08619<br>模型链接：https :&#x2F;&#x2F;huggingface.co&#x2F;Beckham808&#x2F;LightGen<br>项目链接：https :&#x2F;&#x2F;github.com&#x2F;XianfengWu01&#x2F;LightGen<br>LightGen借助知识蒸馏（KD）和直接偏好优化（DPO）策略，有效压缩了大规模图像生成模型的训练流程，不仅显著降低了数据规模与计算资源需求，而且在高质量图像生成任务上展现了与SOTA模型相媲美的卓越性能。<br>LightGen相较于现有的生成模型，尽管参数量更小、预训练数据规模更精简，却在geneval图像生成任务的基准评测中达到甚至超出了部分最先进（SOTA）模型的性能。<br>此外，LightGen在效率与性能之间实现了良好的平衡，成功地将传统上需要数千GPUdays的预训练过程缩短至仅88个GPUdays，即可完成高质量图像生成模型的训练。<br>方法描述<br>LightGen采用的训练流程主要包括以下关键步骤：<br>1.数据KD：利用当前SOTA的T2I模型，生成包含丰富语义的高质量合成图像数据集。这一数据集的图像具有较高的视觉多样性，同时包含由最先进的大型多模态语言模型（如GPT-4o）生成的丰富多样的文本标注，从而确保训练数据在文本和图像两个维度上的多样性。<br>2.DPO后处理：由于合成数据在高频细节和空间位置捕获上的不足，作者引入了直接偏好优化技术作为后处理手段，通过微调模型参数优化生成图像与参考图像之间的差异，有效提升图像细节和空间关系的准确性，增强了生成图像的质量与鲁棒性。<br>通过以上方法，LightGen显著降低了图像生成模型的训练成本与计算需求，展现了在资源受限环境下获取高效、高质量图像生成模型的潜力。<br>实验分析<br>作者通过实验对比了LightGen与现有的多种SOTA的T2I生成模型，使用GenEval作为benchmark来验证我们的模型和其他开源模型的性能。<br>结果表明，我们的模型在模型参数和训练数量都小于其他模型的的前提下，在256×256和512×512分辨率下的图像生成任务中的表现均接近或超过现有的SOTA模型。<br>LightGen在单物体、双物体以及颜色合成任务上明显优于扩散模型和自回归模型，在不使用DPO方法的情况下，分别达到0.49（80k步训练）和0.53的整体性能分数。在更高的512×512分辨率上，LightGen达到了可比肩当前SOTA模型的成绩，整体性能分数达到0.62，几乎超过所有现有方法。特别地，加入DPO方法后，模型在位置准确性和高频细节方面的表现始终稳定提升，这体现了DPO在解决合成数据缺陷上的有效性。<br>消融实验<br>消融实验结果显示，当数据规模达到约100万张图像时，性能提升会遇到瓶颈，进一步增加数据规模带来的收益很有限。因此，我们最终选择了200万张图像作为最优的预训练数据规模。<br>上图(b)探讨了不同训练迭代次数对GenEval在256与512分辨率下性能的影响。值得注意的是，在256像素阶段，仅经过80k训练步数便能达到相当不错的性能，这突显了数据蒸馏方法在训练效率上的优势。<br>总结与展望<br>LightGen研究有效地降低了T2I模型训练的资源门槛，证明了通过关注数据多样性、小型化模型架构和优化训练策略，可以在极少量数据和计算资源的情况下达到最先进模型的性能表现。未来研究可进一步探索该方法在其他生成任务（如视频生成）上的应用，推动高效、低资源需求的生成模型进一步发展，以实现更加广泛的技术普及与落地应用。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#x6c;&#105;&#121;&#97;&#x7a;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#x71;&#x69;&#122;&#104;&#x69;&#120;&#105;&#x6e;&#x2e;&#x63;&#111;&#x6d;">&#x6c;&#105;&#121;&#97;&#x7a;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#x71;&#x69;&#122;&#104;&#x69;&#120;&#105;&#x6e;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港科技大学准博士生吴显峰，主要研究方向为生成式人工智能和AI4Science。通讯作者为香港科技大学助理教授HarryYang和中佛罗里达副教授SernamLim。<br>共同一作有香港科技大学访问学生白亚靖，香港科技大学博士生郑皓泽，EverlynAI实习生陈浩东，香港科技大学博士生刘业鑫。还有来自香港科技大学博士生王子豪，马煦然，香港科技大学访问学生束文杰以及EverlynAI实习生吴显祖。<br>文本到图像（Text-to-Image,T2I）生成任务近年来取得了飞速进展，其中以扩散模型（如StableDiffusion、DiT等）和自回归（AR）模型为代表的方法取得了显著成果。然而，这些主流的生成模型通常依赖于超大规模的数据集和巨大的参数量，导致计算成本高昂、落地困难，难以高效地应用于实际生产环境。<br>为了解决这一难题，香港科技大学HarryYang教授团队联合EverlynAI和UCF，提出了一种名为LightGen的新型高效图像生成模型，致力于在有限的数据和计算资源下，快速实现高质量图像的生成，推动自回归模型在视觉生成领域更高效、更务实地发展与应用。<br>论文标题：LightGen:EfficientImageGenerationthroughKnowledgeDistillationandDirectPreferenceOptimization<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.08619<br>模型链接：https :&#x2F;&#x2F;huggingface.co&#x2F;Beckham808&#x2F;LightGen<br>项目链接：https :&#x2F;&#x2F;github.com&#x2F;XianfengWu01&#x2F;LightGen<br>LightGen借助知识蒸馏（KD）和直接偏好优化（DPO）策略，有效压缩了大规模图像生成模型的训练流程，不仅显著降低了数据规模与计算资源需求，而且在高质量图像生成任务上展现了与SOTA模型相媲美的卓越性能。<br>LightGen相较于现有的生成模型，尽管参数量更小、预训练数据规模更精简，却在geneval图像生成任务的基准评测中达到甚至超出了部分最先进（SOTA）模型的性能。<br>此外，LightGen在效率与性能之间实现了良好的平衡，成功地将传统上需要数千GPUdays的预训练过程缩短至仅88个GPUdays，即可完成高质量图像生成模型的训练。<br>方法描述<br>LightGen采用的训练流程主要包括以下关键步骤：<br>1.数据KD：利用当前SOTA的T2I模型，生成包含丰富语义的高质量合成图像数据集。这一数据集的图像具有较高的视觉多样性，同时包含由最先进的大型多模态语言模型（如GPT-4o）生成的丰富多样的文本标注，从而确保训练数据在文本和图像两个维度上的多样性。<br>2.DPO后处理：由于合成数据在高频细节和空间位置捕获上的不足，作者引入了直接偏好优化技术作为后处理手段，通过微调模型参数优化生成图像与参考图像之间的差异，有效提升图像细节和空间关系的准确性，增强了生成图像的质量与鲁棒性。<br>通过以上方法，LightGen显著降低了图像生成模型的训练成本与计算需求，展现了在资源受限环境下获取高效、高质量图像生成模型的潜力。<br>实验分析<br>作者通过实验对比了LightGen与现有的多种SOTA的T2I生成模型，使用GenEval作为benchmark来验证我们的模型和其他开源模型的性能。<br>结果表明，我们的模型在模型参数和训练数量都小于其他模型的的前提下，在256×256和512×512分辨率下的图像生成任务中的表现均接近或超过现有的SOTA模型。<br>LightGen在单物体、双物体以及颜色合成任务上明显优于扩散模型和自回归模型，在不使用DPO方法的情况下，分别达到0.49（80k步训练）和0.53的整体性能分数。在更高的512×512分辨率上，LightGen达到了可比肩当前SOTA模型的成绩，整体性能分数达到0.62，几乎超过所有现有方法。特别地，加入DPO方法后，模型在位置准确性和高频细节方面的表现始终稳定提升，这体现了DPO在解决合成数据缺陷上的有效性。<br>消融实验<br>消融实验结果显示，当数据规模达到约100万张图像时，性能提升会遇到瓶颈，进一步增加数据规模带来的收益很有限。因此，我们最终选择了200万张图像作为最优的预训练数据规模。<br>上图(b)探讨了不同训练迭代次数对GenEval在256与512分辨率下性能的影响。值得注意的是，在256像素阶段，仅经过80k训练步数便能达到相当不错的性能，这突显了数据蒸馏方法在训练效率上的优势。<br>总结与展望<br>LightGen研究有效地降低了T2I模型训练的资源门槛，证明了通过关注数据多样性、小型化模型架构和优化训练策略，可以在极少量数据和计算资源的情况下达到最先进模型的性能表现。未来研究可进一步探索该方法在其他生成任务（如视频生成）上的应用，推动高效、低资源需求的生成模型进一步发展，以实现更加广泛的技术普及与落地应用。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#121;&#x61;&#122;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#122;&#104;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;">&#108;&#x69;&#121;&#x61;&#122;&#104;&#111;&#117;&#x40;&#x6a;&#105;&#113;&#x69;&#122;&#104;&#x69;&#120;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;</a></p>
 
                 
             </div>
@@ -480,14 +472,6 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -602,14 +586,6 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
                     </a>
@@ -653,14 +629,6 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/ChallengeHub/">
                         <span class="chip bg-color">ChallengeHub</span>
@@ -908,6 +876,10 @@ LightGen主要作者来自香港科技大学和EverlynAI,第一作者为香港�
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 

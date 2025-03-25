@@ -367,14 +367,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                <span class="chip bg-color">微信公众号聚合平台</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                 <span class="chip bg-color">机器之心</span>
                             </a>
@@ -417,7 +409,7 @@
 <p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
 </blockquote>
 <p>机器之心报道<br>机器之心编辑部<br>当我们看到一张猫咪照片时，大脑自然就能识别「这是一只猫」。但对计算机来说，它看到的是一个巨大的数字矩阵——假设是一张1000×1000像素的彩色图片，实际上是一个包含300万个数字的数据集（1000×1000×3个颜色通道）。每个数字代表一个像素点的颜色深浅，从0到255。<br>为了更加高效地从成千上万张图像中学习，AI模型需要对图片进行压缩。比如当前最先进的图像生成模型，第一步就是一个名叫tokenization的操作，用于执行此操作的组件叫tokenizer。tokenizer的主要目标是将原始图像压缩到一个更小、更易处理的潜在空间，使得生成模型能够更高效地学习和生成。因此，如何得到更好的tokenizer是该领域的研究者非常关心的问题。<br>在一篇新论文中，来自斯坦福大学李飞飞、吴佳俊团队的研究者提出了一种名叫「FlowMo」的改进方案（论文一作是斯坦福大学计算机科学博士生KyleSargent）。<br>FlowMo的训练分为两个阶段：第一阶段先学习如何全面捕捉图像的多种可能重建结果，第二阶段则学习如何从这些可能中选择最接近原图的重建方案。这种方法既保证了图像重建的多样性，又确保了重建质量，使得FlowMo在ImageNet-1K数据集上展现出了领先的重建性能。<br>论文标题：FlowtotheMode:Mode-SeekingDiffusionAutoencodersforState-of-the-ArtImageTokenization<br>论文地址：https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.11056v1<br>项目主页：https :&#x2F;&#x2F;kylesargent.github.io&#x2F;flowmo<br>研究背景<br>自从VQGAN和潜在扩散模型等视觉生成框架问世以来，最先进的图像生成系统通常采用两阶段设计：先将视觉数据压缩到低维潜在空间进行tokenization，再学习生成模型。<br>Tokenizer训练一般遵循标准流程，即在均方误差（MSE）、感知损失和对抗损失的组合约束下压缩并重建图像。扩散自编码器曾被提出作为学习端到端感知导向图像压缩的方法，但在ImageNet-1K重建这一竞争性任务上尚未达到最先进水平。<br>李飞飞团队提出了FlowMo，一种基于Transformer的扩散自编码器，它在多种压缩率下实现了图像tokenization的新性能标准，且无需使用卷积、对抗损失、空间对齐的二维潜在编码，或从其他tokenizer中蒸馏知识（这与传统的基于GAN的tokenizer，如VQGAN，非常不同）。<br>研究的关键发现是FlowMo训练应分为模式匹配预训练阶段和模式寻求后训练阶段。此外，研究者进行了广泛分析，并探索了基于FlowMotokenizer的生成模型训练。<br>图1：无论是在低比特率训练（FlowMo-Lo）还是高比特率训练（FlowMo-Hi）下，FlowMo模型都实现了最先进的imagetokenization性能。<br>作者强调，尽管基于GAN的tokenizer在图像tokenization任务上已经取得了很好的性能，但FlowMo提供了一种简单且不同的方法。<br>FlowMo方法<br>众所周知，基于Transformer的扩散自编码器包含编解码结构，因此FlowMo也是由编码器e_θ和解码器d_θ组成，其核心架构遵循了MMDiT，在Transformer的架构中学习一维潜在空间。<br>图2：FlowMo架构概览<br>首先，编码器将输入图像转换为潜空间向量c，然后解码器则根据潜空间c学习重建图像的条件分布，与旨在产生单一确定性输出的传统方法不同，FlowMo的解码器会生成可能的重建分布，从而更好地捕捉图像重建中固有的模糊性。<br>FlowMo架构的主要包括以下四点：<br>基于Transformer的设计：编码器和解码器都使用Transformer架构，从而能够更有效地处理图像数据。<br>一维潜空间表示：FlowMo产生紧凑的潜在表示，使其适用于下游生成建模任务。<br>量化层：编码器的输出被量化以创建离散token，从而实现更高效的压缩。<br>扩散过程：解码器使用扩散过程逐渐将随机输入去噪为高质量重建。<br>在FlowMo架构中的一个核心创新点是其两阶段训练策略，这一策略使得重建分布偏向于原始图像具有高度感知相似性的模式。<br>阶段1A：模式匹配预训练<br>图3：FlowMo的训练过程结合了基于流的损失和感知损失，以引导模型实现高质量的重建。<br>在阶段1A中，FlowMo通过联合训练编码器与解码器，以实现两个核心目标：最大化潜在编码的信息量，并使其重建分布与真实分布相匹配。这一训练过程巧妙地结合了多种损失函数，展现出其独特的技术优势：<br>修正流损失（Rectifiedflowloss）：引导扩散过程向目标图像分布靠拢，确保生成结果的准确性；<br>感知损失（Perceptualloss）：保证了重建图像在视觉上与原始图像高度相似；<br>熵损失（Entropyloss）：鼓励生成多样化的潜在编码，避免模式单一化；<br>承诺损失（Commitmentloss）：使得编码器输出与量化表示尽可能接近，进一步优化了模型的稳定性与效率。<br>具体而言，FlowMo作为扩散自动编码器进行端到端训练，以优化解码器输出上的修正流损失L_flow，在过程中使用了L_perc来监督图像生成中的去噪预测，同时在潜空间c上，作者还结合了LFQ的熵损失和承诺损失来进行训练。其中损失函数的数学表达式如下所示：<br>结合这些损失函数，并最终得到了第一阶段的损失表达式：<br>阶段1B：模式探索后训练<br>在第二阶段中，FlowMo的核心目标是优化解码器分布pθ(x∣c)，以寻找那些在感知上与原始图像高度相似的模式。为实现这一目标，FlowMo采用了创新的训练策略：首先冻结编码器，随后在Lflow的基础上，联合训练解码器，并引入受扩散模型训练后的x_0来生成目标Lsample。这一过程通过以下步骤实现：<br>概率流ODE：通过少量步骤的概率流常微分方程（ODE）集成；<br>感知损失计算：在生成样本后，模型会计算其与原始图像之间的感知损失，确保重建结果在视觉上与原始图像保持一致；<br>解码器参数更新：基于感知损失，FlowMo对解码器参数进行优化。<br>图4：模式搜索训练过程，编码器处于冻结状态（雪花表示），而解码器则进行微调以提高感知质量。<br>如上图所示，其中FlowMo通过冻结编码器，集中精力优化解码器，使其在重建图像时更加注重感知相似性，从而进一步提升生成图像的质量与真实感。对概率流ODE进行积分的n步样本感知损失Lsample如下所示：<br>第二阶段模式探索损失如下所示：<br>采样过程<br>为了生成重构图像，FlowMo通过求解概率流ODE，对给定一维潜空间c的重建图像的多模态分布进行采样<br>FlowMo采样方法的一项关键创新是使用「移位」采样器。FlowMo不使用统一的时间步长间隔，而是采用可调的移位超参数，将采样步骤集中在扩散过程的某些区域，从而提高感知质量。<br>采样过程需要多次前向通过解码器模型，这在计算上很昂贵，但可以产生高质量的结果。<br>实验结果分析<br>主要结果</p>
-<p>表1.tokenization结果。<br>消融实验分析<br>研究团队进行了大量消融实验，分析了FlowMo设计中的关键决策：噪声调度、量化策略、模型架构和后训练策略等。结果表明，thick-tailedlogit-normal噪声分布、shiftedsampler和后训练阶段对模型性能至关重要。<br>图5：噪声调度导致失真的可视化案例。<br>特别是，没有模式寻求后训练阶段，FlowMo-Lo的rFID会从0.95下降到1.10，FlowMo-Hi的rFID会从0.56下降到0.73。<br>表2：后训练消融实验结果。<br>生成任务验证<br>在生成任务中，基于FlowMo训练的MaskGiT在某些指标上表现优于基于OpenMagViT-V2训练的模型，但在FID上略逊一筹（4.30vs3.73）。这表明tokenizer质量与下游生成模型质量之间存在复杂关系，需要进一步研究。<br>表3：生成模型指标对比。<br>图6：生成图像对比。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#105;&#x79;&#x61;&#122;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#113;&#105;&#x7a;&#x68;&#x69;&#120;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;">&#108;&#105;&#x79;&#x61;&#122;&#104;&#x6f;&#x75;&#64;&#106;&#105;&#113;&#105;&#x7a;&#x68;&#x69;&#120;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>表1.tokenization结果。<br>消融实验分析<br>研究团队进行了大量消融实验，分析了FlowMo设计中的关键决策：噪声调度、量化策略、模型架构和后训练策略等。结果表明，thick-tailedlogit-normal噪声分布、shiftedsampler和后训练阶段对模型性能至关重要。<br>图5：噪声调度导致失真的可视化案例。<br>特别是，没有模式寻求后训练阶段，FlowMo-Lo的rFID会从0.95下降到1.10，FlowMo-Hi的rFID会从0.56下降到0.73。<br>表2：后训练消融实验结果。<br>生成任务验证<br>在生成任务中，基于FlowMo训练的MaskGiT在某些指标上表现优于基于OpenMagViT-V2训练的模型，但在FID上略逊一筹（4.30vs3.73）。这表明tokenizer质量与下游生成模型质量之间存在复杂关系，需要进一步研究。<br>表3：生成模型指标对比。<br>图6：生成图像对比。<br>©THEEND<br>转载请联系本公众号获得授权<br>投稿或寻求报道：<a href="mailto:&#108;&#x69;&#x79;&#x61;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#x69;&#113;&#105;&#x7a;&#x68;&#x69;&#x78;&#105;&#110;&#x2e;&#99;&#111;&#109;">&#108;&#x69;&#x79;&#x61;&#122;&#x68;&#x6f;&#x75;&#x40;&#106;&#x69;&#113;&#105;&#x7a;&#x68;&#x69;&#x78;&#105;&#110;&#x2e;&#99;&#111;&#109;</a></p>
 
                 
             </div>
@@ -481,14 +473,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                                    <span class="chip bg-color">微信公众号聚合平台</span>
-                                </a>
                             
                                 <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                                     <span class="chip bg-color">机器之心</span>
@@ -574,12 +558,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/20/1000003467-2650961031-1/">
+                <a href="/2025/03/20/1000003467-2650961031-4/">
                     <div class="card-image">
                         
-                        <img src="/medias/frontcover/1000003467_2650961031_1.jpg" class="responsive-img" alt="波士顿动力真「翻」不过宇树、众擎！一觉醒来，全世界的机器人都在侧空翻">
+                        <img src="/medias/frontcover/1000003467_2650961031_4.jpg" class="responsive-img" alt="华为诺亚综述：生成式模型如何用于决策？">
                         
-                        <span class="card-title">波士顿动力真「翻」不过宇树、众擎！一觉醒来，全世界的机器人都在侧空翻</span>
+                        <span class="card-title">华为诺亚综述：生成式模型如何用于决策？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,14 +586,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -654,14 +630,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%81%9A%E5%90%88%E5%B9%B3%E5%8F%B0/">
-                        <span class="chip bg-color">微信公众号聚合平台</span>
-                    </a>
                     
                     <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
                         <span class="chip bg-color">机器之心</span>
@@ -909,6 +877,10 @@
     </a>
 
 
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
 
 
 
