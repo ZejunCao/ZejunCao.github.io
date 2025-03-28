@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="万字长文！从AI Agent到Agent工作流，一文详细拆解工作流(Agentic Workflows), ZejunCao&#39;Blogs">
+    <meta name="description" content="万字长文！从AI Agent到Agent工作流，一文详细拆解工作流(Agentic Workflows)
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：AINLPer作者：ShuYini链接">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>万字长文！从AI Agent到Agent工作流，一文详细拆解工作流(Agentic Workflows) | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001537_2247539362_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">万字长文！从AI Agent到Agent工作流，一文详细拆解工作流(Agentic Workflows)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/69Jb-W6BnFEB-vi47tcGyw">万字长文！从AI Agent到Agent工作流，一文详细拆解工作流(Agentic Workflows)</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：AINLPer<br>作者：ShuYini<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;wGZ7G4e-Rch_EqirFt0Ybg<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>本文深入浅出介绍代理工作流（AgenticWorkflows），探讨AI代理如何通过规划、工具调用和自我反思执行复杂任务。通过剖析代理架构、工作流模式及实际应用，帮助读者理解AI代理如何在不同场景中发挥作用，提高任务执行的自主性和智能性。<br>AIAgent、AgenticAI、Agent架构和Agent工作流等概念如今备受关注，但它们究竟是什么？它们能做什么？新技术常常伴随着混乱的术语和炒作。本文将深入解析代理型AI的关键概念——代理工作流（AgenticWorkflows）。<br>AI代理本身并无太多实际用途，只有通过赋予其角色、目标和结构，只有通过工作流，才能真正发挥作用。理解代理工作流，有助于理解AI代理的运作方式和逻辑。为此，本文从AIAgent到Agent工作流，一文带你详细了解代理工作流（AgenticWorkflows），具体内容安排如下：<br>什么是AIAgent?<br>什么是Agent工作流？<br>Agent工作流组成？<br>Agent工作流vsAgent架构<br>Agent工作流模式<br>Agent工作流应用场景<br>Agent工作流优缺点<br>AI代理是一种结合了大型语言模型（LLMs）的推理与决策能力，以及现实世界交互工具的系统，使其能够在有限的人类干预下完成复杂任务。代理被赋予特定的角色，并拥有不同程度的自主性来实现最终目标。它们还具备记忆能力，能够从过去的经验中学习，并随着时间的推移提升性能。<br>为了更好地理解AI代理在代理工作流中的作用，需要先了解它们的核心组成部分。<br>尽管AIAgent被设计用于半自主决策，但它们仍然依赖于一套更大的组件框架才能正常运行。这些组件包括：<br>LLMs（大型语言模型）：使代理具备推理能力<br>工具（Tools）：帮助代理完成任务<br>记忆（Memory）：让代理能够从过去的经验中学习，并随着时间优化响应<br>AI代理的强大之处在于其迭代推理能力，即在整个问题解决过程中持续“思考”。推理能力主要来自底层LLM，并发挥两个核心作用：规划（Planning）和反思（Reflecting）。<br>规划（Planning）：代理会分解任务（TaskDecomposition），将复杂的问题拆解为更小、更可执行的步骤。这样可以让代理系统地执行任务，并根据不同需求选择不同的工具。此外，代理还能进行查询分解（QueryDecomposition），即将复杂查询拆解成更简单的子查询，以提高LLM响应的准确性和可靠性。<br>反思（Reflecting）：代理会回顾自身的行动结果，并基于结果与外部数据进行调整，以优化后续决策。<br>由于LLM仅限于其训练时获得的知识（静态的参数化知识），为了扩展其能力，AI代理可以借助外部工具，如：<br>工具类型<br>作用<br>获取和总结实时信息<br>检索和总结外部数据<br>运行AI代理生成的代码<br>访问外部服务、执行特定任务<br>当LLM选择合适的工具来完成任务时，它会执行函数调用（FunctionCalling），从而扩展自身能力，超越单纯的文本生成，实现对现实世界的交互。<br>工具的选择可以由用户预先定义，也可以由代理动态决定。动态选择工具有助于解决复杂任务，但对于简单工作流，预定义工具可能更高效。<br>AI代理的记忆能力是代理工作流区别于纯LLM工作流的重要特征之一。记忆允许代理在多个用户交互和会话中存储上下文和反馈，从而实现更个性化的体验，并优化长期表现。<br>AI代理的记忆可分为两种：<br>短期记忆（Short-termMemory）：存储最近的交互信息，如对话历史，帮助代理决定下一步行动。<br>长期记忆（Long-termMemory）：存储长时间累积的信息，跨会话学习，以实现个性化和持续优化。<br>在一般情况下，工作流（Workflow）指的是一系列相互关联的步骤，旨在完成特定任务或目标。最简单的工作流是确定性的（Deterministic），即它们遵循预定义的步骤序列，无法适应新信息或变化的环境。例如，一个自动化的报销审批工作流可能如下所示：如果费用标签为“餐饮”，且金额小于$30，则自动批准。<br>然而，一些工作流利用大型语言模型（LLMs）或其他机器学习模型来增强其能力。这些通常被称为AI工作流，可分为代理型（Agentic）和非代理型（Non-Agentic）两种：<br>非代理型AI工作流：LLM根据输入的指令生成输出。例如，文本摘要工作流的流程可能是：接收长文本→让LLM进行总结→输出摘要。这种流程仅仅依赖LLM的文本处理能力，并不具备自主决策或任务执行能力，因此不属于代理型工作流。<br>代理型AI工作流：由一个或多个AI代理（Agents）动态执行一系列步骤，以完成特定任务。代理在用户授予的权限范围内，具备一定程度的自主性，可以收集数据、执行任务，并做出实际决策。此外，代理型工作流利用AI代理的推理能力、工具使用能力和持久记忆能力，使传统工作流更具响应性、适应性和自我进化能力。<br>一个AI工作流要成为代理型工作流，至少需要具备以下三个核心特点：<br>制定计划（Makeaplan）代理型工作流从规划开始。LLM负责任务分解（TaskDecomposition），将复杂任务拆解为更小的子任务，并确定最佳执行路径。<br>使用工具执行任务（Executeactionswithtools）代理型工作流使用一系列预定义工具（如API、数据库、搜索引擎等），并配合相应的权限管理，以执行任务并实施规划方案。<br>反思和迭代（Reflectanditerate）代理可以在每个步骤评估结果，如有必要调整计划，并反复执行，直到得到满意的结果。<br>我们可以区分三种不同类型的工作流：<br>依赖固定规则，按照预设步骤执行，无法适应变化。<br>使用LLM执行任务，但不具备动态决策或自主性。<br>通过AI代理动态执行任务，具备适应性和决策能力。<br>区别主要体现在：<br>AI工作流vs.传统工作流：AI工作流依赖AI模型，而传统工作流依赖预定义步骤。<br>代理型vs.非代理型AI工作流：代理型AI工作流使用动态AI代理，而非代理型AI工作流只是使用静态AI模型处理任务。<br>因此，代理型工作流比非代理型AI工作流更具适应性和动态性。<br>随着新技术的发展，相关术语也在不断增加。尽管有些人会混用“代理架构（AgenticArchitectures）”和“代理工作流（AgenticWorkflows）”，但二者实际上有明显区别。<br>代理执行任务的步骤序列，包括任务分解、工具调用、结果反思等。<br>支持代理运行的技术框架和系统设计，包含决策代理、工具、短期和长期记忆等。<br>代理工作流关注任务执行的流程，即代理如何分解任务、使用工具、调整策略等。<br>代理架构关注系统设计，即如何构建一个包含代理、工具和记忆系统的整体框架。<br>回顾一下，代理工作流（AgenticWorkflow）指的是代理为完成特定任务（最终目标）所采取的一系列结构化步骤。因此，当讨论代理工作流时，实际上是在讨论代理实现最终目标的特定行为模式。<br>此前提到的AI代理核心组件在代理工作流模式中起着关键作用：<br>推理能力（Reasoning）促进规划模式（PlanningPattern）和反思模式（ReflectionPattern）的实现；<br>工具使用能力（ToolUse）是工具使用模式（ToolUsePattern）的基础。<br>规划模式使代理能够自主地将复杂任务拆解为一系列更小、更简单的子任务，这一过程称为任务分解。任务分解能够提高工作流的质量，具体来说它可以：降低LLM的认知负荷，减少其计算压力；提升推理能力，增强问题解决能力；减少幻觉（Hallucination）和其他不准确性，提高输出的可靠性。规划模式在目标达成路径不明确且需要灵活适应问题解决过程的情况下尤其有效。例如：当AI代理被指示修复软件bug时，它可能会按照如下方式分解任务：阅读bug报告、识别相关代码片段、生成可能的错误原因列表、选择合适的调试策略、运行修复代码并观察错误信息，若失败则调整方案。<br>虽然规划模式有助于代理更好地解决复杂任务，但它可能导致比确定性工作流更不可预测的结果。因此，规划模式适用于需要深入推理和多步推理的任务。<br>生成式LLM具有一个显著的局限性：它们只能基于已有的训练数据进行回答，无法实时检索信息或验证事实。因此，LLM可能会：生成错误信息（“幻觉”）并且在遇到不确定问题时“猜测”答案。针对这个问题，可以通过RAG来解决，即通过提供相关的、实时的外部数据来增强LLM的响应准确性，但它仅限于数据检索，而非与外部环境的动态交互。工具使用模式则进一步拓展了代理的能力，使其能够与外部系统动态交互，而不仅仅是被动地检索数据。工具使用模式适用于需要实时数据支持或依赖外部资源的任务，例如：在网页上搜索最新新闻；从数据库中获取用户历史记录；自动发送电子邮件。以下列举一些常用的工具及用途。<br>API<br>访问外部服务，执行任务<br>信息检索（如向量搜索）<br>获取外部数据库中的相关信息<br>Web浏览器<br>进行网络搜索，获取最新信息<br>机器学习模型<br>调用外部AI模型，增强能力<br>代码解释器<br>运行代码，实现自动化计算<br>反思模式是一种自我反馈机制，代理在采取最终行动前，会迭代评估自己的输出质量或决策，并据此优化自身的推理过程。这个过程可以帮助代理：纠正错误，减少不准确性；持续改进，提高决策质量；增强适应性，更好地满足用户需求。反思模式对于那些一次执行难以成功的任务特别有用，例如代码生成：<br>代理生成代码片段；<br>在沙盒或执行环境中运行代码；<br>获取错误信息，并将其反馈给LLM；<br>让LLM迭代优化代码，直到成功执行。<br>反思的力量在于代理能够批评自己的输出并将这些见解动态地整合到工作流程中，从而实现持续改进而无需直接人工反馈。这些反思可以编码在代理的内存中，从而允许在当前用户会话期间更有效地解决问题，并通过适应用户偏好实现个性化并改善未来的交互。<br>原子设计模式（AtomicDesignPatterns），如规划（Planning）和工具使用（ToolUse），可以通过多种方式组合，以在不同领域有效地利用代理AI处理各类任务。除了组合设计模式外，AI代理还具备不同的工具组合，甚至动态选择工具以适应任务需求，通过融入人类反馈回路，增强对任务目标的理解，并授予其不同程度的自主性和决策权。<br>这些多样化的配置使代理工作流能够适配广泛的行业需求。以下是两个极具代表性的应用案例：代理RAG（AgenticRAG）、代理研究助手（AgenticResearchAssistants）、代理编码助手。<br>检索增强生成（RAG）是一种通过外部数据增强LLM生成能力的框架。而代理RAG则在RAG流程中引入一个或多个AI代理，使其更加智能和动态。具体来说：<br>在规划阶段（PlanningPhase）：代理可以将复杂查询拆解为更小的子查询（查询分解，QueryDecomposition）并判断是否需要向用户请求额外信息以更精准地完成任务。<br>在数据检索和评估阶段：代理可以评估检索到的数据的相关性和准确性，避免提供无用或错误的信息。当查询结果不满意，代理可以重新调整查询，回到查询分解阶段，甚至制定新的查询方案。<br>代理研究助手（AgenticResearchAssistants），有时也被AI公司称为“深度研究（DeepResearch）”，用于生成深入的报告和复杂主题的详细见解。它们基于代理RAG，但不仅仅是检索信息，还能分析和综合数据，提供更有深度的结果。代理研究助手和传统RAG的对比如下：<br>信息获取<br>仅从外部数据源检索信息<br>检索+分析+综合信息<br>查询适应性<br>查询固定，不会动态调整<br>能根据任务调整查询方案<br>用户交互<br>只返回查询结果<br>可主动请求用户澄清需求<br>计划调整<br>无适应能力<br>可改变检索方向，挖掘新信息<br>数据整合<br>仅提供单一查询结果<br>合并多源数据，发现趋势<br>具体来说：代理研究助手通常使用专门针对网页浏览、任务分解和动态规划微调过的LLM；并能够主动请求用户提供额外信息，以更清晰地理解任务目标；结合根据检索到的信息调整研究方向，探索新的角度，确保获取完整的数据。<br>代理研究助手不仅检索信息，还能识别趋势，形成系统化见解；除此之外，它还能够跨时间段分析数据，编写详细的研究报告；提高研究人员的效率，减少人工查找和分析的时间。当前，OpenAI、Perplexity和Google都已推出各自的深度研究产品。<br>代理编码助手（AgenticCodingAssistants）可以在最少的人为干预下完成代码生成、重构、优化和调试，支持创建PR和提交代码，提升团队协作效率。相比之下，非代理型编码助手（如GitHubCopilot的早期版本）仅限于代码生成，缺乏环境交互和自适应能力。<br>代理编码助手的核心特性具备以下几点：<br>执行与自我改进：不仅能生成代码，还可以执行代码并基于错误信息迭代优化。<br>代码库管理权限：<br>代理可以创建提交（Commits）和PR（PullRequests），自动化软件开发流程。（如AnthropicClaudeCode）。<br>代理可在执行前征求用户确认，确保人类掌控关键决策。（如Cursor的Agent）。<br>长期记忆（Long-termMemory）：<br>代理能够记住错误并自我改进，在未来的任务中表现得更加智能。<br>在介绍了代理工作流的应用场景后，这里再探讨两个实际代理系统的工作流：Claygent（Clay）和ServiceNowAIAgents。每个代理工作流都采用了独特的模式和工具组合，赋予代理不同程度的自主性和决策能力，并依赖于不同水平的人类反馈和参与。<br>Claygent是一家数据丰富化和外联自动化公司推出的AI研究代理，主要服务于增长团队和销售团队，帮助他们解决潜在客户研究和数据丰富化的繁琐任务。其工作流程以丰富LinkedIn个人资料并发送个性化介绍消息为例：<br>用户输入包含姓名和电子邮件的名单，并指定所需数据字段（如工作经历、教育背景、技能）。<br>代理使用预配置的提示模板格式化查询，通过LLM处理查询并利用网络爬取工具在LinkedIn上搜索相关网址，从个人资料中提取所需数据。<br>随后，代理可以调用另一个LLM来总结或分析获取的数据，并生成个性化的外联消息以适应每个潜在客户。<br>Claygent具备灵活可定制的工作流，用户可以创意性地定制任务；预配置提示模板确保代理遵循特定任务目标，提升结果质量；以及多代理协作，不同LLM处理不同任务（数据抓取、分析、个性化消息）。<br>ServiceNowAIAgents是ServiceNow云平台新增的功能，专注于自动化IT、运营、HR和客户服务领域中的重复性任务，优化已有工作流，同时确保最终决策权掌握在人类手中。以处理技术支持工单为例：<br>用户提交工单后，代理工作流被触发。代理调用RAG（检索增强生成）技术，在内部IT支持知识库中搜索相关信息，并总结检索结果，分析类似案例。<br>随后，代理创建一份供IT专家阅读的摘要，涵盖问题和可能的解决方案，并生成行动建议，由IT支持专家进行审批或拒绝。<br>ServiceNowAIAgents具备人机协作，代理只辅助IT专家而不直接执行决策；安全可控，代理只能执行有限范围内的任务，避免影响最终用户或客户体验；以及结构化工作流，代理严格遵循预定义的规则，减少意外行为。<br>AI代理迅速从机器学习社区走向主流。考虑到围绕代理AI的兴奋、期待和期望，分清炒作与现实之间的差距，理解其真正的能力与局限性变得困难。在本节中，将为您提供关于Agentic工作流的优势、挑战与局限性的全面视角。<br>Agentic工作流通过使AI代理能够规划、适应和随着时间推移不断改进，超越了传统的自动化。与遵循固定规则的确定性工作流不同，Agentic工作流能够动态响应复杂性，通过反馈精细调整其方法，并扩展以处理更复杂的任务。这种适应性使它们在需要灵活性、学习和决策的场景中尤为重要。<br>Agentic工作流的优势：<br>灵活性、适应性和可定制性。静态、确定性的工作流难以适应不断变化的情况和意外的困难。另一方面，Agentic工作流提供了根据任务难度进行调整和演化的灵活性，确保它们始终保持相关性并提供最佳解决方案。通过结合不同的模式，它们还可以定制，提供模块化设计，使得随着需求和复杂性的增加能够进行迭代升级。<br>在复杂任务上的表现改进。通过将复杂任务分解为更小的可管理步骤（通过任务分解和规划），Agentic工作流在处理复杂任务时显著优于确定性、零样本的做法。<br>自我纠正和持续学习。反思模式允许Agentic工作流评估自身行为，改进策略，并随着时间推移提升结果。利用短期和长期记忆，它们通过过去的经验学习，使每次迭代变得更加高效和个性化。<br>操作效率和可扩展性。Agentic工作流可以高精度地自动化重复性任务（如果设计得当），减少手动操作和特定场景中的运营成本。它们也能轻松扩展，适用于处理更大工作负载或复杂系统。<br>需要注意的是，AI代理仍然是新兴技术，随着研究人员和用户发现将代理融入工作流的新方式，以上优势列表可能会不断扩展。<br>尽管具有诸多优势和创新功能，AI代理也存在一些挑战和局限性。由于其概率性质，AI代理本质上为工作流增添了复杂性。仅仅因为代理可以用于自动化流程，并不意味着它们应该被使用。以下是Agentic工作流的一些显著挑战和局限性：<br>对于简单任务的过度复杂性。在用于简单工作流（如表单输入或基本数据提取）时，AI代理可能会增加额外的开销。在确定性、基于规则的自动化足够的情况下，引入代理可能会导致低效、额外费用，甚至可能降低性能。<br>随着自主性增加导致可靠性降低。随着代理在工作流中获得更多的决策权，其概率性质可能会引入不可预测性，使得输出不太可靠且更难控制。实施并持续维护代理的防护措施，并定期审查其授权权限至关重要。<br>伦理和实践考量。并非所有决策都应委托给AI系统。在高风险或敏感领域使用代理时，需要谨慎监督，以确保负责任的部署并防止意外后果。<br>鉴于这些局限性，建议在使用代理之前，花时间反思其是否在特定工作流中确实必要。以下问题可以帮助您做出判断：<br>任务是否足够复杂，需要适应性决策，还是确定性方法足够？<br>简单的AI辅助工具（如没有代理的RAG）能否达到相同的效果？<br>工作流是否涉及不确定性、变化条件或多步推理，代理能更有效地处理这些问题吗？<br>给予代理自主性带来的风险是什么，能否有效降低这些风险？<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/25/1000001537-2247539362-1/">https://zejuncao.github.io/2025/03/25/1000001537-2247539362-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/25/1000001537-2247539362-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001537_2247539362_2.jpg" class="responsive-img" alt="一文了解模型精度（FP16、FP8等），所需显存计算以及量化概念！">
+                        
+                        <span class="card-title">一文了解模型精度（FP16、FP8等），所需显存计算以及量化概念！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/25/1000002265-2650448295-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002265_2650448295_1.jpg" class="responsive-img" alt="DeepSeek-V3 模型更新，各项能力全面进阶">
+                        
+                        <span class="card-title">DeepSeek-V3 模型更新，各项能力全面进阶</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AINLP/">
+                        <span class="chip bg-color">AINLP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

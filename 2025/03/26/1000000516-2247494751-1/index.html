@@ -1,0 +1,1144 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="从零开始的大模型强化学习框架verl解析, ZejunCao&#39;Blogs">
+    <meta name="description" content="从零开始的大模型强化学习框架verl解析
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+之前在职的时候给一些算法的同学讲解过verl的框架设计、实现细节以及超参配置，写这篇文章姑且作为离职修养这段时期的复健。本文中提">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>从零开始的大模型强化学习框架verl解析 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000516_2247494751_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">从零开始的大模型强化学习框架verl解析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">包包算法笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-26
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/tP7RVxMLLPhUOzoCEKO98A">从零开始的大模型强化学习框架verl解析</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>之前在职的时候给一些算法的同学讲解过verl的框架设计、实现细节以及超参配置，写这篇文章姑且作为离职修养这段时期的复健。<br>本文中提到的做法和思路可能随着时间推移有变化，或者是思想迪化，仅代表个人理解。如果有错漏的地方还请指出。<br>现在知乎上已有若干verl的使用相关文章了，覆盖了整体架构和快速的使用方法。本文将尝试从整体设计思路出发，致力于帮助不熟悉infra相关知识的算法同学快速理解整体框架，能自己上手魔改，并且知道各个超参的原理。<br>本文将尽量覆盖verl各模块的技术细节，但会排除SFT部分——当前社区已有充足的SFT框架方案可供选择。<br>本文中会掺杂一些算法同学可能会比较confusing的llminfra概念介绍，这里的讨论不会过于深入细节，诸如tp的横切&#x2F;纵切，pp怎么消bubble，排出九文大钱讨论sequenceparallel的4种写法，这些在知乎上都有非常好的文章讨论过了。这里的讨论仅旨在保持文章整体逻辑的完整性。<br>文中给了一些codeexample，应该会对部分概念和写法的理解有所帮助。<br>让我们不妨从sft出发，当你的上两级ld找到你，语重心长地说，小x啊，sft做不动，我们该rl了，组织已经研究决定，由你来踩这个坑，你环顾四周也实在没有谦虚的空间，接下了这个活。<br>此时你想的是什么，当然是从现有的sft的框架出发，看能不能魔改一下就能跑rl了。<br>众所周知，传统的RLHF使用的PPO，有actor&#x2F;critic&#x2F;reward&#x2F;ref四个模块，按照如图所示的工作流迭代模型<br>这里参考HybridFlow论文中伪代码的写法，用batch指代过程中所有变量组成的dict。<br>整体流程的这三部分相信大家已经很熟了。可以观察到参数迭代仅发生在stage3（模型训练），而前两个阶段均为模型推理过程。<br>那么很自然地，一个很简单的魔改思路就是，我们可以把它们各自init，再各自用deepspeed.initialize()&#x2F;FSDP()包一下，然后重新写一遍训练流就好了。至于megatron，在我们这种跑起来就能交差的场景先不考虑。<br>这个思路很朴素，但确实是大部分早期rlhf训练的雏形，例如trl这个框架。无它，心智成本低，方便看懂，符合sft时的使用习惯。<br>但是问题也很明显，当模型和序列长度开始scaleup之后，哪怕是仅仅是7b以上的量级，已经慢慢出现在单机8*80g机器上运行困难，可能爆显存的问题了。<br>平时碰到模型跑不起来的问题，常规的做法是把zero_stage开高，从zero1到zero2往往没什么问题，但是当我们试图从zero2到zero3的时候，往往速度一下会慢几个量级。（这往往是算法同学开始向框架求援的契机）<br>所以我们也就从这里开始，介绍我们后面会用到的infra知识。<br>让我们从sft出发，先介绍一些parallelism的基础知识。<br>简单来说，目前parallelism解决的主要问题是，在多卡场景下如何做到：<br>提升多卡训练效率，最好2卡是1卡训练速度的两倍。<br>突破单卡显存限制以支持更大模型<br>标准训练流程包含三个核心环节：<br>模型forward，计算loss，保存中间激活值<br>模型backward，通过中间激活值计算gradient<br>模型update，把gradient传给optimizer，更新模型weight。<br>我们简单地把模型看成是Y&#x3D;XW的矩阵乘法。将模型抽象为Y&#x3D;XW的矩阵运算时，参数切分存在两种基本策略：<br>输入切分（X维度）：对应DataParallel&#x2F;SequenceParallel<br>权重切分（W维度）：对应TensorParallel&#x2F;PipelineParallel&#x2F;ExpertParallel<br>在这里，切分X要比切分W简单的多。因为我们的模型输入往往是一个或多个规整的tensor，在batch维度可以很容易地做切分。大不了就把原始数据均分放到若干个文件夹里，每一块gpu从一个文件夹里读自己的数据就好了嘛。<br>而切分W就要头疼得多了，一旦出现诸如诸如卷积这种非典型矩阵计算，或者unet这种前后复杂的依赖关系，都要经过精心设计才行。<br>举个例子来说明这两种切分方式的区别，典中典的python爬虫任务，数据并行相当于将目标URL均分给各进程独立抓取，而模型并行则类似将使用多进程，将抓取流程分段执行。前者实现成本显著低于后者。<br>考虑整个训练流程，如果要和单卡保持一样的batchsize(bs)，我们需要让每张卡拿到自己的bs&#x2F;n条数据。在step1和step2都不需要做通信，也就是每张卡算自己loss和gradient即可，并不会有什么影响。<br>而在step3之前，我们需要把各卡的梯度放在一起求平均，保证得到正确的完整bs的梯度，而这个操作也就是all-reduce通信。<br>聪明的你已经想到了，这整个流程实际上就是分布式的gradientaccumulation。<br>让我们把目光从X上离开，重新看W部分。在目前这种朴素的dataparallel策略下，每块卡都拥有完整的modelweight&#x2F;gradient&#x2F;optimizer，尺寸和单卡训练无异。<br>而deepspeed使用的zerostage即是对这部分显存占用的优化。具体细节在这里不表，好的文章已经很多了。从结论来说是<br>zero1中，每张卡只需要保留1&#x2F;n的optimizer参数，通信量保持不变<br>zero2在zero1的基础上，每张卡只需要保留1&#x2F;n的graident，通信量保持不变<br>zero3在zero2的基础上，每张卡只需要保留1&#x2F;n的modelweight，通信量变为1.5倍。<br>其中，zero1和zero2影响的分别是optimizer和graident，对应的是后两步，并没有影响forward部分</p>
+<p>要注意的是，zero123本质仍然属于dataparallel，不属于modelparallel的范畴，尽管zero3看起来做了模型参数的切分，但实际上计算时会先做allgather得到完整的模型参数，计算时使用的也是完整的参数和切分后的输入。对比tp&#x2F;pp，它们从头到尾都只存模型参数的一部分，计算时使用的是切分后的参数和完整的输入。<br>对于dp，通信的是模型参数，也就是W和它对应的weight&#x2F;optimizer<br>对于tp&#x2F;pp，通信的是中间激活值，例如PP需要将上一个rank计算得到的中间结果传给下一个rank继续计算。</p>
+<p>那么问题来了，是torchrun之类的启动脚本把它们“分配”到每张卡上的吗？实际上并不是。主流并行框架（DDP&#x2F;DeepSpeed&#x2F;Megatron）均基于SPMD范式：所有进程执行相同代码逻辑，通过环境变量差异自主确定行为模式，无需中心调度节点。<br>一段经典的PyTorch分布式训练初始化的代码<br>当我们使用torchrun启动这段代码后，会启动多个进程，每个进程有着不同的环境变量，标识它们属于哪一台机器和端口，是第几个进程和进程总数。<br>之后torch.distributed.init_process_group会根据这些环境变量构建通信组，这是一个阻塞操作，所有进程都要完成init_process_group后才会继续往下走。<br>最后set_device将当前进程绑定到一块gpu上，对于RANK&#x3D;0的进程绑定在0号卡，RANK&#x3D;1的进程绑定在1号卡，以此类推，不存在一个进程去调度安排它们的行为，它们运行的是完全相同的代码，只是用不同的rank区分开他们的行为。<br>以SPMD的思维模式去思考代码的写法，就像是思考在没有老师的班级里，学生们应该怎样才能过有序的校园生活。<br>学生们报道后首先拿到自己的学号（torchrun拿到每个进程的rank），确认自己是班级的多少号，坐在第几排第几列，这一排的同学和这一列的同学都有谁（init_process_group），然后找到自己对应的座位坐下（set_device）；<br>奇数学号去一食堂，偶数学号去二食堂；<br>坐在第一排的同学负责收作业，坐在后面的同学把作业往前传；<br>即使是算班级各科平均分也不用老师来计算和公布，而是大家把自己的成绩写小纸条上传两圈，每个人就都知道班级平均分了。<br>以naivedp为例，会发现在训练过程中并不存在各个dprank之间对齐参数的行为，这是因为只要保证各个rank初始化时的模型参数保持一致，之后每个step的gradient一致，从而optimizer对模型参数的更新是一致的，自然每个rank的模型就是一致的。<br>这也就引出了一个问题，SPMD的编程模式心智负担较重，相信写过Megatron的朋友都有感受，当逻辑复杂以后要考虑不同rank之间的不同行为和通信，以及避免cornercase造成的stuck，一写一个不吱声，都是容易掉头发的环节。<br>总结来说，SPMD由于没有中心控制器，在运行时更为高效，完全由worker自驱。但由于在编程模式上需要各worker运行相同的程序，灵活性不如single-controller模式。<br>我们会在后续ray相关的部分做更详细的阐述。<br>接下来，我们通过介绍TP来进一步理解SPMD的编程模式。不论是使用Megatron进行训练，亦或是使用vLLM做推理，tp都是绕不过去的内容。这里不会介绍tp的更多使用细节，仅从一个简单的例子出发。<br>这是一个2GPU的columntensorparallel的例子。在这段示例代码里，我们先做了分布式的初始化。然后构建了ColumnTPLayer，最后将它和完整的原始linear计算结果比较。<br>从这段代码里我们可以观察到TP和DP的差别<br>**TensorParallel(TP)**：<br>同组内各rank接收相同输入&#x2F;输出<br>权重矩阵被切分存储（如列切分）<br>每个TP组构成完整模型副本（如TP&#x3D;2时，2个GPU组成1个副本）<br>**DataParallel(DP)**：<br>同组内各rank处理不同数据分片<br>保持完整权重复制<br>DP数量直接对应模型副本数（如DP&#x3D;4即4个完整副本）<br>回想TP和zero3的区别，zero3在每次计算前会先gather完整的参数，计算后释放；而tp则是在计算前后对输入和计算结果做通信。<br>可以看出zero3的中间激活值是完整的，tp则是切分过的，在例子中仅是为了演示结果才立刻做了all_gather，实际上可以把两个linear层组合在一起，在入口和出口处才做通信，中间激活值的size减少为1&#x2F;n。</p>
+<p>此时要如何安排数据流呢。</p>
+<p>而model2的输出在各个rank上是一个内容相同的[8<em>bs,d]的tensor，固然可以直接给model3做计算，但显然是重复计算的，每个rank上的model是一个完整模型，可以接收不同的输入。所以在这里把[8</em>bs,d]的结果切回到各个rank上[bs,d]的形式，做model3的计算。<br>DP阶段→TP阶段转换：<br>原始输入：[bs,d]（各rank独立）<br>通过all-gather沿batch维度拼接→[8bs,d]（全局统一）<br>TP阶段计算：<br>每个rank维护1&#x2F;8模型参数<br>执行分片矩阵运算<br>TP阶段→DP阶段还原：<br>输出结果沿batch维度切分→[bs,d]<br>避免DP阶段重复计算</p>
+<p>一个非常常见的场景是，视觉部分的模型很小，大概3b以下，而文本部分的模型很大，可能要到30b。这种情况下我们一般不会对vit部分做切分，而是对llm部分用tp切一下。这样改起来成本比较低，vit太小没必要切，而且把tp塞进去也要掉一点头发；而llm的切分比较成熟。<br>这种时候我们就可以动一点心思了，假设world_size&#x3D;2，tp&#x3D;2，vit不切，则共有两份完整的vit模型，即vit部分dp&#x3D;2。</p>
+<p>牢记tpgroup的输入需要保持一致，而dpgroup的输入不一致，就足以理解verl的数据流处理代码了。<br>好了，让我们回到之前的问题，为什么naive的方式难以scaleup。首先最大的问题就是transformers原生的generate在zero3时表现拙劣，而不用zero3又会OOM。<br>Zero3模式下，每次前向计算都需通过all-gather获取完整模型参数。在自回归生成场景下，每个token的生成都触发独立的前向传播，导致通信量与模型参数量呈线性增长关系。对于更大的模型，这种通信模式将产生难以承受的带宽压力。<br>而stage3的actormodeltraining部分，由于只需要做一次forward，耗时上升不那么明显。<br>TRL框架对此的优化策略是通过deepspeed.zero.GatheredParameters上下文管理器。<br>该方案将原本逐token的all-gather操作转换为单次全局参数收集，显著降低通信频率。但生成期间需持续占用完整参数显存。<br>这个时候通过分段耗时分析可见，性能瓶颈主要集中于actor.generate()阶段。即使在zero2配置下正常运行时，响应生成环节也常占据总耗时50%-80%的比例。我们自然第一个要拿它开刀。</p>
+<p>这种做法的好处在于可以复用inferenceengine里成熟的组件，如<br>专用推理算子（如PagedAttention）<br>高效的KVCache内存管理<br>自适应调度策略。<br>并且通过这种方式可以将actor的并行策略和rollout的并行策略分离，训练归训练，推理归推理。不过使用vllm不方便的地方也是显而易见的，对于vllm不支持的模型就只能退化回原始方案了。<br>在增加了inferenceengine作为我们rollout模块后，我们每次训练前需要对齐inferenceengine与actormodel的参数，因为actormodel在每个step后都会更新。vllm实质上会init一个自己的模型，相比hf的实现，其中的算子都会替换成自己实现的高效推理算子。尽管看起来增加了参数对齐的时间，但引入inferenceengine带来的速度提升收益远超过了这些。并且我们可以通过一些手段来降低开销，这个放在之后说。<br>引入vLLM存在两个主要问题：<br>vLLM广泛使用ray来调度任务，有一个driver来实现各GPU之间的工作调度，不是完全SPMD的，融合进现有框架的逻辑比较复杂。为了保护头发，在目前我们的思路里暂时还没有出现ray，仍然由torchrun拉起任务。<br>vLLMrollout的模型和权重都源自actormodel，而原生vLLM通过hf权重初始化，需要更改模型初始化部分的逻辑。</p>
+<p>不过目前最新版的vLLM已经支持了原生SPMD，而verl的相应适配应该也在最新版本里做好了。<br>https :&#x2F;&#x2F;github.com&#x2F;vllm-project&#x2F;vllm&#x2F;issues&#x2F;11400我们这里看看verl是如何魔改vLLM的。<br>新建了SPMDGPUExecutor，去除ray的driver相关逻辑，完全让各个rayworker完成工作。用伪代码来表示就类似于：</p>
+<p>Worker的execute_model实现中，不再需要driver把输入分发到每个worker里，而是每个worker有完全相同的输入，不需要额外的同步操作。<br>在计算logits后，之前的逻辑是gather到driver节点，而改成完全SPMD格式则需要在这里使用all-gather，让所有worker保存完整的logits<br>2.增加了init_cache_engine()和free_cache_engine()，其中前者是kvcache相关，后者是模型相关。<br>vllm会预先allocate一部分显存用来存储kvcache，所以vllm的显存占用实际上是modelweight+kvcache，类似于tensorflow拿来跑mnist都会把所有显存吃完。实际上是程序预先占用掉了，并不是实际上就用了这么多。对于vllm部署的场景无关紧要，但是在rl训练的场景下，我们还有其它的模型要使用，自然是要严格管理vllm占用的显存。<br>vllm在模型初始化完成后，会运行一次dummyinput，记录在该过程中的显存占用。然后根据用户指定的gpu_memory_utilization参数，将剩余的显存用来存储kvcache。</p>
+<p>这里verl魔改了gpu_memory_utilization的定义，改为剩余显存的比例，参数配置同上的情况下，会有(80-20)<em>0.5&#x3D;30G用于存储kvcache。这个改动比较合理，否则需要时刻关注不同并行情况下其它部分的显存占用，反复调整gpu_memory_utilization。<br>分配策略<br>原生vLLM<br>Verl改进版<br>总可用显存<br>total</em>util<br>(total-dummy_usage)<br>KVCache配额<br>total*util-dummy_usage<br>(total-dummy_usage)*util</p>
+<p>https :&#x2F;&#x2F;github.com&#x2F;volcengine&#x2F;verl&#x2F;blob&#x2F;main&#x2F;verl&#x2F;workers&#x2F;rollout&#x2F;vllm_rollout&#x2F;vllm_rollout.py#L157<br>3.sync_model_weights与offload_model_weights<br>offload_model_weights用于在生成结束后，把模型参数指向cpu上的一个emptytensor。最后在torch.cuda.empty_cache时释放掉。<br>我们这里主要看看sync_model_weights，在将vllm改造成SPMD模式后，如何实现高效的rollout与actor的参数同步。<br>我们先来考虑fsdp的实现，fsdp从原理上来说和deepspeed是类似的，verl中只考虑了前者。<br>这部分实现的入口在FSDPVLLMShardingManager下</p>
+<p>我们假设在一个world_size&#x3D;8，vllmtp_size&#x3D;4，使用FULL_SHARD，也就是zero3的配置下运行这段逻辑，来捋一下流程。<br>首先我们需要考虑，vLLM是如何读取weight部分的逻辑在</p>
+<p>遍历weightdict得到actormodel的name和weight<br>根据name找到vllmmodel对应的子模块的param<br>这些子模块在定义时已经实现了weight_loader函数，<br>通过param_data.copy_(loaded_weight)的方式把actor的参数复制到vllmmodel里<br>让D指导给我们举个例子：<br>这里要这样折腾一遍，原因是：</p>
+<p>因为vllm的模型使用了tensorparallel。在目前SPMD的编程模式下，需要确定每个rank会拿到weight的哪一部分，在哪个维度做切分。<br>FULL_SHARD切出来的tensor并不规整，不能直接使用，需要先通过full_tensor()获取完整的tensor。<br>总体来看，FSDPVLLMShardingManager在__enter__部分，各rank先获取完整参数，再保留自己需要的部分。</p>
+<p>以[16,16]维度的RowParallelLinear参数为例，其沿dim&#x3D;1维度被切分为4个[16,4]的子张量，分别分配给rank0-3和rank4-7。这种切分策略实际形成两个完整模型副本（dp&#x3D;2）。<br>到这里，我们已经把actormodel的weight复制到了vllmmodel。<br>但是仍然有很多细节需要进一步处理，才能跑起整个pipeline。</p>
+<p>随机状态管理。对于一个分布式的vllmmodel，需要保证在一个tpgroup内的randomstate是一致的，在这里也就是rank0-3一致，rank4-7一致。回想generate的过程，在做sampling的时候会用到随机数，此时需要保证tpgroup内不同ranksample出来的结果是一致的，否则不同tpranksample出不同的结果，在进行下一步的decoding计算时得到的结果无意义。</p>
+<p>非vllm组件采用dp&#x3D;8并行，而vllmmodel采用dp2tp4的混合并行。也就是vllmmodel只有2份完整模型，而其它的模型都是8份，同时接收8份不同的数据作为输入。</p>
+<p>在generate完成后，再做拆分，把这个bs&#x3D;16的生成结果切回4个bs&#x3D;4的小块，发回给各个rank。这样在后续dp&#x3D;8的环境下，各个dp的输入又是不同的了。<br>根据free_cache_engine参数确定，是否在生成后就释放掉vllmallocate的cacheengine，直到下一次生成才重新build。本质是用时间换显存空间。一般默认开启，收益非常大。</p>
+<p>以上是整个fsdp的hybridengine的实现。我们来整理一下这部分的思路，相比简单的actor.generate()做了哪些改动<br>架构解耦：分离actormodel和rolloutmodel，使用vLLM作为推理后端，充分利用其高效算子与KVCache管理机制<br>框架适配：将vLLM改造为SPMD模式，移除Ray依赖，保持torchrun的使用方式，避免引入额外复杂性<br>参数同步：通过FSDP的state_dict获取完整参数，基于tp_rank进行权重分区加载<br>显存优化：CPU初始化→按需加载→及时卸载→强制回收，实现吞吐量与内存占用的平衡。事了拂衣去，深藏功与名。不论是offload还是freecache的时间，相比generate花的几十上百秒都不值一提，而获得的收益却是可以降低并行度或是提高batchsize，大大提高吞吐。<br>状态一致性：建立DP-TP混合并行下的数据流控制体系，确保随机状态、输入数据的拓扑一致性。</p>
+<p>首先需要了解的背景是，目前的主流推理引擎在模型切分方式的选择上使用的都是TP而非PP，除非对于DSv3这种单机TP&#x3D;8也塞不下的场景，不得已才使用PP。个人认为原因还是会出现pipeline各rank之间等待的bubble，GPU存在空闲。如果要用切microbatch的方式来减少bubble，会让每次计算的bs打不高，decoding阶段的memorybound更加严重，得不偿失。当然我没有读现在推理框架里PP的实现，不知道现在是否已经有成熟的解法了。<br>因此，这里衍生出了两个问题：<br>在推理时不能使用PP，需要将原有的PP维度换掉。<br>并行超参往往是我们考虑到后面的训练部分设置的，因为训练时显存需要存储optimizer&#x2F;gradient&#x2F;intermediateactivations，所以会设置得比较保守。但是推理时是不需要的，推理时显存只需要全部留给kvcache即可，此时应该降低并行程度提高吞吐（由于TP通信开销很大，尽管降低TP维度会增加modelsize和pertoken的kvcache，使并发batch下降，但在吞吐上仍是稳步上升的）</p>
+<p>有了这个概念，我们就可以来看verl中关于这部分的代码了。verl中分为两步走，先通过AllGatherPPModel的设计将PP维度转换成DP维度，再通过合并TPrank的方式降低TP维度。<br>并且在这种设计下，可以让actormodel和rolloutmodel共享同一块显存空间，也就是不需要像FSDP中那样rolloutmodel需要额外的显存了。<br>首先我们需要维护两套不同的distributedenv，Megatron和vLLM的切分方式不同，需要不同的group。</p>
+<p>PPtoDP<br>我们首先要解决第一个问题，将PP维度转换成DP。<br>总体思路是将推理时的每一个PPrank都能拿到完整的属于当前tp的参数，这样说可能有些绕。我们用一个简单的示意图表示，对于tp&#x3D;2pp&#x3D;3的场景，在转换后rank0&#x2F;2&#x2F;4拥有相同的模型左半边参数，rank1&#x2F;3&#x2F;5拥有相同的模型右半边参数。<br>此时inferenceengine中不再有PP维度，集群中有3份完整模型。然后我们就可以使用dp了，将原始输入切成三块，分别喂给这3份模型，提高吞吐。这也就是PP转DP的做法。<br>具体到实现阶段也很有意思。一个naive的实现是根据初始化后的rolloutmodel，遍历其中的weightname，对每个pprank做broadcast，互通有无。<br>这里verl用了一个比较优雅的做法，通过定义AllGatherPPModel来解决这一问题。AllGatherPPModel被用于actor和rollout的init部分，即HybridEngine。<br>在初始化时，一般的做法是每个pprank只构建当前rank的model，而这里的做法是每个pprank会遍历构建所有pprank的model，也即在rollout时当前rank所需的所有参数。<br>指定训练时要用到的部分为this_rank_models。<br>遍历时，在构建model后，会构建一个MemoryBuffer，将当前modelweight重新指向一块完整的显存空间。因为后续需要频繁在pprank间通信，以及offload或者.cuda()等操作，使用一整块tensor统一通信要好于遍历每个tensor依次通信。这个做法和思路类似于DP中使用bucket。<br>将非当前rank的参数offload到cpu备用。<br>当PP&#x3D;3时，构建出来的模型如图所示。每个小框指的是一块MemoryBuffer，它把modelweights放在一整块显存空间里。<br>结合这张图，接下来的流程就很清晰了。<br>在进入rollout阶段时：<br>1.因为我们在rollout时不使用PP，所以要先把其它pprank的参数放到gpu上。然后将这些weight指向MemoryBuffer在gpu上的tensor的对应slice。把这里的操作当成是指针就很好理解了。而非当前rank的模型参数用的是torch.zeros，因为上一轮rollout的模型参数已经没有意义，无需再copy一遍。<br>2.对于每个rank&#x3D;n，只有rank&#x3D;n部分的参数是经过上一轮迭代的正确参数，所以需要将它们broadcast给其它rank。<br>3.准备actormodel的weightdict，在后续喂给vllmmodel。这一步会将各PPrank的参数聚合成一份完整的参数。</p>
+<p>由于我们将PP转换成了DP，原本所有的PPrank使用同一份数据，所以需要将这些数据做切分，使得转换后的DPrank使用的是不同的数据。<br>在生成结束后，我们再将不属于本rank的参数offload回cpu，并且将vllmmodel重新指向cpu的空间，并通过empty_cache()回收这部分显存。对于数据，把切分后的数据在gather到一起，保证每个PPrank有相同的输入。<br>Tptodp<br>在第一步中我们解决了从PP到DP的问题，假设对actormodel我们使用的是TP&#x3D;4PP&#x3D;2的配置，则在第一步之后变成了TP&#x3D;4DP&#x3D;2；我们想继续减少并行程度。</p>
+<p>这样就导致一个问题，在通信时必须先allgather全量参数，再做slice。例如对于rank2，原来的参数是[m_2]，而需要的参数却是[m_0,m_1]。</p>
+<p>verl基于这一规则重新构建了MICRO_DATA_PARALLEL_GROUP，而非使用vLLM和Megatron默认规则构建的group。<br>之后增加的逻辑就很好理解了。我们将TP&#x3D;4DP&#x3D;2转换为TP&#x3D;2DP&#x3D;4，<br>模型参数上，将属于一个micro_dp_group的参数gather并concat起来，满足vLLMmodel在tp&#x3D;2时的需要，生成完成后复原。<br>数据上，将原始输入根据micro_dp_group切分，并在生成结束后再gather并concat起来。<br>这里实际上就可以看出并行时的数据处理套路了。即<br>dp维度减小，就要gather；<br>dp维度增加，就要chunk。<br>技术选型上即尽量降低并行程度，尽量打高batchsize，不要让显存白白浪费，看用offload换能开更大的batchsize提高throughput是否值得。<br>在完成stage1优化后，我们继续分析stage2和stage3的潜在优化空间。<br>首先能想到的是加入remove_padding，这个在两年前就已经是一个比较通用的做法了。<br>现在llm的输入一般是由input_ids和attention_mask组成。其中的PADToken会参与全程的计算，这部分计算量实际上是浪费的。</p>
+<p>而rope部分，我们可以通过类似的方式计算出position_id_unpad，然后apply到每一个q_unpad和k_unpad即可。</p>
+<p>从这个角度来说，在使用removepadding之后，我们可以以token视角来看整个训练流程，而非以batch视角。<br>verl通过模块化封装，把原有的model包了一层，实现了一些通用功能。<br>Actor组件：dp_actor&#x2F;megatron_actor<br>Critic组件：dp_critic&#x2F;megatron_critic<br>功能：<br>compute_log_prob：策略评估<br>compute_values：价值估计<br>update_actor&#x2F;update_critic：参数更新<br>对于这部分具体该怎么计算，即PPO&#x2F;GRPO&#x2F;Remax等该怎么实现，本文不做说明，这个已经有很多相关公式的介绍了。这里我们仅看几个框架上的实现细节。</p>
+<p>后处理精度问题：在generate时如果使用了一些采样的后处理调整策略，例如penalty等，此时inferenceengine返回的logits值是经过了这些策略修改后的值，并不是原本从模型中计算出来的值，这一点虽然可以通过一些比较tricky的方式魔改，但还是有很多不方便的地方。<br>算子差异：对于vLLM这类的推理引擎，算子优化会做的更加激进，可能造成同样的数据，尽管vLLMmodel和actormodel参数是对齐的，算出来的logits仍有一些diff。这种diff可能并不会影响每次计算出来的candidatetoken的排列顺序，也就不太会影响最终的采样结果。但是当logits的具体数值用于后续计算时，我们还是希望能尽量和actormodel的实际结果对齐，不要给本就不太稳定的RL训练添加更多不确定要素了。多算一遍就当是花一次inference的时间保平安了。毕竟时间大头都在generate上。<br>2.显存优化策略对于actor和ref的compute_log_prob，critic的compute_values，reward的compute_rm_score。<br>这里只涉及单纯的前向计算，但是做法并不是一把梭，把generate部分传过来的一整个batch的prompt+response做一次infer就完事儿。但是这种写法实际上在scaleup上去之后很容易OOM。</p>
+<p>此时会出现的现象是：举手，为啥我训0.5B的模型还能OOM啊。因为0.5B的模型的vocab_size是一样的，反而因为0.5B的时候batch_size开得比较奔放然后OOM了。<br>早期的logprobs_from_logits计算比较粗放，都直接从trl拿过来。<br>后面大家都意识到这种做法是有问题的，中间结果logp的shape和logits是一样的，导致了双倍的显存占用，开始用一些别的写法来解决这个问题了。可以参考openrlhf里的这个PR。</p>
+<p>当然，以上的方法不能完全避免大logits的出现。目前还采用了把当前batch切成micro_batch的实现，将一次infer变成多次infer，不再会因为中间结果过大而OOM。<br>但是仍然存在的问题是，当我们使用removepadding后，从token的角度来看，microbatch之间长度不均衡的问题，碰上cornercase依然存在OOM的可能。</p>
+<p>verl团队比较推荐使用FSDP+vLLM方案，因为FSDP相比megatron要友好很多，用FSDP(model)就好了，而无需对模型结构本身做侵入式的改动，而zero3的方式也足够支持给70B+百卡这个量级的训练了，相应的把vllm的tp_size开大就好，对于95%以上的需求都是足够用的。另外还可以开启gradientcheckpoint&#x2F;offload等方案把显存挤出来。<br>现在，我们再来从模型和数据角度捋一遍verl使用FSDP+vLLM方案的全流程。<br>给定prompt数据集与N卡集群，建立分布式训练框架的训练环境。<br>数据分片策略</p>
+<p>模型初始化流程</p>
+<p>HybridEngine构建<br>构建rollout的vllmmodel和ShardingManager，它们共同组成HybridEngine。<br>vLLM适配：改造v0.7前版本实现SPMD并行，移除Ray依赖<br>构建模型对vllmmodel传入actor的相关参数，确保在它和actor是同一个模型结构，然后暂时把rolloutmodeloffload到内存。<br>对齐参数ShardingManager则需要将vLLMmodel的参数和actormodel对齐，并放到gpu上；而在生成结束后，将vLLMmodeloffload回去。同时需要处理输入前后的数据。</p>
+<p>stage1<br>从dataloader拿到数据后，进入stage1生成response。</p>
+<p>然后对数据，根据vllm的tp_size实现相应的allgather操作。在vllm的generate结束后，再offload模型和kvcache，并把数据分发到之前的rank。<br>对于GRPO这种需要对一条样本sample多次的方式，目前verl的处理方式是在stage1将原始数据repeatn份，在stage2再根据uid计算相同样本之间的mean和var<br>stage2</p>
+<p>stage3</p>
+<p>当然，由于ray的存在，我们上面介绍的流程和verl的实际流程仍有一点区别，我们将在下一章解释。这里只是提出一种可以不依赖ray的方案。看完以上FSDP+vLLM的写法，相信你已经有能力魔改一个去除ray和Megatron的丐版verl了。<br>如果有一些Megatron基础，把满血版3DHybridEngine加上去也不是难事了。把这些组件糊到一起，我们就可以得到一个不依赖ray的verl版本了。根据HybridFlow论文和之前的实践经验，这种方式在模型不大且gpu较少（大约是&lt;100卡）时拥有很好的性能。<br>西卡西，从头审视一下，有一种可能的写法我们一直在回避。我们一直是把actor&#x2F;critic&#x2F;ref&#x2F;reward四个模型摊平部署在同一个gpu集群的，即每一块卡里都至少有这四个模型的一部分，也就是论文中提到的colocate。<br>但是有一种更直觉的想法，为什么不把所有的机器切成四个集群，分别放置这四个模型呢，这样每个集群里的机器只有一个模型。这种做法是否会更高效。最早的朴素的想法就是，我们完全可以把ref&#x2F;reward这种只有inference的model做成远程rpc请求。<br>也就是除了第一张图的写法，我们完全可以用右边两张图的写法。<br>如果每个模型单独放置一个集群，从图中可以看出，除了stage2在actorrecompute的情况下没有资源闲置，在stage1和stage3都存在资源浪费的情况。当然我们可以对这个方案做一点改进，如果把actormodel和referencemodel放在一组机器，criticmodel和rewardmodel放在一组机器，此时stage3的浪费情况得到缓解。<br>尽管分开放置可能存在一些闲置的情况，但是它有如下的好处：<br>在colocate的做法中，每张gpu上都需要放4个模型，也就意味着对于每个模型，需要使用比分开放置更高的并行度才能放得下。而更高的并行度带来了额外的通信开销。随着模型尺寸scaleup，这一问题更加明显。<br>colocate所有模型也就意味着所有模型共享一种并行策略，对于很多情况并不灵活。例如早期大critic小actor的训练方式。小actor被迫和大critic共享一种并行度；对于ref和reward，它们不需要optimizer，和actor&#x2F;critic使用同一并行度也是吃亏的。<br>随着集群规模scaleup，colocate的方法会开更高的dp，这也带来了更多的通信开销；而分开放置的方式可以用更小的集群去运行不同角色的模型。<br>总而言之，<br>colocate的做法好处在于，从头到尾都是在工作的，全流程里不存在各模型之间的互相等待和空转；<br>分开放置的好处在于，在并行度的设置上可以更加灵活，降低通信开销。<br>实际上就是看通信开销和集群空转的开销哪个是更可以接受的。</p>
+<p>但是问题来了，分开放置的思路似乎有些超出SPMD能处理的范畴了。<br>我们之前colocate的写法中，放置4个模型的方式无非是把放置1个模型的逻辑重复4次，而计算流和数据流也可以很自然地复用现有SPMD的DP&#x2F;PP&#x2F;TP的那一套逻辑。<br>但对于分开放置之后，问题变得不一样了。一部分gpu只负责actor的计算，另一部分gpu只负责critic的计算，已经不符合单一程序并行执行的假设了。<br>从通信的角度来说，之前colocate时只存在计算时的通信，如DP的梯度allreduce，TP的activationall-gather&#x2F;reduce-scatter；<br>现在我们还需要考虑计算外的通信，也就是将数据从一个角色传到另一个角色，例如stage1-2需要从actor传到critic&#x2F;ref&#x2F;reward，stage2-3需要从ref&#x2F;reward传到actor&#x2F;critic。这部分用SPMD的写法来实现会非常别扭。乱动SPMD内部也会导致BP梯度断掉等奇怪的问题。</p>
+<p>此外，数据在角色间的传输上也有一些要考虑的地方。举个例子，集群1有8卡，分布式方式是DP2TP4，集群2有16卡，分布式方式是DP8TP2，我们要把集群1计算完的数据发给集群2，如何优雅地实现呢？<br>一把梭的方式是，集群1把所有数据gather到rank0，然后发给集群2的rank0，再分配给各个rank；<br>优雅一些的方式是，集群1各rank算好自己要把数据发给集群2的哪个rank，然后各自发送。<br>注意到我们这里纠结的点都在于数据流，所以verl提出的解法是引入ray，用raydriver来管理数据流，而各个rayworker做自己的计算即可。也就是在目前的实现基础上，rayworker专注于自己内部的计算，不需要再考虑各个role之间数据传递的逻辑，交给raydriver去处理就好。<br>总之在我们上面章节所说的torchrun版本，使用colocate的方式回避了role之间传输数据，<br>而引入ray则是来处理非colocate的情况。<br>HybridFlow原文中提到了single-controler和multi-controler，一个负责数据流一个负责计算流。我们可以把它看作有形的大手和无形的大手。<br>目前的LLM分布式训练的范式就是SPMD，运行过程中它们之间遵循一定的规则，根据rank领取自己的weights和data，自己算自己的部分，到点了通信一下就好了，不需要调度，就像无形的大手让它们各自正常工作。<br>但是在rl场景中，正如我们上面分析的一样，单纯的SPMD在split的场景下会使得沟通效率低下，逻辑复杂繁琐，此时需要引入有形的大手，也就是raydriver来主动调度任务和管理数据流，将数据流和计算流解耦。<br>对raydriver来说，模型如何infer如何train都是黑盒，它只需要编排整体工作流；<br>对rayworker来说，内部有独立的环境实现分布式计算，不用再担心有别的逻辑扰乱它SPMD的范式，可以充分复用之前的分布式计算的技术。<br>用ray把数据流和计算流分开来是一个很舒服的改动。之前没有ray的时候，在魔改时最常见的错误就是不熟悉SPMD的范式，破坏了各个rank之间同步。例如rank0多做了一次random，导致randomstate出了问题。或者是tensor的shape没有保持一致，导致broadcast的时候卡住。<br>现在我们可以让raydriver上负责轻量的算法逻辑，调度各个任务；而让rayworker来做复杂的分布式计算逻辑，做到二者的分离。一般来说我们要尝试新的rlhf算法，魔改的是前者而非后者。实际上是用rpc带来的overhead的性能损失，换来不需要和分布式计算的SPMD范式打交道，<br>而当我们需要优化分布式的计算流效率时，也无需考虑改了之后是否会导致原来的算法跑不起来。毕竟对于算法来说，这部分分布式计算变成了黑盒，可以把之前pretrain和sft的优化经验无缝迁移过来。<br>引入有形的大手在具体实现上会有什么门槛呢，这个时候我们执行计算的对象，由TORCHRUN拉起的process，变成了RayWorker。<br>TORCHRUNWorker<br>RayWorker<br>执行单元<br>Python脚本进程<br>Class实例化对象<br>任务触发方式<br>同步执行<br>RPC异步调用<br>分布式通信<br>NCCL原生通信<br>RayObjectStore<br>看过几个raytutorial的example后，我们大概对ray的概念就是要用@ray.remote作为decorator。<br>那么直接用形如这种形式是否可行呢？<br>答案是否定的。这种方式启动的rayworker本质是单进程的，类似于直接执行pythonxxx.py去使用多GPU。而非torchrunxxx.py的形式。除非手动在内部拉起多进程，否则是无法优雅地用到多GPU的。这样也不符合我们说的，在rayworker里复用FSDP&#x2F;Megatron这些SPMD的写法。</p>
+<p>但是使用ray时，我们需要自己根据集群的设置来配置这些环境变量了。<br>下面用一个Column的TensorParallel的例子。如果不记得了它是什么，还是看这张图：<br>这个例子是我们之前那个TP例子的ray版，同样的使用2GPU。可以看出，在具体的ColumnTPLayer实现上并没有什么区别。主要是增加了init_process_group的逻辑。<br>在torchrun版本中，每个rank会完整运行整段代码，所以init_process_group可以放在外面；<br>而ray版本每个Worker只会运行class部分的代码，所以需要写在class的function里。</p>
+<p>我们接下来看之前没有注意到的地方。这里使用的是多个ray.remote(num_gpus&#x3D;1)来启动一个role。在所有role完全分开放置，也就是完全不colocate的情况下是没有什么问题的。<br>但是当我们想把actor&#x2F;critic&#x2F;ref&#x2F;reward两两放在同一个集群，问题来了。此时是两个模型共享一个gpu集群，也就是说每块gpu上都要有这两个模型的一部分。但num_gpus&#x3D;1的写法是独占一整块内存的。<br>固然我们可以转而尝试ray.remote(num_gpus&#x3D;0.5)这种写法。但将上面代码改成0.5会得到这个报错。<br>因为这样本质是在gpu0上init两个worker，每个worker占了gpu0的“一半“，而不是在gpu0的“一半”和gpu1的“一半”上分别init。而后者却是我们想要的。<br>因此我们需要更细粒度的资源管理方式，也就是verl中的RayResourcePool。<br>RayResourcePool先将机器资源切分为若干bundle，每个bundle包含1块gpu。然后在worker调度时，就可以指定将当前worker调度在哪一个bundle上，写法例如：<br>在明确了RayResourcePool的init，以及如何将它绑定到worker上之后。接下来我们要思考数据流的问题了。<br>从我们ColumnTPLayer的例子看出，现在class内部只负责计算以及进行计算所必须的通信，不再考虑数据流了。<br>我们再举一个2gpuDP和TP混合的例子，可能更好理解现在这种写法的区别。我们在这个例子中实现了这样的一个计算，模拟使用ray在不同并行度的模型之间调度的逻辑。<br>我们沿用了之前的模型定义和计算流，三个模型作为三个workergroup初始化，内部各自维护了一套分布式环境。<br>而driver只需要编排模型之间计算的顺序，维护数据流即可。具体来说，driver会管理当前batch的全部数据，区别于我们之前写的SPMD版本，数据是每个rank维护自己那份。<br>在这种方式下，用户通过改动driver部分的逻辑，即可实现自定义训练流程，以及各角色的资源分配，而无需关注worker部分的实现细节，深入worker部分去改数据流，对着一堆ncclhang掉头发。<br>以上的代码中，在workergroup之间传递的不是原始Tensor，而是ray.ObjectRef。这样我们就可以把ray.get()这部分的逻辑放在worker里异步执行，而不必在driver启动任务的时候因为前一个任务的ray.get()，阻塞后一个任务的启动。这也就是HybridFlow中的这张图<br>在上面的例子中，我们定义了dp_data_future_process，用于将driver的数据分配到各个dprank。<br>这实际上是一种数据处理标准化的写法。对应在verl里就是verl&#x2F;single_controller&#x2F;base&#x2F;decorator.py中定义的transferprotocols。<br>不同的通信方式需要对数据做相应的操作。例如dp中需要在计算前把数据切分到各个rank，计算后又要将它们gather到一起。<br>进一步地，我们上面的例子中colocate的每个模型都有一个单独的进程，由ray拉起。<br>而verl中通过create_colocated_worker_cls，把colocate的模型放在同一个进程去运行，更SPMD了。或许会有一些性能上的收益，如同一个进程在显存释放和回收上可以做得更加高效。这个在这篇文章中有更详细的解析。<br>白强伟：【AIInfra】【RLHF框架】二、VeRL中colocate实现源码解析<br>至此，我们可以来完整过一遍verl中ray的使用逻辑了。</p>
+<p>对于模型保存，每个worker的savepath需要和driver给的savepath一致；<br>对于计算部分，在dp时要把数据切分给各个worker，计算完成后再合并起来给driver。</p>
+<p>每个RayWorkerGroup初始化时，需要传入resource_pool和ray_cls_with_init。<br>前者就是我们上面介绍的PlacementGroup，即当前WorkerGroup所需要的机器资源；<br>而后者是对原始的workerclass简单魔改了ray.remote拉起worker的逻辑，把PlacementGroup的配置加进了options里。<br>接下来比较关键的点在于魔改worker的function，让它能适配driver给过来的输入，并返回给driver正确的输出。我们先看@register(dispatch_mode)在做什么。<br>可以看出register只是给挂了该decorator的函数新增了一个MAGIC_ATTR，存储几个后续需要的变量。而主要的逻辑在_bind_worker_method中。<br>代码从这里开始</p>
+<p>user_defined_cls即为用户定义的worker，func_generator的定义则是定义了dispatch-&gt;execute-&gt;ray.get-&gt;collect的工作流。<br>_bind_worker_method首先遍历所有class的所有method，找出带有MAGIC_ATTR，也就是有decorator的function。</p>
+<p>最后将原始的method替换成func_generator给定的魔改过的function，从而在原始function融入数据流的处理逻辑。<br>这一逻辑可复用且干净，不用再一个个手写相似的数据处理逻辑了，例如我们反复提到的DP的gather和split。<br>实际上这部分代码的本质是，verl这里把不同的SPMD并行模式用到的数据流逻辑做成“预制菜”，不需要对每种情况都写一遍相似的代码，从而来让上层接口变得简洁。<br>我们结合verl的这两个文档来看。<br>PerformanceTuningGuide</p>
+<p>vLLM会根据自己的max_num_seqs&#x2F;max_num_batched_tokens去调度每轮需要跑多少数据，当然还会受vLLM预先分配的kvcache占用限制。<br>因此需要在不OOM的前提下调大gpu_memory_utilization，更大的kvcache能够跑更大的batch，提高吞吐量。<br>需要调高max_num_seqs和max_num_batched_tokens，同样能增大吞吐量，但是也要避免开太大导致频繁达到预分配的kvcache上限，频繁出现抢占&#x2F;重新计算等情况。<br>调低tpsize。通常来说更小的tpsize意味着更高的显存消耗，但我们前面已经说过tp通信开销很大，一般来说只要不OOM，就尽量开小。</p>
+<p>不过随着技术的演进，现在GRPO把criticmodel优化掉了，用数学题这种可以通过function而非model来给定reward的方式把rewardmodel优化掉了，最近又有提出可以不用kld约束，把referencemodel也优化掉了。现在糊一个RLHF流程的难度大大下降了，之后是否仍然会回到SPMD为主的范式，尚未可知。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/26/1000000516-2247494751-1/">https://zejuncao.github.io/2025/03/26/1000000516-2247494751-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">包包算法笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/26/1000001372-2247509098-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001372_2247509098_1.jpg" class="responsive-img" alt="Typed-RAG：非事实问答的问题分解RAG">
+                        
+                        <span class="card-title">Typed-RAG：非事实问答的问题分解RAG</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Coggle%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/">
+                        <span class="chip bg-color">Coggle数据科学</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/26/2247784633-2247784633-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2247784633_2247784633_2.jpg" class="responsive-img" alt="轨迹可控视频生成新范式，复旦微软破解视频生成难题，精准控制任意物体运动">
+                        
+                        <span class="card-title">轨迹可控视频生成新范式，复旦微软破解视频生成难题，精准控制任意物体运动</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
+                        <span class="chip bg-color">量子位</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
