@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="深入浅出，小目标检测算法研究梳理汇总, ZejunCao&#39;Blogs">
+    <meta name="description" content="深入浅出，小目标检测算法研究梳理汇总
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：电子学报作者：童康，吴一全链接：https :&amp;#x2F;&amp;#x2F;www.ejournal.org.c">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>深入浅出，小目标检测算法研究梳理汇总 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001543_2247539389_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">深入浅出，小目标检测算法研究梳理汇总</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-28
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4OXmRrhy3GBRTpCSZDuc3w">深入浅出，小目标检测算法研究梳理汇总</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：电子学报<br>作者：童康，吴一全<br>链接：https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.ejournal.org.cn/CN/10.12263/DZXB.20230624">www.ejournal.org.cn/CN/10.12263/DZXB.20230624</a><br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>在计算机视觉领域，目标检测一直是研究的热点和难点，尤其是小目标检测问题。小目标由于其在图像中所占像素少，特征不明显，给检测带来了极大的挑战。本文总结了小目标检测基准研究进展，希望对大家有帮助！<br>摘要：小目标检测是计算机视觉中极具挑战性的任务。它被广泛应用于遥感、交通、国防军事和日常生活等领域.相比其他视觉任务，小目标检测的研究进展相对缓慢。制约因素除了学习小目标特征的内在困难，还有小目标检测基准，即小目标检测数据集的稀缺以及建立小目标检测评估指标的挑战。<br>为了更深入地理解小目标检测，本文首次对基于深度学习的小目标检测基准进行了全新彻底的调查。系统介绍了现存的35个小目标数据集，并从相对尺度和绝对尺度（目标边界框的宽度或高度、目标边界框宽高的乘积、目标边界框面积的平方根）对小目标的定义进行全面总结。重点从基于交并比及其变体、基于平均精度及其变体以及其他评估指标这3方面详细探讨了小目标检测评估指标。此外，从锚框机制、尺度感知与融合、上下文信息、超分辨率技术以及其他改进思路这5个角度对代表性小目标检测算法进行了全面阐述。<br>与此同时，在6个数据集上对典型评估指标（评估指标+目标定义、评估指标+单目标类别）下的代表性小目标检测算法进行性能的深入分析与比较，并从小目标检测新基准、小目标定义的统一、小目标检测新框架、多模态小目标检测算法、旋转小目标检测以及高精度且实时的小目标检测这6个方面指出未来可能的发展趋势。希望该综述可以启发相关研究人员，进一步促进小目标检测的发展.<br>引言<br>小目标检测是计算机视觉中的一项重要任务。它指的是定位并识别图像或视频中尺寸较小的目标。小目标检测在学术界和现实世界应用广泛，如无人机场景分析、智能交通、军事侦察监视与日常生活等。本文主要关注基于深度学习的小目标检测基准（数据集和评估指标）的研究进展。为了完整性和更好的可读性，本文也包括了一些其他相关工作。<br>与其他视觉任务相比，小目标检测发展相对缓慢。我们认为制约因素有：（1）小目标数据集的稀缺；（2）建立小目标评估指标的挑战；（3）学习小目标特征的内在困难。<br>深度学习作为一种数据驱动技术，离不开各种数据集。在深度学习时代的目标检测的整个发展过程中，数据集不仅在模型训练中发挥了关键作用，而且还是评估和验证检测器性能的通用标准。因此，数据集在一定程度上推动了深度学习在小目标检测中取得成功。然而，与通用目标检测相比，针对小目标检测的数据集仍然稀缺。除了小目标数据集，小目标检测的评估指标也至关重要，图1为小目标检测算法在小目标数据集上评估示意图。通过性能好坏与否的反馈，以指导小目标检测算法的进一步改进。可以说，评估指标是连接小目标检测算法与小目标数据集的桥梁。<br>图1小目标检测算法在小目标数据集上的评估示意图<br>小目标数据集和小目标检测评估指标对基于深度学习的小目标检测器至关重要。此外，小目标检测算法的研究对推动小目标检测的发展也大有裨益。与大目标、中等目标相比，小目标更难被准确检测。这是由于小目标检测的几大困难。首先，小目标分辨率低，特征不足；其次，目标尺度跨度大，多尺度并存；再次，小目标样本很少，即生成的小尺寸锚框数量不足以匹配小目标以及成功匹配真值的实例数量不足；最后，小目标的类别不平衡。对于小目标，大多数锚框与真值的重叠度较低或没有重叠，这将带来大量的负例，而锚框与真值匹配达到预定阈值的正例则很少，这导致了两类的极度不平衡，进一步加大了检测小目标的难度。<br>为了解决这些困难，研究人员提出了一系列的工作。文献［1］通过一阶段、二阶段与多阶段的分类方法来阐述小目标检测。文献［2］从多尺度特征学习、数据增强、训练策略、基于上下文的检测和基于生成对抗网络的检测5个方面综述现有的基于深度学习的小目标检测方法。在此基础上，其他文献添加了新的分类方法来阐述小目标检测，如文献［3］中的无锚机制、文献［4］中的改善定位精度和感兴趣区域池化层设计、文献［5］中的锚框机制以及基于损失函数的策略。文献［6］从光学遥感图像、合成孔径雷达图像以及红外图像小目标检测这3个方面系统总结了领域内的代表性小目标检测方法。文献［7］针对小目标检测的难点给出了相应解决方案：改进小目标特征图、结合小目标上下文信息、增加小目标训练样本、改善小目标前景和背景类不平衡。此外，文献［8］基于深度学习框架，从多尺度表示、上下文信息、超分辨率、区域建议这4个方面对深度学习时代小目标检测方法进行阐述。表1给出了国内外学者对基于深度学习的小目标检测算法的总结与对比。<br>表1国内外小目标检测综述对比<br>上述综述从算法分类的角度对小目标检测展开调查，以推动深度学习技术引领的小目标检测发展。然而，它们存在一定的局限性。首先，不同分类方法之间存在一定的重叠；其次，它们对小目标数据集和小目标定义探讨不够深入；最后，它们都缺乏对小目标检测评估指标的具体阐述。<br>不同于上述综述采用的方法分类视角，本文首次从基准（数据集和评估指标）的角度对基于深度学习的小目标检测展开全面调查。我们希望该综述可以为视觉社区提供及时的回顾，并启发相关研究者，以进一步促进小目标检测的发展。<br>本文贡献总结如下：（1）全面调查小目标数据集与小目标的定义；（2）深入阐述小目标检测评估指标；（3）剖析代表性小目标检测算法；（4）评估与分析典型评估指标下算法的性能；（5）指出未来小目标检测的潜在发展方向。<br>小目标数据集与小目标的定义<br>2.1小目标数据集<br>小目标数据集不仅能为数据驱动的深度学习算法提供足够的数据，还可以建立不同检测算法性能比较的平台。因此，它在小目标检测中起着不可或缺的作用。本节基于不同的应用场景（如遥感图像、交通标志与交通灯检测、行人检测、人脸检测、合成孔径雷达（SyntheticApertureRadar，SAR）图像和红外图像、日常生活、其他等）总结了35个小目标数据集。图2给出了不同应用场景中一些小目标的示例图。对于每一个应用场景中的小目标数据集，我们按照时间顺序来介绍。<br>图2不同应用场景中一些小目标的示例<br>1）遥感图像<br>SODA-A［9］。为了促进航空场景中小目标检测的发展，文献［9］构建了一个大规模的小目标检测数据集SODA-A。该数据集包含2510幅高分辨率航空图像以及9个类别的800203个目标实例。此外，该数据集中的目标具有不同的位置和方向，并且目标较为密集。<br>SDOTA［10］。SDOTA是一个自建的数据集。它包含4个类别的1508幅图像和227656个目标实例。数据集中大多数是小于50个像素的小目标。此外，对于小型车辆类别，很多实例都小于10个像素。<br>SDD［10］。SDD来自DOTA数据集和DIOR数据集。它包括5个类别的12628幅航空图像和343961个标注实例。涵盖的5个类别分别是车辆、飞机、船舶、风车和游泳池。<br>DIOR［10，11］。DIOR是一个用于评估光学遥感目标检测的大规模数据集。它包括20个类别的23463幅图像和190288个目标实例。数据集中每个实例都由专家使用水平边界框标注。<br>AI-TOD［12］。该数据集专注检测航空图像中的微小目标。它共有8个类别的700621个目标实例，涵盖28036幅尺寸为800×800像素的图像。该数据集中目标的平均大小约为12.8个像素，远小于现有的航空图像目标检测数据集。数据集AI-TOD-v2［13］对AI-TOD的标注进行了精确修复，重标注后的实例数为752745。<br>UAVDT［14］。UAVDT是一个具有挑战性的大规模无人机检测和跟踪数据集。由于无人机拍摄视角的高度较高，因此该数据集中的目标通常很小。特别地，数据集中27.5%的目标像素小于400，相当于一帧图像的0.07%。它包含80000幅图像和841500个目标实例。<br>DOTA［15］。它是一个大规模航空图像目标检测数据集。它包含18个类别和11268幅图像中的1793658个实例。该数据集中包含不同形状、方向和尺寸的目标。训练、测试和验证集的比例分别为1&#x2F;2，1&#x2F;3，1&#x2F;6。<br>StanfordDroneDataset［16］。该数据集是一个大型数据集，包含在真实的大学校园中移动和交互的各类目标的图像和视频。训练和验证集包含69673幅图像，测试集包含53224幅图像。<br>DLR3kMunichDataset［17］。这是一个用于车辆检测的数据集。它包含20幅超大图像。10幅用于训练，10幅用于测试。有14235辆车通过边界框手动标注。<br>2）交通标志与交通灯检测<br>SODA-D［9］。文献［9］为了促进自动驾驶场景中小目标检测的发展，构建了一个大规模小目标检测数据集SODA-D。该数据集包含24704幅高质量交通图像以及9个类别的277596个目标实例。此外，该数据集在位置、天气、时间、拍摄视角和场景方面具有丰富的多样性。<br>BoschSmallTrafficLights［18］。该数据集包含13427幅分辨率为1280×720像素的图像，其中大约有24000个带标注的交通灯。每个交通灯实例都使用红绿灯的边界框以及当前灯的状态来标注。<br>Tsinghua-Tencent100K（TT100K）［19］。TT100K是一个真实的交通标志检测数据集，包含100000幅图像中的30000个交通标志实例，涵盖45个常见的中文交通标志。它的每个实例都使用边界框和实例级掩码进行注释。<br>GermanTrafficSignDetectionBenchmark（GTSDB）［20］。GTSDB是一个包含农村、城市和高速公路驾驶等场景的图像数据集，其中大多数交通标志只出现一次。该数据集中交通标志尺寸的最长边在16到128像素之间。<br>LISATrafficSignDataset［21］。它包含6610个视频帧中的49个US交通标志和7855个标注。每个交通标志都标注了大小、类型、位置等。其尺寸介于6×6与167×168像素。<br>3）行人检测<br>TinyPerson［22］。文献［22］提出的TinyPerson数据集促进了远距离、大背景下的微小目标检测的发展。它包含5个类别的72651个标注实例和1610幅图像（训练和验证图像分别为794幅和816幅）。<br>TinyCityPersons［22］。为量化绝对尺寸减小对性能的影响，文献［22］对CityPersons进行4×4下采样，以构建数据集TinyCityPersons。EuroCityPersons［23］。文献［23］从12个欧洲国家的31个城市的移动车辆上收集了该数据集的图像。它含有47300幅图像，并提供了大量准确和详细的城市场景中行人以及其他骑手的注释（约238200个实例）。<br>CityPersons［24］。文献［24］在Cityscapes［25］基础之上构建了CityPersons数据集。它是在27个城市、3个季节和多种天气条件下，由常见人群组成的行人检测数据集。在含有30个类别的总共5000幅图像中，有大约35000个行人实例标注和大约13000个忽略区域的标注。<br>Caltech［26］。Caltech是流行的行人检测数据集，包含250000帧，共有约350000个标注的边界框。训练集和测试集包含的实例数分别为19200和155000。<br>4）人脸检测<br>WIDERFACE［27］。WIDERFACE是一个面向精确人脸检测的大规模数据集，其中人脸在尺度、姿态、遮挡、表情、外观和光照等方面存在显著差异。它由32203幅图像和393703个标记的人脸组成。该数据集基于60个事件类别，每个事件类别随机选择40%，10%和50%的数据分别作为训练、验证和测试集。<br>PASCALFACE［28］。PASCALFACE数据集是PASCAL-VOC的一个子集，在851幅图像中有1335幅被标记的人脸，这些人脸的外观和姿势变换很大。<br>5）SAR图像和红外图像<br>SAR-ACD［29］。该数据集由11幅高分3号下1m分辨率的SAR图像构建而成。它包含6个民用飞机类别和14个其他飞机类别的4322个目标实例。SAR-ACD包含不同机场（如上海虹桥机场和北京首都国际机场等）的复杂场景，目标种类丰富且实例大小差异大，这给检测分类带来较大难度。<br>HRSID［30］。该数据集中的SAR图像由Sentinel-1，TerraSAR-X和TanDEMX卫星拍摄。HRSID拥有5604幅800×800像素的SAR图像，涵盖不同海域和港口场景以便于舰船的检测与分割。在16951个目标实例中，像素占比小于3.29%的舰船目标达到99%以上。<br>SIRST［31］。该数据集是红外小目标数据集，由短波长、中波长以及950nm波长的红外图像组成。SIRST数据集极具挑战，它含有许多暗淡的目标，并且这些目标大多隐匿在复杂背景中。每个红外序列中只选择1幅具有代表性的图像以防止训练验证和测试集之间的重叠。SIRST共有427幅图像和480个目标实例。<br>6）日常生活<br>Mini6KClean［32］。该数据集是MS-COCOtrain2017的子集，它修复了原始MS-COCO数据集中的标签错误。Mini6KClean包含6000幅图像、80个目标类别以及55111个目标实例。<br>SDOD-MT［33］。小而密集的商品检测在仓库管理和实体零售中具有很高的应用价值。文献［33］构建了一个新数据集SDOD-MT以促进特定商品的检测。该数据集包含13个类别的16919幅图像。实例数量高达392969。数据集中训练和测试集的划分比约为4∶1。<br>SmallObjectDataset［34］。文献［34］从MS-COCO数据集中挑选了10个较小的目标类别（如刀、叉等）以构建该小目标数据集。这些类别来自日常生活的复杂场景，大约包含74531个目标实例的标注。<br>SOD［35］。文献［35］通过SUN［36］和MS-COCO数据集的子集构建SOD。SOD包括来自10个类别的4925幅图像中的大约8393个目标实例。该数据集中目标实例大都小于30cm。<br>MS-COCO［37］。MS-COCO数据集中的图片源于自然背景下复杂的日常生活场景。该数据集是全场景理解（包括目标检测、语义分割、关键点检测等）的流行数据集，已被研究者们广泛使用。它包含32.8万幅图片和大约250万个标注实例。<br>PASCAL-VOC［38］。PASCAL-VOC是视觉目标识别和检测的经典数据集。它主要包含VOC2007和VOC2012这两个常用版本。这两个版本都包含20个目标类别。VOC2007包含9963幅图像和24640个目标实例。而VOC2012包含33260幅图像和超过27450个目标实例。<br>7）其他<br>SmallObjectDataset［39］。该数据集中的图像源于大学不同教室的视频记录。它包含约2200幅手动标注的人员头部图像。训练，验证和测试集图像数分别为550，550和1100。<br>USC-GRAD-STDdb［40，41］。该数据集是从YouTube上检索的一个视频数据集，包含115个视频片段、5个目标类别、超过25000个带注释的高质量图像。数据集中小目标的像素范围为16~256像素，标注的小目标实例数超过56000。<br>DeepScores［42］。这是一个大型公共数据集，拥有大约1亿小目标。它包含30万幅高质量的乐谱图像，涵盖123个不同的符号类别。<br>LostandFound［43］。该数据集专注检测道路上的小危险物和丢失货物。它一共包含37种不同的障碍物类别和2104个标注实例。<br>表2从遥感图像、交通标志与交通灯检测、行人检测、人脸检测、SAR图像和红外图像、日常生活、其他等场景汇总了现存的流行小目标数据集，并给出相应数据集获取的链接，以方便研究人员下载。<br>遥感图像具有幅面广大、成像高度多变以及场景多样等特点，这无疑会对小尺寸目标的检测带来极大挑战。交通标志与交通灯检测通常涉及的类别较杂，而且尺寸很小，这些常规交通标志和交通灯的准确检测对智能交通的发展至关重要。行人检测和人脸检测虽然涉及的类别较为单一，但却容易出现目标遮挡、目标密集等情况，这将进一步加大对小尺寸行人和小尺度人脸检测的难度。<br>SAR图像和红外图像中的目标不仅尺寸很小，而且目标暗淡，此外更容易受到杂波和背景噪声的影响。日常生活场景的图像虽然分辨率不是特别高，但目标类别和实例数量较多，这也在一定程度上阻碍了对小目标的准确检测。</p>
+<p>具体而言，SODA-A和AI-TOD-v2作为遥感领域最新且极具挑战性的两个数据集，可以作为评估遥感小目标检测的基准。SODA-D作为最新的大规模交通场景数据集，能够为该领域的小目标检测算法提供公平比较的平台。TinyPerson和SIRST可以分别作为微小行人检测以及红外小目标检测的基准。MS-COCO作为经典的大规模全场景数据集，能引导日常生活中的小目标检测算法进行公平的性能比较。与数据集MS-COCO不同，Mini6KClean作为一个全新修复的小规模数据集，能够为小目标检测算法的快速验证提供便利。<br>表2现有的流行小目标数据集<br>2.2小目标的定义<br>小目标是指明确目标的尺寸到底有多小，或它们在图像中所占的像素数。目前，定义小目标主要有两种方法：绝对尺度和相对尺度。<br>国际光学工程学会对小目标的定义是目标尺寸小于原始图像的0.12%。文献［44］表明，小目标的边界框应覆盖小于原始图像的1%。表3总结了相对尺度下小目标的定义。除了相对尺度，表4总结了绝对尺度下小目标的定义。<br>表3相对尺度下小目标的定义<br>表4绝对尺度下小目标的定义<br>小结：本节主要从遥感图像、交通标志与交通灯检测、行人检测、人脸检测、SAR图像和红外图像、日常生活、其他等场景全面汇总了现存的流行小目标数据集。为方便相关研究人员获取数据集，本节给出了相应数据集的下载链接。此外，通过对数据集的介绍与分析，本节给出了不同情况下选择特定数据集的一些建议。<br>具体来说，SODA-A和AI-TOD-v2作为遥感领域极具挑战性的两个全新构建的数据集，可以作为评估遥感小目标检测的基准。全新的大规模数据集SODA-D，能够为交通场景下的小目标检测算法提供公平比较的平台。<br>此外，TinyPerson和SIRST可以分别作为微小行人检测以及红外小目标检测的基准。MS-COCO作为经典的大规模全场景数据集，能引导日常生活中的小目标检测算法进行公平的性能比较。而Mini6KClean作为一个新修复的小规模数据集，能够为小目标检测算法的快速验证提供便利。<br>除了对小目标检测数据集的阐述，本节还从绝对尺度和相对尺度对小目标的定义进行全面梳理，以帮助研究者更好地理解小目标。我们期望对小目标检测数据集以及小目标定义的深入探讨，能够助力小目标检测的发展。<br>小目标检测评估指标<br>除了第2.2节提到的小目标数据集和小目标的定义之外，小目标检测的评估指标也同样重要。<br>本节从3个方面进行阐述：基于交并比（IntersectionoverUnion，IoU）及其变体的评估指标、基于平均精度（AveragePrecision，AP）及其变体的评估指标以及其他评估指标。<br>3.1基于IoU及其变体的评估指标<br>交并比IoU反映两个边界框之间的重叠率，计算方式如下：<br>其中，A和B分别表示真值边界框和预测边界框，∩和∪分别表示交集和并集操作。</p>
+<p>其中，A和B分别表示真值边界框和预测边界框；∩表示交集操作。<br>广义交并比（GeneralizedIoU，GIoU），利用两个边界框的最小闭包来解决IoU可能造成的梯度消失问题。计算方式如下：<br>其中，A和B分别表示真值边界框和预测边界框；C为包含边界框A和边界框B的最小框；\表示从左边集合中排除右边集合。GIoU取值范围为[-1,1]，不具有IoU的归一化形式。<br>距离交并比（DistanceIoU，DIoU），考虑了目标与锚框之间的距离、重叠率和尺度。计算方式如下：<br>其中，是A和B中心点之间的欧几里得距离；是覆盖这两个框的最小外框的对角线长度。<br>完整交并比（CompleteIoU，CIoU），通过考虑重叠面积、距离和纵横比这几个因素来提高性能。计算方式如下：<br>其中，是权衡参数；表示纵横比的一致性；和分别表示边界框A和边界框B的宽度；和分别表示边界框A和边界框B的高度。<br>IoU是评估两个边界框之间位置关系最广泛使用的度量标准。然而只有当两个边界框重叠时，IoU才有效。为了解决该问题，学者们提出了一些评估标准。<br>GIoU［45］通过添加两个边界框的最小闭包的权重改善了IoU的计算过程，在两个边界框不相交时仍能学习训练。文献［46］引入两个边界框之间的中心点距离以及基于IoU的最小闭包对角线的长度构造了DIoU。DIoU可以直接最小化两个目标边界框的距离，收敛速度更快。基于DIoU，CIoU进一步考虑添加了边界框长宽比这一惩罚项，使对目标检测的评估更加准确。<br>图3显示了IoU及其变体指标的比较。图3中的A和B分别表示真值边界框和预测边界框，C为包含边界框A和B的最小框。<br>图3IoU及其变体评估指标的简要比较<br>然而，受限于非归一化取值范围的数学性质，GIoU，DIoU和CIoU最初被设计用于非极大值抑制（Non-MaximumSuppression，NMS）和损失函数，很难在无需修改的情况下作为阈值。此外，这些改进仅仅是对IoU施加权重的微调，并没有从本质上解决小目标对IoU极度敏感的问题。<br>图4为IoU对小尺寸目标（网球）和正常尺寸目标（人）的敏感性分析，每个网格表示一个像素，红色边界框表示真值，绿色和蓝色边界框分别表示右向下（对角线）偏差为1个像素和3个像素的预测边界框。从图4可以看出，IoU对不同尺寸目标的敏感性差异很大。对于5×5像素的小目标（网球），微小像素的位置偏差将导致IoU显著下降（从0.47下降到0.09），这将造成不准确的标签分配。而对于30×90像素的正常尺寸目标（人），在相同的位置偏差下，IoU略有变化（从0.92降至0.77）。<br>图4IoU对小尺寸目标（网球）和正常尺寸目标（人）的敏感性分析<br>鉴于上述分析可知，IoU对小目标来说并不是一个很好的度量标准。小目标边界框中往往会存在一些背景像素，因为大多数真实目标都不是严格的矩形。在这些边界框中，前景像素和背景像素分别集中在边界框的中心和边界上。<br>为了更好地描述边界框中不同像素的权重，文献［13］将边界框建模为二维高斯分布，并通过最优传输理论的Wasserstein距离的指数函数来计算相似性。<br>该评估指标称为归一化Wasserstein距离（NormalizedWassersteinDistance，NWD），计算方式如下：<br>其中，c是一个可学习常数；表示真值框和预测框之间的Wasserstein距离；是Frobenius范数；m是框的中心；和是它们的协方差。<br>对于微小目标来说，其边界框的绝对尺寸和相对尺寸都远小于中等目标和大目标。微小目标的边界框的宽度和高度的重要性远低于中心点，因此一些研究将微小目标看作点。文献［47］提出了一种名为偏差率（DeviationRate，DR）的评价指标来衡量预测边界框和真值边界框的位置接近程度，计算方式如下：<br>其中，和分别为沿x轴和y轴的偏移距离；和表示偏差程度。<br>与DR相似，文献［48］提出了另一个评估指标，称为点距离（DotDistance，DotD）。它被定义为两个边界框中心点之间的归一化欧氏距离，计算方式如下：<br>其中，Q表示数据集中所有目标的平均大小；M表示数据集中的图像数量；表示第i幅图像中标注的边界框数量；和分别表示第i幅图像中第j个边界框的宽和高。<br>3.2基于AP及其变体的评估指标<br>目标检测中，计算一个类别的平均精度（AveragePrecision，AP）涉及一组具有置信度分数的检测结果和一组边界框。基于预定义的IoU阈值（如大于0.5），将检测与真值框相匹配。每个真值框只能匹配一个检测，如果有多个检测满足IoU标准，则匹配具有最高置信度得分的检测。与真值匹配的检测被计为TP（TruePositive），不匹配的检测为FP（FalsePositive），不匹配的真值视为FN（FalseNegative）。给定置信度阈值s，具有比s更高的置信度分数的检测被保留，其余检测被丢弃。通过系统地改变s，计算精度和召回对，以获得精度召回（PrecisionRecall，PR）曲线。PR曲线下的面积决定了一个类别的AP，并且检测器在所有类别（如类别数为n）上的性能mAP（meanAveragePrecision）仅通过平均每个类别的AP值来获得。上述指标的具体公式定义如下：<br>其中，，和分别表示TP、FP和FN的数量；指标为精度和召回的调和均值。<br>AP已成为目标检测性能评估的业界标准，很少受到挑战。但是其也存在一定的缺陷。首先，AP无法区分非常不同的PR曲线。召回率低且精度高的检测器、召回率高且精度低的检测器，这两类检测器虽然特性不同，但却存在AP值相同的情况。其次，AP无法确切衡量定位精度，即不能从它推断边界框检测的紧密程度。也就是说，AP旨在比较检测器的整体性能，而不比较检测器的最大值。<br>为了解决AP的局限性，文献［49，50］提出了一个称为定位召回精度（LocalizationRecallPrecision，LRP）的新评估指标。LRP误差可以等效地表示为TP的平均定位质量、精度误差和召回误差的加权组合，这三个分量作为LRP误差的分量。计算方式简写为：<br>其中，表示第i个TP的归一化（即在0和1之间）定位误差。</p>
+<p>其中，X和分别表示真值框和检测框；为置信度得分阈值；为IoU阈值；表示与其指定的检测之间的IoU。上述分析可知，LRP和OLRP能够更加精确地预测边界框包围目标的紧密程度，进一步缓解原始评估指标AP对目标定位不准的缺陷。<br>3.3其他评估指标<br>与mAP相似，召回率也有相同的概念，等效的度量指标为mAR（meanAverageRecall）。<br>漏检率（MissRate，MR）。在行人和肿瘤检测的现实应用中，MR是主要目标。为了避免产生重大后果（如事故或癌症），则不应该漏检任何小目标。因此较低的MR总是可取的。<br>错误率（ErrorRate，ER）。它可以被定义为未分类像素的总数除以像素总数。在该情形下，深度神经网络的训练可以通过最小化误差来进行优化。</p>
+<p>小结：本节从基于IoU及其变体的评估指标、基于AP及其变体的评估指标以及其他评估指标这3个方面详细阐述了小目标检测的评估指标。具体总结如表5所示。在基于IoU及其变体的评估指标中，我们认为IoU作为最广泛的目标检测评估指标，它更适用于中大目标的检测。对于小目标和微小目标来说，我们建议使用NWD和DotD作为评估指标，因为它们能够更好地缓解IoU对小目标微小移动极度敏感的问题。此外，在基于AP及其变体的评估指标中，mAP作为典型的检测评估指标，它更适用于对数据集中目标类别进行整体的性能评估。而在其他评估指标中，如FPS，它更多适用于一些实时应用场景的目标检测。我们期望对小目标检测评估指标的探讨能够启发相关研究者设计出全新的评估指标以更好地评估小目标的检测性能。<br>表5小目标检测评估指标总结<br>典型评估指标下的代表性小目标检测算法分析比较<br>本节在6个数据集（AI-TOD-v2，AI-TOD，TinyPerson，MS-COCO，SODA-D和SODA-A）上对典型评估指标下的一些代表性小目标检测算法进行性能分析比较。<br>数据集AI-TOD，AI-TOD-v2和SODA-A用于遥感小目标检测。数据集MS-COCO用于日常生活中的小目标检测。数据集TinyPerson和SODA-D分别用于微小行人检测和交通场景下的小目标检测。<br>本文主要从两大分类（评估指标+目标定义、评估指标+单目标类别）来评估一些代表性小目标检测算法。具体而言，评估指标+目标定义包括：AP+目标定义、MR+目标定义、DoR-AP-SM和DoR-AP-SL。评估指标+单目标类别包括：AP+单目标类别，OLRP+单目标类别。表6概述了6个数据集上的典型评估指标与一些代表性小目标检测算法。<br>表6不同数据集上典型评估指标与代表性小目标检测算法<br>4.1代表性小目标检测算法<br>本节从5个方面对代表性小目标检测算法进行阐述，分别为锚框机制、尺度感知与融合、上下文信息、超分辨率技术、以及其他改进思路。<br>1）锚框机制<br>文献［51］提出了一种多阶段检测结构CascadeRCNN，它由一系列不断增加的IoU阈值训练的检测器构成，以解决负样本过拟合以及检测器和测试假设之间的推理时间质量不匹配问题。为了更好地锚框匹配，文献［52］提出了一种基于锚框中心点平移的匹配策略（MatchingstrategybasedontheCenterPointTranslation，CPT-Matching），以在训练阶段选择更多扩展的锚框作为正样本。该策略有助于准确的小目标检测。文献［53］引入了一种称为GridR-CNN的检测框架，它使用网格引导定位机制来精确检测目标。它通过设计多点监督公式编码更多的线索，以减少对特定点不准确预测的影响；为了充分利用网格中点的相关性，构建两阶段融合策略来融合相邻网格点的特征图，以实现高质量的目标定位。此外，文献［12］提出了一种基于多个中心点的学习网络（MultipleCenterpointsbasedlearningNetwork，M-CenterNet），它使用多个中心点来定位精确的目标中心，以提高航空图像中微小目标检测的定位性能。文献［54］提出了一种更精细的目标表示方法，称为代表点（RepresentativePoints，RepPoints）。给定用于训练的真值定位和识别的目标，RepPoints通过限制目标空间范围并揭示语义上重要的局部区域的方式自动排列自己。不同于上述检测器，文献［55］提出了一种全卷积的单阶段（FullyConvolutionalOneStage，FCOS）检测器，用于以每个像素预测的方式进行目标检测。通过消除预定义的一组锚框，FCOS完全避免了所有关于锚框的超参数以及与锚框相关的复杂计算，一定程度上有利于对小目标的检测。<br>将高质量的锚框分配给小目标边界框并不容易。常见做法是在选择正样本时降低IoU阈值，以使小目标与更多的锚框匹配，但这会导致训练样本的整体质量恶化。文献［56］提出了一种自适应训练样本选择（AdaptiveTrainingSampleSelection，ATSS），通过一组锚框的IoU统计值自动计算每个真值的正负阈值。然而，IoU度量对小目标的位置偏差非常敏感。为此，文献［48］提出了一种称为点距离的评估指标来克服传统IoU度量在小目标上的弱点。在基于锚框的检测器中使用IoU会大大降低标签分配的质量。为缓解该问题，文献［13］提出了一种基于排序的分配（RanKing-basedAssigning，RKA）策略，并将其与新指标NWD相结合，以充分利用新指标在微小目标上的优势，该方法可以显著改善标签分配，并为网络训练提供足够的监督信息。文献［57］引入了一种基于高斯感受野的标签分配（ReceptiveFieldbasedLabelAssignment，RFLA）策略：利用特征感受野遵循高斯分布的先验信息；提出一种新的感受野距离来直接测量真值与高斯感受野的相似性，并基于感受野距离，设计了分层标签分配模块，以实现对小目标性能的改善。不同于上述方法，文献［58］设计了两个新的组件：高斯概率分布的模糊相似性度量（GaussianProbabilisticdistribution-basedfuzzysimilarityMetric，GPM）以及自适应动态锚框挖掘策略（AdaptiveDynamicAnchorminingStrategy，ADAS）。GPM旨在解决小边界框和预定义锚框之间不准确的相似性测量问题。而ADAS采用动态调整的标签分配策略来解决正负样本间的分布偏差，确保标签分配与图像中目标的分布一致。ADAS-GPM可以实现对小目标的良好检测。<br>2）尺度感知与融合<br>文献［59］提出了一个图像金字塔引导网络（ImagePyramidGuidanceNetwork，IPGNet），以确保每一层的空间和语义信息都丰富。它的主要思想是将IPG引入主干网络以处理信息不平衡问题，从而缓解小目标特征的消失。然而，由于内存消耗和推理时间的快速增加，这种方法的计算成本很高。受人类视觉系统感受野结构的启发，文献［60］引入了一种三叉戟网络（TridentNetwork，TridentNet），以生成具有统一表示能力的尺度特定的特征图。该方法构建了一个并行的多分支结构（每个分支共享相同的参数但却具有不同的感受野），可以更好地检测小目标。不同于上述两种方法，文献［61］提出了一种交互式多尺度特征表示增强（InteractiveMulti-scaleFeatureRepresentationEnhancement，IMFRE）策略。其中，多尺度辅助增强网络将输入缩放到对应于预测层的多个尺度，并且只通过轻量级模块提取更详细的特征以增强原始特征；自适应交互模块旨在聚合相邻层的特征，在未改变原有网络结构情形下，实现了对小目标检测的改进。考虑到在实时嵌入式设备上检测小目标，文献［62］提出了一种递归混合融合金字塔网络（RecursiveHybridFusionpyramidNetwork，RHFNet）。RHFNet中的双向融合模块融合自上而下和自下而上方向的特征图，以产生灵活的特征金字塔，用于小目标检测。递归连接和重塑模块不仅可以递归地连接来自深层的高级语义特征，还可以从较浅的层重塑空间上更丰富的特征，以防止小目标的消失。由于采用低成本计算以及特征保留操作，RHFNet在嵌入式设备上实现高效且准确的检测。<br>为更好地检测TinyPerson中微小的人，文献［22］提出了尺度匹配（ScaleMatch，SM）策略。该策略根据不同的目标大小，对图像进行裁剪以缩小不同大小目标之间的差距，避免常规缩放操作中容易丢失小目标信息的情况。随后，文献［63］全面分析TinyPerson数据集中目标的尺度信息，进一步提出了细化尺度匹配方案（SM+）。与SM只考虑整个图像不同，SM+关注每个实例，有效地促进了预训练数据集与目标数据集的相似性，大大提高了检测性能。不同于SM和SM+策略，文献［64］引入了一种基于特征重新缩放和融合的特定特征（SpecificcharacteristicsbasedFeatureRescalingandFusion，SFRF）方法。通过设计一种非参数自适应稠密感知算法，它可以自动选择并生成具有微小目标高密度分布的新调整大小的特征图。为了增强特征表示，SFRF还使用多对一策略进行特征金字塔网络层的特征融合。文献［65］认为特征金字塔网络中相邻层之间的自上而下的连接对微小目标的检测产生了负面影响，为此引入了一种称为融合因子的新概念来控制从深层到浅层的信息传输，并探索了如何通过统计策略估计特定数据集的融合因子的有效值。一系列的实验和分析后发现估计值依赖于分布在每一层的目标的数量。当使用适当的融合因子配置特征金字塔网络时，模型可以在微小目标上实现显著的性能改进。大多数现有方法采用特征金字塔网络，通过组合深层的上下文特征来丰富浅层特征。但由于不同层之间梯度计算的不一致性，特征金字塔网络中的浅层并未充分被利用来检测微小目标。鉴于此，文献［66］提出了一种由上下文注意力模块、尺度增强模块以及尺度选择模块这三个模块构建的尺度选择金字塔网络，用于微小行人的检测。通过同时考虑网络中的多尺度特征信息以及上下文信息，该网络能够更准确地检测小目标。<br>3）上下文信息<br>为了同时考虑小尺度人脸和日常生活中的小目标，文献［67］构建了一种新的内外部网络（Internal-ExternalNetwork，IENet），以利用目标的外观和上下文信息进行鲁棒检测。双向特征融合模块（BidirectionalFeatureFusionModule，BiFFM）、上下文推理模块（ContextReasoningModule，CRM）和上下文特征增强模块（ContextFeatureAugmentationModule，CFAM）这三个模块分别用于小目标的特征提取、提议定位和分类。BiFFM通过将卷积神经网络中更深级别层的语义特征转移到更低级别层，将更低级别层的细节特征转移到更深级别层来捕获目标的内部特征，不仅利用卷积特征的层次结构，还通过上下文关系来促进其预测。CRM通过上下文推理改善区域提议的质量，上下文推理使用容易检测到的目标帮助理解困难的目标。CFAM学习通过CRM生成的区域提议之间的成对关系，并利用这种关系生成与区域提议相关联的全局特征信息，以进行准确的分类。文献［68］提出了一种更加关注详细信息建模的单阶段检测器LocalNet。该检测器目的是在早期阶段保留更详细的信息，以增强小目标的表示。此外，文献［68］通过设计局部细节上下文模块，以增强检测层的语义信息，从而重新引入网络中丢失的细节，并在有限的感受野范围内利用局部上下文。专注于微小行人检测，文献［66］提出了一个尺度选择金字塔网络（ScaleSelectionPyramidNetwork，SSPNet），它包括上下文注意力模块（ContextAttentionModule，CAM）、尺度增强模块（ScaleEnhancementModule，SEM）和尺度选择模块（ScaleSelectionModule，SSM）。CAM考虑上下文信息生成层次化的注意力热图。SEM在不同层上突出特定尺度的特征，使检测器聚焦于特定尺度的目标，而不是广阔的背景。SSM利用相邻层之间的关系来实现浅层和深层之间合适的特征共享，从而避免不同层之间梯度计算的不一致。由这3个模块构建的SSPNet能够获得良好的小目标检测性能。<br>4）超分辨率技术<br>文献［74］提出了一种新的多任务生成对抗网络（Multi-TaskGenerativeAdversarialNetwork，MTGAN）以检测小尺度人脸和常见的小目标。其生成器是一个超分辨率网络，它将小的模糊图像上采样为精细尺度图像，并恢复详细信息以实现更准确的检测。其鉴别器是一个多任务网络，在训练过程中，鉴别器中的分类和回归损失被反向传播到生成器中，以使生成器获得更多细节以帮助检测。针对小目标边界框预测的局限性，文献［73］通过生成判别学习（GenerativeandDiscriminativeLearning，GDL）设计了一个检测框架。该框架通过生成器网络来重建低频到高频的映射，以便于锚框预测。检测器模块从生成的结果中提取感兴趣区域，并通过感兴趣头来预测目标类别和细化边界框。为了加快基于特征金字塔的目标检测器的推理速度，文献［72］提出了一种称为QueryDet的查询机制，在低分辨率特征中预测小目标可能存在的位置（查询键），并在这些位置使用高分辨率特征构建稀疏特征图（查询值）。该方案采用的级联形式能够快速准确检测小目标。<br>5）其他改进思路<br>文献［70］提出的DyHead通过将尺度感知、空间感知以及任务感知的注意力统一在一个框架中以更灵活高效的检测目标。焦距损失（FocalLoss，FL）［69］通过两个权重因子将训练集中在一组稀疏的难样本上，以防止大量的容易负样本在训练过程中损害检测器。文献［71］提出的反馈驱动损失函数（Feedback-DrivenLoss，FDL），利用损失分布信息作为反馈信号，并以更平衡的方式训练模型，从而更有效地监督小目标信息，获得良好的检测性能。基于查询的检测器SparseRCNN［75］提供学习到的目标提议的固定稀疏集合，通过动态头执行定位和分类，无需非极大值抑制后处理，直接预测输出。尽管利用多尺度可变形注意力来减少编码器中的高计算量并允许访问高分辨率特征，但Deformable-DETR［76］性能仍落后其他检测器，这一定程度上表明稀疏查询范式无法充分覆盖小目标。除了针对水平边界框的处理，GlidingVertex［78］和DODet［80］为有方向的目标设计了新颖的表示方法，前者学习到对应边的4个滑动偏移量，而后者利用纵横比和面积来表示目标。S2A-Net［77］设计特征对齐模块和方向检测模块来缓解锚框与卷积特征错位问题，以实现对目标的更好检测。RoITransformer［81］的成功归因于其强大的候选生成器。在该生成器中，由旋转的感兴趣区域学习器生成的旋转提议可以保证小目标的高召回率。由于高效的定向区域提议网络，OrientedRCNN［79］可以生成高质量的提议区，且参数增长很小。从实验中RoITransformer和OrientedRCNN的结果也可以看出，高质量的提议对小目标检测至关重要。<br>4.2性能评估与分析<br>本文在表7和表8中报告了12种不同算法在AI-TOD-v2验证集上的检测结果，每个评估指标的最优和次优结果分别以粗体和下划线突出显示。观察可知，ADAS-GPM［58］和NWD［13］获得了更好的检测性能。具体来说，DetectoRSw&#x2F;ADAS-GPM［58］在AP和AP50指标上的性能分别为25.0%和57.5%，稳步优于其他检测算法。对于特定的APt，APs和APm指标，DetectoRSw&#x2F;ADAS-GPM［58］同样取得最好结果，性能分别为24.8%，30.8%和41.7%。此外，DetectoRS&#x2F;NWD［13］在AP75和APvt这两个指标上实现了最优性能，检测结果分别达到17.4%和7.6%。由此可见，专注于小目标评估指标改进的NWD算法能够实现对小目标更准确的定位（高的AP75值）以及获得更高的分类精度（高的APvt值）。除了报告AI-TOD-v2验证集上的检测结果，本文还在表9和表10中进一步报告了AI-TOD-v2测试集上的检测性能，每个评估指标的最优和次优结果分别以粗体和下划线突出显示。<br>表9为检测器在AI-TOD-v2测试集上所有类AP的检测结果。表10则为这些检测器在单个目标类别上的AP结果。通过观察表9和表10可知，将检测器直接用于AI-TOD-v2时，它们的性能比在MS-COCO等自然场景数据集上的性能差很多，特别是APvt接近于0（如TridentNet［60］和ATSS［56］）。这也表明航空图像中微小目标极其有限的外观信息和复杂背景给现有检测器带来巨大挑战。总的来看，检测器NWD-RKA［13］和DotD［48］的性能要明显优于其他检测器。DetectoRSw&#x2F;NWD-RKA［13］获得了24.7%的AP。当深入分析具体指标时，我们发现APm的性能从最高的39.3%下降到APvt的9.7%，这也表明当目标尺寸变得非常小时，检测难度陡增。<br>上述AI-TOD-v2与AI-TOD共享相同的图像但却包含更精确的标注，可以看成是无噪声数据集。然而现实世界中存在标签噪声问题。因此AI-TOD可以视为有噪声数据集，这将激励噪声鲁棒的小目标检测方法的设计。表11报告了AI-TOD数据集上不同检测器的AP性能，每个评估指标的最优和次优结果分别以粗体和下划线突出显示。<br>从表11可知，TridentNet［60］，RetinaNet［69］和ATSS［56］检测器性能较差，不能很好地适应AI-TOD。对于指标AP75，TridentNet［60］和RetinaNet［69］的性能低于5%，意味着检测器定位性能较差。对于APvt指标，检测器的最好性能都没达到10%，这也表明当目标尺寸非常小时检测难度急剧增加，同时无法在现实世界中使用。总体来看，RFLA［57］的性能远超其他检测器。具体而言，DetectoRSw&#x2F;RFLA［57］在6个指标中获得最佳性能，包括AP，AP50，AP75，APt，APs和APm。FasterR-CNNw&#x2F;RFLA［57］在APvt指标上获得了最优，性能达到9.5%。此外，表12和表13分别报告了AI-TOD数据集上每个目标类别的AP和OLRP结果，每个目标类别的最优和次优结果分别以粗体和下划线突出显示。相较于其他检测器，M-CenterNet［12］在桥、储罐、车辆、人和风力发电机5个类别上取得了最优结果。表14和表15分别显示了TinyPerson基准上不同方法在AP和MR指标上的性能，每个指标的最优和次优结果分别用粗体和下划线突出显示。<br>观察发现，使用SFRF［64］的FasterR-CNN在Tiny1，Tiny2和Tiny3目标上都取得了最佳的AP50结果。此外，检测器（如RetinaNet，FasterR-CNN和CascadeR-CNN）通过使用SSPNet［66］获得性能进一步提升。CascadeR-CNN-SSPNet［66］和FasterR-CNN-SSPNet［66］，这两个检测器分别获得了对小目标和微小目标的最佳检测性能，AP50的结果分别为71.80%和59.13%。此外，在表15中可以发现FasterR-CNN-SSPNet［66］在MR指标上以较大优势超过了其他方法。不难发现，采用多尺度表示学习和基于上下文信息的SSPNet可以很好地检测各种大小的目标，例如微小目标和小目标。<br>表16报告了MS-COCOtest-dev数据集上不同方法的检测结果（最佳和次优结果分别用粗体和下划线标记），涉及的主干网络有VGG16，DarkNet53，ResNet50，ResNet101，ResNeXt101，LN-ResNet，ResNet101-FPN和IPGNet101。IENet［67］在AP，APS，APM和APL这4个指标上获得最佳性能。对于APS指标，IENet［67］以5.4%的优势超过了次优检测器。此外使用ResNet101-FPN的GDL［73］检测器在DoR-AP-SM和DoR-AP-SL指标上表现突出，这表明该检测器能够相对更好地平衡对不同尺度目标的检测。通过整体对比指标APS，APM和APL，不难发现，小目标的检测效果最差。DoR指标的结果也再次表明了检测小目标的困难。<br>表17为SODA-D测试集上不同算法的结果，最优和次优结果分别用粗体和下划线标记。可以看出，CascadeRCNN［51］在所有指标上都获得了最好的性能。得益于级联结构，CascadeRCNN［51］获得了46.9%的APS和31.2%的APT，表明其在检测小目标和微小目标方面的优势。通过对比APS和APeT，我们发现后者性能比前者低26.5%，这一结果表明当目标尺寸变得非常小时，检测难度急剧增加。<br>表18列出了目标类别的检测结果（最优和次优结果分别用粗体和下划线标记），观察可知，骑手、自行车和交通摄像头的AP明显低于其他类别，我们认为这种现象的根本原因在于类别的不平衡，即与其他类别相比，这些类别包含的实例样本较少。此外大多交通摄像头目标尺寸小于256个像素，这对检测也带来巨大挑战。<br>表19报告了SODA-A测试集上的检测结果（粗体和下划线分别表示最优和次优结果）。不难发现，RoITransformer［81］以37.7%的AP，36.0%的APT和39.5%的APS实现了最高性能。这归因于其强大的候选生成器，保证了小目标的高召回率。OrientedRCNN［79］通过生成高质量的候选区，在8个指标上获得了第二好的性能。从上述结果可以看出，高质量的候选区对小目标检测具有重要意义。<br>具体来说，ADAS-GPM［58］在AI-TOD-v2验证集上，通过结合高斯概率分布的模糊相似性度量和自适应动态锚框挖掘策略，在特定指标（如APt，APs，APm）上取得优异性能。对AI-TOD-v2测试集而言，NWD-RKA［13］提出的集成指标NWD的排序分配策略有效改善了小目标检测性能，在评估指标APvt，APt，APs和APm上都获得了最好的性能。此外，在AI-TOD测试集上，RFLA［57］提出的基于高斯感受野的标签分配策略也实现了对目标性能的改善。对于TinyPerson数据集，SSPNet［66］构建的上下文注意力、尺度增强和尺度选择模块有效提升了目标检测器在特定评估指标上的性能，如AP50（Tiny），AP25（Tiny），AP75（Tiny）和MR50（Small）等。APS，APM和APL是MS-COCO数据集上的特定评估指标，IENet［67］设计的双向特征融合、上下文推理以及上下文特征增强模块在这三个评估指标上均表现出优势。就数据集SODA-D和SODA-A而言，CascadeRCNN［51］和RoITransformer［81］在特定评估指标APT，APeT，APrT，APgT和APS上均取得优异成绩，这也再次表明多阶段级联结构以及高质量的区域提议对小目标检测性能的改善具有促进作用。<br>总结及未来发展趋势<br>小目标检测是计算机视觉中极具挑战性的问题。本文综述了小目标数据集和定义，小目标检测评估指标，以及典型评估指标下代表性小目标检测算法的分析比较。虽然小目标检测已经取得了可喜的进展，但当前先进的小目标检测方法与一般尺寸目标的检测方法之间仍存在巨大性能差距。我们认为以下6个方面仍需进一步探究。<br>1）小目标检测新基准<br>基准测试对基于深度学习的小目标检测方法来说至关重要。最近，文献［9］构建了2个大规模小目标检测数据集SODA-D和SODA-A，分别关注驾驶场景和空中场景。然而，它们仍然遵循传统基于IoU的评估标准。在基于IoU的评估指标中，即使目标边界框的微小移动也会导致IoU值的巨大差异，这将直接损害对小目标或微小目标的检测。因此，建立一个全新评估标准的大规模小目标检测基准是值得期待的研究方向。<br>2）小目标定义的统一<br>当前定义小目标主要有绝对尺度和相对尺度两种方式。然而，这两种定义方式都存在一定的局限性。对于相对尺度（如目标与图像的面积比）来说，在两幅不同分辨率的图像中出现的尺寸相似的目标将被分成两组，这不利于性能的评估。对于绝对尺度（如目标的像素面积）来说，虽然一定程度上有利于性能的定量评估，但当两幅图像的分辨率差距很大时，模型可能无法检测出极大分辨率图像中的固定像素大小的目标。因此，如何平衡相对尺度和绝对尺度，给出公认且统一的小目标定义，将有助于小目标检测的发展。<br>3）小目标检测新框架<br>现有的深度学习小目标检测方法在当前目标检测范式中设计了巧妙的结构，以帮助检测小目标。除了基于生成对抗网络以及卷积神经网络这2个主流范式之外，基于Transformer［82，83］的范式也在计算机视觉领域大放光彩。然而基于Transformer的范式拥有数十亿量级的参数、数周的训练时间以及需要在超大规模数据集上进行预训练。这极大阻碍了下游检测任务的训练和推理。因此高效学习的新范式和架构的轻量化也许是未来推动小目标检测的一个突破口。<br>4）多模态小目标检测算法<br>小目标检测算法性能较差的根源在于可用信息很少。通过不同模态数据之间的互补及其协同应用，有效丰富信息来源，能一定程度缓解模型缺乏判别信息的问题。因此，开发基于多模态的小目标检测算法是个值得探索的方向。<br>5）旋转小目标检测<br>当前小目标检测研究大多集中于水平边界框标注的目标。然而，现实场景中的目标不仅随机分散在图像各处，而且形状方向各异。因此，水平分布排列的目标只是其中的一部分，还有很多带有角度方向的目标。所以，设计针对有方向的旋转小目标检测方法对实际场景应用具有重要作用。<br>6）高精度且实时的小目标检测<br>精度和速度一定程度上反应了目标检测算法的成功与否。对于一些特定的应用场景，小目标的高精度且实时检测就十分必要。例如在智能交通场景中，小交通标志、小交通灯、小障碍物和行人的快速检测，对无人驾驶系统准确并快速做出决策起着举足轻重的作用。因此，高精度且实时的小目标检测对于智能驾驶的安全应用至关重要，值得进一步研究。<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/28/1000001543-2247539389-1/">https://zejuncao.github.io/2025/03/28/1000001543-2247539389-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/29/1000000434-2247491310-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000434_2247491310_1.jpg" class="responsive-img" alt="公众号10000粉丝啦！与你分享一些背后的故事。">
+                        
+                        <span class="card-title">公众号10000粉丝啦！与你分享一些背后的故事。</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/28/1000001543-2247539389-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001543_2247539389_2.jpg" class="responsive-img" alt="大模型Claude“大脑”拆解分析，发现它是这么思考的！">
+                        
+                        <span class="card-title">大模型Claude“大脑”拆解分析，发现它是这么思考的！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
