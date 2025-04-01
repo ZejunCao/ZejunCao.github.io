@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="牛嘴图像算法MHAFF，准确率高达近100%，创新融合 CNN 与 Transformer！, ZejunCao&#39;Blogs">
+    <meta name="description" content="牛嘴图像算法MHAFF，准确率高达近100%，创新融合 CNN 与 Transformer！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：AI视界引擎作者：AI引擎链接：https :&amp;#">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>牛嘴图像算法MHAFF，准确率高达近100%，创新融合 CNN 与 Transformer！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001547_2247539415_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">牛嘴图像算法MHAFF，准确率高达近100%，创新融合 CNN 与 Transformer！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-31
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/1MyEnkQTt1Amm1SQjiinZA">牛嘴图像算法MHAFF，准确率高达近100%，创新融合 CNN 与 Transformer！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：AI视界引擎<br>作者：AI引擎<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;bSi5HFB2RmzVX6x9mC0Hgw<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>牛只识别对畜牧管理至关重要，牛嘴部图像因稳定性强而成为研究热点。为提升识别精度，作者提出多头注意力特征融合（MHAFF）方法，结合CNN与Transformer优势，以增强特征交互。相比传统加法与级联融合，MHAFF能更有效地提取关键信息。实验表明，该方法在多个数据集上表现优异，准确率最高达99.88%。<br>论文链接：https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2501.05209<br>卷积神经网络（CNNs）引起了研究行人对利用牛嘴部图像进行牛只识别的关注。然而，CNNs往往无法捕捉到牛嘴部复杂图案中的长距离依赖关系。Transformer处理了这些挑战。<br>这启发作者将CNN和Transformer的优势融合到基于牛嘴的牛只识别中。加法和级联是特征融合中最常用的技术。然而，加法无法保留判别信息，而级联会导致维度增加。这两种方法都是简单的操作，无法发现融合特征之间的关系或相互作用。<br>本研究旨在克服加法和级联所面临的问题。本研究首次在牛只识别中引入了一种新颖的方法，称为多头注意力特征融合（MHAFF）。<br>MHAFF捕捉了不同类型融合特征之间的关系，同时保留了它们的原始性。实验表明，MHAFF在两个公开的牛只数据集上的准确率优于加法和级联技术以及现有的牛只识别方法。<br>MHAFF表现出优异的性能，并迅速收敛，在两个牛只数据集上同时达到了99.88%和99.52%的最佳准确率。关键词：牛只识别、CNN、Transformer、多头注意力、特征融合<br>在人工智能（AI）领域，随着深度学习技术的迅猛发展，研究者们对神经网络的结构和参数优化进行了广泛的研究。本文旨在探讨一种新的神经网络优化方法，该方法旨在提高模型的准确性和效率。通过对现有技术的分析和比较，本文提出了一种新的优化算法，并通过实验验证了其在实际应用中的有效性。<br>加强的生物安全和食品安全措施推动了高效牲畜溯源的需求，这通过准确有效的识别系统来实现。牲畜识别大致可分为经典方法、电子方法和近期基于视觉的方法[1,2]。经典方法包括耳刺、烙印、耳标和耳刻[3,1,4]。耳标通常包含一个唯一的识别号码以及其他信息，如动物的品种、性别和出生日期。标签通常使用特制的应用器插入动物耳朵中。目前，电子方法正在被应用，比经典方法更有效率。目前，澳大利亚的牲畜通过国家牲畜识别系统（NLIS）标签[5]进行识别，该标签采用无线电频率识别（RFID）技术。这些标签在牲畜识别方面提供了巨大优势。然而，它们容易受到攻击，可能丢失、损坏和篡改。其他生物识别方法包括虹膜图案、视网膜成像、DNA测序、毛皮图案和嘴部图案。视网膜和虹膜成像技术需要大量努力来捕捉图像。DNA测序需要专业实验室、设备和行人，获取报告是一个漫长的过程。毛皮图案仅适用于具有明显颜色图案的牲畜，不适用于体色普通的牲畜。<br>犬鼻纹是类似于人类指纹的独特生物识别标识[9]。犬鼻具有独特的皮纹图案，由珠状和脊状结构组成[10]。随着年龄的增长，犬鼻纹会变大，但它们独特的组合保持不变[11,1]。犬鼻纹可以通过照片轻松捕捉，无需繁琐的工作，也不需要专业设备或实验室。这使得犬鼻纹的应用成为牛只识别中一种有效且高效的生物识别方法。<br>在过去十年中，卷积神经网络（CNNs）因其能够直接从图像数据中提取有意义特征的能力，已成为现代计算机视觉任务中非常受欢迎的方法[15,16]。同样，CNNs在基于鼻子的牲畜识别中得到了广泛应用，并表现出卓越的性能。然而，CNNs在捕捉特征的长期依赖关系方面存在局限性[24]。由于CNNs的接受野有限，它们无法捕捉输入数据中复杂模式的全部范围[24,25]。同时，Transformer通过其自注意力机制内在地融合了全局信息，但缺乏归纳偏差[26]。这使得使用Transformer捕捉详细、精细的特征（局部特征）受到限制[27,28]。因此，仅一种类型特征的局限性限制了整体性能和更广泛的泛化能力[29]。为了解决这个问题，将CNNs和Transformer结合使用提供了两种方法的综合优势。<br>在牛只识别中，通过简单的加法和连接方法融合了卷积神经网络（CNN）和Transformer（transformers）的特征[31,32,33,34,35,36,37]。这些研究显示，通过这种方法识别的准确性得到了提升。对于特征和，通过加法融合表示为。加法假设结合后的特征可以相加。然而，如果特征具有不同的尺度、幅度或语义，这可能会导致判别信息的丢失。较大的特征值可能会主导，掩盖较小特征值的贡献[38]。另一种流行的方法是连接，表示为，通过将特征依次附加来组合特征。然而，所有特征都被同等对待，这会产生一个高维向量，增加计算负担[38,39]。<br>这些简单的融合方法可能无法很好地适应网络不同部分中信息变化的性质，可能因为简单的线性运算而限制了网络捕捉和利用数据中复杂多元关系的能力。加法和连接都是在不知道特征间任何关系的情况下执行操作。因此，利用动态和上下文感知的特征融合方法有很大的机会来提升牛只识别的准确性。<br>在这项研究中，作者通过利用卷积神经网络（CNN）和Transformer（transformer）的优势，结合一种新的特征融合方法，识别了牛的muzzle图像。本研究的重大贡献如下：<br>作者提出了一种新的特征融合方法，其准确率优于简单的加法和拼接。本研究的新颖之处在于，利用多头注意力机制实现CNN和transformer特征之间的上下文感知特征融合。该方法融合了局部和全局特征，并通过基准数据和牛角数据集进行了验证。<br>作者通过结合多头注意力的Query、Key和Value组件来研究融合特征的优化性能。作者使用了transformer特征，如Query和值，以及CNN特征作为键进行多头注意力。这种特征融合方法首次应用于牛的识别。<br>作者将提出的方法与现有的基于牛角的牛识别方法进行了比较。作者的方法在牛识别方面优于现有的方法。<br>在人工智能领域，背景研究对于理解当前技术发展、技术挑战以及未来趋势至关重要。背景研究涉及对现有文献的回顾和分析，旨在揭示研究领域的理论基础、历史演变、关键问题和未解决的研究方向。通过对背景的深入研究，研究者能够为新的研究项目提供理论支持，并为解决复杂问题提供创新思路。在人工智能的发展历程中，背景研究有助于揭示不同算法、模型和技术的优缺点，从而指导研究行人选择合适的方法来应对实际问题。<br>本节介绍了深度网络的基本概念，特别是卷积神经网络（CNN）和Transformer网络，这些网络在本研究中被采用。<br>（注：此为“CNN”这一术语的直接翻译，若需要更详细的解释或背景信息，请提供具体要求。）<br>卷积神经网络（CNNs）旨在进行空间局部处理。卷积层使用小尺寸的滤波器（例如，）来捕捉输入数据中的局部模式和层次结构，这些称为局部特征[43]。本节简要介绍了本研究中使用的卷积神经网络。<br>VGG16[44]是一种以其统一设计和深度著称的卷积神经网络（CNN）架构。它包含16层，其中13层为卷积层，3层为全连接层。VGG16的简洁性和深度使其能够有效地捕捉复杂的图像模式。在类似于VGG16的架构设计中，在深度网络的反向传播过程中，梯度（指示在训练过程中调整网络权重的方向和幅度）会变得非常小。这种现象称为梯度消失，它可能会阻碍深度网络的训练，因为小的梯度会导致学习速度缓慢甚至无法学习。<br>ResNet[45]是一种以有效训练深层网络而闻名的卷积神经网络架构。ResNet50是ResNet的一种变体，拥有50个层级。ResNet的关键创新在于Shortcut，它能够缓解梯度消失问题，并使得训练更深层网络成为可能。Shortcut通过跳过ResNet50网络的一些层级，在反向传播过程中促进梯度的Stream，使得网络更容易训练。Shortcut的表达式为，其中是输入，是从残差函数学习到的特征图，而表示输出。ResNet50包含四个模块，每个模块是一组协同工作的卷积层，共同提取特征。这些模块负责不同的特征提取层次，从第一层到最后一层，特征复杂性逐渐增加。最后一层是一个全连接层。WideResNet50[46]是宽ResNet的一种变体，它是ResNet50架构的扩展，专注于增加卷积层的宽度（通道数）。<br>Inceptionv3[47]是一种模块化的卷积神经网络（CNN）设计。InceptionNet的模块化设计通过在Inception模块中使用具有不同滤波器大小的并行卷积路径，以提高特征提取效率和视觉识别任务中的性能。采用并行卷积路径可以降低计算复杂度。<br>深度模型往往产生更多的参数，而多次卷积操作会减小特征图的大小，从而降低分辨率。网络通常会任意调整滤波器宽度，导致深度、宽度和分辨率分布不均。这种缺乏统一性在工业应用中带来了挑战，导致了成本的上升和可用资源的限制[48]。EfficientNet旨在解决在卷积神经网络（CNN）中平衡深度、宽度和分辨率的问题，以提高准确性和效率。与先前随机缩放这些维度的模型不同，它采用了一种复合缩放方法，数学上表示为深度（d）&#x3D;α^φ，宽度（w）&#x3D;β^φ和分辨率（Ψ(r)）&#x3D;γ^φ；其中α、β和γ通过网格搜索优化。α调整深度，β调整宽度，γ’调整输入图像的分辨率，而φ均匀缩放所有网络维度。EfficientNet有不同的变体。其中，EfficientNet-B7是ImageNet数据集中性能最佳的神经网络。<br>随着移动设备的增长，研究行人开始构建适用于具有计算和内存限制的移动和嵌入式设备的卷积神经网络（CNNs）。这种网络被称为MobileNet[49]。MobileNet网络的主要创新在于使用标准的卷积操作与深度可分离卷积（DsCs），以最小化模型参数。DsCs通过一个单通道进行3次卷积，滑动在输入张量上以产生每个卷积的输出通道。随后，使用1点卷积来调整通道深度，与传统的卷积相比，大大降低了计算复杂度和参数数量。MobileNet-v3[50]是MobileNet系列的先进版本，旨在优化移动和嵌入式设备的准确性和效率。<br>在深度学习领域，尤其是自然语言处理（NLP）中，Transformer（Transformer）是一种基于自注意力机制的神经网络架构，它能够捕捉序列数据中的长距离依赖关系。相较于传统的循环神经网络（RNN）和长短期记忆网络（LSTM），Transformer在处理长序列数据时表现出更高的效率和更优的性能。其核心思想是通过自注意力机制实现序列内部元素之间的直接交互，从而避免了传统循环网络中的梯度消失和梯度爆炸问题。<br>2017年，一种名为“Transformer”的网络[51]通过捕捉输入序列之间的长距离依赖关系，实现了对输入数据的序列处理。这种能力得益于将长序列分割成小Token，并为每个Token提供位置信息。通过使用自注意力机制来提取特征，每个输入序列的位置都可以关注到所有其他位置，这使得模型能够关联序列中彼此距离较远的元素。它并行处理每一对Token，使得所有配对之间能够直接交互。重要的是，这种统一处理确保了每一对Token都以相同且一致的方式被对待，从而提高了模型高效捕捉整个序列复杂关系的能力。与CNNs[25]相比，由于自注意力机制[52]，Transformer可以捕捉整个序列的信息，其感受野有限。这种能够整合全局特征的能力在理解整个输入序列至关重要的任务中特别有利，如自然语言理解和图像分类。本节介绍了在目标识别中使用的Transformer基础网络。<br>视觉Transformer（ViT）[26]是一种利用Transformer架构进行图像分类的创新方法。与依赖于卷积来捕获空间层次结构的CNN不同，ViT将图像分割成一系列固定大小的重叠Patch，并将每个Patch视为一个Token。然后，这些Token被输入到一个标准的Transformer编码器中，使模型能够捕捉整个图像的全局特征和复杂关系[53]。ViT-Base是一个包含12个Transformer编码器的网络，它通过多头自注意力机制提取有意义的特征。ViT的最后两层是层归一化和分类Token层。层归一化有助于稳定训练过程，但增加了更多的计算负担。此外，分类Token是抽象的信息聚合器，它汇总了整个图像的表示，用于分类目的。<br>SwinTransformer[54]是ViT的一种改进。与ViT不同，Swin引入了一种层次化结构，其中图像最初被划分为不重叠的块，然后这些块被组合成层次化的区块。这种方法使得模型能够有效地同时捕捉局部细节和全局上下文。SwinTransformer还在每个区块内使用移动窗口，使得跨层级的感受野可以重叠，从而更好地捕捉不同尺度上的多样化特征。SwinTransformer的Token化策略进一步增强了其处理不同分辨率和复杂度图像的能力，使其适用于需要详尽空间信息和多尺度上下文的任务。<br>特征融合是深度学习的重要组成部分，它结合了来自多个层级或来源的信息。这增强了网络理解并解释数据中复杂模式的能力。在ResNet[45]、WideResNet[46]、ViT[26]和FPN[55]等深度网络中，添加不同层级的特征是常见的。同样，在InceptionNets[47]、DenseNet[56]和U-Net[57]等流行网络中，不同层级的特征拼接也是存在的。加法和拼接等方法被认为是上下文无关的特征融合技术。它们对待所有特征一视同仁，不区分信息量更多和更少有用的特征。这些方法通过逐元素相加（在加法的情况下）或将它们并排放置（在拼接的情况下）来简单地聚合特征，而不具备评估每个特征重要性的机制。因此，它们可能会将噪声和不相关信息包含在最终的特征表示中，从而降低网络性能[58,59,38]。<br>存在一些技术，如SENet（挤压-激励网络）[58]和CBAM（卷积块注意力模块）[59]，可以通过选择更有信息量的特征来增强特征表示。SENet和CBAM利用注意力机制，通过关注最相关的信息来增强特征融合。SENet通过显式地建模通道之间的相互依赖性来重新校准通道级的特征响应。CBAM依次应用通道和空间注意力来强调两个维度上的信息性特征。这些注意力机制允许网络有选择性地突出有用的特征并抑制不那么有用的特征，从而提高性能。然而，这些技术在融合相同网络的特征时是有用的，因为这些注意力技术侧重于细化特征，但不能直接融合CNN和transformer的特征。本研究聚焦于通过结合CNN和transformer的特征来提高牛的识别能力。<br>本节首先探讨了基于CNN和transformer特征融合在不同领域的各种研究。根据融合方法，它们被分为三种方法（基于加法、基于连接和基于注意力）。此外，本节还回顾了利用深度学习网络进行基于鼻尖的牲畜识别的现有研究。<br>基于加权的特征融合是指将两种不同的特征进行简单相加。本部分涵盖了在各个领域中应用的同尺度或不同尺度、分辨率的两种类型特征的融合。<br>Nie等人[60]提出了一种简单的方法，即直接将两个不同网络在相同尺度下的特征相加。该方法引入了一种基于CNN和transformer的跨模态特征融合策略，通过跨模态特征融合优化了特征多样性和跨模态信息交换。Song等人[61]使用CNN提取多尺度局部特征，并从transformer中提取全局特征；这两个特征通过卷积层进行通道匹配，最终相加。融合后的特征张量进一步细化，增强了目标区域内的细节特征，同时抑制了周围区域的不相关信息。这丰富了整体特征表示，提高了分割和检测任务。类似地，研究[62]中提取并添加了多尺度特征。它解决了从具有复杂几何外观和重叠现象的单张图像中有效去除雨迹的挑战。由于雨滴图案的多样性和不规则性，传统方法难以应对。该研究提出，通过逐步整合，混合CNN-transformer网络可以克服这些限制。<br>在基于CNN的阶段，存在空间变化的雨分布特征。在基于transformer的阶段，通过捕获长距离特征依赖性进行全局纹理恢复，同时保持结构完整性，提取了背景感知特征。使用通道注意力网络SENet[63]重新校准CNN和transformer特征，并与原始CNN和transformer特征相加。研究[64]中添加了多尺度和多分辨率特征。它解决了U-Net在医学图像中的局限性，因为U-Net难以捕捉全局和长距离依赖。它使用CNN和transformer双分支，聚合局部和全局提取的特征。此外，不同通道维度的CNN和transformer特征通过1×1卷积层进行维度对齐，最终相加[65]。<br>Zhu等人[66]使用了不同特征的加权求和。<br>加权求和允许对哪些特征对最终聚合特征贡献更大有更多控制，从而实现更精细且可能更有效的表示。Vindas等人[67]使用双分支，采用transformer和CNN的多尺度特征提取，随后进行加权特征相加。与简单相加相比，加权相加更好，因为它使用Hadamard积[68]来包含更多信息量丰富的特征。<br>Yang等人提出了一种通过计算注意力分数来衡量不同特征重要性的方法。它生成一个表示输入图像中不同块质量分数的分数图。它还生成一个注意力图，表示分配权重或重要性给输入图像中每个块的矩阵。<br>注意力分数是通过使用Hadamard积对分数图和注意力图进行加权求和获得的。这种机制根据每个块的重要性动态调整其对贡献，模拟人类视觉系统对关键区域的关注。Hadamard积执行简单的元素级交互，无法同时捕捉序列中的复杂依赖关系和上下文，以同时关注不同的输入部分。<br>特征拼接指的是将多个特征向量合并成一个单一的特征向量。这是机器学习和数据处理中的一种常见技术，用于创建更全面的特征表示。通过拼接，不同尺度和分辨率的特征被附加或堆叠在一起。本小节涵盖了一些用于特征融合的显著研究。<br>在研究[70]中，通过级联多尺度特征来检测不同大小和复杂度的物体。该方法在特征提取网络中集成了卷积神经网络（CNN）、Transformer和可变形卷积。这种融合方法通过利用ViT捕捉全局依赖性的能力以及CNN在空间特征提取方面的专长，增强了特征提取的能力。该方法被应用于准确检测不同大小和复杂度的海洋生物。Wei等人[7l]针对遥感图像语义分割的挑战进行了研究，其中传统方法难以有效地利用丰富的语义信息和不规则形状模式。卷积和单尺度特征图通常无法捕捉到准确分割所需的多样化上下文细节。他们提出了一种多尺度特征金字塔检测器[71]，以融合图像特征。所提出的解码器采用2D到3D的变换方法来获取包含丰富上下文信息的多尺度特征图，并通过级联融合多尺度特征图通道。类似地，Yu等人[72]、Xu等人[73]简单地将CNN和ViT的特征级联，以提供更好的准确性和对新数据的泛化能力。<br>Dutta等人[74]将三种不同尺度和分辨率的特征进行了拼接。这项研究强调了卷积神经网络（CNN）在局部像素相关性方面的应用，以及视觉Transformer（ViT）在捕捉长距离像素相关性以提取基于形状的特征。同样，在文献[75]中，医学图像中的多尺度和多分辨率特征也被拼接在一起。该研究解决了在医学成像中使用ViT的挑战，特别是在小型数据集（如无线胶囊内镜中的数据集）方面。Nguyen等人[76]从医学X射线图像中提取了CNN和ViT特征，并将它们拼接在一起。<br>Yang等人[77]提出了一种创新的方法来融合CNN和Transformer特征。通过沿着通道融合不同深度的特征，并使用卷积块进行细化。Wang等人[78]解决了语义分割的挑战，其特征为丰富的语义信息和不规则形状模式。它使用了Transformer特征，并应用CNN提供空间和通道注意力，随后通过通道拼接将特征进行细化。Oukdach等人[79]提出了一种增强ViT性能的鲁棒方法，用于在有限数据下进行医学图像分类。通过整合CNN模块来提取详细特征，并将它们与ViT的全局表示拼接，所提出的模型在准确性和鲁棒性方面取得了显著的改进。Qiao和Zulkernine[80]集成了一种特征金字塔网络（FPN）[55]，以增强连接式自动驾驶车辆之间的协同感知。FPN通过从点云数据派生的伪图像表示中提取三个下采样块，提取了多分辨率和多尺度的中间特征。这些中间特征在通道和空间维度上进行了拼接。这种融合机制综合了来自不同视角和分辨率的信息。<br>注意力是通过对输入图像的某一部分提供更多关注来实现的。基于注意力的方法[42,41,40]被用于特征的一部分。然而，每种注意力融合都使用了不同的预处理和后处理方法来筛选最佳特征。此外，还有研究提供了将CNN提取的特征通过将CNN特征输入到Transformer网络中引入注意力机制。这种CNN与Transformer的融合并不直接聚合特征。这实际上是CNN在Transformer中的序列式集成，而非直接特征融合。<br>Qi等人[91]、Xing等人[92]提取了不同的特征，对这两种特征都提供了通道注意力，并使用softmax函数将它们结合起来以获得注意力Mask。该注意力Mask与Transformer特征相乘。这一步骤通过强调注意力Mask认为重要的部分，以及淡化不那么重要的部分，来调整Transformer特征。Zhou等人[93]将CBAM应用于局部和全局特征，以选择最有信息量的特征并进行融合。<br>陈等人[94]在Mobile-Former架构中提出了一种双向桥梁，该桥梁促进了MobileNets局部特征与Transformer全局信息之间的交流。在“MobiletoFormer？”方向上，通过轻量级的交叉注意力将局部特征发送到Transformer部分，有效地将它们与全局Token合并，而无需复杂的计算。相反，在“FormertoMobile”方向上，当全局Token返回到MobileNets部分时，增强了局部特征，提供了更广泛的环境。将详细局部特征和全局环境相结合，提高了该架构在图像分类任务中的最终性能。然而，它在处理较小图像时在速度和准确性上存在不足。<br>深度学习模型，尤其是卷积神经网络（CNNs），在牛只识别研究中得到了广泛的应用。其中最常用的架构包括VGG、ResNet、WideResNet、InceptionNetEfficientNet和MobileNet，这反映了基于CNN的模型在从牛只图像中提取判别性特征方面的有效性。<br>VGG16在多项研究中表现卓越，常常在牛只识别任务中超越其他卷积神经网络（CNN）变体。VGG16的性能超过了研究[95,96,97,98,99,100]中报道的多个CNN。这可能是由于其深度架构和一致的层次化特征表示，使其非常适合基于图像的分类任务。研究[21,101,102,103,104,105,106]中使用了ResNet，展示了CNN在有效识别牛只方面的优势。Kimani等人[107]利用宽ResNet作为有效的牛只识别方法。宽ResNet在每层学习特征数量方面具有更大的容量。<br>InceptionNet在的研究中展现了卓越的性能。EfficientNet被[23,112,113]的研究用于实现韩牛识别的最佳性能。此外，更轻量级的网络如MobileNets也被的研究用于开发轻量级的牛识别系统。ViT也被一些牛识别研究如[118,119,120,121]应用于探索传统基于CNN方法的有前景的替代方案。另外，一些研究如[122,123,124]还探讨了SwinTransformer以扩展Transformer模型在牛识别中的应用。<br>深度特征融合在牛只识别的研究中已得到应用。Ojala等人[31]通过使用卷积神经网络（CNN）提取特征，并随后添加以提升牛只识别效果。CNN与Transformer（transformer）的结合对羊牛的面部识别有所裨益[32]。然而，这项研究[32]使用简单的卷积网络提取特征，并将其输入到Transformer中提取全局特征。最后，通过添加的方式融合了CNN和Transformer提取的特征。Du等人[33]从VGG16的早期层提取局部特征，从VGG16的高层提取全局特征，并通过拼接局部和全局特征进行融合。Wan等人[34]使用VGG16在两个分支中提取特征，一个分支具有空间注意力特征，另一个分支具有通道注意力特征，最后进行拼接。研究[35]在ResNet50中使用了鬼卷积[125]和CBAM，以在特征提取过程中提供通道和空间注意力。Hu等人[36]使用来自牛只不同部分的CNN特征，然后将这些特征相加以提高识别精度。Weng等人[37]使用双分支CNN提取特征，并使用SE块对提取的特征进行通道级重新校准，随后拼接两个分支的特征。<br>大多数关于牛只识别的研究要么专注于使用卷积神经网络（CNNs）或Transformer，很少将两者结合起来。即使在使用特征融合的情况下，方法通常也仅限于直接相加或简单拼接特征。在本研究中，提出了一种用于牛只识别的新型双分支方法。一个分支使用CNN提取局部特征，另一个分支使用Transformer提取全局特征。两个分支并行工作，并使用多头注意力机制融合这两个特征。多头注意力机制考虑了CNN和Transformer特征之间的长距离关系。根据注意力分数选择最有信息量的特征。<br>在本次研究中，作者采用了以下方法论来确保实验的有效性和结果的可靠性：<br>数据收集：通过公开数据库和在线资源收集了大量相关数据，以构建研究的基础。<br>特征选择：运用机器学习算法对数据集进行了预处理，以提取关键特征，提高模型的性能。<br>模型构建：采用了先进的深度学习架构，通过多层的神经网络结构来模拟复杂的学习过程。<br>参数优化：通过交叉验证和网格搜索等方法，对模型的参数进行了细致的调整，以实现最佳性能。<br>结果评估：采用多种评估指标，如准确率、召回率和F1分数，对模型的性能进行了全面评估。<br>结果分析：对实验结果进行了深入分析，以揭示模型在不同任务上的表现，并探讨可能的改进空间。<br>作者选取了具有代表性的ResNet50作为卷积神经网络，并将ViT作为Transformer网络进行修改，以降低计算复杂度。ResNet-50因其深度、简洁和在各种图像识别任务中的可靠性而得到选择。其Shortcut有效地缓解了深度网络中的退化问题，使得复杂网络的训练更加高效[126,127]。ResNet50的广泛应用和预训练模型的可用性使其成为许多图像识别应用的实用选择[128,21,129,130]。同样，ViT因其优异的ImageNet数据图像识别性能而被选中，它利用自注意力机制比传统CNN更有效地捕捉图像中的长距离依赖关系[26]。<br>图1展示了所提方法的草图。该模型通过卷积神经网络（CNN）和Transformer处理输入图像以提取独特特征。然后，这些提取出的特征通过多头注意力机制进行结合。融合后，合并的特征通过全连接层进行处理，并使用softmax层进行分类。<br>图1：用于牛只识别的双分支MHAFF方法的架构。CNN分支提取局部特征，而ViT分支捕捉全局特征。这些特征通过采用具有上下文感知的多头注意力机制进行融合，从而提升了识别性能。<br>在这项研究中，作者使用了两个基准数据集和两个公开的牛数据集。所使用的基准数据集是CIFAR10[131]和Flower102[132]。CIFAR10（加拿大高级研究研究所-10）是一个广泛使用的图像分类数据集。它包含60000张图片，每张图片的尺寸为像素，分布在十个不同的类别中。该数据集分为50000张训练图片和10000张测试图片。Flower102，也称为牛津102种花卉数据集，是一个专为细粒度视觉分类设计的图像数据集。它包含102种不同的花卉类别。图片的尺寸、姿态和光照条件各异，为细粒度识别模型的训练和评估提供了具有挑战性的数据集。图片总数为7169张，其中1020张用于训练，6149张用于测试。图片尺寸从像素到像素不等，为模型训练和评估提供了多样化的视觉表示。<br>作者使用了两个公开的牛数据集：Cattle-1[21]和Cattle-2[22]。Cattle-1数据由澳大利亚新英格兰大学（UNE）的研究行人在大学农场采集。这些数据包括300头牛在晴朗天气下，自然光照条件下从距离牛脸1-2米处和离地面1米高的位置捕捉到的2632张牛脸图像。通过从作者之前研究[133]中开发出的改进版YOLOv5模型，从面部图像数据中检测并提取了牛嘴。提取的牛嘴数据集共有2447张图像。在这2447张图像中，数据集按照70%、20%和10%的比例随机分为训练集、验证集和测试集。图像的最低分辨率是200（宽）×400（高）像素，最高是600×600像素。该数据集包含不同品种的图像，包括安格斯、赫雷福德、夏洛来和西门塔尔。图像是全脸的，牛的颜色各异，如白色、黑色、棕色和红色。每头牛的图像数量在6到16张之间。图2中展示的三张图像的第一行是Cattle-1数据集的样本图像。<br>牛-2[22]数据由内布拉斯加大学林肯分校（UNL）东部内布拉斯加州研究推广与教育中心（ENREEC）的农场在美国（USA）采集。这些数据包括从268头混合品种牛（安格斯牛、安格斯-黑十字牛和大陆-英牛杂交牛）中获得的4923张图像，图像是从围栏外部以不同的距离从前方拍摄的。相比之下，牛在围栏内处于自然光照条件下。可用的图像是通过手动裁剪得到的嘴巴区域图像。每头牛的图像数量在4到70张之间。最低分辨率为，最高分辨率为。牛-2数据集的样本图像如图2的第二行所示。这些数据也被分成了训练集、验证集和测试集，比例分别为、和。<br>图2：Cattle-1和Cattle-2数据集的Head图像样本。上排展示的是Cattle-1的样本，下排展示的是Cattle-2的样本。<br>MHAFF方法涉及两种不同类型的网络进行特征提取。这两种特征提取网络接受不同类型的图像输入。Transformer网络按顺序处理图像，将输入图像处理成一系列的Patch及其位置。相比之下，CNNs本身并不考虑图像的顺序。为了确保与两种架构的兼容性，作者相应地准备了数据。CNN使用Torchvision库中的transforms来转换整个图像。这种转换包括将输入图像调整至256像素的尺寸，然后进行中心裁剪以提取的区域。接着，图像被转换为PyTorch张量并进行归一化。这些设置确保在训练过程中输入数据被适当地格式化和标准化。另一方面，Transformer使用图像的Patch序列。对于Transformer的图像转换，包括将所有图像调整至像素的固定尺寸，并将图像分割成像素的Patch。这种转换标准化了输入图像，确保在Transformer模型的数据准备过程中具有一致的尺寸和像素值范围。<br>此外，在训练过程中采用了数据增强技术以增加图像的数量和多样性。这种方法有助于合成生成新的图像，并扩展用于训练深度学习模型的小型数据集。在本研究中，数据增强被应用于预处理阶段。采用了四种不同的策略：水平翻转、亮度调整、随机旋转和模糊处理。水平翻转被引入以模拟由于牛的自然运动而捕获到的不同位置。亮度调整模拟了各种户外光照条件，亮度值在0.2到0.5之间调整，其中0为最暗，1.0为最亮。随机旋转设置为-15°至15°之间，用以模仿牛的自然Head运动。为了处理过曝和运动模糊，使用了从1到5的核大小的高斯滤波器进行模糊处理，从而得到模糊的嘴部图像。<br>特征提取是一种将原始数据（如图像、信号或文本）转化为一系列可测量且具有意义的属性，即特征[134,135]的过程。这些特征可用于分析和模型训练。特征提取的目的是在保留与特定任务（如分类、检测或识别）相关的底层模式的关键信息的同时，降低数据的复杂性[136,134,135]。<br>修改后的ResNet和ViT网络被用于提取特征。ResNet50的底层可以提取局部特征[137]。然而，ViT在底层提取混合特征，而在高层提取全局特征[26]。ResNet50和ViT网络的特征表示显示，ResNet50的下半部分和ViT的最底层有高度相似性[138]。因此，对ResNet50和ViT进行了修改，以相应地提取局部和全局特征。Res-t是ResNet50的修改版本，去除了最后的密集层并微调了下半部分，这里的下半部分层指的是ResNet50的前两个模块。类似地，ViT-t是ViT的修改版本，去除了最后的两层并微调了上层八个编码层。<br>特征融合是将来自不同来源或特征提取方法的多个特征集结合成一个单一、统一的表示。特征融合的目标是利用不同特征集的互补信息来提高深度学习网络的表现。本节将解释基于多头注意力的特征融合方法。多头注意力提供了关于在特征图中关注何处的信息。它在空间域中提供了更多的关注，并利用它来选择重要的空间区域[139,140]或直接找到最相关的空间位置[141,142]。多头注意力还用于收集Res-t和ViT-t特征之间的空间注意力[143]。MHA使用了三个重要的参数，称为Query（Q）、键（K）和值（V）。Q是试图计算新表示的实体。K和V是基于Q进行关注的成对元素。使用MHA融合CNN和transformer特征时，关注给定表示的两个特征。在多头自注意力[51]中，如果S代表输入序列，Q、K和V通过乘以可学习的权重矩阵计算得出，使用以下公式：<br>、和是可学习的权重矩阵，最初随机分配，并在训练过程中进行更新。<br>该方法通过从Res-t和ViT-t生成的特征向量中生成Query（Q）、键（K）和值（V）矩阵。具体来说，如图3所示，键（K）矩阵由Res-t获取的特征生成，而Query（Q）和值（V）矩阵由ViT-t获取的特征生成。Q、K和V的维度相同，分别表示为、和。令代表5iT-t的Transformer特征矩阵，代表Res-t的CNN特征矩阵。作者尝试了和的不同组合来生成、和。从和生成、和共有六种可能的组合。作者对所有可能的组合进行了实验，并取得了最高的准确率是在组合上。表1展示了每种组合生成、和的准确率。其中，和分别代表5iT-t和Res-t的特征。<br>Q、K和V是通过以下公式生成的：<br>注意力的计算是通过Q与K之间的缩放点积来实现的，接着对结果应用softmax函数，使用来缩放Q与K之间的点积。注意力机制可以表示为：<br>终极多头注意力方法。这明显表明了与原始Transformer不同的方式生成和。<br>输入序列被划分为不同数量的称为“头”的部分，以并行处理注意力。注意力在各个头之间进行计算，最终注意力通过连接每个并行头的计算结果来得出。对于具有个头的多头注意力（MHA）来说，该过程可以概括为：<br>是一个可学习的参数，随机分配并在训练过程中更新。随后，使用最大余弦相似度（MHA）过程计算融合特征。<br>融合特征向量Z，由多头注意力（MHA）机制推导而来，其维度为64。该向量随后通过一个全连接层，生成一个维度为C的输出向量，C对应于牛的类别数量。这一变换的数学表达式为：<br>A表示权值矩阵，b代表维度为的偏置向量。在变换之后，对的元素应用softmax激活函数，以计算每个类别的概率。softmax函数将输出分数归一化成一个概率分布，具体定义为：<br>表示的第个元素。这种方法允许在分类框架内对牛进行分类。模型通过利用转换后的特征向量，通过softmax激活函数输出类别概率。这些概率表示融合特征属于每个牛类的可能性，从而根据模型的预测进行牛的识别。<br>迁移学习被应用于Res-t和ViT-t网络，通过PyTorch库利用ImageNet[144]数据集的预训练权重。迁移学习是一种强大的技术，能够提升性能，尤其是在处理小型数据集时使用transformers时更为明显。它允许更快的训练、更好的泛化能力，以及高效地利用有限的数据和计算资源[145]。实验采用了50个训练周期。作者提出的网络的预训练权重通过最小化多类交叉熵损失进行微调。还应用了多种优化方法，如动态学习率调整和提前停止，以避免过拟合。在训练过程中使用了Adam优化器和ReduceLROnPlateau技术进行动态学习率调整。如果损失在五个周期内没有改善，则将学习率降低0.1，初始学习率设置为。使用了20个周期的耐心值和0.3的丢弃率进行提前停止。所有与迁移学习相关的超参数，如周期、学习率、提前停止和丢弃率，在多次训练迭代中进行了细致的调整。<br>损失函数（）定义如下：<br>其中，表示批量大小，表示类别数量，是一个指示器（取值为0或1），表示类别是否是样本的正确识别，而是预测样本属于类别的概率。准确率指标量化了所提出方法在验证阶段的预测性能。该准确率通过将模型通过前向传播获得的预测与真实标签进行比较来确定。验证准确率，即正确预测样本数与验证数据集中总样本数的比率，计算如下：<br>首先，作者利用Flower102和CIFAR10数据集来确定最佳的Q、K和V组合。从这些数据集中识别出的最佳组合随后应用于牛的数据集。选择Flower102和CIFAR10数据集是因为它们作为小型基准数据集的地位。这有助于高效且可靠地评估Q、K和V组合，以生成最高的注意力分数。表1展示了从ViT-t特征输入中的不同和值组合以及从Res-t特征输入中的K值组合在两个数据集中的结果。所提出的组合（，，和）在Flower102和CIFAR10上分别优于次高组合（，，）3.84%和5.21%。这些结果表明，对于Query、Key和Value矩阵的特征输入组合，此组合对作者任务来说是最佳的。因此，作者选择了这个配置作为实验的最佳方法，确保了模型能力的最有效利用，以实现准确和稳健的性能。<br>首先，所提出的方法的性能与加法和连接技术进行了比较。表2展示了加法、连接和所提出特征融合方法的比较结果。该表还展示了单个特征提取网络（Res-t和ViT-t）的结果。根据表2的结果，单个特征提取网络Res-t和ViT-t的表现均低于所有特征融合方法。通过融合两种方法的优势，所有组合方法（加法、连接和MHAFF）能够有效利用CNN的局部特征提取能力和Transformer的全局上下文理解。这种协同效应带来了性能的提升。此外，MHAFF在Flower102和CIFAR10数据集上优于加法和连接方法。多头注意力学习并捕捉了Res-t和ViT-t特征之间的复杂相互依赖关系。它根据相关性动态地为输入特征的不同部分分配权重。这意味着最重要的特征通过提供更高的注意力分数而得到更多的关注，从而实现上下文感知和更有效的融合。表2中的结果表明，作者提出的方法在牛的数据集上取得了优异的性能，证实了其有效性。<br>表2：不同方法在不同数据集上的验证准确率作者还利用Grad-CAM[146]对每个数据集的图像样本分别应用了Res-t、ViT-t、加法、拼接和MHAFF方法，以可视化图像中哪些区域对模型的预测贡献最大。这有助于作者解读模型的内部工作原理，验证模型是否专注于不同类别的相关特征。通过检查类激活图，作者确认模型识别到了有意义的特征，这增强了作者对模型泛化能力和在整个数据集上性能的信心。从图4中可以观察到，与其它方法相比，MHAFF方法持续产生更加专注和精确的注意力图，这表明它具有更优越的特征提取能力。<br>在所有四个数据集中，MHAFF始终产生最佳的Grad-CAM可视化效果，对图像的相关部分提供最精确的注意力。MHAFF生成的可视化显示了清晰的焦点，同时最小化了图像的背景和不相关部分。MHAFF在产生更聚焦和具有上下文感知的激活方面表现出色。特别是，MHAFF生成的Heatmap更加锐利和局部化，展示了其在捕捉细微细节方面的有效性。这种可视化分析强化了定量结果，提供了关于作者模型鲁棒性和MHAFF特征融合技术相对于传统方法优势的强有力的定性证据。MHAFF提高的焦点激活区域归因于两个特征的上下文感知融合。</p>
+<p>图4：来自四个数据集的样本图像的Grad-CAM可视化表3显示了MHAFF在Cattle-1数据集上达到了最高的准确率99.88%，在Cattle-2数据集上达到了99.52%。MobileNet-v3在Cattle-1数据集上实现了第二高的性能，准确率为97.68%。同样，ViT在Cattle-2数据集上实现了96.80%的准确率。MHAFF在Cattle-1数据集上提高了2.2%的准确率，在Cattle-2数据集上提高了2.72%。牛只识别网络的验证准确率图见图5。MHAFF的验证准确率在训练的几个epoch后达到了更高的准确率。例如，MHAFF在第20个epoch的准确率分别为Cattle-1的99.84%和Cattle-2的98.36%。另一方面，VGG16_bn在Cattle-1和Cattle-2数据集上分别以96.44%和94.08%的准确率位居第二。ResNet50在Cattle-1和Cattle-2数据集上以52.24%和62.32%的准确率排在最后。此外，所有网络的验证损失图见图6。与其它网络相比，MHAFF网络的验证损失起始值相对较低。它在训练的几个epoch内收敛到一个显著更低的损失值。例如，MHAFF在第20个epoch的损失分别为Cattle-1的0.0086和Cattle-2的0.0263。紧随MHAFF之后，VGG16_bn在Cattle-1和Cattle-2上的损失分别为1.2123和1.3786。其他方法在第20个epoch的损失要高得多。这种快速收敛表明MHAFF能够有效地从数据中学习到有意义的特征。验证损失的显著差异突显了MHAFF在泛化未见数据方面的能力，使其成为牛只识别任务的稳健解决方案。总的来说，这些发现强调了MHAFF方法在提升模型性能方面的有效性。<br>MHAFF的准确性和损失图表明，与现有的牛只识别方法相比，MHAFF表现更优。MHAFF在几个训练周期内快速收敛，实现了高准确率和低损失。MHAFF卓越性能的原因如下：<br>CNN和Transformer的协同优势：MHAFF结合了CNN和Transformer的优势。CNN在空间特征提取和模式识别方面表现出色，而Transformer擅长捕捉图像不同部分之间的长距离依赖和语义关系。通过结合这些优势，MHAFF实现了更全面的特征表示和理解，从而提高了识别精度。与单独使用CNN或Transformer不同，MHAFF能够同时优化地利用空间信息和上下文理解。这种整体性的表示学习方法确保了图像中所有相关特征和关系都被有效捕捉并用于牛的识别。<br>上下文融合机制：MHAFF通过多头注意力机制集成了上下文感知融合机制。这使得能够捕捉图像特征内部的复杂关系和依赖。这种能力显著提高了在理解空间关系和细微细节（如鼻尖上的珠子图案和纹理）至关重要的任务中的准确性。如图4所示的Grad-CAM可视化验证了这一点，Heatmap提供了图像中具有敏锐注意力的区分部分。<br>MHAFF与相关研究中提到的其他牛识别方法进行了比较。这些不同的牛识别方法通过数据集大小、牛的数量、感兴趣区域（Rol）、特征融合、表现最佳模型和准确率等因素在表4中进行比较。如ResNet50、VGG16-bn和EfficientNet等模型实现了高准确率，通常超过96%。值得注意的是，MHAFF模型在两个牛数据集上取得了最高的准确率，分别为99.88%和99.52%，超过了所有先前的研究。MHAFF在两个牛数据集上得到了验证。Cattle-1数据集的来源是文献[21]。<br>然而，作者采用了不同的方法[133]来检测和提取牛嘴，导致牛的数量相同但数据集大小不同。值得注意的是，与文献[21]相比，MHAFF实现了更高的性能。Cattle-2数据集的使用方法与文献[22]中的完全一致，并且作者的工作超过了该研究的成果[22]。在两项研究[21,22]中使用的最佳模型也在此研究中得到了实现，并与MHAFF在表3中进行比较。然而，由于训练、测试和验证划分的不同以及超参数设置的差异，结果存在差异。此外，研究[21]中使用的与作者的Cattle-1数据并不完全相同。<br>总结来说，本研究提出了一种基于多头注意力特征融合（MHAFF）技术的创新方法来识别牛。该方法有效地结合了卷积神经网络（CNNs）和Transformer的互补优势。<br>这种集成专门设计用于解决准确和鲁棒识别的挑战，通过增强特征表示并聚焦于关键图像区域。通过广泛的实验比较，MHAFF在传统融合方法（如加法和ConCat）以及基于鼻端的牛识别现有技术方面表现出优越的性能。与传统的往往难以同时捕捉详细和上下文信息的做法不同，MHAFF的多头注意力机制允许模型动态权衡和融合来自不同感受野的特征。这确保了重要空间和上下文特征被优先考虑，从而对每个鼻纹图案有更细腻的理解。<br>Grad-CAM的可视化进一步验证了作者的方法，表明MHAFF使模型能够聚焦于鼻部图像中对于识别至关重要的关键区域。这些注意力图揭示了MHAFF如何引导模型关注独特特征。该方法还展示了在多个数据集上的强大泛化能力，比传统模型实现了更高的准确率和一致性。通过推进牛的识别，MHAFF不仅为准确性设定了新的基准，而且在开发智能监控系统和管理牛的系统中迈出了重要一步。MHAFF的有希望的结果突显了其在畜牧业管理中更广泛应用的潜力。<br>[1].MHAFF:Multi-HeadAttentionFeatureFusionofCNNandTransformerforCattleIdentification.<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/03/31/1000001547-2247539415-2/">https://zejuncao.github.io/2025/03/31/1000001547-2247539415-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/03/31/1000001547-2247539415-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001547_2247539415_1.jpg" class="responsive-img" alt="CV被大模型“解决”？开源模型UFO：16个Token搞定图像任务！（附论文及源码）">
+                        
+                        <span class="card-title">CV被大模型“解决”？开源模型UFO：16个Token搞定图像任务！（附论文及源码）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-31
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/31/1000000438-2247491375-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000438_2247491375_2.jpg" class="responsive-img" alt="TRELLIS：用于创建多功能、高质量的360°全景图生成方法，实现可扩展多功能3D生成。">
+                        
+                        <span class="card-title">TRELLIS：用于创建多功能、高质量的360°全景图生成方法，实现可扩展多功能3D生成。</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

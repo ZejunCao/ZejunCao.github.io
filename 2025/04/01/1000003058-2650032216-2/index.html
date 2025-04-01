@@ -1,0 +1,1110 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="深度长文｜AI的“自信陷阱”：解剖大模型幻觉背后的“认知短路”, ZejunCao&#39;Blogs">
+    <meta name="description" content="深度长文｜AI的“自信陷阱”：解剖大模型幻觉背后的“认知短路”
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+你有没有被AI一本正经的胡说八道给气笑过？无论是ChatGPT、文心一言，还是其他大模型，它们有时会自信满">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>深度长文｜AI的“自信陷阱”：解剖大模型幻觉背后的“认知短路” | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000003058_2650032216_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">深度长文｜AI的“自信陷阱”：解剖大模型幻觉背后的“认知短路”</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E5%AE%B6/">
+                                <span class="chip bg-color">人工智能学家</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/aT6kgx06l07YqugnQ1dY3Q">深度长文｜AI的“自信陷阱”：解剖大模型幻觉背后的“认知短路”</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>你有没有被AI一本正经的胡说八道给气笑过？无论是ChatGPT、文心一言，还是其他大模型，它们有时会自信满满地编造事实、虚构来源，让你在惊叹其“创造力”的同时，也对其可靠性打上一个大大的问号。我们习惯性地认为这是AI“不懂装懂”，是知识储备不足的表现。<br>但如果告诉你，至少在某些情况下，AI的幻觉并非源于无知，而是因为它内部的一个“认知开关”失灵了呢？<br>顶尖AI研究机构Anthropic最近发布的一篇引人瞩目的论文《OntheBiologyofaLargeLanguageModel》[1]，通过一种创新的“归因图”方法，深入“解剖”了其前沿模型Claude3.5Haiku的内部运作机制。研究揭示了一个反常识的秘密：AI的默认设置，竟然可能不是自信满满，而是倾向于“我拒绝回答”！<br>这听起来是不是很奇怪？一个设计出来回答问题的系统，怎么会默认拒绝呢？这背后，隐藏着理解AI幻觉，乃至其智能本质的关键线索。<br>我们通常感觉AI无所不知，对任何问题都能侃侃而谈。但Anthropic的研究发现，在Claude3.5Haiku内部，存在着一组被称为“无法回答”（can’tanswer）的神经元特征。在没有特定信息触发的情况下，这些特征倾向于默认激活。你可以把它想象成一个极其谨慎的图书管理员，或者一个内置的“我不确定”警报器——除非它明确知道答案在哪里，否则宁愿保持沉默或坦诚不知。<br>这种“默认拒绝”的倾向，很可能源于AI安全训练的结果。像Anthropic采用的“宪法式AI”（ConstitutionalAI）[2]等训练方法，其设计理念就是让模型在面对不确定性时优先选择安全和诚实，正如Turing.com上的一篇文章所讨论的[3]，而不是冒险编造答案，这一点也在Reddit社区关于ConstitutionalAI的讨论[4]中得到了印证。这种策略在Claude系列模型上体现得尤为明显，它们在知识边界时，例如根据其模型卡增补说明[5]提到的，当遇到2024年10月后的新事件时，常常会主动提示其知识截止日期[6]。这份说明还指出，Claude3.5Haiku在模糊问题场景下的拒绝率比前代提升了40%，错误回答率降低了2倍。<br>这与其他一些主流模型形成了对比。例如，GPT系列或Gemini系列，在面对不确定性时，有时更倾向于遵循“最大相关性”原则，优先生成逻辑上连贯、看似完整的回答，哪怕这需要一些“创造性解释”，正如一些用户在讨论为何模型难以承认“不知道”[7]或为何总是如此自信[8]时观察到的那样。<br>以下表格清晰对比了不同模型在面对知识盲区时的典型行为，信息整理自多方分析和用户反馈：<br>模型<br>默认行为倾向<br>核心机制&#x2F;训练哲学<br>典型表现(例：问2025年诺奖得主)<br>ConstitutionalAI,显式不确定性判断,时间戳硬截断[9]<br>“我的知识截止于2024年10月，无法提供准确信息。建议查阅官网…”(来自Claude3.5Sonnet系统提示[10])<br>RLHF,优先保持对话流畅性,隐式文本连贯性判断[11]<br>“根据近年突破，可能授予XX领域研究者，但需等待官方公布…”(基于用户讨论[12])<br>RLHF,概率分布选择最佳文本,后处理过滤器修正[13]<br>(类似GPT-4)<br>模块化设计,对技术问题拒绝率较高,文化问题提供多视角[14]<br>“诺奖评选复杂，2025年获奖方向可能集中在XX或YY领域…”(基于ACLFindings论文[15])<br>那么问题来了，如果AI默认是谨慎的，那我们平时遇到的那些滔滔不绝、甚至“一本正经胡说八道”的AI，又是如何被“启动”的呢？<br>答案在于AI内部一个精妙的“认知开关”机制。这个开关决定了AI是保持默认的“怀疑”状态，还是切换到“自信”模式开始输出。Anthropic的研究揭示了这个开关的核心运作逻辑：<br>信息输入与实体识别：AI接收到你的问题，并从中识别出关键的实体或概念。比如，你问：“迈克尔·乔丹打什么球？”AI识别出关键实体“迈克尔·乔丹”。<br>熟悉度判断：接下来，AI内部的特定特征（Anthropic称之为“已知实体&#x2F;答案”特征）会判断这个实体对它来说是否“熟悉”或“已知”。对于“迈克尔·乔丹”这样在训练数据中海量出现的名字，这个判断结果显然是“已知”。<br>“开关”动作（抑制）：一旦判断为“已知”，这些“已知”特征就会被强烈激活，并执行一个关键动作——抑制（inhibit）那些默认激活的“无法回答”特征。就像按下一个按钮，关闭了“我不确定”的警报器。<br>结果输出：“怀疑警报”被关闭，AI获得了输出“自信”答案的“许可”，于是开始调用与“迈克尔·乔丹”相关的知识，生成答案“篮球”。<br>我们可以用一个流程图来更直观地理解这个“认知开关”：<br>图：AI内部“认知开关”工作流程示意图。这个开关基于对输入实体的熟悉度判断，决定是抑制“怀疑”状态输出答案，还是保持默认的拒绝或不确定状态。<br>这个过程就像海关检查。默认情况下，所有包裹（问题）都会被严格审查（怀疑）。但如果检查员看到包裹上贴着“免检熟客”的标签（已知实体），就会直接盖章放行（自信回答）。<br>这个“认知开关”机制解释了AI为何能对它真正了解的事物对答如流。但关键在于，如果这个开关失灵了呢？<br>为了验证这个机制，Anthropic做了一个巧妙的对比实验，就像在显微镜下观察细胞一样，让我们清晰地看到了“认知开关”的运作与失灵。该实验细节可以在他们的论文关于实体识别和幻觉的章节[16]中找到。<br>场景一：“开关”正常运作<br>输入：“迈克尔·乔丹打什么球？”<br>AI内部：识别出“迈克尔·乔丹”，判断为“高度已知”实体。“已知实体”特征强烈激活，有效抑制了“无法回答”特征。<br>输出：自信回答“篮球”。<br>场景二：“开关”保持默认（或说，无法按下）<br>输入：“迈克尔·巴特金（MichaelBatkin，论文中虚构的名字）打什么球？”<br>AI内部：识别出“迈克尔·巴特金”，但在其庞大的知识库中找不到足够的信息将其标记为“已知”。“已知实体”特征未能有效激活，“无法回答”特征保持活跃状态。<br>输出：拒绝回答或承认无知，例如：“我很抱歉，但我找不到关于体育人物迈克尔·巴特金的确切记录……”<br>这个对比清晰地展示了“认知开关”的存在。更具说服力的是Anthropic的干预实验：研究人员在处理“巴特金”问题时，人为地在模型内部激活了那些通常由“乔丹”触发的“已知实体”特征。结果呢？AI果然被“诱骗”了，它抑制了“无法回答”的警报，开始自信地“胡说八道”，编造出“匹克球”之类的答案！反之，在处理“乔丹”问题时抑制“已知实体”特征，则会导致AI变得犹豫，甚至输出“不确定”。<br>这有力地证明了这个“认知开关”机制的真实存在及其对AI行为的因果影响。独立的研究也佐证了这一点：大模型在处理知名实体（如“巴黎”）的任务时，准确率远高于处理冷门实体（如新型材料化合物）。一篇发表在ACL2024Findings上的论文[17]甚至量化了这种差异：实体流行度（以维基百科访问量衡量）每增加10倍，模型的准确率就能提升17.3%。一篇来自SemanticScholar的研究[18]也显示，在知识图谱扩展任务中，知名实体的链接预测准确率远超冷门实体。这并非巧合，很可能就是因为“已知实体”机制在发挥作用。<br>现在，我们距离理解幻觉的根源只有一步之遥了。<br>如果AI仅仅因为“认识”某个名字就按下“自信开关”，会发生什么？这就是Anthropic发现的“自信陷阱”型幻觉的核心——AI错误地触发了“自信开关”，因为它混淆了对某个标签的“熟悉感”（Familiarity）和对其内容的“掌握度”（Mastery）。AI的阿喀琉斯之踵或许就在于此：它常常错误地把认得地图，当作了熟悉每一寸土地。<br>让我们看看论文中另一个关键案例，这次是关于AI大牛AndrejKarpathy，同样可以在论文的幻觉章节[19]找到分析：<br>输入：“说出一篇安德烈·卡帕西（AndrejKarpathy）写的论文。”<br>AI内部：“安德烈·卡帕西”这个名字在AI的训练数据中频繁出现，AI对其“熟悉度”很高。于是，“已知实体”特征被激活，抑制了“无法回答”的警报，“自信开关”被按下。</p>
+<p>这就是“认知短路”发生的瞬间。AI的内部逻辑大致是：“我认识这个人&#x2F;这个术语（它很熟悉）→那我应该知道关于它的事情→关闭‘我不确定’警报→开始回答”。问题出在第二步，AI错误地将“认识标签”等同于“理解内容”。<br>这种元认知能力（知道自己知道什么，知道自己不知道什么）的缺陷，是导致这类幻觉的关键。关于大模型的元认知、自我知识边界意识和信心校准，已有不少研究[21]正在探索。从认知科学和机器学习的角度看，这种混淆可能源于几个深层原因：<br>统计学习的局限：AI主要通过词语共现频率学习，容易将高频关联（如“爱因斯坦”与“相对论”）误判为深刻理解或因果关系，正如一些理论分析[22]和心理学类比[23]所指出的。训练数据的长尾分布[24]（少数实体占据绝大多数出现次数）加剧了这种倾向，正如OpenReview上的一项研究所讨论的[25]。<br>认知偏差的模仿：AI的行为模式可能在模仿人类的认知捷径，例如“可得性启发式”[26]——更容易提取和信任那些频繁出现在记忆（训练数据）中的信息，即使它们不准确。一项范德比尔特大学关于LLM认知偏差的研究[27]甚至发现LLM在锚定效应测试中表现出与人类相当的偏差率。</p>
+<p>这种“认知短路”带来的风险不容小觑。想象一下，AI仅仅因为认识某个复杂的医学术语或法律概念，就敢于在诊断建议或合同审查中“自信地”给出错误信息。现实中，这样的案例已经发生：<br>一个广为人知的案例是，加拿大航空的客服机器人[30]就因为混淆了退款政策的“熟悉术语”和“具体规则”，错误承诺了赔偿，最终导致公司在法庭上败诉。<br>在法律领域，有报道称GPT-4.5在一个案件中生成与判决书完全相反的结论[31]，其法律研究幻觉率被独立测试高达20%，远超其宣传的3%基准值[32]。<br>医疗领域，一项关于大模型在医疗摘要中幻觉的研究[33]发现，GPT-4在转换X光报告时，曾将BI-RADS4级（可疑恶性）错误地关联到常见的良性特征，填充了错误的诊断信息，这在SemanticScholar收录的一篇论文[34]中有详细讨论。<br>这些触目惊心的案例提醒我们，AI的“自信”可能是一个危险的陷阱。<br>理解AI“自信陷阱”背后的“认知开关失灵”机制，并非只是满足技术好奇心，它为我们更安全、更有效地利用这项强大技术提供了关键启示。<br>对于AI使用者（我们每一个人）：<br>培养批判性眼光：认识到AI的自信并不等于准确。当AI对非公共知识、细节模糊或涉及不太知名实体的问题给出极其自信、流畅的回答时，要格外警惕。这可能是“认知开关”失灵的信号。<br>掌握“反幻觉”提问技巧：<br>追问细节和来源：“能详细解释一下XX概念吗？”“这个信息的来源是哪里？”幻觉往往经不起细节追问。<br>要求多种解释或交叉验证：“还有其他可能的解释吗？”“你能用另一种方式表述吗？”<br>明确限定范围：“根据XX（指定可靠来源）的信息，……”多种提示技巧[35]被证明有助于减少幻觉。<br>利用AI的“默认拒绝”：如果怀疑AI在胡说，不妨尝试更模糊或引导性的提问，看它是否会触发“无法回答”的机制，或者在不同提示下给出矛盾的答案。<br>对于AI开发者和整个行业：<br>重新定义“智能”评估标准：不能只看输出结果的表面准确率，更要评估模型的“自知之明”——即其准确判断自身知识边界和校准置信度的能力。需要开发更有效的基准和指标（如评估医学知识边界的MetaMedQA[36]、评估多模态自我意识的MM-SAP[37]、量化概念置信度的语义不确定性指数SUI[38]等），已有多种评估方法[39]被提出。<br>改进训练方法和架构：<br>优化数据分布：探索逆频率加权采样[40]等方法，减少长尾知识被忽略的问题。<br>引入“元认知”训练：明确训练AI区分“熟悉度”和“掌握度”，让模型学会输出置信度评分，甚至主动声明不确定性，正如一些研究[41]所建议的。<br>探索新架构：研发能够更好管理知识边界的技术，如更先进的RAG（检索增强生成）变体[42]（如RGAR[43]、UAG框架[44]）、动态知识图谱、神经符号混合架构[45]、元认知嵌入层[46]等。各大实验室（OpenAI,GoogleDeepMind,Anthropic,MetaAI）都在积极探索这些方向，例如Google的UDM框架[47]和Meta在Transformer中嵌入熵值检测模块[48]的尝试。<br>强化安全机制：推广类似Anthropic“宪法式AI”[49]的原则，内置更强的审慎和诚实约束。<br>对于我们思考AI的未来：<br>幻觉是发展的必经阶段吗？这种“认知短路”是否类似于人类学习过程中的“过度自信”？理解这一点，或许能让我们对AI的错误更加宽容，但也更加警惕。<br>我们想要什么样的AI？是一个追求表面完美、从不犯错（但也可能隐藏更深风险）的AI，还是一个知道自己局限、能够坦诚沟通“我不确定”的AI？这关乎我们未来与AI协作的基础——信任。<br>理解Anthropic揭示的这个机制，只是打开AI“黑箱”的一小步。AI幻觉的成因复杂多样，还包括知识压缩错误[50]、推理链条断裂[51]、注意力机制失败[52]等多种理论解释。但“认知开关失灵”提供了一个独特且重要的视角，它告诉我们，AI的错误有时并非来自知识的海洋不够广阔，而是来自其内部判断自身状态的“罗盘”失准了。<br>Anthropic的研究像一把手术刀，精准地剖开了AI幻觉冰山的一角，让我们得以窥见其内部机制的复杂与精妙，以及潜在的脆弱性。大模型远非简单的信息检索或文本生成工具，它们正在演化出类似人类认知的内部状态和判断机制，尽管这些机制尚不完善，甚至会“短路”。<br>告别对AI能力的盲目崇拜或对其错误的简单归因，开始学习理解其内部运作的逻辑和局限，这对于我们驾驭这个日益被AI塑造的时代至关重要。我们需要更批判的眼光、更有效的交互策略，以及对构建更可靠、更“诚实”AI的持续投入。<br>未来的人机协作，需要的不是一个永远正确的“神谕”，而是一个能够认知自身边界、值得我们审慎信任的伙伴。<br>那么，你在使用AI时，更看重它的“博学”还是“诚实”？你遇到过哪些让你印象深刻的AI“自信陷阱”？欢迎在评论区分享你的看法和经历。<br>参考资料</p>
+<p>“宪法式AI”（ConstitutionalAI）:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2212.08073<br>Turing.com上的一篇文章所讨论的:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.turing.com/resources/rlaif-in-llms">www.turing.com/resources/rlaif-in-llms</a></p>
+<p>知识截止日期:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.anthropic.com/claude-3-model-card">www.anthropic.com/claude-3-model-card</a></p>
+<p>为何总是如此自信:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.reddit.com/r/LocalLLaMA/comments/1iq54yg/why_llms_are_always_so_confident/">www.reddit.com/r/LocalLLaMA/comments/1iq54yg/why_llms_are_always_so_confident/</a></p>
+<p>文化问题提供多视角:https :&#x2F;&#x2F;aclanthology.org&#x2F;2024.findings-acl.383.pdf<br>ACLFindings论文:https :&#x2F;&#x2F;aclanthology.org&#x2F;2024.findings-acl.383.pdf</p>
+<p>ACL2024Findings上的论文:https :&#x2F;&#x2F;openreview.net&#x2F;pdf?id&#x3D;ahh5eXkKKc<br>SemanticScholar的研究:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.semanticscholar.org/paper/2adc41b5626135926d2a52ac238090a969a47e8c">www.semanticscholar.org/paper/2adc41b5626135926d2a52ac238090a969a47e8c</a><br>论文的幻觉章节:https :&#x2F;&#x2F;transformer-circuits.pub&#x2F;2025&#x2F;attribution-graphs&#x2F;biology.html#dives-hallucinations</p>
+<p>不少研究:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.12961<br>理论分析:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2407.16444<br>心理学类比:https :&#x2F;&#x2F;integrative-psych.org&#x2F;resources&#x2F;confabulation-not-hallucination-ai-errors<br>长尾分布:https :&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;WQamRhhbsf<br>OpenReview上的一项研究所讨论的:https :&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;WQamRhhbsf<br>“可得性启发式”:https :&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;List_of_cognitive_biases</p>
+<p>一些技术博客:https :&#x2F;&#x2F;hungleai.substack.com&#x2F;p&#x2F;uncertainty-confidence-and-hallucination</p>
+<p>3%基准值:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.linkedin.com/pulse/llm-papers-reading-notes-february-2025-jean-david-ruvini-jqdgc">www.linkedin.com/pulse/llm-papers-reading-notes-february-2025-jean-david-ruvini-jqdgc</a></p>
+<p>多种提示技巧:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.promptingguide.ai/">www.promptingguide.ai/</a><br>MetaMedQA:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2402.06544<br>MM-SAP:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2401.07529<br>语义不确定性指数SUI:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.15850<br>多种评估方法:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.kolena.com/guides/llm-evaluation-top-10-metrics-and-benchmarks/">www.kolena.com/guides/llm-evaluation-top-10-metrics-and-benchmarks/</a></p>
+<p>一些研究:https :&#x2F;&#x2F;nanonets.com&#x2F;blog&#x2F;how-to-tell-if-your-llm-is-hallucinating&#x2F;<br>RAG（检索增强生成）变体:https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.glean.com/blog/rag-retrieval-augmented-generation">www.glean.com/blog/rag-retrieval-augmented-generation</a><br>RGAR:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.13361<br>UAG框架:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2410.08985</p>
+<p>元认知嵌入层:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.12110<br>UDM框架:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.15850<br>嵌入熵值检测模块:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2503.15850<br>“宪法式AI”:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2212.08073<br>知识压缩错误:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2502.16143<br>推理链条断裂:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.15129<br>注意力机制失败:https :&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2404.10198</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/01/1000003058-2650032216-2/">https://zejuncao.github.io/2025/04/01/1000003058-2650032216-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E5%AE%B6/">
+                                    <span class="chip bg-color">人工智能学家</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/01/2650962943-2650962943-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2650962943_2650962943_1.jpg" class="responsive-img" alt="自动学会工具解题，RL扩展催化奥数能力激增17%">
+                        
+                        <span class="card-title">自动学会工具解题，RL扩展催化奥数能力激增17%</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83/">
+                        <span class="chip bg-color">机器之心</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/01/1000003058-2650032216-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000003058_2650032216_1.jpg" class="responsive-img" alt="微软CEO万字演讲实录｜AI 的三大根本性突破">
+                        
+                        <span class="card-title">微软CEO万字演讲实录｜AI 的三大根本性突破</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E5%AE%B6/">
+                        <span class="chip bg-color">人工智能学家</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
