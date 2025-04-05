@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="GPU开发过程中，如何更好的优化，快速提升底层性能？, ZejunCao&#39;Blogs">
+    <meta name="description" content="GPU开发过程中，如何更好的优化，快速提升底层性能？
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：oldpan博客作者：oldpan链接：https :&amp;#x2F;&amp;#x2F;mp.wei">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>GPU开发过程中，如何更好的优化，快速提升底层性能？ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001551_2247539429_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">GPU开发过程中，如何更好的优化，快速提升底层性能？</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cGKyxQJtUDAtyTKO_CVQUw">GPU开发过程中，如何更好的优化，快速提升底层性能？</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：oldpan博客<br>作者：oldpan<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;dUj058iBzYm-J2vlS5DfNA<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>本文整理了CUDA编程的核心策略，从“让GPU别闲着”到“高效利用GPU资源”，深入探讨了如何通过优化pipeline、异步计算、充分利用SM、提升occupancy以及优化内存访问模式等手段提升GPU利用率。无论是并行计算的基本概念，还是深度优化技巧，本篇都将为你提供系统性的指导，助你最大化发挥GPU的计算能力。<br>本篇根据HOWCUDAPROGRAMMINGWORKS的讲解，整理下如何更好地使用GPU的一些细节，主要有三点：<br>让GPU别闲着（Useitatall）<br>把GPU中所有资源都利用起来（Useallofit）<br>高效的利用资源（Useitefficiently）<br>在我们平常的项目中，除了优化kernel性能，能够快速拿到收益的是整体pipeline的优化。<br>我遇到大部分项目在优化性能的时候，kernel优化一般都是最后一步，很多项目一开始可以先从整体pipeline上考虑，拿到可以拿到的性能收益，最后实在扣不出来再考虑优化kernel。<br>首先明确一点，GPU是异步的，一般cpu发完命令后（也就是launch了一个kernel之后）就没事了。发kernel指令这一步很快，理论上任务给了gpu之后cpu就能干自己的事儿了。<br>有异步就会有同步，依赖gpu处理结果的cpu线程需要同步操作来等待当前gpu处理完才能进行下一步，比如处理图片：<br>但是上述gpu利用率并不高（看右面的曲线），这里等gpu执行完的时候其实cpu啥也没干，gpu和cpu之前的数据拷贝需要时间，然后gpu处理完了cpu会做一些后续操作，最后才会处理下一个图片，再加上一些语言层面的overhead，GPU的利用率就很低了。<br>其实我们可以把所有的任务一股脑扔给GPU，因为GPU是异步的，cpu把任务传递过去可以通过同步来获取gpu处理完的数据。传递过来的kernel任务会被GPU排入队列一个一个去执行，这个时候GPU的利用率就会高些，毕竟相对没有那么闲了：<br>这就是最基本的让GPU别闲下来的通用办法，尽量做到：<br>减少不必要的CPU-GPUsynchronization<br>在CPU-GPU之间拷贝数据时也可以执行Kernel<br>很多任务，能通过异步提升性能就尽量异步<br>当我们拿到一张显卡或者说计算卡后，对算力敏感的人一般都会比较计较这个卡的计算资源，比如A100：<br>A100有108个SM（流处理单元），一共有221184个线程，每个SM都有自己的寄存器、共享显存，共享L2缓存等，我们要做的就是尽可能充分利用这些资源。如果我们某一时刻只用其中一个线程，然后一直调用（kernel一直跑），此时虽然用nvidia-smi命令查出来的GPUutilization是100%，但其实对着张显卡的使用量超级低。<br>比如这个单block单thread的kernel，理论上只会占用一个SM：<br>但通过nvidia-smi指令得到的GPUUtil是100%，这个是要注意的。<br>让我们先快速了解一下Cuda是如何将kernel算法分解成一块一块的，以便将它们分布到这些SM上的。<br>首先我们把数据分成大小相等的块，这样就可以并行独立地运行每个块。因为这些块是独立的，它们可以按任意顺序和任何时间安排。这样硬件就有尽可能大的自由度来高效地打包事物。每个块的一个保证就是它有一定数量的线程，并且它们都保证在同一个SM上同时运行。<br>接下来，我们要讨论的是如何使用这些block中的线程。每个block中有一个特定数量的线程，它们都被分配到同一个SM中。SM中的线程会被分成一定数量的组，这些组被称为warps。每个warp包含特定数量的线程（通常是32个），并且这些线程会在同一时钟周期内被执行。这就是为什么我们要使用大量线程的一个原因——保持GPU中的所有SM和线程都尽可能繁忙。<br>现在我们回到刚才说的用满。<br>当一个SM上运行的所有block都已经满了，就不会再有新的block被添加到该SM上，直到该SM上的线程开始完成它们的工作，空出一些空间。在CUDA中，每个流多处理器（SM）可以同时处理多个块，具体数量取决于块的大小，最多可以处理32个。GPU会持续调度块到各个SM上，直到所有块都被处理完毕。<br>这就是所谓的“occupancy”，它是一个重要的GPU性能指标。<br>我们先看一下如何编写代码来利用这些GPU资源。CUDA提供了一种编程模型，称为kernel函数，它是在GPU上执行的代码。这些函数可以通过在主机上调用它们来启动GPU上的计算。kernel函数的一个重要特点是，它可以被调用多次，每次使用不同的数据块。这种方式可以使得GPU尽可能高效地利用其并行计算资源。<br>为了使代码能够在GPU上运行，我们需要在主机代码中使用一些特殊的关键字和函数，以便让CUDA编译器将其转换为GPU可以执行的代码：<br>注意看相关的硬件资源和代码对应的地方，这个kernel计算多个点之间的距离来展示并行计算。程序中使用了共享内存和寄存器，共享内存允许块内的线程进行通信，而寄存器则为每个线程提供必要的工作空间。在GPU上，寄存器的用途与CPU不同，它们提供了大量立即可访问的数据空间，这对于执行复杂的数学运算尤其重要：<br>在GPU编程中，为每个线程分配大量寄存器是常见的，这与CPU上的情况有显著不同。首先假设当前写的kernel需要使用的资源如下（下图右侧），每个block是256个线程、每个线程使用64个寄存器，每个block的共享显存是48KB：<br>然后A100的一个SM的资源如下，我们写的这个kernel可以安排三个block到这个SM上，再多了共享显存不够放了：<br>如果我们把算法重构一下，减少sharedmemory的使用，比如从48K→32K，那么就可以塞4个block到这个SM上了，这个时候occupancy也就提升了：<br>所以为了保持GPU的忙碌状态，我们可以进一步尝试填补空闲时间。实际上，GPU可以同时运行多个程序，最多可以同时运行128个不同的程序。因此，如果我们没有完全填满GPU，就可以尝试将另一个程序“俄罗斯方块”式地放置在旁边。<br>比如我们想象另一个case，这次是一个大量线程、很少寄存器和没有共享内存的情况。实际上就是一个数据移动kernel的典型表示，可能是对数据进行排序或只是将数据从一个地方复制到另一个地方。<br>GPU很聪明，它会尝试将一个绿色网格块填充到空隙中，如果不能再放置绿色网格块，那么就会尝试另一个。<br>现在我们每个SM使用的线程比之前增加了三分之二，这几乎是免费的性能提升。这个“俄罗斯方块”问题又增加了一个维度，但硬件会为你解决这个问题，让内核去帮你处理就行了。<br>之前也提到，我们可以将所有要做的任务都一股脑扔给GPU，换句话说，就是可以将要计算的算法提前交到异步工作队列中（为什么是提前，就是这个任务发射出去了，kernellaunch了，但实际还没有执行），这个队列一般叫做stream，如果没有设置的话，任务会处在defaultstream中。<br>GPU可以有很多stream，分任务不同使用的stream数量也不同。我们在平常使用的时候可以充分利用stream的特性：<br>Astreamisaqueueofdevicework<br>KernellaunchesandAsyncCUDAAPIcallsplaceworkinthequeueandcontinue<br>Devicesscheduleworkfromstreamstoavailableresources<br>Operationswithinastreamareordered(FIFO)andcannotoverlap<br>Operationsindifferentstreamsareunorderedandcanoverlap<br>这里我们有个任务是用神经网络处理下花朵的图片，这会涉及到将一朵花或花的数据复制到GPU的内存中，然后在GPU上进行处理和处理，最后将结果复制回来。<br>因为处理不仅仅是一个步骤，而是多个步骤，这给了我们重叠的机会，这意味着我们可以将独立的工作分布到独立的流中，处理第二朵花实际上并不需要等待第一朵花完成。我们的copy操作（拷贝数据到gpu上），也就是数据传输，可以和计算（kernel执行）在不同的硬件路径上同时执行，这样就可以高效利用硬件的资源。<br>上述绿色流中的工作可以和蓝色流中的工作一起占用资源，让GPU保持最大限度的繁忙状态。其实这个很像刚才提到的俄罗斯方块，这里的方块指各种计算和内存拷贝任务，然后我们尽可能将多的任务填充到可以利用的资源当中。<br>目前为止，我们已经让GPU尽可能忙起来而且也尽可能利用其资源，接下来就是最难的部分：高效的利用资源（Useitefficiently）<br>再回顾下A100的计算资源：<br>看算力，将近20T的FP32FLOPS，这还没算tensorcore。我们的kernel如果能用到这些算力的80%那也是很牛逼了，不过可惜FLOPS不是最关键的，关键的是显存带宽（MemoryBandwidth），很多时候我们遇到的不是计算上限而是访存上限。<br>虽然A100GPU拥有108个SM，每个SM在1410MHz的时钟速度下每个时钟周期能请求64个字节的内存，从而使整个GPU的内存请求速率接近每秒10TB。然而，这个高速的内存请求与GPU的内存供应能力之间存在不匹配。尽管A100配备了很快的HBM2内存，每秒能提供超过1.5TB的内存，这个供应量仍然只是SM请求量的六分之一。因此GPU的性能受到内存带宽的限制，无法完全满足所有SM的内存请求需求，所以大部分计算不是调用不了线程，而是内存性能限制。<br>如果gpu能提供的线程数我们没有都用到，那显然就是浪费，就是没有好好利用gpu。<br>以内存角度考虑，如果仅考虑数据输入速率，尽管这不完全代表真实情况（因为会有一些数据重用），但1.5TB每秒的数据传输率是一个很好的性能指标。这相当于每秒可以处理1940亿个双精度浮点数值，除以8，即得到194GFLOPS的峰值性能，GPU的运行速度现在大约与iPhone11相当。这个例子说明了在进行性能评估时，应该全面考虑不仅仅是数据传输速率，还有程序实际利用这些数据的能力，以及内存带宽如何成为性能瓶颈的一个示例：<br>我们可以看下内存的工作原理，在DRAM存储芯片中，每一个存储单元都是一个电容，用来存储一个比特的信息——充电状态表示1，无电表示0。<br>这些电容通过晶体管接入电路，晶体管的开关控制着是否可以读取电容的电荷状态。这些电容和晶体管组成的存储单元被连接成一个二维矩阵，这种布局使得DRAM成为随机存取存储器（RAM），与顺序访问的磁带存储不同，DRAM可以通过行和列的索引寻址访问数据。<br>当进行数据读取时，首先激活选择的行，该行中所有单元的状态被复制到感应放大器中。<br>感应放大器将电容中微弱的电荷转换成可轻松读取的明确定义的电压信号，便于读取。然而，读取过程中会消耗掉电容中的电荷，导致原数据丢失。<br>接下来进行列访问，记住这是一个2D矩阵，必须先读行再读列。与从内存单元读取数据相比，它可以读取感应放大器中保存的数据。这比行更快，因为放大器产生了强有力、清晰的信号，并且读取不会破坏数据。<br>由于经常读取相邻的内存位置，所以也有一个连续读取模式，其中单个请求返回多个数据字。这是非常重要的，因为这意味着我不必一遍又一遍地付出列请求的代价。这也是cuda编程中一个通常的优化点之一。<br>这就是DRAM的突发模式，即一次请求可以返回多个数据字，这样可以减少列请求的成本。这种读取模式的设计反映了物理存储结构的影响——即DRAM单元的充放电特性。由于行变更的成本很高，优化数据访问模式，尽量从同一行读取相邻的数据值，可以显著提高读取效率。这种物理和技术的细节对于理解和优化内存访问模式至关重要，尤其是在执行内存密集型操作如CUDA编程时更是如此。<br>但是当需要访问另一行的时候，必须先将当前放大器中的数据重新写回到DRAM行中，以避免数据损坏（还记得当数据移动到放大器时，行已经被耗尽了，所以我们必须重写它以避免内存损坏）。<br>这种所谓的“switchingpage”操作涉及数据回写和新行加载，是一个成本较高的操作，通常切换页的代价是切换页内列的三倍：<br>让我们进行一个实验，我们要做的就是读取八个字节（8byte）的值，也就是我们一直在讨论的双精度浮点型（double）。通过逐渐增加步长来读取数据。步长为8表示读取相邻的值，步长为16表示读取每隔一个值的数据，以此类推，直到步长为1000。<br>上图中，将x轴保留为字节单位，可以看到页面大小是1K，因为当步长从512增加到1024时，我现在每页只能得到一个值，我们可以看到这里的下降。您还可以看到，仅仅通过从左侧相邻读取变为每隔一个值读取，带宽减半。但我最感兴趣的是它的最低点，因为这个最小带宽告诉我，如果不注意相邻内存访问，我可能会看到多大的影响。<br>实际上，当步长变长时，我们在读取随机位置，从而不断地打开和关闭页面，并发出单独的读取命令，这样会导致有效带宽下降了92%。所以，如果我实际的性能主要取决于内存性能，正如我之前所论证的那样，错误的内存访问模式会很影响性能。<br>A100的宣称内存带宽是1555GB&#x2F;s，这里只测到1418GB&#x2F;s，因为这里读取的是8字节值，如果是读取16字节的话这个带宽会更高些。如果我们读取的数据块更大，那么也就会更高效。<br>数据访问模式确实非常重要，这个优化前提在CPU优化也很常见，但是在GPU上尤其严重，因为内存延迟时间更长<br>让我们来看一个非常常见的数据结构，一个2D数组，也就是我们常见的图像（h,w,1）。通常以行优先格式布局，其中相邻的内存位置在X方向上递增。这里如果读取使用的步长每次增加都会降低性能，同样如果改为沿着一列而不是一长排进行访问，性能则会大幅下降，就和上面讲到的步长曲线中一样，直接下降了一个数量级。<br>那么为什么我们要谈论所有这些呢？<br>因为提升性能的主要因素就是高效利用GPU所有的资源，利用好可以提升10倍以上的性能，还是很值得。而我们通常使用cuda去编写kernel，这也是导致cuda编程模型成为现在这样的重要因素，所以让我们看一下cuda编程模型如何运行并行工作。<br>cuda将任务分解为独立block，其中每个block由大量thread一起运行。<br>cuda的执行基本单位是线程块，而不是线程，block实际上是并行的一种量子单位，这意味一定可以保证获得并行性，我们可以确定块中的所有线程同时运行，因此它们可以共同工作和交换数据。<br>cuda真正呈现线程是独立的，就像单线程程序一样，每个线程都有自己的所有变量副本和自己在代码中的程序计数器。我们怎么调用这个线程，在于两个名为“threadidx”和“blockidx”的变量，它们在启动块时由硬件自动填充，以给每个线程在网格中分配索引。<br>唯一重要的是第一行，其中每个线程使用其线程索引和块索引来计算其正在处理的数据位。<br>之后，程序中的所有内容在所有线程中都是相同的。<br>SIMD和SIMT之间的区别是什么，GPU是SIMI模型，对于SIMT线程控制是隐含的，每个线程都有自己的状态，所有线程都是独立的，即使它们是矢量单元的一部分，它们都会保持自己的状态，包括这个索引变量。它们可以循环、分支、做条件性的事情，就像这个例子中一样，当它们一起执行相同的任务时，它们更有效率，因为当事情一起运行时更有效率，GPU按32个一组运行它们，我们称之为warp。<br>在上述的代码中，每个线程加载两个数据点，因为它在寻找两个点P1和P2之间的距离，这由一个非常重要的线程ID依赖的行所索引。这实际上意味着我一次从32个不同的线程加载数据，偏移量由它们的线程ID的某个函数指示。<br>稍后会解释这为什么重要，但我们需要知道float2只是两个浮点数的结构体，每个大小为八字节的x和y，它是一个二维坐标。<br>所以每个warp正在加载256个连续的字节数据，因为它的32个线程中的每一个都获取一个值，每个线程都由线程ID索引。线程ID是保证连续的，这意味着数据访问模式保证是连续的。<br>GPU上的SM能同时管理64个warp，总共是每个SM有2048个线程。但是你可以从SM的块图中看到，它实际上有四个独立的部分，所以任何时候它实际上同时运行的是四个warp，其他的则保留在队列中，并且被切换进出。<br>所以我有四个warp，每个同时加载256字节，四倍的256字节即1024字节，是从内存系统中同时加载的完全合并的相邻数据地址，如果你还记得，这正是充分利用我的内存系统的完美大小。<br>这非常重要，因为程序在各处读取数据，即使我的简单示例也是如此，它从两个不同的点数组P1和P2读取，对计算机来说，看起来我的程序在做随机内存读取，它从一个数组读取，然后在内存中完全切换页面来读取另一个。<br>正如我们看到的，这可能会让我损失90%的内存性能。这是我最关心的单一最重要的事情。但实际上，由于warp执行模型，因为我们同时运行四个，我的大规模并行GPU恰好拥有正确的数据量，恰好能够达到我的内存系统的峰值带宽，即使我的程序从各处读取数据。<br>如果你是一个cuda程序员，而且你曾经想知道为什么warp是32个线程，这就是原因之一，这不是偶然的。硬件设计师精心平衡GPU以确切地做到这一点，而且每当有人问我他们的线程块应该有多大时，答案总是不小于128个线程，因为你总是想要四个warp一起工作，以便轻松达到内存性能的峰值。这里有一个13的因素在起作用，一个warp已经很好了，所以在你的程序中努力让所有线程在warp中从相邻线程读取，但你需要块中不止一个warp才能使一切完美工作。<br>让我们回顾整体的内容。<br>对于GPU，我们需要使用异步工作提交来保持GPU的繁忙状态。我们了解到，硬件会将块尽可能广泛地分布在SM上，以最大限度地请求内存带宽。我们还学习到，硬件可以玩出相当不错的四维俄罗斯方块，这对于资源打包限制至关重要，因为资源利用率的微小变化可能会产生巨大的影响。即使你使用了GPU提供的所有线程，我们还是会遇到一个问题，即内存系统只能提供SM请求带宽的1&#x2F;6，所以我们的主要限制因素是内存。<br>接着我们看到，内存系统极度依赖良好的访问模式，电容定律决定随机读取内存的代价要高于线性读取，如果我们弄错了，我们可能会将一切变慢，这可能导致性能降低高达92%。<br>但我们了解到，GPU的Warp执行系统可以通过同时从许多线程读取来节省我们的开销，但我们需要Warp中的所有线程都在处理相邻的数据，所有的线程块最好都有至少128个线程，这就是Cuda编程的方式，主要是为了让GPU保持繁忙状态，尽可能地利用它，并最重要的是小心地读写内存。<br>这里有很多技术细节，但实际上只有三个概念我们需要记住：<br>异步执行<br>平衡资源<br>保持内存访问的线性<br>几乎所有的优化内容都包含在这些主题中，如果我们能正确地处理这三个问题，就没有太多可以优化的内容了。重要的是，我们在设计算法和编写程序代码时，从一开始就考虑这些问题是最好的。CUDA的设计试图迫使你思考这些问题，因为这是最好的方法，它可以使结果产生数量级的差异。<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/03/1000001551-2247539429-1/">https://zejuncao.github.io/2025/04/03/1000001551-2247539429-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/03/1000002159-2247524512-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002159_2247524512_1.jpg" class="responsive-img" alt="小米SU7事故背后：自动驾驶的“致命两秒钟”到底谁该背锅？">
+                        
+                        <span class="card-title">小米SU7事故背后：自动驾驶的“致命两秒钟”到底谁该背锅？</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%9D%E5%AD%A6%E8%80%85/">
+                        <span class="chip bg-color">机器学习初学者</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/03/1000001551-2247539429-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001551_2247539429_2.jpg" class="responsive-img" alt="DeepSeek开源的背后逻辑，优劣势分析">
+                        
+                        <span class="card-title">DeepSeek开源的背后逻辑，优劣势分析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
