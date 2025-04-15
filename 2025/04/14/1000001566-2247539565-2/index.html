@@ -1,0 +1,1100 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="AI芯片落地必备，GPU工作原理详解！, ZejunCao&#39;Blogs">
+    <meta name="description" content="AI芯片落地必备，GPU工作原理详解！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：车规半导体硬件作者：ZOMI酱链接：https :&amp;#x2F;&amp;#x2F;mp.weixin.qq.co">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>AI芯片落地必备，GPU工作原理详解！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001566_2247539565_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">AI芯片落地必备，GPU工作原理详解！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NzjE_TUoTnshbqkmOzcL1g">AI芯片落地必备，GPU工作原理详解！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：车规半导体硬件<br>作者：ZOMI酱<br>链接：https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;hCmqaLSnC5rZDXE_f8lQuQ<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>GPU因其强大的并行计算能力，在AI计算中占据核心地位。本文从GPU与CPU在架构和执行模式上的本质差异出发，系统解析了GPU线程调度、内存机制及其在深度学习中的高效计算原理，揭示其为何成为AI芯片首选？<br>GPU工作原理<br>·GPU（GraphicsProcessingUnits，GPUs）原是设计用于处理图像视频等数据<br>·真正让GPU与CPU不同的是<br>·GPU设计目标是最大化吞吐量（Throughput），比单任务执行快慢，更关心并行度（parallelism），即同时可以执行多少任务<br>·CPU则更关心延迟（Latency）和并发（concurrency）<br>·在Z&#x3D;AX+Y这个示例中，通过并发进行循环展开<br>·KeepMemorybusbusy,run11659&#x2F;16&#x3D;729iterationsatonce<br>·通过并发使总线处于忙碌的状态当中<br>·编译器很少对循环展开上100+<br>·一个线程一次执行上千条指令<br>·一个线程很难直接处理700个计算负载<br>·在Z&#x3D;AX+Y这个示例中，通过并行进行循环展开<br>·通过并行处理器或多个线程<br>·同样，KeepMemorybusbusy,run11659&#x2F;16&#x3D;729iterationsatonce<br>·每个线程独立负责相关计算<br>一共需要729个线程<br>·程序会受到线程数和内存请求Bound<br>·并行Parallelism和并发Concurrency<br>·并行：能够同时处理多个任务<br>·并发：能够处理多个任务的功能，但不一定是同时<br>·实际中，更倾向于利用多线程对循环展开，来提高整体硬件的利用率<br>·GPU特点：有非常非常多的线程，为大量大规模任务并行而去设计<br>·GPU不是通过增加线程的数量去解决问题，而是去优化线程的执行的速率和效率，这就是CPU与GPU之间最大的区别<br>·CPU与GPU本质的区别是并行的问题，而不是并发的问题，GPU通过大量的线程提供并行的能力，<br>·GPUCache缓存机制<br>·在英伟达A100的架构中，HBMmemory有80G，这80G是显存，是GPU中独立的内存<br>·这里将一些寄存器文件也当作缓存<br>·寄存器距离SM（真正的执行单元）非常的近<br>·片内缓存可能分为多级<br>·L2Cache，40M，距离显存最近<br>·L1Cache，192kB<br>·每个SM都有自己独立的Cache<br>·Register也是作为Cache里面的一部分，有256kB，一共27MB寄存器<br>·在A100中，有108个SM<br>·HBM，高带宽内存，highbandwidthmemory<br>·GPU线程原理<br>GPUAI编程本质<br>·思考：为什么GPU适用于AI计算？为什么AI训练使用GPU而不是CPU？<br>·卷积计算：<br>·卷积通用过程：图像卷积正常的三通道卷积，输入维度为3维（H,W,3），卷积核维度为（N,C,KH,KW），输出维度为（N,H,W）<br>·卷积的一般计算方式为：<br>·Img2col算法过程<br>·对input进行重排，得到的矩阵见右侧，行数对应输出OH<em>OW个数；每个行向量里，先排列计算一个输出点所需要输入上一个通道的KH</em>KW个数据，再按次序排列之后通道，直到通道IC<br>·对权重数据进行重排，即以卷积的stride为步长展开后续卷积窗并存在Matrix下一列<br>·将N个卷积核展开为权重矩阵的一行，因此共有N行，每个行向量上先排列第一个输入通道上KH*KW数据，再依次排列后面的通道直到IC<br>·卷积操作转换为矩阵相乘，对Kernel和Input进行重新排列<br>·将输入数据按照卷积窗进行展开并存储在矩阵的列中，多个输入通道的对应的窗展开之后将拼接成最终输出Matrix的一列<br>·通过数据重排，完成lmg2col的操作之后会得到一个输入矩阵，卷积的Weights也可以转换为一个矩阵，卷积的计算就可以转换为两个矩阵相乘的求解，得到最终的卷积计算结果<br>·GPU线程分级<br>·在AI计算模式中，不是所有计算都可以是线程独立的哦<br>·线程分层执行<br>·首先有一个图片，第一步用网格Grid对整个图片进行覆盖，切分成一个一个块<br>·拿出中间一个块进行处理，每一个Grid里面实际上还会分开不同的block，这里的block有可能会重叠<br>·GPU中的block会去独立的执行<br>·第三步中，block里面会有大量的线程，通过本地的数据共享（localdatamemory）来去进行计算，每个元素或者每一个像素点，都会给一个线程进行计算<br>·整个线程是分层分级的<br>·网格里面的block块，在GPU里面是超额分配的，通过超额分配大量的这些block，而block里面又有大量的线程，每个线程就可以对像素进行大量的操作，而block的超量的分配，就可以通过计算去掩盖延时的问题<br>·不管是网格也好，线程也好，都会在block里面真正去执行<br>·并行提升整体计算强度<br>·并行的能力是最重要的<br>·并行其实是为了解决带宽慢、带宽时延长的问题<br>·需要多少线程是由计算复杂度来决定的<br>·对于Element-wise操作来说，每增加一个线程，就意味着需要对数据进行一次新的加载，因为在GPU里面是并行地去加载，或者并行地去提供线程的，于是增加线程的数量，并不会对实际的运算，或者对实际的时延产生任何的影响，即变成数据的规模在合理的范围内增大并不会影响实际算法的效率，并不会在计算的过程当中，觉得它会变慢了<br>·由于线程是分级的，同样对于卷积这一类运算的时候，每增加一个线程，对于数据的读取，因为是并行的，它的影响也不会太大，此时，GPU的执行效率与AI的计算模式之间非常匹配<br>·AI计算模式与线程关系<br>·矩阵乘MM计算<br>·卷积的计算可以用矩阵乘来代替<br>·计算强度与矩阵乘的关系<br>·算术强度<br>·GPU硬件架构与CUDA的关系<br>·NVIDIAA100<br>·8个GPC（GraphProcessingClusters，图像处理簇）<br>·每个GPC里面有很多TPC（TextureProcessingClusters，纹理处理簇）<br>·每个TPC里面有很多SM（StreamMultiprocessors，流多处理器）<br>·SM里面又有很多Block和Threads<br>·HBM（HighBandwidthMemory，高带宽存储器）<br>·包含关系：GPC&gt;TPC&gt;SM&gt;CORE<br>·SM<br>·从G80提出的概念，中文称流式多处理器，核心组件包括CUDA核心、共享内存、寄存器等<br>·SM包含许多为线程执行数学运算的Core，是NVIDIA的核心<br>·CUDACore：向量运行单元（FP32-FPU、FP64-DPU、INT32-ALU）<br>·TensorCore：张量运算单元（FP16、BF16、INT8、INT4）<br>·SpecialFunctionUnits：特殊函数单元SFU（超越函数和数学函数，e.g.反平方根、正余弦等）<br>·WarpScheduler：线程束调度器（XXThread&#x2F;clock）<br>·DispatchUnit：指令分发单元（XXThread&#x2F;clock）<br>·MultilevelCache：多级缓存（L0&#x2F;L1InstructionCache、L1DataCache&amp;SharedMemory）<br>·RegisterFile：寄存器堆<br>·Load&#x2F;Store：访问存储单元LD&#x2F;ST（负责数据处理）<br>·在CUDA中的作用：<br>·可以并发地执行数百个线程<br>·一个block上线程是放在同一个SM<br>·一个SM的有限Cache制约了每个block的线程数量<br>·SP，流处理器（StreamingProcessor）<br>·最基本的处理单元，也称为CUDACore，最后线程具体的指令和任务都是在SP上处理的<br>·GPU进行并行计算，也就是很多个SP同时做处理<br>·SP的消亡：<br>·Fermi架构后，SP被改称为CUDACore，通过CUDA来控制具体的指令执行<br>·所以对于现在的N卡架构来说，流处理器数量即CUDACore数量<br>·所以对于现在的N卡架构来说，流处理器数量即CUDACore数量<br>·CUDACore，CUDA核<br>·CUDACore的提出：<br>·CUDACore在Fermi架构里提出，是最小的运算执行单元</p>
+<p>·CUDACore的取消：<br>··到了Volta架构，CUDACore又和Fermi架构时期发生了变化。从这里开始就没有以前的CUDACore了，而是变成了单独的FP32FPU和INT32ALU<br>·并行执行：因为FP32：INT32是1:1，所以还是很方便把它们合并成原来的CUDACore去称呼。这样做的好处是每个SM现在支持FP32和INT32的并发执行，更好地提升运算的吞吐量，提升系统的利用率<br>·Warp，线程束<br>·逻辑上，所有Thread都是并行的，但是，从硬件的角度来说，并不是所有的Thread能够在同一时刻执行，这里就需要Warp的引入</p>
+<p>·即，所有的Thread以锁步的方式执行同一条指令，但每个Thread会使用各自的Data执行指令分支<br>·如果在Warp中没有32个Thread需要工作，那么Warp虽然还是作为一个整体运行，但这部分Thread是处于非激活状态的<br>·Thread是最小的逻辑单位，Warp是硬件执行单位<br>·CUDA基本概念<br>·ComputeUnifiedDeviceArchitecture<br>·2006年11月，推出了CUDA，通用并行计算平台和编程模型，用于图形处理单元（GPU）上的通用计算<br>·并行计算架构（ParallelComputingArchitecture）和编程模型（ProgrammingModel），编程体系<br>·基于LLVM构建了CUDA编译器，方便开发者使用C进行开发<br>·提供了对其它编程语言的支持，如C&#x2F;C++，Python，Fortran等语言<br>·支持OpenCL和DirectCompute等应用程序接口<br>·CUDA并行编程模型作为一款通用接口，为熟悉C等标准编程语言的程序员保持较低的学习曲线<br>·有了这一层，NVIDIA的硬件可以不断去演进，保持软硬件独立解耦，更好地去实现一些硬件的发展<br>·CUDA在软件方面的组成：<br>·一个CUDA库、一个应用程序编程接口（API）及其运行库（Runtime）、两个较高级别的通用数学库，即CUFFT和CUBLAS<br>·CUDA线程层次结构<br>·主设概念：CUDA引入主机端（host）和设备（device）概念<br>·CUDA程序中既包含host程序，又包含device程序<br>·相互通信：host与device之间可以进行通信，这样它们之间可以进行数据拷贝<br>·CUDA执行流程中最重要的一个过程是调用CUDA的核函数来执行并行计算，kernel是CUDA中一个重要的概念<br>·在CUDA程序架构中，Host代码部分在CPU上执行，是普通C代码；当遇到数据并行处理的部分，CUDA就会将程序编译成GPU能执行的程序，并传送到GPU，这个程序在CUDA里称作核（Kernel）<br>·Device代码部分在GPU上执行，此代码部分在kernel上编写（.cu文件）<br>·kernel用__global__符号声明，在调用时需要用&gt;&gt;来指定kernel要执行的结构<br>·网格grid<br>·kernel在device上执行时，实际上是启动了很多线程，一个kernel所启动的所有线程称为一个网格（grid）<br>·同一个网格上的线程共享相同的全局内存空间<br>·grid是线程结构的第一层次<br>·线程块block<br>·Grid分为多个线程块（block）<br>·一个block里面包含很多线程<br>·block间并行执行，并且无法通信，也没有执行<br>·每个block包含共享内存（SharedMemory），可以里面的Threads共享<br>·线程thread<br>·CUDA并行程序，实际上会被多个threads来执行<br>·多个threads会被组成一个线程block<br>·同一个block中的threads可以同步，也可以通过sharedmemory通信<br>·CUDA跟NVIDIA硬件架构的关系<br>·Block线程块只在一个SM上通过Warp进行调度<br>·一旦在SM上调起了Block线程块，就会一直保留到执行完kernel<br>·SM可以同时保存多个Block线程块，块间并行的执行<br>·Fermi费米架构<br>·Fermi架构最大可支持16个SMs，每个SM有32个CUDACores，一共512个CUDACores<br>·整个GPU有多个GPC（图形处理集），单个GPC包含一个光栅引擎（RasterEngine），4个SM<br>·CUDA线程threads、块blocks和网格grids的层次结构，具有相应的每个线程专用、每个块共享和每个应用程序全局内存空间<br>·Kepler开普勒架构<br>·SM改名成了SMX，但是所代表的概念没有大变化<br>·Kepler架构在硬件上直接有双精运算单元的架构<br>·提出GPUDirect技术，可以绕过CPU&#x2F;SystemMemory，完成与本机其他GPU或者其他机器GPU的直接数据交换<br>·Maxwell麦克斯韦架构<br>·SM没必要太多，线程数可以超配<br>·Pascal帕斯卡架构<br>·SM内部作了进一步精简，整体思路是SM内部包含的东西越来越少，但是总体片上SM数量每一代都在不断增加<br>·单个SM只有64个FP32CUDACores，相比Maxwell的128和Kepler的192，这个数量要少很多，并且64个CUDACores分为了两个区块<br>·RegisterFile保持相同大小，每个线程可以使用更多寄存器，单个SM也可以并发更多thread&#x2F;warp&#x2F;block<br>·增加32个FP64CUDACores（DPUnit），FP32CUDACore具备处理FP16的能力<br>·多机之间，采用InfiniBand和100GbEthernet通信，单机内单GPU到单机8GPU，PCIe带宽成为瓶颈<br>·NVIDIA提供NVLink用以单机内多GPU内的点到点通信，带宽达到160GB&#x2F;s，~5倍PCIe3x16<br>·Volta伏特架构<br>·CUDACore拆分：分离FPU和ALU，取消CUDACore，一条指令可以同时执行不同计算<br>·独立线程调度：改进SIMT模型架构，使得每个线程都有独立的PC（ProgramCounter）和Stack<br>·TensorCore：针对深度学习提供张量计算核心，专门针对卷积计算进行加速<br>·GRF&amp;Cache：Globalmemory访问也能享受highlybankedcache加速<br>·SM中包含：<br>·4个WarpSchedule<br>·4个DispatchUnit<br>·64个FP32Core<br>·64个INT32Core<br>·32个FP64Core<br>·8个TensorCore<br>·32个LD&#x2F;STUnit<br>·4个SFU<br>·FP32和INT32两组运算单元独立出现在流水线中，每个Cycle都可以同时执行FP32和INT32指令<br>·GPU并行模式实现深度学习功能过于通用，最常见Conv&#x2F;GEMM操作，依旧要被编码成FMA，硬件层面还是需要把数据按：寄存器-ALU-寄存器-ALU-寄存器，方式来回搬运<br>·每个TensorCore每周期能执行4x4x4GEMM，即4个FMA（Fused-Multiply-Add，融合乘加运算）。虽然只支持FP16数据，但输出可以是FP32，相当于64个FP32ALU提供算力，能耗上还有优势<br>·Turing图灵架构<br>·游戏领域<br>·两个更新：<br>·TensorCore<br>·随着深度学习模型的量化部署渐渐成熟，Turing架构中的TensorCore增加了对INT8&#x2F;INT4&#x2F;Binary的支持，为加速deeplearning的Inference<br>·RTCore（RayTracingCore）光线追踪的核心<br>·主要用来做三角形与光线的求交，并通过BVH结构加速三角形的遍历<br>·由于布置在block之外，相对于普通ALU来说是异步<br>·里面分成两个部分：一部分检测碰撞盒来剔除面片；另一部分做真正的相交测试<br>·Ampere安培架构<br>·NVIDIAAmpere架构：超过540亿个晶体管，使其成为世界上最大的7纳米处理器<br>·TensorCore3.0：新增TF32，包括针对AI的扩展，可使FP32精度的AI性能提高20倍<br>·Multi-InstanceGPU：多实例GPU，将单个A100GPU划分为多达七个独立GPU，为不同任务提供不同算力<br>·NVIDIANVLink2.0：GPU间高速连接速度加倍，可在服务器中提供有效的性能扩展<br>·结构稀疏性：利用了AI数学固有的稀疏特性来使性能提高一倍<br>·NVIDIAA100基于7nmAmpereGA100GPU，具有6912CUDA内核和432TensorCore，540亿个晶体管数，108个流式多处理器<br>·采用第三代NVLINK，GPU和服务器双向带宽为4.8TB&#x2F;s，GPU间的互连速度为600GB&#x2F;s<br>·另外，TeslaA100在5120条内存总线上的HBM2内存可达40GB<br>·Ampere新加入了TF32、BF16、FP64的支持<br>·每个A100可以被分为7个GPU实例被不同的任务使用，用户可以将这些虚拟的GPU实例当成真实的GPU使用<br>·为云计算厂商提供算力切分和多用户租赁服务</p>
+<p>·8组GPC，66组TPC，132组SM，总计有16896个CUDA核心，528个Tensor核心，50MB二级缓存<br>·显存为新一代HBM3，容量80G，位宽5120-bit，带宽高达3TB&#x2F;s<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/14/1000001566-2247539565-2/">https://zejuncao.github.io/2025/04/14/1000001566-2247539565-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/14/1000001566-2247539565-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001566_2247539565_1.jpg" class="responsive-img" alt="轻量级边缘检测算法，高斯模块EGA，低分辨率检测新SOTA，即插即用！（附论文和源码）">
+                        
+                        <span class="card-title">轻量级边缘检测算法，高斯模块EGA，低分辨率检测新SOTA，即插即用！（附论文和源码）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/14/1000000399-2649625768-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000399_2649625768_1.jpg" class="responsive-img" alt="SQL-R1：通过强化学习训练自然语言到 SQL 的推理模型">
+                        
+                        <span class="card-title">SQL-R1：通过强化学习训练自然语言到 SQL 的推理模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%8E%A9%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%AB%A0%E5%8C%97%E6%B5%B7/">
+                        <span class="chip bg-color">玩机器学习的章北海</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

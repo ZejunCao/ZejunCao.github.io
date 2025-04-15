@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RAG中的表格数据序列化思路及R1类推理大模型训练实证分析, ZejunCao&#39;Blogs">
+    <meta name="description" content="RAG中的表格数据序列化思路及R1类推理大模型训练实证分析
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+今天是2025年4月14日，星期一，北京，大风。先看一个观点，先说图灵测试，测的是“像不像”，不是“是不是，图">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>RAG中的表格数据序列化思路及R1类推理大模型训练实证分析 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001168_2648419789_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RAG中的表格数据序列化思路及R1类推理大模型训练实证分析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%80%81%E5%88%98%E8%AF%B4NLP/">
+                                <span class="chip bg-color">老刘说NLP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OANQwtL1ayYr8REdL-5yvQ">RAG中的表格数据序列化思路及R1类推理大模型训练实证分析</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>今天是2025年4月14日，星期一，北京，大风。<br>先看一个观点，先说图灵测试，测的是“像不像”，不是“是不是，图灵测试本质上是行为主义的，它只看AI表现出来的对话行为像不像人，并不关心它内部是怎么想的，有没有理解，有没有意识。<br>新一周的第一天，来看两个问题，一个是RAG中的表格处理问题，如何进行序列化。另一个是RL用于推理模型训练的一些分析，为消融实验，有些定性得结论，结论可以参考。</p>
+<p>其中，表格序列化是核心之一，我们来看看。</p>
+<p>序列化的本质是将一个大型表格转换为一组小的、上下文独立的字符串。经过广泛的实验和结构化输出模式，找到了一个解决方案，即使是GPT-4o-mini也能几乎无损地序列化大型表格。最初，以Markdown格式将表格输入LLM，但后来改用HTML格式（这在这里证明很有用）。语言模型更容易理解它，而且它允许描述带有合并单元格、子标题和其他结构复杂性的表格。<br>例如，要回答“2021年公司股东权益是多少？”这样的问题，只需向LLM提供一句话就足够了，而不需要提供包含大量“噪音”的大型结构。<br>在序列化过程中，整个表被转换成一组这样的独立块：</p>
+<p>这种思路其实是思路就是行列扫描，nxm，但这块容易出现爆炸问题。对于大表召回，就很难办了，上下文窗口有限，比如对比某一列，或者某一行，这个行列有几百条。但其实也有解法，这个只是用于召回，可以作为桥梁，将整张表的html格式返回，这样能解决部分问题，做一些后处理。<br>各种方案的优缺点：<br>1）Markdown格式，将表格数据转换为Markdown格式的文本，每行用竖线分隔，列用竖杠分隔。优点是易于阅读和编辑，缺点是可能不够紧凑；<br>2）LaTeX格式，将表格数据转换为LaTeX格式的文本，使用双反斜杠和竖线进行分隔。优点是格式严谨，适合复杂的表格，缺点是可读性较差。<br>3）X-Separated格式，将表格数据转换为以逗号或其他分隔符分隔的文本。优点是简洁，适合自动化处理，缺点是可能不够直观。<br>4）Attribute-ValuePairs，将表格数据转换为属性-值对的文本格式。优点是简单直接，缺点是可能不够清晰。<br>5）HTML格式，将表格数据转换为HTML元素。优点是格式丰富，适合复杂的表格，缺点是可读性较差；<br>5）Sentences，将表格数据转换为自然语言句子。优点是语义丰富，缺点是可能过于冗长。<br>这里的经验是，大模型的性能对输入表格格式敏感。DFLoader和JSON格式更适合事实查找和表格转换任务。HTML或XML表格格式比表格问答和表格值任务更容易被GPT模型理解，但需要更多的标记消耗。同标记语言（特别是HTML）在GPT3.5和GPT4上的表现优于X分隔格式，这里的假设是，GPT模型在大量网络数据上进行训练，因此可能在解释表格时接触到更多的HTML和XML格式。</p>
+<p>例如基模型实验中，直接对预训练的基模型进行RL训练，探索训练超参数的影响，分析不同骨干模型的效果，研究提示设计对推理能力的影响，以及观察RL训练过程中代表性推理模式的出现。<br>微调模型实验中，通过长链推理数据（CoT）冷启动微调基础模型，然后进行RL训练。比较了合成数据和蒸馏数据的效果。<br>工具操作实验中选择DEEPSEEK-R1-DISTILL-QWEN-32B作为骨干模型，通过示范数据蒸馏和SFT实验逐步培养工具操作能力，然后进行RL训练。<br>有以下几个结论可以读读：<br>1、Base模型和SFT模型哪个好？<br>在使用相同RL策略和数据的情况下，对比了QWEN2.5-7B-Base和QWEN2.5-7B-INSTRUCT。<br>几个结论：<br>预训练后，基础模型已经展现出执行单独复杂推理动作的潜力。RL过程有效地激活了这一能力，使模型能够将这些动作整合成一个连贯且深思熟虑的思考过程。<br>Qwen2.5-7b-ins能够按照指令进行思考和推理，响应长度增加缓慢；Qwen2.5-7b在RL早期阶段(0~30步)响应长度迅速增加，随后与ins模型趋势相似。由于Qwen2.5-7b是base模型，输出长度难以确定，模型自发学会增加响应长度来提高奖励，最终趋势与指令模型相似。<br>这似乎暗示对于RL而言，激发的是预训练时的推理能力，做不做指令遵循SFT可能并不会决定后续效果。<br>2、强化学习（RL）的几个因素对基础模型的影响比较关键？<br>大型推理模型的表现受到RL设置的严重影响。以下超参数对RL训练的影响最为显著：<br>训练批量大小（TrainBatchSize），较大的训练批量大小（如1024）能显著提高训练效率，使模型在早期训练阶段快速提升性能，并且表现出更高的稳定性。使用较大批量大小进行训练表现出更大的稳定性，与较小批量大小相比，训练指标波动显著减少。<br>学习策略（LearningStrategy），on-policy学习策略相比off-policy学习策略效果更好，因为它鼓励更大的探索，模型在训练过程中自然且迅速地增加响应长度，并在测试集上表现更优。<br>展开次数（RolloutTimes），较多的展开次数（如64次）显著提高了训练性能，鼓励模型生成更长的响应，并带来更多的探索。<br>展开温度（RolloutTemperature），较高的展开温度（如1.2）有助于模型在早期训练阶段快速扩展响应长度，并且在某些情况下表现优于较低温度的设置。比较了n&#x3D;8和n&#x3D;64的情况，并发现增加展开次数显著提高了训练性能，鼓励模型生成更长的响应并进行更多探索。<br>然而，较高的温度并不总是有益的；提高的温度可以促进探索，但也可能导致生成更多无意义的内容（重复、胡言乱语等）。较低的温度在训练的早期阶段产生了更高的平均奖励，但它可能限制模型后续的探索，导致在后续阶段表现不够有效，所以，较高的温度往往能够带来更好的性能，前提是模型能够正常生成文本且没有胡言乱语。<br>动态KL退火策略比其他变体表现得更好。在训练的早期阶段，模型容易崩溃，可能会陷入局部最优解。固定的KL值可以限制参数更新，防止模型退化。然而，随着训练的进行，较大的KL值变得不适合强化学习，限制了模型能力的进一步提升。通过逐渐放宽这些约束，动态KL退火能够持续改进主干模型。<br>3、参数规模影响及敏感性？<br>在RL训练过程中，模型逐渐展现出类似人类的复杂推理行为（如验证、反思和修正）。<br>这些行为在训练初期就已存在，但随着训练的进行，这些模式变得更加明显和高效，通过统计推理关键词（如“verify”、“doublecheck”、“reflect”等）的频率变化，可以观察到RL训练如何逐步强化这些推理能力。<br>即使在没有监督微调（SFT）的情况下，通过纯RL训练，基础模型（如QWEN2.5-32B）也能显著提升推理能力，包括响应长度和测试准确率。<br>小规模模型（1.5B）在RL训练中，模型的探索能力相对较弱。这可能是因为它们的参数较少，学习能力有限。例如，在相同的RL设置下，1.5B模型在训练初期的响应长度和准确率提升较慢。对RL设置（如学习率、采样次数、温度系数等）的变化不敏感，性能提升较为缓慢且有限。<br>中等规模模型（7B）展现出比1.5B模型更强的探索能力，能够更快地适应RL训练并提升性能。这表明模型规模的增加有助于提高其学习和探索能力。<br>大规模模型（32B）在RL训练中表现出最强的探索能力。其响应长度和准确率在训练过程中显著提升，尤其是在训练步数增加时，性能增长更为明显。<br>4、长提示还是短提示好？对RL的影响如何？<br>第一种是简短提示，类似于DeepSeek-R1-Zero中使用的提示。<br>为了更好地激发基础模型的推理能力，设计了一个新的提示，其中包含了关于推理过程的详细说明，称为长提示，与简单提示相比，这个新提示保留了特定推理格式的需求，同时增加了对推理过程的全面描述，这包括可以在推理过程中应用的策略（例如分析问题、总结发现）以及推荐在整个过程中使用的表达和词汇（例如，“等待”、“或者”）。<br>结论为：<br>当在两种类型的提示上训练时，QWEN2.5-1.5B和QWEN2.5-7B表现出不同的行为。<br>对于QWEN2.5-1.5B，在短提示上训练的模型在测试集上的表现比在长提示上训练的模型更好。这可能是因为一个1.5B大小的基模型相对容量有限，难以遵循详细提示中的复杂指令。<br>相比之下，当使用不同的提示训练时，7B大小模型在下游任务上的表现相似。然而，使用长提示语训练的模型生成了较短的回应，这表明它通过遵循提示语中提供的指导原则，学会了更高效地进行推理。<br>因此，更详细的提示语可以引导模型更有效地思考，提高推理效率。然而，它们并不一定能在下游任务上带来性能的提升。<br>此外，LLMs可能会利用长度偏置的奖励函数（即奖励操纵），这些函数旨在鼓励更长的响应和更复杂的推理行为，但是，响应长度是强化学习训练成功与否的一个重要指标；然而，它是性能提升的结果，而非原因。<br>设计专门的奖励函数以明确鼓励模型产生更长的响应可能会导致奖励作弊等问题，这并不能从根本上提升模型的推理能力。也就是，虽然较长的响应可以提供更多推理空间，但过度延长响应长度可能导致冗余推理或性能下降。<br>理想的解决方案是让模型根据问题难度自适应调整响应长度。<br>5、训练数据是用合成的还是蒸馏的好？<br>构建长CoT训练数据有两种主要方法，合成长CoT数据和从大型推理模型中蒸馏。<br>对于第一种方法，合成包含各种推理模式（例如，反思和验证）的指令微调数据，以鼓励探索和多样化推理模式。根据现有工作，从公共数据集中选取大约5k个难题。<br>对于第二种方法，使用现有的大型推理模型进行蒸馏，从OpenThoughts中选择大约50k条数据，该数据从DEEPSEEK-R1中提炼出长CoT相应。<br>使用长链推理数据（如合成数据或从大型推理模型中蒸馏的数据）进行监督微调（SFT）可以显著提升模型的推理能力。<br>在初期训练中，合成数据方法表现出一定的有效性，能够鼓励模型生成更长的响应，并探索多样化的推理模式。然而，合成数据的复杂性有限，合成数据通常使用相对简单的策略生成，这些策略不足以捕捉或表示从高度能力的推理模型中更有效地提炼出的复杂推理过程，难以捕捉复杂的推理步骤，因此在后续的RL训练中效果逐渐减弱。<br>蒸馏数据方法在后续RL训练中表现更好，因为它从高质量的源模型中提取了复杂的推理模式。蒸馏数据不仅包含了丰富的推理步骤，还能更好地引导模型进行有效的推理，从而显著提升模型的整体性能。<br>即使模型已经通过长链推理数据微调达到了较高性能，RL训练仍能进一步提升其推理能力。强化学习训练一致性地提升了微调模型的性能，包括短期和长期的CoT推理模型。即使在Qwen2.5-1.5B通过蒸馏数据训练达到较高水平的表现后，强化学习训练进一步提升其能力，在AIME2024上实现了显著的准确率为39.33<br>6、工具操作的实验说明了什么结论？<br>通过监督微调（SFT）赋予模型工具操作能力（如代码解释器），可以显著提升模型的推理性能。例如，STILL-3-TOOL-32B在AIME2024上的准确率达到86.67%（贪婪搜索）；<br>即使少量高质量的工具操作ICL数据也能显著提升模型性能，表明工具操作能力可以通过少量但高质量的训练数据有效激活。<br>例如，在工具操作实验中，STILL-3-TOOL-32B模型在AIME2024上取得了显著的改进，达到了86.67的准确率。其成功的原因可以再回顾下：<br>一个是示例数据蒸馏，通过从强大的教师模型（如DeepSeek-R1）中蒸馏示范数据，逐步培养了模型的工具操作能力。这些数据包含了代码片段和正确的答案，帮助模型学习如何在推理过程中有效地使用工具。<br>一个是SFT微调，通过系统的示范数据蒸馏和SFT实验，逐步精炼了模型的工具操作能力。这种方法不仅提高了模型生成代码片段的能力，还增强了模型在推理过程中调用外部工具的意愿。<br>一个是RL训练，在掌握了工具操作能力后，通过RL训练进一步提升了模型的性能。RL训练鼓励模型在推理过程中自主调用工具，从而显著提高了其在复杂数学问题上的推理能力。<br>本文主要回顾了两个工作，一个是RAG中的表格处理问题，如何进行序列化。<br>另一个是RL用于推理模型的一些分析，其中的一些分析结果其实还蛮有趣的，虽然有些实验限制，但结果依然有指导性。<br>1、https :&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;cT4q7Fz6QW6fUIX927b5Gg<br>2、https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2402.17944<br>3、https :&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2503.04548<br>老刘，NLP开源爱好者与践行者，主页：https :&#x2F;&#x2F;liuhuanyong.github.io。<br>对大模型&amp;知识图谱&amp;RAG&amp;文档理解感兴趣，并对每日早报、老刘说NLP历史线上分享、心得交流等感兴趣的，欢迎加入社区，社区持续纳新。<br>加入社区方式：关注公众号，在后台菜单栏中点击会员社区加入。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/14/1000001168-2648419789-2/">https://zejuncao.github.io/2025/04/14/1000001168-2648419789-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%80%81%E5%88%98%E8%AF%B4NLP/">
+                                    <span class="chip bg-color">老刘说NLP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/14/1000001520-2247589713-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001520_2247589713_1.jpg" class="responsive-img" alt="5 种被严重低估的统计检验">
+                        
+                        <span class="card-title">5 种被严重低估的统计检验</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AESTUDIO/">
+                        <span class="chip bg-color">数据STUDIO</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/14/1000000523-2247494842-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000523_2247494842_1.jpg" class="responsive-img" alt="字节Seed-Thinking-v1.5技术报告解读">
+                        
+                        <span class="card-title">字节Seed-Thinking-v1.5技术报告解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8C%85%E5%8C%85%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">包包算法笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

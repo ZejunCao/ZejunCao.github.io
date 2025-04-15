@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="最初只有12个人！英伟达早期架构师首次亲述CUDA发展全过程, ZejunCao&#39;Blogs">
+    <meta name="description" content="最初只有12个人！英伟达早期架构师首次亲述CUDA发展全过程
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+Datawhale分享内部对话：英伟达，编译：InfoQ编者按：最近，在NVIDIA的一次内部对话中，英伟达">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>最初只有12个人！英伟达早期架构师首次亲述CUDA发展全过程 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002108_2247587927_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">最初只有12个人！英伟达早期架构师首次亲述CUDA发展全过程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+                                <span class="chip bg-color">机器学习算法那些事</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-13
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Y_qUckHflMKS5uJjdS9rtg">最初只有12个人！英伟达早期架构师首次亲述CUDA发展全过程</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>Datawhale分享<br>内部对话：英伟达，编译：InfoQ<br>编者按：<br>最近，在NVIDIA的一次内部对话中，英伟达的三位员工Nader、Stephen和Carter三位员工分享了他们对CUDA技术的发展历程及其在计算科学和AI领域的应用的见解。Stephen，作为CUDA架构师之一，回顾了CUDA的早期发展，包括团队如何在初期面对图形团队的质疑和挑战。他讲述了CUDA如何从一个内部初创项目发展成为推动图形和计算领域创新的关键技术。<br>Stephen还解释了在CUDA之前，开发者如何通过OpenGL和DirectX等技术与GPU交互，以及CUDA的出现如何改变了游戏开发和视觉效果的实现方式。<br>此外，Stephen还提到了英伟达在并行计算方面的前瞻性，早在90年代，英伟达CEO黄仁勋（Jensen）就预见到了并行化的潜力。他解释了当时图形架构的竞争，以及英伟达如何通过专用芯片提高性能，最终形成了如今的多线程机器。<br>Carter，物理学背景出身，分享了CUDA如何帮助物理学家突破计算极限，特别是在天气预报和计算生物学等领域。他提到，尽管最初物理学家对CUDA的多线程设计持保留态度，但随着计算需求的增长，他们逐渐接受了这一技术。<br>在这场谈话中，Nader、Carter和Stephen深入探讨了英伟达的技术发展、CUDA的演进以及公司在计算科学和AI芯片领域的主导地位。但在他们的谈话，InfoQ读到了他们透露出来的另一个讯号，也是黄仁勋曾在公开场合反复提到的：英伟达现在是一家以软件为核心的公司。<br>事实上，英伟达的加速计算组（AcceleratedComputingGroup）负责人DaveSalvator去年曾在公开场合提到过，英伟达的代码工程师人数是其硬件工程师人数的两倍。<br>以下内容为InfoQ根据视频采访实录翻译整理，经编辑：<br>        Nader：我们是来自英伟达公司的Nader、Stephen和Carter。在英伟达工作的最大收获，就是有机会结识Stephen这样出色的人物。这个系列节目的标题是“英伟达是家软件公司”，希望强调我们软硬件工程结合的身份。<br>Stephen：是的，我们现在有最多的软件工程师和硬件工程师。我记得几年之前CEO黄仁勋曾经说过，“英伟达不再是一家硬件公司，而是一家软件公司”。这话一点没错。<br>        Nader：相信大家都听说过CUDA，还有它对开发人员的重要意义。Stephen，你是CUDA团队的一员吧？<br>Stephen：没错，我是CUDA团队的架构师，而且从2008年开始就参与这个项目了。最初团队里只有12个人，那段经历非常有趣。<br>记得我当初就是随机加入了英伟达内部的团队，当时大家的工作就是用显卡GPU做计算。结果刚一入职，我就发现大家都气呼呼的。“咋的了这是？”我完全搞不清状况。后来才知道，当时所有人都会用3DMark基准测试来给硬件跑分，而CUDA会占用掉10%的GPU资源。所有图形开发同事都说“它让3DMark得分低了10%”，而且为此恼怒不已。我真的没想到自己也会被卷进来。<br>但讽刺的是，如今的GPU保持着90%可编程、10%固定功能的设计比例，相当于跟当初的情况完全颠倒了。我们在CUDA身上倾注的心血，最终在游戏等各类用例下都在发挥作用。<br>1CUDA曾因占用10%内存被嫌弃<br>        Nader：那在CUDA出现之前，GPU是什么样的？人们怎样与之交互，游戏开发者又在其中扮演什么角色？<br>Stephen：当时有OpenGL和DirectX，它们诞生于2000年左右。虽然我不是图形专家，但大致上开发者会构建容纳3D对象的场景并进行沉浸。OpenGL就是构造这些场景、实现矩阵旋转的工具。之后OpenGL开始提供一些可编程的小脚本，这样开发者就能实现几何体变形之类的效果。这种可编程性当时被称为可编程着色器，是GPU上最早的无固定功能硬件——也可以说是后来可编程设计的起源。<br>CUDA的发明者是斯坦福大学的IanBuck，他想出了如何将普通编译器映射为可编程形式。他在英伟达实习时说服了Jensen，强调这只会占用芯片10%的资源。但正因为如此，同事们才特别不爽。但现在回想起来，这不就是图形开发人员强调的“动态可编程着色、几何图形能创造出更好的游戏画面，更好的视觉效果”吗？总之我们开始像设计计算系统那样设计图形系统，包含函数、循环、变量和C编译器。<br>一切的开始源于固定函数渲染。固定函数渲染代表我们可以将网格传递到硬件，由硬件中的机制处理这些三角形并显示在屏幕上。但在传递给硬件之前，这些函数大半都存放在软件当中。正因为如此，OpenGL和DirectX的驱动程序才特别复杂。各种东西中都需要内置编译器，确保硬件本身始终以最高速度显示出最多的三角形。<br>如今，我们已经可以使用着色器和内核来管理并控制几何图形的变形和移动了。所以，固定函数渲染的作用就是说明“这是个三角形，这是一张纹理图，把它们显示在屏幕上”。这是一份巨大的清单，能够实现很多效果。但随着技术发展，开发者们希望增强控制能力或者添加一些光源之类的效果，而最终成果就是可编程设计。<br>几乎所有这些都可以在GPU中以高度轻量化的线程形式存在，它们可以执行最基本的代码。过去我们没办法使用for循环，一切内容都需要注册，而且不能执行函数。那时候一切真的非常基础，但至少可以获取一些变量，把它们相加以得到另一个变量，再开平方等等。总之，这一点点计算量成就了更强的控制能力。<br>于是我们下定决心，哪怕图形显示还不需要CUDA，我们也要借此实现可编程性。事实证明我们是对的。但现在的情况又不一样了，我们在图形方面看到的不少重大进步，其实是来自基于AI的着色器、神经网络着色器等，比如机器学习RTX。光线追踪的技术原理虽然特殊，但RTX使其能够嵌入微小的机器学习算法，再以程序化方式生成结果，且速度比普通软件算法要快得多。<br>2CUDA的“护城河”是并行化能力<br>        Nader：那这一切是发生在CUDA之上的单独层，还是就在CUDA当中？<br>Stephen：CUDA其实是一套集合。很多朋友在说起CUDA时，首先想到的是CUDAC++语言。但不止于此，它包含一系列类似于C++的库，可以通过特定方式编写并更好地发挥对应硬件的性能。它可以调用cuDNN的PyTorch框架，比如调用cuBLAS、调用cuTENSOR乃至编译器。PyTorch下面的这一切都是CUDA。甚至CUDA代码本身也代表着英伟达为PyTorch代码库做出的贡献。<br>所以说，CUDA就是一套完整的技术栈。毕竟没人愿意直接编写汇编代码，也几乎不想编写C++这类低级代码，这就需要一套库或者封装的SDK帮大家解决需求。CUDA有10个层，最底层是编译器，负责获取最终代码并将其映射至GPU线程。<br>DirectX就是一个SDK，是微软打造的API。其中是一组定义如何设置图形的函数。大家在Windows上玩的任何游戏几乎都要依赖DirectX。OpenGL也差不多，只是有点跟不上时代了。Vulkan取代了它的地位。如果大家在Linux上玩游戏，那就要用到Vulkan。这些都是标准图形SDK。虽然不一定能完全互换，但从功能上讲，它们有很多共性。<br>        Nader：那你为什么会决定对DirectX进行分叉？<br>Stephen：DirectX是微软的API规范，定义了图形的设置方式。也就是说，英伟达GPU或者其他显卡只要实现了DirectXAPI和VulkanAPI，就能让游戏跟它们通信。有些程序在英伟达GPU上运行效果更好，但DirectX永远存在。Vulkan则可以添加扩展及其他厂商特定的驱动程序，借此支持某些核心硬件。<br>在CUDA项目期间，我们一直在努力达成的一个目标，就是让同样使用汇编语言的图形管道和CUDA通用软件开发管道保持互操作性。这也是AI在图形领域的意义所在。机器学习模型及其执行、推理都是由CUDAC++编写而成。换言之，AI内核、图形内核和着色器可以共存并相互调用。<br>另外一个重点在于功率。我的笔记本电脑只有150瓦，台式机则有1.5千瓦。而哪怕是功率达到20兆瓦的数据中心，它的容纳上限也是明确的。因此除非摩尔定律持续起效、晶体管数量不断增加，否则缺少能效提升空间的晶体管总会耗尽我们的功率配额。因此，降低运行功率以维持相同或者更多芯片的运行，就成了一大核心目标。<br>能效的意义也得到了历史的证明。随着晶体管的缩小，启动它们所需要的电量也在降低。直到2006年英特尔酷睿2发布之前，这种思路都非常有效。但奔腾4第一次出现了功率问题，漏电子流效应意味着电子会逃离晶体管。这跟电阻无关，单纯是量子力学所决定。这些电子会传送到其他东西上，进而导致能量损失。<br>芯片开关的速度越快，能量损失的速度也会越快，进而拉低主频。正因为如此，2006年到2007年左右出现了一系列主频很低的CPU。它们的出现，打破了“主频就是性能”的固有认知。<br>后来我们又遇到了单核功率瓶颈。我们发现如果继续缩小晶体管，那么其功耗将会翻倍，导致电压不足以正常实现状态切换。结果就是当时的芯片主频从3、4GHz下降至1.5GHz，但双核、四核和八核芯片逐渐诞生。如今某些AMD芯片甚至有128个核心。<br>核心数量的增加其实是种妥协性质的障眼法，是在掩饰半导体厂商已经无法继续提高主频的问题。这样设计出来的芯片虽然理论上拥有双倍性能，但也只有两个核心全部满负荷运转时才成立，而当时绝大多数软件根本不支持多线程。<br>所以如果观察摩尔定律曲线，就会发现CPU的晶体管密度已经提高了20倍，但单线程、单核心性能却仅仅提高了几倍。所以除非采用并行处理，否则自2006年以来，后续发布的CPU根本就没什么颠覆性的性能提升。<br>总之，我们已经在单核设计上穷尽了一切手段。继续缩小晶体管的唯一好处，就是实现并行化。并行化是软件领域的必要能力，GPU就完全是在执行并行计算。当前的GPU大约可提供25万个线程，这在过去简直无法想象。<br>        Nader：那这要怎样编程？你又如何看待这样的设计？<br>Stephen：CUDA所关注的就不是单线程编程场景。我们在CUDA立项早期就确定了并行性的规划方针。比如是把这种机制藏起来、公开出去，还是允许用户思考并参与进来。<br>我们实际是把它分成了两个部分，即粗粒度与细粒度。首先要明确一点，没人能同时运行这25万个线程。这世界上有两种并行类型，其一是数据并行，即用户拥有大量数据，比如需要渲染屏幕上的每一个像素。这时候可以把任务拆分并展开，也就是分而治之的处理思路。<br>另外一种是任务并行，即场景中有多个对象，游戏就是典型案例。你可能需要为多个对象改变几何形状、执行程序纹理、设置光源等等。这时候要做的就不是拿25万个线程渲染同一个对象，而是要同时渲染100个对象，把这些对象分配给多个线程。<br>在CUDA之前，很多编程模型都只支持一种并行类型，即数据并行或者任务并行。但有了几十万个线程，我们觉得划分应该更明确一些。比如根据实际需求把数据或者任务拆分成多个独立部分，再各自分配1000个线程来处理。<br>我们让这种拆分过程透明可见，这也更贴合GPU的实际运行状态。CUDA的一大原则，就是尽可能贴近硬件以实现最佳性能。GPU内部的硬件拥有我们称为流式多处理器（SM）的核心。当前的GPU拥有约150个这样的核心，它使用这些核心进行程序分配，且每核心可运行2000个线程。<br>这就让硬件拥有了自然拆分任务和数据的能力。比如先将GPU资源拆分成150个独立的部分，接下来既可以把它们组合起来解决同一个问题，也可以指挥特定部分所对应的线程分别处理问题中的图形或者算法等具体环节。<br>这就是CUDA得以迅速发展的原因。随着芯片越做越大并迎来流式多处理器，这种任务拆分自然会让计算性能得到提升。这跟CPU完全不同——CPU始终强调单线程，因此增加核心数量对于实际性能的贡献往往比较有限。<br>3CUDA的挑战在于让程序员能同时控制两种计算类型<br>        Nader：人类的思维是有连续性的。那在展示这种全新范式时，有没有遇到过抵触情绪和沟通障碍？对于这样一种不同于以往的编程和问题解决方式，市场的采用曲线又是怎样的？<br>Carter：我是学物理学出身，编程设计方面的事我不太有发言权，但这种范式变化确实给了我很大帮助。比如在AI爆发之前，CUDA的第一个目标就是计算科学，希望优化天气预报和计算生物学等的处理性能。<br>物理学家跟程序员不同，他们可以穷尽一生去探究物理世界的秘密。正是因为我发现自己缺少那样极致的天赋，最终才决定投身计算机。我曾在大学物理实验室工作过，那里会把角色分得很开——有科学家、也有程序员，大家各司其职共同协作。物理学家不知道如何最大限度运用计算机，而程序员就出面解决这类需求。这种强强联手的方式非常成功。<br>我们专门去找过这些物理学家，向他们介绍CUDA和多线程设计。他们刚开始确实会拒绝，因为这不是他们惯常的计算实现思路，没想过怎样把任务映射到大量线程上。但这种习惯思维意味着更大的问题必须由更大的计算机来解决，总有一天计算机会不够大，这时工作就卡住了。<br>2000年初那段时间，人们总觉得算力的提升是无上限的。但物理学家的态度更灵活，毕竟只要算力能再强哪怕一点点，结果都可能完全不同。所以他们对任何能帮助自己跨越新边界的技术，都比较愿意接受。<br>就比如说2D图形到3D图像的转换，后者对于供电和内存的需求百倍、千倍于前者。但大家都希望能尽早实现，而不是坐等摩尔定律带来足够强大的单台计算机。<br>所以哪怕在CUDA之前，就有很多博士生在编写新算法，努力在更小的机器上解决更大的难题。我对这方面探索很感兴趣，因此经常会出席超级计算会议，跟其他与会者交流心得。<br>让我印象深刻的是，2019年时大家都对AI嗤之以鼻，觉得这东西根本就不存在。但短短几年的疫情之后，如今每个人都在聊AI，比如“我把AI加入了自己的生物算法”。<br>机器学习的强大之处，在于我们可以训练它来生成一条复杂的函数，从而简单快速地解决问题——哪怕我们并不完全理解它的基本原理。仍然以天气预报为例，由于蝴蝶效应，地球上某个区域的微小变化会极大影响其他区域的天气。<br>照传统方法，我们需要对整个星球进行预测，采集国家气象局的行星模拟数据。然而，世界上最大的计算机也只能以约10公里的分辨率模拟行星。虽然从星球的角度来看，10公里这个单位并不算大，但常规云团的直径也就是1公里，且足以决定特定区域的天气。换句话说，老办法根本不可能准确生成整个星球的天气预报。<br>几年之前，人们发现可以使用机器学习模型来填补空白，而且效果比传统云团模型好得多。海洋模型和云团模型都是极其复杂的系统，但通过填充这些边长10公里的正方形块，它们能够有效实现1公里的分辨率。所以过去几年间，天气预报的预测范围已经从5天延长到了7天甚至是10天。<br>在AI的帮助下，天气预报突然就“支楞”起来了，这是因为机器学习算法让我们得到了更好的结果。<br>之所以能把天气预报的范围延长到10天，是因为机器学习算法能够实现原本难以做到的事情，比如处理近似非线性议程。简单来讲，AI可以将上百万个维度上的无数个点拟合成一条曲线。在训练过程中，它会逐渐把握住这条与数据最贴近的曲线，并在之后的推理期间用曲线核查真实采集到的点。也正因为如此，推理的速度才会远远快于训练。<br>这样的AI填充技术不仅适用于天气预报，也适用于其他场景。AI算法对极其复杂的蛋白质模型进行推理，彻底改变了计算生物学。但这里又要说回功率的问题。晶体管越小，电子损失越严重。因此随着我们不断增加晶体管数量，能效并不能随之倍增。毕竟我们常用的笔记本电脑就只有150瓦，台式机是1.5千瓦，它们能容纳的晶体管总量是有限的。<br>但AI算法能把评估成本降低至百分之一甚至千分之一。比如在图形渲染中，AI可以生成几乎看不出区别的近似帧，同时保证不超过笔记本电脑的功率上限。这虽然不是真正的精确渲染，但却可以让每像素的生成成本都满足预算范围，这在以往根本不可能实现。<br>因此我们才特别需要新的AI算法，作为替代方案，它们能够适应功率预算且继续提供良好的计算结果。<br>虽然在图形渲染中，AI有时候可能生成伪影，比如当游戏中的对象快速移动时，AI仍在根据上一帧生成下一帧，因此显示效果和正确效果间会有轻微差异。但总体来讲，AI还是能比传统方法更好地呈现运动曲线。<br>计算的历史一直由冯·诺依曼计算架构所主导，其强调的是可重复、精确且合乎逻辑。但如今我们正进入神经计算的新时代，其中的计算并不精确。我们输入同样的数据，有可能会得到略有不同的输出，这是因为问题中的变量太多。神经计算具有容错性，不会像冯·诺依曼计算那样因错误而崩溃。<br>神经算法为高度复杂的问题找到了非常简单的解决办法，唯一的代价就是得到的是近似结果、而非精确结果。但这对人类来说已经够好了。当然，我们在某些场景下不想用AI，比如说报税——报税过程绝对不能有幻觉。但AI在数学问题上的表现令人震惊，所以我相信很快我就能把所有日常事务都交给它了。<br>未来，冯·诺依曼计算和AI计算将携手共存，可能还要再加上量子计算等其他计算类型。CUDA的挑战，在于找到一种方法让程序员同时控制这两种计算类型。作为异构系统，GPU中包含多种不同用途的不同硬件，而CUDA需要将它们统一起来，提供一套能够与之交互的通用平台。<br>随着市面上的硬件越来越多，我们也越来越难以为开发者提供一套简洁、无缝的编程模型。时至今日，我们仍不清楚该如何把神经算法、冯·诺依曼算法和量子计算融合起来。我们在英伟达的一大工作重点，就是让Python成为CUDA平台中的重要部分，确保平台中的各个部分，包括库、SDK和编译器都能跟Python顺畅交互。<br>我刚加入英伟达时，当时的芯片大约有3万个线程。硬件在运行时会将这些线程组合成块，再由GPU使用SIMT（单指令、多线程）实现并行计算。其中大多数线程会保持独立运行，允许每个线程在必要时执行不同的操作。<br>另外，将数据映射至线程对于机器学习算法的效率和性能同样至关重要。机器学习面临着诸多挑战，例如软件栈太深以及如何将数据有效映射至硬件等。<br>现在AI领域中即时编译正逐渐成为主流。只要获得了问题的参数，就能针对其做代码优化。CUDA则始终提供编译器层，确保开发者能够插入自己的语言和内容。现在通过在线运行即时编译，我们希望人们能够在各类场景下使用编译器，借此缩短编译时间并优化代码，让用户更快获取大模型输出的token。<br>这种依靠极端复杂软件实现最快推理速度的目标不易达成，必须从中寻求平衡。比如说某些算法虽然生成速度更快、首次推理时间更短，但算法本身却是错的。总之这类场景下没有完美答案，真正的关键在于映射结果，同时辅以延迟和效率。<br>        Nader：早在上世纪90年代时，Jensen就预见到了并行化的巨大威力，而当时大多数CPU还是单核的。这样的前瞻性令人印象深刻。那90年代初的并行化是什么样子？<br>Stephen：当时，不同的图形架构之间存在着广泛竞争，各家厂商都在尝试自己的思路。英伟达也有自己的方案，而且被证明效果相当出色。<br>而且这些并不能算GPU，只是其他类型的图形芯片。英伟达于1993年开始制造图形芯片，刚开始只是用来加速某些渲染工作。当时GL已经出现，大家都想给这个问题找到答案。其中一种方式，就是放弃提升单一线程性能、加快其逐像素处理能力，而是让多个线程并行运行。但注意，当时的线程跟我们现在说的计算线程并不是一码事。<br>比如说，光栅化器会获取屏幕上某个位置的斜三角形，并确定哪些像素有光照、它们在边界上的亮度参数。光栅化器随后将三角形转换成像素，而这是个非常简单的操作。只要能够复制多个逻辑门，我们就能一次性渲染多个像素，保证光栅化器飞快运行。从本质上讲，这并不属于可编程设计，毕竟只是在按晶体管和逻辑门的序列来决定像素显示还是不显示。但效果仍然不错，我们确实能在每个时钟周期内渲染出更多像素。<br>而这也现在现代并行性设计的起点，人们开始尝试通过专用芯片尽量提高性能。克隆所有逻辑门以便一次处理更多像素的想法，逐渐演变成了可编程性理论，最终形成了如今规模极大的多线程机器。<br>另外需要关注的是，尽管从CUDA的角度来看，GPU本身就是一台大规模并行机器，但它却并不擅长运行Linux这类串行问题。这类任务还是要交给CPU才行。<br>而我认为理想的异构机器应该是CPU与GPU的结合——也正因为如此，我才特别赞赏英伟达的GraceHopper硬件。其中采用了HopperGPU并配合基于ARM架构的GraceCPU（服务器级CPU），以调整内存将二者连接起来以实现数据共享。它的独特之处，不止于通过总线连接起两台计算设备，而更多体现为一种共享缓存系统的协同关系。在这样的混合设备上，我们能够以不同于以往纯CPU或纯GPU的方式对其进行编程。在这样的设备上，我们可以让CPU专门运行Linux，让GPU专门运行并行编程。<br>参考链接：<br>https :&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.youtube.com/watch?v=dNUMNifgExs">www.youtube.com/watch?v=dNUMNifgExs</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/13/1000002108-2247587927-1/">https://zejuncao.github.io/2025/04/13/1000002108-2247587927-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+                                    <span class="chip bg-color">机器学习算法那些事</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/13/1000000691-2247521591-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000691_2247521591_2.jpg" class="responsive-img" alt="万字详解：LightGBM 原理、代码最全解读！">
+                        
+                        <span class="card-title">万字详解：LightGBM 原理、代码最全解读！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-13
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/">
+                        <span class="chip bg-color">深度学习基础与进阶</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/13/1000002108-2247587927-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002108_2247587927_2.jpg" class="responsive-img" alt="深入解析图神经网络注意力机制：数学原理与可视化实现">
+                        
+                        <span class="card-title">深入解析图神经网络注意力机制：数学原理与可视化实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+                        <span class="chip bg-color">机器学习算法那些事</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
