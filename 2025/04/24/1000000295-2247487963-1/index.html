@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MCP 安全困境与Agent安全框架的应对之道, ZejunCao&#39;Blogs">
+    <meta name="description" content="MCP 安全困境与Agent安全框架的应对之道
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击“蓝字”关注我们模型上下文协议（MCP）作为LLM与工具交互的一项重要标准，被赋予了“AI领域的USB-C接口”的厚望">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>MCP 安全困境与Agent安全框架的应对之道 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000295_2247487963_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MCP 安全困境与Agent安全框架的应对之道</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B%E8%B7%AF/">
+                                <span class="chip bg-color">大模型之路</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/q_-v8wLn3UnXjEeKW0TzZw">MCP 安全困境与Agent安全框架的应对之道</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击“蓝字”关注我们<br>模型上下文协议（MCP）作为LLM与工具交互的一项重要标准，被赋予了“AI领域的USB-C接口”的厚望，旨在为AI模型与外部工具之间建立起安全、双向的连接，让AI能够无缝对接各类数据源、文件系统、开发工具以及Web浏览器等外部系统，极大地拓展AI的应用能力。然而，随着MCP的广泛应用，其安全问题逐渐浮出水面，引发了业界的广泛关注。与此同时，代理安全框架的出现为解决MCP的安全困境带来了新的曙光，本文将深入探讨MCP面临的安全挑战以及代理安全框架的应对策略。<br>MCP早期在身份验证机制方面存在严重的忽视，这直接导致了如今认证生态的混乱不堪。在实际的应用场景中，不同的MCP服务器对于认证的要求大相径庭。部分MCP服务器采用较为严格的OAuth2.0+MFA（多因素认证）方式来保障安全性，然而，还有一些服务器甚至连最基础的API密钥保护都没有设置。这种认证要求的不一致性，使得用户在使用MCP系统时面临极大的安全风险。<br>更为糟糕的是，当用户尝试将企业Slack与个人网盘接入同一个MCP系统时，权限边界仿佛消失不见。企业Slack中可能包含大量敏感的工作信息，而个人网盘也可能存储着私人的重要数据。在权限边界模糊的情况下，一旦MCP系统遭受攻击，攻击者很容易就能跨越不同服务之间的权限限制，获取到原本不应被访问的数据，从而导致企业数据泄露和个人隐私暴露的严重后果。<br>例如，某开发者在GitHub开源项目中配置的MCP服务端，由于使用了默认的空密码，使得不法分子有机可乘，成功爬取了公司内部的研发文档。这样的安全事件并非个例，据相关数据显示，此类因MCP认证机制缺陷导致的安全案例正以每周3起的惊人速度增长，给企业和个人的数据安全带来了巨大的威胁。<br>MCP的stdio模式支持为开发者提供了便捷的功能加载方式，只需简单运行“mcp-toolinstall”命令，就能轻松加载新功能。然而，这一便捷性却也为恶意代码敞开了大门。安全团队在研究中发现，一些恶意分子将恶意代码伪装成PDF解析工具等常见的MCP插件。当用户在本地执行这些伪装的插件时，它们会在用户毫不知情的情况下，悄悄上传用户系统中的.bash_history文件，该文件可能包含用户之前在命令行中输入的各种敏感信息，如登录密码、系统配置命令等。这种本地执行的风险，使得用户的系统安全面临着极大的挑战，一旦恶意插件得逞，用户的隐私和系统安全将受到严重的侵害。<br>从表面上看，MCP工具似乎只是员工既有权限的自动化延伸，能够帮助员工更高效地完成工作任务。但在实际的复杂业务场景中，AI强大的推理能力却可能将分散的权限组合成极具危险性的武器。以HR专员为例，他们原本拥有查看考勤记录的权限，同时在工作中也可能会使用Slack与员工进行沟通交流。在MCP工具的支持下，AI有可能通过对考勤记录和Slack消息的综合分析，推导员工的离职倾向。虽然HR专员在单个操作上的权限是合理且合法的，但这种将不同权限下的数据进行聚合分析，从而获取员工敏感信息的行为，却可能侵犯员工的隐私，引发不必要的企业内部矛盾。再看普通开发人员，他们通常有权限访问代码库。在MCP工具的辅助下，开发人员可能会利用AI统计代码库中的安全漏洞分布情况。然而，如果AI进一步利用这些信息反向定位系统的薄弱环节，就可能为攻击者提供潜在的攻击路径，导致企业系统面临安全风险。这种“合法权限的非法组合”，正逐渐演变成企业数据泄露的新型渠道，给企业的信息安全带来了前所未有的挑战。<br>传统的日志审计系统在应对明确的操作指令时表现出色，例如能够准确捕获“delete_file”这样直接的文件删除操作。然而，在面对MCP调用中语义模糊的指令时，传统日志审计就显得力不从心了。以某电商平台的案例来说，攻击者通过精心策划，连续发送了20次看似“无害的”数据统计请求。这些请求单独来看，可能都不会引起审计系统的警觉，因为它们的操作描述类似于“analyze_sales_trends”（分析销售趋势），语义较为模糊，难以直接判断其是否存在恶意意图。但实际上，攻击者通过这些请求，逐步拼凑出了完整的用户画像数据库，成功获取了大量用户的敏感信息。这种利用监控盲区进行的攻击行为，由于难以被传统审计系统察觉，给企业的数据安全防护带来了极大的困难，一旦发现往往已经造成了严重的损失。<br>当开发者满怀期待地将GoogleDrive接入MCP时，常常会遭遇一些意想不到的问题。在使用过程中，可能会出现暴力遍历式查询的情况。例如，AI为了获取某些文件信息，可能会无差别地对GoogleDrive中的大量文件进行查询操作。这种方式不仅会消耗大量宝贵的API额度，增加企业的使用成本，还极有可能触发云存储服务的速率限制。一旦触发速率限制，GoogleDrive可能会对后续的请求进行限制或拒绝，导致AI无法正常获取所需信息。更为糟糕的是，当上下文窗口耗尽时，AI助手由于缺乏足够的信息支持，可能会给出完全错误的统计结果。这使得用户原本期望通过MCP高效获取准确信息的愿望落空，反而因为这些问题导致工作效率降低，甚至可能因为错误的结果做出错误的决策。<br>在实际的业务场景中，用户往往会提出一些看似合理的跨系统联动需求，例如“对比Jira任务说明与Confluence设计文档的一致性”。虽然Jira和Confluence这两个系统都已接入MCP，从理论上来说具备了跨平台交互的基础，但要真正实现这种跨平台的语义对比，却并非易事。这不仅仅需要协议层的连通，让两个系统能够进行数据交互，更需要投入价值千万元的NLP（自然语言处理）工程资源。这涉及到对两个系统中不同格式、不同语义的数据进行深度理解和对比分析，需要大量的算法研发、数据标注以及模型训练工作。对于大多数企业来说，如此巨大的投入往往超出了承受能力，使得这种看似合理的跨系统联动需求在实际中成为了几乎不可能完成的任务，严重影响了用户对MCP在复杂业务场景下应用的体验和预期。<br>实验数据清晰地显示出MCP在性能方面面临的严峻问题。当MCP工具数量从5个增加到20个时，Claude模型的指令遵循准确率从78%急剧暴跌至34%。造成这一现象的主要原因是工具描述在不断增加的过程中，挤占了原本应该用于任务推理的上下文空间。随着工具数量的增多，每个工具的描述信息也相应增加，这些大量的工具描述信息在模型处理任务时，与任务本身的信息相互干扰，导致模型难以准确理解和执行用户的指令。模型为了处理这些繁杂的信息，不得不花费更多的资源和时间，从而形成了一个恶性循环：工具越多，上下文污染越严重，模型性能越差，而模型性能差又进一步影响了对工具的有效使用，使得整体的任务处理效率大幅下降。<br>一次看似简单的操作，如“整理我的会议记录”，在MCP的运行机制下，可能会在后台触发一系列复杂的操作。这其中可能包括3次邮件服务器查询，用于获取与会议相关的邮件信息；5次语音转文本调用，将会议中的语音内容转换为文字以便后续处理；2次日历接口访问，确认会议的时间和相关日程安排；以及12次文档内容读取，读取与会议相关的文档资料。某金融公司在实际应用中，就因为类似这样看似普通的操作，每月产生了超过2万美元的意外API成本。更为惊人的是，经过分析发现，这些调用中高达60%最终并未被实际采用，也就是说大量的资源和成本被白白浪费。这种成本失控的情况，对于企业尤其是对成本敏感的中小企业来说，是一个巨大的负担，严重影响了MCP在企业中的推广和应用。<br>在测试基准Tau-Bench中，即使是顶尖的大模型在处理“预订国际航班”这种结构化任务时，成功率也不到20%。问题主要出现在多个方面。首先，模型在工具选择上常常出现混淆，例如将“search_flights”（搜索航班）和“query_timetable”（查询时刻表）这两个功能相似但实际操作不同的工具混淆使用，导致无法准确获取用户所需的航班信息。其次，对于一些参数的理解也存在偏差，比如误解“layover_time”（中转时间）参数的单位，可能将小时误认成分钟，从而给出错误的航班选择建议。再者，在处理时区转换逻辑时，模型也容易出错，由于国际航班涉及不同地区的时区差异，准确的时区转换对于预订航班至关重要，但模型往往无法正确处理，导致预订出现错误。更让人头疼的是，不同的大模型对工具描述的格式偏好截然不同。Claude模型需要XML标签格式的工具描述，而GPT则偏爱Markdown列表格式，这使得开发者在进行跨平台兼容时面临巨大的挑战，增加了开发成本和难度。<br>当MCP工具返回部分错误数据时，大模型的“脑补”能力反而会引发严重的问题。以某医疗AI为例，当实验室仪器返回“-1”这样的错误码时，医疗AI没有正确识别这是一个错误信息，而是将其解读为“检测值偏低”，并基于这个错误的解读生成了错误的诊断建议。这种情况比直接报错更为危险，因为它给人一种“错得有理有据”的幻觉，医生可能会因为相信AI的诊断结果而做出错误的治疗决策，从而对患者的健康造成严重威胁。在实际的应用场景中，这种错误传播就像多米诺骨牌一样，一个小的错误数据输入可能会引发一系列后续的错误判断和决策，给整个业务流程带来极大的风险。<br>代理安全框架针对MCP认证机制混乱的问题，提出了强制采用OAuth2.1+设备指纹的解决方案。OAuth2.1相比OAuth2.0在安全性上有了进一步的提升，能够更好地保护用户的身份信息和授权凭证。同时，结合设备指纹技术，通过对用户设备的硬件信息、软件环境等特征进行采集和分析，生成唯一的设备标识。这样，在用户进行登录或访问操作时，不仅验证用户的账号密码等传统认证信息，还验证设备指纹，确保登录设备的合法性和安全性。即使攻击者获取了用户的账号密码，由于设备指纹不匹配，也无法成功登录，从而大大增强了认证的可靠性，有效防范了因认证漏洞导致的数据泄露风险。<br>引入差分隐私机制是代理安全框架在权限管理方面的重要举措。差分隐私通过在数据查询和处理过程中添加一定的噪声，使得攻击者难以从查询结果中准确推断出单个用户的敏感信息。例如，在HR专员利用MCP工具分析员工离职倾向时，即使攻击者获取了部分查询结果，由于差分隐私机制添加的噪声干扰，也无法准确得知具体某个员工的真实情况。同时，对于敏感操作，如涉及到企业核心数据的访问和修改，采用二次验证的方式，要求用户在进行操作前再次确认身份或输入额外的验证码等信息，进一步保障操作的安全性。此外，代理安全框架还建议用户避免跨系统组合查询，减少因权限组合带来的数据泄露风险，从多个层面优化了MCP的权限管理体系。<br>针对MCP上下文明文传输和完整性校验空白的问题，代理安全框架采用了加密传输和数字签名等技术。在数据传输过程中，对会话数据进行加密处理，使用SSL&#x2F;TLS等加密协议，确保数据在传输过程中的保密性，防止数据被窃取或篡改。同时，对传输的数据添加数字签名，通过对数据进行哈希计算，并使用私钥对哈希值进行加密生成数字签名。接收方在收到数据后，使用发送方的公钥对数字签名进行解密，并重新计算数据的哈希值进行比对。如果两者一致，则说明数据在传输过程中没有被篡改，保障了数据的完整性。这样，从协议层就为MCP的数据传输安全提供了坚实的保障。<br>在应用层，代理安全框架建议AIAgent开发者采用安全沙箱机制。安全沙箱为MCP工具的运行提供了一个隔离的环境，限制工具对系统资源的访问权限。例如，将MCP工具运行在一个虚拟的容器中，容器内的文件系统、网络访问等资源都受到严格的限制。即使某个MCP工具被植入了恶意代码，由于其运行在安全沙箱内，恶意代码也无法突破沙箱的限制，访问到系统的关键资源或其他敏感数据，从而有效地防止了恶意工具投毒攻击等安全问题的发生，保护了整个系统的安全。<br>通过建立完善的输入输出检测机制，代理安全框架能够对MCP工具的输入和输出数据进行实时监测和分析。在输入方面，对用户输入的指令以及工具接收的数据进行合法性和安全性检查，防止攻击者通过输入恶意指令或数据来操纵MCP工具。例如，检测输入中是否包含特定的恶意代码关键词、是否存在不符合规范的格式等。在输出方面，对MCP工具返回的结果进行可信度评估和敏感信息检测。如果发现输出结果存在异常或包含敏感信息，及时进行报警或阻止输出，确保用户接收到的信息是安全可靠的，避免因错误或恶意的输出数据导致安全风险。<br>在用户界面（UI）设计上，代理安全框架强调增强透明度与确认环节。对于MCP工具的操作，在UI上向用户清晰地展示工具的功能、权限以及操作可能带来的影响。例如，当用户使用某个MCP工具进行数据查询时，UI会明确提示用户该工具将访问哪些数据源、可能获取到哪些类型的数据等信息。同时，在进行一些敏感操作前，如修改重要文件、访问企业核心数据库等，要求用户进行二次确认，确保用户清楚知晓操作内容并同意执行，避免用户因误操作或被恶意诱导而导致安全问题，提高用户在使用MCP过程中的安全性和可控性。<br>代理安全框架为用户提供了一系列自查方法，帮助用户及时发现和解决潜在的安全问题。例如，建议用户定期审计accesslog（访问日志），通过对访问日志的分析，查看是否存在异常的访问行为，如频繁的错误登录尝试、大量的数据下载操作等。同时，关注协议版本异常情况，及时更新MCP到最新的安全版本，避免因使用旧版本存在的安全漏洞而遭受攻击。此外，对于一些关键操作，用户可以手动启用关键工具，减少自动加载工具带来的潜在风险，通过这些自查措施，用户能够在一定程度上保障自身使用MCP的安全性。<br>对于MCP生态安全建设，代理安全框架提出了多方面的要求。MCP市场厂商及其安全团队需要加强安全审计工作，对上架的MCP服务和工具进行严格的安全检测，确保其不存在后门、漏洞或恶意代码。同时，建立安全事件监测机制，实时监控MCP生态系统中的安全动态，一旦发现安全问题，能够及时通知用户并采取相应的修复措施。此外，还需要加强对开发者和用户的安全培训，提高整个生态系统中各方的安全意识，共同营造一个安全可靠的MCP应用环境。<br>MCP作为推动AI与外部工具交互的重要协议，虽然在功能拓展方面展现出了巨大的潜力，但目前面临的安全问题不容小觑。从认证机制混乱、本地执行风险、权限失控、用户预期陷阱、性能深渊到大模型的先天缺陷等，这些安全噩梦严重制约了MCP的广泛应用和发展。然而，代理安全框架通过在协议层、应用层以及用户自查和生态安全建设等多个层面提出的一系列针对性解决方案，为解决MCP的安全问题提供了有效的途径。通过强化认证机制、优化权限管理、保障数据传输安全、建立安全沙箱机制、加强输入输出检测等措施，有望提升MCP的安全性，使其能够在安全可靠的基础上充分发挥其功能优势，为AI的发展和应用提供更坚实的支撑。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/04/24/1000000295-2247487963-1/">https://zejuncao.github.io/2025/04/24/1000000295-2247487963-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B%E8%B7%AF/">
+                                    <span class="chip bg-color">大模型之路</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/24/1000000296-2247487964-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000296_2247487964_1.jpg" class="responsive-img" alt="LLM in a Loop：借助评估提升LLM输出效果">
+                        
+                        <span class="card-title">LLM in a Loop：借助评估提升LLM输出效果</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">大模型之路</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/04/24/1000000294-2247487962-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000294_2247487962_1.jpg" class="responsive-img" alt="如何利用网络爬虫进行大规模LLM数据收集">
+                        
+                        <span class="card-title">如何利用网络爬虫进行大规模LLM数据收集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B%E8%B7%AF/">
+                        <span class="chip bg-color">大模型之路</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
