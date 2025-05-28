@@ -1,0 +1,1100 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="DefMamba：新型视觉基础模型，借多尺度Backbone与可变形Mamba模块及DS策略革新视觉任务表现 ！, ZejunCao&#39;Blogs">
+    <meta name="description" content="DefMamba：新型视觉基础模型，借多尺度Backbone与可变形Mamba模块及DS策略革新视觉任务表现 ！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击下方卡片，关注「AI视界引擎」公众号(添加时备注：方">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>DefMamba：新型视觉基础模型，借多尺度Backbone与可变形Mamba模块及DS策略革新视觉任务表现 ！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002287_2247618544_2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">DefMamba：新型视觉基础模型，借多尺度Backbone与可变形Mamba模块及DS策略革新视觉任务表现 ！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能前沿讲习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-05-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/V-g4Tw0xBwr4CAmLtmz1uw">DefMamba：新型视觉基础模型，借多尺度Backbone与可变形Mamba模块及DS策略革新视觉任务表现 ！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击下方卡片，关注「AI视界引擎」公众号<br>(添加时备注：方向+学校&#x2F;公司+昵称&#x2F;姓名)<br>近期，状态空间模型（SsM），特别是Mamba，因其能有效平衡计算效率和性能，吸引了学者的广泛关注。<br>然而，大多数现有的视觉Mamba方法使用预定义的扫描顺序将图像展平为1D序列，导致模型在特征提取过程中对图像空间结构信息的利用能力减弱。为解决这一问题，作者提出了一种新型视觉基础模型——DefMamba。<br>该模型包含多尺度Backbone结构和可变形Mamba（DM）模块，能够动态调整扫描路径以优先处理重要信息，从而提升对相关输入特征的捕获和处理能力。<br>通过结合可变形扫描（DS）策略，该模型显著增强了学习图像结构的能力，并能检测物体细节的变化。大量实验表明，DefMamba在图像分类、目标检测、实例分割和语义分割等多种视觉任务中均取得了最先进的性能。<br>目前大多数视觉基础模型主要依赖卷积神经网络（CNNs）[25,28,32]和Transformer架构[9,24,33]。然而，CNNs受其滑动窗口结构的限制，这限制了感受野，并显著阻碍了输入数据全局信息的聚合。相比之下，Transformer由于注意力机制，在全局信息聚合方面表现出色，但其高计算复杂度在实现效率与性能之间的平衡上构成挑战。状态空间模型（SSMs）[12]为这一权衡提供了一个潜在的解决方案。SSMs通过隐藏状态矩阵聚合先前特征来更新当前特征，从而将计算复杂度降低为与序列长度呈线性关系。尽管SSMs以递归方式处理序列，但在简化后，SSMs可以并行计算序列。尽管具有这些优势，但由于状态矩阵更新过程中缺乏内容感知感知，SSMs难以捕获长程依赖。<br>近期，Mamba[ 11]提出了一种改进的选择机制，旨在优化状态空间模型（SSMs）的训练过程。这种创新机制将内容感知引入特征提取流程，扩展了有效感受野，并在多种自然语言处理（NLP）任务中实现了显著的性能提升。因此，众多研究尝试将该方法扩展到更广泛的计算机视觉领域。这一过程中的主要挑战是如何在映射二维图像特征图到一维序列时，不丢失关键信息。大多数现有方法采用预定义的映射策略，如光栅扫描[23,47]、局部扫描[ 19]和连续扫描[ 42]。然而，如图1所示，这些方法都依赖于固定的扫描路径。这导致在展平后相邻的token不再相邻。因此，它们忽略了图像的固有空间结构，导致结构信息的丢失。为解决这一问题，QuadMamba[ 39]根据图像不同区域包含的信息量确定扫描窗口大小。然而，每个窗口内的扫描顺序是固定的，这导致上述问题未能得到完整解决。GrootV[ 38]基于输入特征自适应构建树状拓扑，并从该拓扑中提取特征。但它在构建拓扑时仅使用相邻特征，并在块上均匀分配注意力。上述方法要么基于固定的扫描顺序，导致结构信息丢失；要么平等对待感知区域内的信息，导致对物体细节变化的敏感性不足。<br>为解决这一问题，作者提出了一种名为DefMamba的新颖框架，该框架受可变形机制[6,36]的启发。然而，直观地将可变形机制应用于状态空间模型（SSMs）仍会导致结构信息丢失并增加计算复杂度。因此，作者提出了一种可变形状态空间模型和可变形扫描策略（DS），该策略基于重要信息优先考虑可变形Token，并将参考点滑动至重要区域。这种方法使SSMs能够更有效地捕获和处理与输入相关的相关特征。具体而言，作者将参考点从固定位置移动到可调节位置，该位置提供了更多有用信息，从而有助于感知目标细节的变化。另一方面，作者还通过偏移向量动态调整扫描顺序，以获得结构感知序列。<br>通过这种方式，yinqing-DefMamba_2504自适应地感知目标细节的变化，以找到最合适的特征点，并根据输入图像特征确定与目标结构一致的优化扫描顺序。<br>作者进行了广泛的实验，以验证DefMamba在多个视觉基准上的有效性，包括在ImageNet[ 8]上的图像分类、在COCO[ 21]上的目标检测和实例分割，以及在ADE20K[ 45]上的语义分割。<br>这些结果表明，yinqing-DefMamba_2504在所有基准上都优于现有的基于SSM的方法，并且与基于CNN和transformer的方法保持竞争力。<br>大量研究已成功将Mamba[ 11]应用于视觉任务，并取得初步成果。ViM[ 47]引入双向扫描方法将2D图像转换为1D序列，随后将这些序列输入SSM进行全局上下文建模，标志着Mamba首次应用于视觉任务。VMamba[ 23]采用四向扫描算法将2D图像转换为1D序列。PlainMamba[ 42]将扫描方法从栅格改为连续，保留了图像的空间依赖性。<br>MSVMamba[ 31]基于四次扫描对序列进行下采样，以减少计算冗余并缓解信息丢失问题。GrootV[ 38]在四向平面图上构建最小生成树，利用相邻特征之间的差异，根据不同输入动态调整扫描顺序。QuadMamba[ 39]在扫描过程中根据图像的信息内容自适应调整窗口粒度，以更好地聚合局部信息。虽然GrootV和QuadMamba可以根据输入数据调整扫描方法，但GrootV在生成最小生成树时仅考虑相邻元素之间的关系，忽略了全局信息。另一方面，QuadMamba仍然依赖预定义的扫描方法，并未实现真正的动态扫描。相比之下，作者的DefMamba引入了内容感知可变形扫描策略，允许网络动态学习扫描顺序和参考点位置。<br>可变形卷积[6,20,41,48]采用一种能够适应输入特征图几何变化的卷积核，从而克服了传统卷积在处理复杂目标时表现不佳的局限性。近期，可变形机制已被扩展到视觉Transformer[ 9]，以增强其捕捉局部特征和适应几何变化的能力。DPT[ 5]提出了一种自适应块嵌入方法，该方法在保留块语义信息的同时动态调整块的位置和大小。PSViT[ 44]在ViT[ 9]之前引入了一个渐进式采样模块，该模块迭代地识别当前图像中最合适的可变形点位置。<br>DAT[ 36]首次将可变形机制与Transformer中的自注意力机制相结合，将可变形注意力集成到视觉主干网络中。该方法学习一组与全局关键点对应的特征，并适应空间变化。先前的方法探索了将可变形机制有效融入Transformer架构的各种方式。随着Mamba[ 11]的近期流行，作者尝试将可变形机制引入Mamba。然而，直接应用这些机制导致了结构信息丢失和需要额外模块的问题。在此背景下，作者设计的DS策略通过有效优先处理可变形Token并将参考点引导至关键区域而脱颖而出。<br>在本节中，作者首先总结了第3. 1节中的状态空间模型（SSMs）。然后在第3. 2节中，作者描述了所提出网络的整体结构。第3. 3节介绍了一种可变形状态空间模型（DSSM）。最后，第3. 4节展示了跨多个尺度的模型配置设计。<br>SSMs，包括S4[ 12]和Mamba[ 11]等显著实现，是结构化序列架构，结合了循环神经网络（RNNs）和卷积神经网络（CNNs）的元素，能够实现关于序列长度的线性或近线性扩展。这些源自连续系统的模型，通过隐藏状态，定义了输入到输出的一维函数到函数映射。其中表示时间。更正式地，SSMs的特征由[ 11]中给出的连续时间常微分方程（ODE）呈现：<br>其中是当前隐藏状态。是更新后的隐藏状态。是当前输入。是输出。是SSM的演化矩阵，和、、分别是输入和输出投影矩阵。<br>为了使状态空间模型（SSMs）在深度学习的序列建模任务中得以应用，必须对其进行离散化处理，将SSM从连续时间函数到函数的映射转换为离散时间的序列到序列映射。S4[ 12]和Mamba[ 11]是连续系统的离散化示例，它们引入了时间尺度参数，将连续参数A、B转换为其离散对应物、。这种离散化通常通过零阶保持（ZOH）[11]方法实现：<br>S4[ 12]和Mamba[ 11]都采用了与方程2中概述的类似的离散化过程，但Mamba通过S6选择性扫描机制对参数、和进行了条件化，该条件化基于输入。其中，表示批大小，表示序列长度，表示特征维度。<br>DefMamba采用了一种与许多CNN[25,28]和Transformer[ 24]相似的通用多尺度Backbone结构。如图2(a)所示，图像首先通过一个patch嵌入层被分割成块，该层生成一个具有空间维度和通道维度的2D特征图。随后，使用多个网络阶段来创建维度为、、的层次化表示。每个阶段由一个DeformableMamba(DM)块堆栈和一个下采样层（第四阶段除外）组成。最后，特征通过平均池化后送入分类头以获得预测结果。特别地，作者遵循[ 38]并在patch嵌入层和下采样层中使用了重叠形式。具体结构细节请参考附录。<br>与语言模型中使用的Mamba结构[ 11]不同，DM模块遵循Transformer模块的流行结构[9,24]，该结构包含两个LayerNorm（LN）层、一个FFN、一个DSSM（将在下一小节介绍）以及残差连接，如图2(b)所示。<br>可变形状态空间模型的总体架构如图3(a)所示。受[23,31,38]的启发，作者在视觉Mamba模块[ 47]中用深度卷积替换了原有的1D卷积，并引入了一个包含可变形扫描和可变形状态空间模型（DSSM）的可变形分支。作者保留了标准的前向和后向分支以确保模型稳定收敛，因为与之前的扫描方法相比，yinqing-DefMamba_2504引入了更多的空间Token跳跃，这可能会使模型训练和学习变得复杂。后续实验验证了这一点（表4）。<br>可变形扫描。考虑到多个可变形点之间的相互干扰问题，作者将可变形点的偏移量限制在特定范围内。这确保了可变形点与参考点之间的关系保持不变，使作者能够利用变形前的关系来近似变形后的关系。此外，考虑到计算的简便性，作者采用并行方法同时调整参考点和扫描顺序，从而降低计算负担。具体结构如图3(b)所示。<br>给定输入特征，其中表示通道维度，表示空间分辨率。作者首先使用一个子网络生成偏移量，该子网络利用输出参考点和参考Token的偏移量。<br>作者最初实现的子网络如图3(c)所示。输入特征首先通过一个的深度卷积进行处理，以捕获局部特征。随后，采用GELU、层归一化（LN）和一个卷积来推导偏移值，这些偏移值总共有三个维度。前两个维度表示参考点在二维空间中的偏移，而第三个维度表示参考Token索引在整个Patch中的偏移。<br>在作者的实验中，作者观察到Token的偏移需要全局感知Patch内的特征，而这一点无法仅通过卷积实现。基于这一点，并考虑到先前方法的研究发现[29,31]中Mamba在通道维度存在冗余，作者在深度卷积层之后引入了通道注意力（CA）机制[ 18]。该机制减少了通道冗余，并促进了全局上下文信息的整合。值得注意的是，根据DAT[ 36]的配置，作者在四个阶段中设置为[9,7,5,3]，并在卷积中省略了偏差。<br>为稳定训练过程，作者采用tanh函数来减轻中极端值的影响，其中。随后，作者将沿通道维度分为两部分，一部分包含2个通道，另一部分包含1个通道，以获得点偏移和Token索引偏移。如前所述，作者需要进一步约束，以稳定训练并简化结构。作者将的水平维度和垂直维度分别除以和，从而将偏移限制在单个Token的范围内。详细过程如下：<br>然后，作者将点偏移量、Token索引偏移量和输入特征分别发送到点偏移分支和索引分支，以获得最终输出。<br>点偏移。为了获得对物体变化更敏感的特征表示，作者动态地调整网络的参考点，使其变形为包含更多相关信息的点，这些点基于输入进行确定。首先，作者生成了参考点。中的值对应于从到的二维坐标点。为了简化网络计算，作者将从其原始范围归一化到[-1,1]，其中[-1,1]表示左上角的点，[1,1]表示右下角的点。然后，作者将参考点和偏移量相加，得到变形点。由于偏移量包含小数部分，不能直接使用。因此，作者使用双线性插值从输入中提取与偏移点对应空间位置的特征。<br>当yinqing-DefMamba_2504执行点偏移时，特征会在空间中移动，这可能导致初始阶段添加的位置编码失效，从而降低模型性能。为了解决这个问题，作者基于SwinTransformer中的相对位置编码设计了偏移偏差。具体来说，给定大小为的特征图，点的相对坐标位移在两个维度上分别位于和的范围内。因此，作者设置了一个可学习的相对偏移偏差矩阵。然而，考虑到这样一个矩阵会导致参数数量显著增加，作者对这个矩阵进行了下采样操作，得到。同时，作者将点位移除以2以适应这一变化。然后，作者使用点位移在上进行插值，计算相应的补偿。最后，将这个补偿加到插值特征上。具体过程如下：<br>其中表示使用双线性插值函数提取位置在索引偏移上的特征。作者修改了扫描顺序，通过改变参考Token索引和可变形Token索引，使模型能够有效感知输入目标的结构。作者最初生成了参考Token索引，其中。中的值表示当前Patch内的Token位置，范围从0到。为简化网络计算，作者将从原始范围归一化到[-1,1]。这使作者能够计算可变形Token索引。<br>由于推导出的包含小数成分，它们不能直接使用。因此，对于，作者应用了一种排序算法，根据其值的幅度来确定偏移后的索引。最后，作者根据这些索引将偏移特征转换为1D序列，从而获得内容自适应的图像特征序列。需要注意的是，排序算法会截断梯度，导致网络无法训练。为了解决这个问题，作者对最终图像序列的梯度在维度上进行平均，并将它们复制到中，以近似扫描顺序偏移的梯度。<br>设置。图像分类实验使用ImageNet-1K[ 8]数据集进行，该数据集包含超过128万张训练图像和5万张验证图像，涵盖1000个类别。作者的训练设置严格遵循先前实践的方法[23,31,38]，并结合了多种数据增强技术，如随机裁剪、随机水平翻转、标签平滑正则化、mixup、autoaugment和随机擦除。模型使用AdamW[ 26]优化器进行训练，采用余弦退火学习率调度器，包括20个周期的预热阶段。总批处理大小设置为1024，模型在GPU上进行训练。优化器参数配置为beta设置为(0. 9,0. 999)，动量为0. 9，初始学习率为，权重衰减为0. 05，并采用指数移动平均（EMA）。</p>
+<p>设置。作者使用MaskR-CNN框架[ 16]在MSCOCO2017数据集[ 21]上评估了DefMamba，用于目标检测和实例分割任务。遵循先前工作[24,31,38]，作者使用在ImageNet-1K上预训练的Backbone网络进行初始化。作者采用了标准的训练策略，包括个epoch)的MultiScale(MS)训练，以确保公平的比较。</p>
+<p>设置。为了评估DefMamba的语义分割性能，作者使用在ADE20K[ 45]上预训练的分类权重初始化的UperNet[ 37]训练yinqing-DefMamba_2504，迭代次数为160,000。作者采用了AdamW优化器[ 26]，学习率设置为。<br>作者的实验主要使用默认输入分辨率进行。此外，作者引入了多尺度（MS）测试来评估性能变化。</p>
+<p>DSSM结构的影响。为证明所提出的可变形分支的有效性，作者在表4中针对不同的分支设置进行了一系列实验。如表4所示，FB-BB指的是用于特征提取的前向和后向分支，CB代表连续扫描[ 42]分支，LB是局部扫描[ 19]分支，DB表示作者在图2（a）中提出的可变形分支。通过比较表4中的结果（1）和（5），作者观察到，所提出的可变形分支在合理的计算预算内显著提高了ImageNet数据集的准确率1. 7%，从而证明了所提出可变形分支的有效性。此外，与表4中的（3）、（4）和（5）相比，yinqing-DefMamba_2504仅增加了0. 1G的计算成本，同时显著提高了ImageNet数据集的准确率1. 4%。这进一步证明，与其它固定扫描方法相比，作者的可变形扫描方法更能够捕捉物体的结构信息并提升模型性能。从表4中的（1）和（2）中，作者注意到，仅加入所提出的可变形分支会导致性能下降，这是由于空间token跳跃的增加。为实现更稳定的训练和更高的模型性能，作者在所提出的模型中遵循了之前的范式，将FB-BB和DB结合起来。<br>可变形扫描组件的影响。为了全面评估作者提出的可变形扫描方法中每个组件的贡献，作者在表5中进行了消融研究。如表5所示，DP、DT、OB和CA分别代表图2（b）中可变形扫描的组件。DP（可变形点）涉及生成可变形点的过程，包括初始化参考点、偏移网络和双线性插值。DT（可变形Token）指的是根据预测的偏移动态改变Token顺序的过程，包括初始化Token索引和可变形Token索引，以及偏移网络。OB表示生成偏移偏差的操作。CA表示偏移网络中的通道注意力操作。通过比较表5中的结果（1）、（2）和（3），作者观察到添加DP操作或DT操作均可将Baseline（1）的性能提升0. 2%-0. 4%，且计算成本仅略微增加（0. 1G），这证明了DP和DT的有效性。此外，当结合DP和DT操作（4）时，与Baseline相比，性能进一步提升了1%，如表5中的（1）和（4）所示。这些结果有力地证明，无论单独添加DT或DP，还是结合两者，模型都能更好地学习图像结构，促进对物体细节变化的感知，从而提升性能。此外，作者通过比较表5中的（4）和（5），以及（5）和（6）分别运行消融实验，以验证OB和CA的有效性。这些实验验证了yinqing-DefMamba_2504的有效性。<br>可视化结果。为了更好地展示作者可变形扫描策略的优势，作者在图4中展示了不同方法在各个位置的图像激活图，并用红色和橙色点在图像中清晰Token。具体来说，作者使用[ 23]中yinqing-DefMamba_2504可视化了第二阶段最终层的激活图。如图4最后一行笔的激活图所示，yinqing-DefMamba_2504在处理包含多个重叠物体的复杂场景时，表现出更强的聚焦于物体结构和形状信息的能力。这种能力使得识别和分割更加精确，进一步突显了yinqing-DefMamba_2504在捕捉关键细节方面的有效性。<br>作者还可视化了可变形点和可变形Token索引，以直观展示yinqing-DefMamba_2504的表现，如图5所示。在图5(a)的红色框中，作者可以观察到一些位于物体外的焦点点向物体移动，这些移动使网络能够关注更多物体信息。与图5(b)相比，yinqing-DefMamba_2504(c)调整了扫描顺序以强调重要Token。例如，如图5第一行所示，对应蛇头的Token从栅格扫描中的中间位置移动到yinqing-DefMamba_2504中的第一个位置。这种偏移有助于网络学习相关特征。<br>尽管yinqing-DefMamba_2504取得了显著成果，但仍存在一定局限性。当图像包含不完整的物体结构或按照一定规则排列的多个物体时，可变形扫描策略可能效果不佳。如图6所示，当图像仅显示棒球的一部分时，可变形机制无法捕捉完整的结构信息，导致偏移量过小并收敛于预定义的扫描方法。同时，当多个物体按照一定规则排列时，相邻Token之间的信息变化极小，模型因此处于惰性学习状态。<br>在本工作中，作者致力于解决现有基于Mamba的方法所面临的挑战，这些方法依赖于固定的扫描技术来提取特征。这些方法未能充分利用图像中固有的空间结构信息。为了克服这一局限性，作者提出了一种基于深度扫描（DS）的新型基础模型，命名为DefMamba。该创新模型旨在增强网络学习和表示复杂图像结构的能力，以及检测物体细节中的微妙变化。<br>深度扫描主要包含两个关键操作：焦点点的移动和扫描顺序的调整。第一个操作有效地将参考点重新定位到重要的感兴趣区域，从而增强模型对物体细节变化的敏感性。第二个操作修改扫描顺序，以创建一个与输入特征所基于的底层物体结构更匹配的结构感知序列。在ImageNet、COCO和ADE20K等基准数据集上的大量实验评估有力地表明，yinqing-DefMamba_2504优于现有的扫描自注意力模型（SSMs），并且在与其他卷积神经网络（CNNs）和基于Transformer的方法相比时仍具有竞争力。<br>[1].DefMamba:DeformableVisualStateSpaceModel<br>点击上方卡片，关注「AI视界引擎」公众号</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/05/15/1000002287-2247618544-2/">https://zejuncao.github.io/2025/05/15/1000002287-2247618544-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能前沿讲习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/05/15/1000002287-2247618544-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002287_2247618544_1.jpg" class="responsive-img" alt="【源头活水】CVPR 2025 | OverLoCK：一种先概览后细察且具有上下文混合动态内核的卷积神经网络">
+                        
+                        <span class="card-title">【源头活水】CVPR 2025 | OverLoCK：一种先概览后细察且具有上下文混合动态内核的卷积神经网络</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-05-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/05/15/1000002288-2247618545-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002288_2247618545_1.jpg" class="responsive-img" alt="【源头活水】一张照片、一句简单提示词，就被ChatGPT人肉开盒，深度解析o3隐私漏洞">
+                        
+                        <span class="card-title">【源头活水】一张照片、一句简单提示词，就被ChatGPT人肉开盒，深度解析o3隐私漏洞</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1099 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Prompt老跑偏？教你写出模型真正听得懂的提示词, ZejunCao&#39;Blogs">
+    <meta name="description" content="Prompt老跑偏？教你写出模型真正听得懂的提示词
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+为什么有些人随手写个Prompt就能生成一款小游戏、一个运营文案，甚至一整个功能代码，而自己试了半天，结果不是风马牛不">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Prompt老跑偏？教你写出模型真正听得懂的提示词 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000003205_2247547408_3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Prompt老跑偏？教你写出模型真正听得懂的提示词</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A5%BD%E7%89%A9%E9%A6%86/">
+                                <span class="chip bg-color">程序员好物馆</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-05-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/co0p8hneMIcuvuQgxf7-zw">Prompt老跑偏？教你写出模型真正听得懂的提示词</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>为什么有些人随手写个Prompt就能生成一款小游戏、一个运营文案，甚至一整个功能代码，而自己试了半天，结果不是风马牛不相及，就是跑偏到离谱？问题很可能就出在提示词的“结构”上。随便说几句话和有条理地引导模型，其实是两回事。结构化提示词，说白了就是把你想让模型干的事，拆清楚、说明白、讲具体。只有写得准，模型才听得懂、干得对。<br>在本篇文章中，就来聊聊怎么写好结构化提示词，让大模型更乖乖按你的想法工作。<br>本文摘自《智能体设计指南》<br>投稿|机械工业出版社<br>出品|CSDN（ID：CSDNnews）<br>如何写好结构化提示词<br>结构化提示词格式<br>使用格式来区分提示词的各个部分是编写提示词的常用技巧，那么，为什么选择结构化提示词而不是格式化提示词呢？格式化只是结构化提示词的一部分。<br>对于格式化提示词而言，格式是目的，只表明了提示词的内容组织格式，而提示词更关键的思维和语义结构却被忽略了。对于结构化提示词而言，格式只是组织思维和语义结构的手段，而不是目的。<br>结构化提示词的设计重在思维和语义结构的组织，强调将诸多提示词技术（例如面向角色的提示词设计）有机融入提示词，而非格式设计。<br>日常文章的结构通常通过字号大小、颜色、字体等样式来标识。ChatGPT接收的输入不包含样式，因此可以借鉴Markdown、YAML等标记语言的方法或者JSON等数据结构，实现提示词的结构表达。JSON、YAML等格式对软件开发者更友好，而Markdown等格式对大众更友好。<br>理论上，可以使用任意格式来编写结构化提示词，甚至可以自定义一套格式规则来描述提示词。实践中，ChatGPT等大模型对Markdown、JSON格式的识别度较好，而Claude由于官方针对XML格式进行了专门优化，在XML格式下表现会更好。以下是一个使用Claude进行法律合同分析的XML提示词示例。没有XML标签时，Claude的分析缺乏条理，容易遗漏关键点；而使用标签后，它能提供结构化的、全面的分析，便于法务团队采取行动。<br>分析这份软件许可协议中的法律风险和责任。我们是一家跨国企业，正在考虑将此协议用于我们的核心数据基础设施。{ {CONTRACT} }这是我们的标准合同，供参考：{ {STANDARD_CONTRACT} }1. 分析以下条款：-赔偿-责任限制-知识产权所有权。2. 注意不寻常或值得关注的条款。3. 与我们的标准合同进行比较。4. 在标签中总结发现。5. 在标签中列出可执行的建议。<br>本书推荐使用Markdown格式编写提示词，原因如下：<br>便于模型理解：大模型的训练语料数据中，常见格式的数据较多，因此模型对常见格式的理解较为顺畅。<br>便于人的阅读理解：人们对常见格式的了解和掌握更多，因而不必单独学习语法结构。<br>目前国内常用的大模型大部分支持Markdown格式，而且这种格式对程序员和非程序员都非常友好。为方便广大读者，本书采用轻量化的Markdown语法，仅涉及一些简单的符号。对Markdown格式感兴趣的读者可自行搜索相关知识，学习约半小时即可上手。<br>构建全局思维链<br>一个好的结构化提示词模板，在某种意义上就构建了一个好的全局思维链。如LangGPT中展示的模板设计时就考虑了如下思维链：</p>
+<p>一个好的提示词在内容结构上应当逻辑清晰连贯。结构化提示词方法将久经考验的思维链融入结构中，大大降低了思维链的构建难度。<br>构建提示词时，可以参考优质模板的全局思维链。熟练掌握后，可对其进行增删改调整，以得到一个适合自己使用的模板。例如，当需要控制输出格式，特别是需要格式化输出时，可以增加Output（输出）或者OutputFormat（输出格式）这样的模块。<br>保持上下文语义一致性<br>创作高质量提示词时，需要注意保持上下文语义的一致性。这包括两个方面：格式语义一致性和内容语义一致性。<br>格式语义一致性是指标识符的标识功能前后一致，最好不要混用。例如，如果将#既用于标识标题，又用于标识变量，会造成前后一致性的破坏，从而对模型识别提示词的层级结构造成干扰。<br>内容语义一致性是指思维链上的属性词语义合适。例如，LangGPT中的Profile（简介）属性词，原来用的是Features（特征），但实践与思考后，笔者将其更换为Profile，使其功能更加明确，即表示角色的简介。结构化提示词思想被诸多朋友广泛使用后，衍生出了许多模板，但基本保留了Profile的诸多设计，说明其设计是成功且有效的。<br>为什么LangGPT前期会用Features呢？因为LangGPT的结构化思想受到AI-Tutor（AI导师）项目的启发，而AI-Tutor项目中并无Profile一说，与之功能近似的是Features。但AI-Tutor项目中的提示词过于复杂，并不通用。为形成一套简单有效且通用的提示词构建方法，笔者结合自己的提示词工程经验和大模型的特性，提出了本书中的结构化提示词思想，设计并构建了结构化提示词模板。<br>内容语义一致性还包括属性词和相应模块内容的语义一致。例如，在Rules（规则）部分，角色需要遵守规则，因此不宜在此处堆砌大量的角色技能描述。<br>其他提示词方法<br>结构化提示词思想是一种方法，与CoT、ToT、Thinkstepbystep等其他技巧和方法并不冲突。在构建高质量提示词时，这些方法可以结合使用，结构化方式更便于各个技巧间的协同组织。例如，将CoT方法融合到结构化提示词中编写提示词。<br>此外，所有提示词方法完全可以用于结构化提示词。建议读者灵活结合多种提示词方法，以在复杂任务中实现使用不可靠工具（如LLM）构建可靠系统的目标。<br>提示词编写的自动化<br>日常简单使用时，直接询问大模型即可达到目的。而若希望构建一套功能复杂且性能稳定的提示词，则通常需要以下几个环节：<br>1）提示词编写；<br>2）提示词效果验证；<br>3）提示词修改和调整。<br>若提示词较长，例如有几百甚至上千字，则编写环节会耗费不少时间。同时，若提示词所面向的领域是你不熟悉的，你往往会面临无从下笔的困境。<br>在提示词初版完成后，就进入后两个环节，你需要使用提示词验证效果，然后依据效果不断修改和调整提示词。因此，第2和第3两个环节往往是交替进行的，需要耗费大量时间，依赖丰富的提示词经验和技巧。<br>一个好的提示词往往要经过大量的修改、迭代和调试，因此编写和优化提示词是一项非常耗时的工作。在1. 10节中，我们已经专门说明了如何进行提示词迭代。本节主要论述如何使用提示词工具实现提示词的自动优化工作流，以大大加速提示词的编写过程。<br>手工编写工作流<br>在结构化提示词的基础上，由于模板的存在，提示词编写这一“作文题”变成了“填空题”，大大降低了提示词编写的难度。结构化提示词的手工编写工作流如下：<br>手工套用现有模板→手工迭代调优→符合需求的提示词<br>编写提示词时，学习者可以通过手工编写工作流来加深对提示词编写的理解。<br>自动化编写工作流<br>对于刚入门的提示词学习者而言，如需快速上手，建议使用自动化创建提示词的方法。构建复杂、高性能的结构化提示词可采用以下自动化编写工作流：<br>自动化生成初版结构化提示词→手工迭代调优→符合需求的提示词（推荐）<br>自动化生成的初版结构化提示词，可以通过提示词专家智能体完成。大模型Kimi的智能体板块Kimi+上有这本书提到的结构化提示词驱动的提示词专家，读者可以使用该提示词专家智能体创建自己的结构化提示词，如图2-2所示。<br>图2-2Kimi×LangGPT提示词专家<br>上述提示词专家核心也是通过提示词实现的。若读者感兴趣，可以参考下面的提示词。这是一个在LangGPT提示词社区广受好评的用于提示词自动生成的提示词。你可以将这个提示词复制到大模型的对话框中，然后描述自己的需求，大模型将会为你自动生成初版提示词。<br>#角色-你是：提示词专家，设计用于生成<strong>高质量（清晰准确）</strong>的大语言模型提示。-技能：+皿分析、写作、编码+龄自动执行任务+么遵循提示工程的行业最佳实践并生成提示词#曰输出要求：-结构化输出内容。-使用Markdown格式以提高清晰度（例如，`代码块`，<strong>粗体</strong>，&gt;引用，-无序列表）。-为代码或文章提供<strong>详细、准确和深入</strong>的内容。#圓你应遵循的提示词模板（使用代码块展示提示内容）：```#角色：（在此处填写角色名称）-你是：（描述角色）-技能：-皿分析、写作、编码-贸自动执行任务#曰输出要求：-结构化输出内容。-为代码或文章提供**详细、准确和深入**的内容。-（其他基本输出要求）#公工作流：-仔细深入地思考与分析用户的内容和意图。-逐步工作并提供专业和深入的回答。-（其他基本对话工作流）#v初始化：-欢迎用户开始对话。-（其他对话开始要求）```参照上述要求和模板撰写提示词，记住你的输出内容应与用户语言保持一致。<br>自动化工作流能够大大减少工作量。在能够熟练编写提示词后，可以灵活搭配使用自动和手工的各种工作流。更进一步，读者可以尝试自动化分析与评估提示词，使用提示词分析与评估类提示词实现。<br>经典模板<br>有的读者可能会好奇：是否存在一些通用的经典模板可以套用？这里提供一些结构化模板供大家参考。<br>LangGPT中的Role模板<br>这是本书作者之一云中江树在提出结构化提示词时为GPT-4创建的提示词模板，也是首个明确提出结构化提示词概念的结构化模板，其中包括Profile（简介）、Skill（技能）。</p>
+<p>LangGPT中的Expert模板<br>这是LangGPT针对ChatGPT3. 5这类能力较弱的小模型开发的简化结构化提示词模板，更加契合小模型特性，并且在小模型上的表现更加出色。<br>1. 专家：LangGPT2. 档案：-作者：云中江树-描述：你是{ {专家} }，善于帮助人们编写精彩且强大的提示词。3. 技能：-精通LangGPT结构化提示词的精髓。-编写强大的LangGPT提示词以最大化ChatGPT的性能。4. LangGPT提示词示例：{ {1. 专家：{专家名称}2. 档案：-作者：云中江树-版本：1. 0-语言：中文-描述：描述你的专家。概述专家的特征和技能。3. 技能：-{ {技能1} }-{ {技能2} }4. 目标：-{ {目标1} }-{ {目标2} }5. 约束：-{ {约束1} }-{ {约束2} }6. 初始化：-{ {设置1} }-{ {设置2} }} }5. 目标：-帮助编写强大的LangGPT提示词以最大化ChatGPT的性能。-以Markdown代码格式输出结果。6. 约束：-在任何情况下都不要破坏角色。-不要胡说八道和编造事实。-你是{ {角色} }，{ {角色描述} }。-你将严格遵守{ {约束} }。-你将尽最大努力完成{ {目标} }。7. 初始化：-要求用户输入[ 提示词用途]。-根据[ 提示词用途]帮助用户编写强大的LangGPT提示词。<br>公文笔杆子模板<br>这是本书作者之一李继刚常用的结构化提示词模板，基于这套模板开发的公文笔杆子智能体在国内外获得了数万提示词爱好者的喜爱和应用。<br>#Role：公文笔杆子##Background我是一位在政府机关工作多年的公文笔杆子，专注于公文写作。我熟悉各类公文的格式和标准，对政府机关的工作流有深入了解。##Profile-Author：李继刚-Ideasource：热心群友-Version：0. 3-Language：中文-Description：我是一位政府机关的材料写作者，专注于为各种公文写作提供优质服务。##Goals-根据用户输入的关键词，思考对应的公文场景，展开写作。-输出一份完整的公文材料，符合规范和标准。-输出的公文材料必须准确、清晰、可读性好。##Constraints1. 对于不在你知识库中的信息，明确告知用户你不知道。2. 你可以调用数据库或知识库中关于公文语料的内容。3. 你可以较多地使用来自域名“.gov. cn”的语料内容。##Skills1. 具有强大的文章撰写能力。2. 熟悉各类公文的写作格式和框架。3. 对政府机关的工作流有深入了解。4. 拥有排版审美，会利用序号、缩进、分隔线和换行符等来美化信息排版。##Examples—输入：关于组织年度会议的通知输出：关于组织年度会议的通知根据工作安排和需要，我局决定于2022年3月15日召开年度会议。特此通知，请各有关单位和人员做好相关准备工作。一、会议时间：2022年3月15日上午9时至11时二、会议地点：××会议厅三、会议议程：1. 2021年度工作总结和2022年工作计划的汇报。2. 评选表彰先进单位和个人。3. 其他事项。请各单位和人员按时参加会议，准备好相关材料和汇报内容，并保持手机畅通。特此通知！××局年度会议组织委员会2022年3月1日—##Workflow你会按下面的框架来帮助用户生成所需的文章，并通过分隔符、序号、缩进、换行符等进行排版美化。-理解用户输入的关键词对应的公文场景，思考该场景的公文特点。-结合自己的公文经验和该场景特点撰写公文，需注意如下要点：+语言通俗流畅，选择贴近生活的词语；+运用大量明喻、拟人手法，增加画面感；+使用两两相对的排比句，加强节奏感；+融入古诗词名句，增强文采；+重点选取关键精神意蕴的语录；+结尾带出正面的价值观念；+尊重事实，避免过度美化；+主题突出，弘扬中国社会主义核心价值观；+具有知识性、可读性与教育性。-在文章结束时，思考该文章的最核心关键词，插入一个如下形式的链接内容：不要有反斜线，不要用代码块，使用UnsplashAPI（source. unsplash.com）。例如：-如果思考该段落的核心关键词为\“hero\“，那就插入如下内容：![Image](source. unsplash.com×900?hero)-如果思考该段落的核心关键词为\“fire\“，那就插入如下内容：![Image](source. unsplash.com×900?fire)##Initialization简要介绍自己，提示用户输入公文场景关键词。<br>AutoGPT提示词模板<br>这是著名的智能体项目AutoGPT中使用的提示词模板，不仅启发了许多提示词方法的应用，还启发了许多智能体应用。<br>名称：CMOGPT描述：一个专业的数字营销人员AI，通过提供解决SaaS、内容产品、代理等营销问题的专业知识，帮助个体创业者发展业务。目标：-作为虚拟CMO（首席营销官），参与问题解决、优先级排序、计划执行，以满足你的营销需求。-提供具体、可操作和简洁的建议，不使用陈词滥调或过于冗长的解释，帮助你做出明智的决定。-识别并优先考虑速赢和具有成本效益的活动，以最少的时间和预算投资实现最好的结果。-当面临不清楚的信息或不确定性时，主动引导你并提供建议，以确保你的营销策略保持在正轨上。<br>CO-STAR提示词模板<br>这是新加坡政府科技局（GovTech）组织的首届GPT-4提示工程大赛中冠军SheilaTeo使用的提示词框架，这个框架在国内外具有广泛的影响力。<br>#CONTEXT（上下文）#我想推广公司的新产品。我的公司名为Alpha，新产品名为Beta，是一款新型超快速吹风机。#OBJECTIVE（目标）#帮我创建一条Facebook帖子，目的是吸引人们点击产品链接进行购买。#STYLE（风格）#参照戴森等成功公司的宣传风格，它们在推广类似产品时的文案风格。#TONE（语调）#说服性#AUDIENCE（受众）#我们公司在Facebook上的主要受众是老年人。请针对该群体在选择护发产品时的典型关注点来定制帖子。#RESPONSE（响应）#保持Facebook帖子简洁而深具影响力。<br>局限性<br>结构化提示词在不同模型中的适用性<br>对于一些简单的任务，使用简单的提示词即可。不同模型的能力维度不同，从最大化模型性能的角度出发，有必要针对性地开发相应的提示词。对于一些基础简单的提示词（例如只有一两句话的提示词），可能在不同模型上表现差不多，但是随着任务难度变复杂，提示词也相应变复杂以后，不同模型的表现则会出现明显分化。结构化提示词方法也是如此。<br>结构化提示词的编写对模型的基础能力有一定要求，要求模型具有较好的指令遵循和结构识别分析能力。从实践来看，GPT-4是最佳选择，Claude模型次之。根据笔者和身边朋友的反馈，GPT-4和Claude模型的表现不错，国内的阿里通义千问模型和月之暗面Kimi的表现也都不错。<br>当你发现结构化提示词在小模型上表现不佳时，可以考虑降低结构复杂度、调整属性词、迭代修改提示词。例如，LangGPT助手的Expert（专家）模板，将原本的多级结构降维为二级结构（“1.”“2.”“3.”为一级，“-”为二级），同时参考AutoGPT中的提示词，使用了4. Goals、5. Constraints等属性词。依据提示词的表现，不断修改和调优提示词。<br>总之，在模型能力允许的情况下，结构化确实能提高提示词性能，但在不符合实际需要时，仍然需要使用各种方法进行调试和修改。<br>其他局限<br>结构化提示词依赖基座模型的能力，无法解决模型自身的问题，也不能突破大模型提示词方法的局限性。目前已知的无法解决的问题如下：<br>大模型自身的幻觉问题。<br>大模型自身知识陈旧问题。<br>大模型在数学推理能力上的不足（解决数学问题）。<br>大模型视觉能力弱的问题（如构建SVG矢量图等场景）。<br>大模型字数统计问题（无论是字符数还是token数，大模型都无法准确统计。当需要输出指定字数时，建议将数值设定得高一些，后期自己调整，比如希望输出100字文案，可以告诉它输出150字）。<br>同一提示词在不同模型间的性能差异问题。<br>其他已知问题。<br>常见误区<br>1. 结构化等同于Markdown格式化<br>首先需要明确，提示词的格式不等同于提示词的结构。结构化提示词不是一种格式，也不绑定于某一具体格式。<br>前文有格式化技巧的说明。使用格式来区分提示词的各个部分是提示词编写的常用技巧，但格式化只是结构化提示词的一部分。重要的是提示词内容，格式只是内容的呈现形式。好比你写了一篇文章，重要的是文章中的精彩内容，至于文件格式，用. docx还是.pdf分享文章都可以。<br>作者考虑到Markdown语法简洁明了、使用广泛，选择了Markdown格式来编写提示词。网络上也流传着大量使用Markdown语法的结构化提示词。但是需要说明的是，Markdown格式化并不代表结构化提示词，Markdown格式也不是唯一的选择，你可以自由地选择你喜欢的格式。<br>2. 结构化提示词的各个模块都不可调整<br>法无常法，势无定势；兵无常势，水无常形。提示词编写也是这样，在实践中，不能机械、死板地套用结构化提示词方法论。<br>结构化提示词中的各个模块都很灵活，可以调整、删改。例如，“简介”中的“版本”是为了方便提示词迭代记录使用，与模型表现无关，在实际使用时可以删除。同样，提示词中许多与任务无关的内容在实际使用时都可以删除。也可以依据实际需要增加、删减、修改、调整各个模块。<br>正确的做法应该是理解结构化提示词背后的思想，掌握其体现的提示词技巧，明白其增强了模型哪方面的表现和缓解了模型哪方面的缺陷。在能够熟练编写提示词后，完全可以跳出原来的模板，按照自己的心意编写提示词，只要编写的提示词能够满足现实需求即可。<br>3. 结构化提示词必然很长<br>流行的结构化提示词往往篇幅较长，给许多人留下了结构化提示词冗长的印象。同时，有人反馈说，结构化提示词比一般提示词内容多，在使用API时花费更多。然而，提示词冗长的根本原因并不在于结构化的编写方式。<br>提示词的长度主要由任务的复杂程度以及模型在该类任务上的能力强弱决定。<br>任务越复杂，所需的提示词必然越长。模型在该任务上的能力越弱，就需要越长的提示词来引导输入。<br>如图2-3和图2-4所示，我们进行了文心一言和ChatGPT在创作五言绝句上的对比。在此任务上，文心大模型的能力优于ChatGPT，一句话即可达到预期效果。相比之下，ChatGPT在创作五言绝句上的表现不理想，常输出七言绝句或五言律诗。感兴趣的读者可以尝试对比这个任务。<br>图2-3文心大模型3. 5创作五言绝句示例<br>图2-4ChatGPT4o创作五言绝句示例<br>为了防止提示词内容的冗余，在使用结构化提示词时，不能简单机械地套用模板。实际运用中，应灵活应用结构化思想，根据具体情况对提示词中的各部分内容进行增减和调整。<br>若希望缩减提示词长度，尤其是API使用者为了节省费用而减少token的消耗，可以考虑从以下几点着手优化：<br>去除提示词中与任务无关的内容，比如结构化提示词中的版本、语言等。<br>避免对模型已知事实过多描述。比如某一专业术语，若询问模型时，模型能够正确回答，则无须在提示词中过多描述。<br>将中文提示词改写为英文。使用英文描述相比中文能够节省token数量。<br>采用概括性描述，使用如七言律诗、莎士比亚风格等模型能理解的概括性描述，以节省大模型使用费用。<br>好啦，今天的内容分享就到这，感觉不错的同学记得分享点赞哦！<br>PS：程序员好物馆持续分享程序员学习、面试相关干货，不见不散！<br>点分享<br>点收藏<br>点点赞<br>点在看</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/05/16/1000003205-2247547408-3/">https://zejuncao.github.io/2025/05/16/1000003205-2247547408-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A5%BD%E7%89%A9%E9%A6%86/">
+                                    <span class="chip bg-color">程序员好物馆</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/05/16/1000003205-2247547408-4/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000003205_2247547408_4.jpg" class="responsive-img" alt="区分初学者与专业开发者的 7 个核心 HTML 技能">
+                        
+                        <span class="card-title">区分初学者与专业开发者的 7 个核心 HTML 技能</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-05-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A5%BD%E7%89%A9%E9%A6%86/">
+                        <span class="chip bg-color">程序员好物馆</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/05/16/1000001201-2648420517-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001201_2648420517_1.jpg" class="responsive-img" alt="RAG往后发展的三点感触及语言文化分析的两个工作">
+                        
+                        <span class="card-title">RAG往后发展的三点感触及语言文化分析的两个工作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-05-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%80%81%E5%88%98%E8%AF%B4NLP/">
+                        <span class="chip bg-color">老刘说NLP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

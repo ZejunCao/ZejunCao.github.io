@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="YOLO-MECD，基于YOLOv11的柑橘目标检测算法, ZejunCao&#39;Blogs">
+    <meta name="description" content="YOLO-MECD，基于YOLOv11的柑橘目标检测算法
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：计算机视觉研究院作者：计算机视觉研究院链接：https :&amp;#x2F;&amp;#x2F;mp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>YOLO-MECD，基于YOLOv11的柑橘目标检测算法 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001613_2247539943_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">YOLO-MECD，基于YOLOv11的柑橘目标检测算法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-05-21
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/TTQq0MFvb3tVQK5GJ6MrRw">YOLO-MECD，基于YOLOv11的柑橘目标检测算法</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：计算机视觉研究院<br>作者：计算机视觉研究院<br>链接：https :&#x2F;&#x2F;mp. weixin.qq. com&#x2F;s&#x2F;Wp2179Pu9o741kwQSegVVw<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>为实现柑橘果实高效、精准检测与计数，本文介绍一种轻量级YOLO-MECD模型，在小目标识别、参数压缩和检测精度方面均取得显著突破，为智慧果园建设提供技术支撑。<br>PART&#x2F;1<br>概述<br>准确量化柑橘的落果数量，对于评估柑橘品种的抗逆能力以及筛选优良品种而言至关重要。然而，在这一关键领域的研究仍明显不足。为了填补这一空白，我们使用包含1200张柑橘图像的自定义数据集进行了深入实验，并基于YOLOv11s架构提出了一种轻量级的YOLO-MECD模型。<br>首先，引入了EMA注意力机制，取代了传统的C2PSA注意力机制。这一改进不仅增强了对柑橘果实的特征提取能力和检测精度，还大幅减少了模型参数。<br>其次，我们实现了基于部分卷积的CSPPC模块，用以替换原有的C3K2模块，在保持平均精度均值（mAP）值的同时，有效降低了参数数量和计算复杂度。<br>最后，采用了MPDIoU损失函数，提升了边界框的检测精度，并加快了模型的收敛速度。值得注意的是，我们的研究表明，减少主干架构中的卷积操作可显著增强对小目标物体的检测能力，并大幅减少模型参数，这比添加小目标检测头更为有效。<br>实验结果以及与类似网络模型的对比分析表明，YOLO-MECD模型在检测性能和计算效率方面均取得了显著提升。该模型在柑橘目标检测任务中展现出了出色的综合性能，精确率（P）为84. 4%，召回率（R）为73. 3%，平均精度均值（mAP）提升至81. 6%。与基线模型相比，YOLO-MECD在检测精确率、召回率和平均精度均值方面分别提高了0. 2、4. 1和3.9个百分点。此外，模型参数数量从YOLOv11s的9413574个大幅减少至2297334个（减少了75. 6%），模型大小从18. 2兆字节压缩至4.66兆字节（减少了74. 4%）。而且，YOLO-MECD与当前的其他模型相比也表现出色，与YOLOv8s、YOLOv9s和YOLOv10s相比，平均精度均值分别提高了3. 8%、3. 2%和5. 5%。该模型在包括柚子和金桔等各种柑橘类水果上均具有出色的检测性能，证明了其通用性。<br>这些成果为推进柑橘果实检测系统以及智慧果园的发展奠定了坚实的技术基础。<br>PART&#x2F;2<br>背景<br>柑橘是世界上最重要的经济作物之一，在国际农业领域占据着重要地位。中国拥有丰富的柑橘资源，品种多样，在种植面积和产量方面均居世界首位。柑橘产业已成为推动中国农村经济发展的关键力量。在柑橘生长期间，树上的果实数量是反映树体健康状况的一个重要指标。在柑橘种植过程中，各种极端自然灾害（如强风、暴雨等）很容易导致落果，给果农带来重大损失。因此，柑橘育种者一直在寻找对自然灾害具有一定抗性且不易落果的优良品种，这对中国柑橘产业的发展具有重要意义。目前，育种者和果农在自然灾害发生后，主要通过人工方式统计树上或掉落的果实数量，这不可避免地存在成本高、效率低、准确性差等问题。这种不足限制了柑橘优良品种的筛选，已成为柑橘产业发展的瓶颈。因此，如何在自然环境中实现对树上或掉落果实的精确检测和自动计数，是一个亟待解决的紧迫问题。<br>尽管基于形态学的方法此前取得了尚可的成果，但其通用性仍不尽如人意。此外，这些方法需要手动设计特征，并且容易受到光照和环境背景的影响，不利于在不同环境中实际应用。近年来，以卷积神经网络为代表的深度学习算法已广泛应用于农业水果识别、病害检测、产量估算等领域，并在脐橙、柑橘、柚子等作物上取得了良好的效果。基于不同的模型结构，基于深度学习的目标检测算法主要可分为两类。一类是以R-CNN、FastR-CNN和FasterR-CNN为代表的两阶段目标检测方法；这些方法首先获取候选区域，然后在当前区域内进行分类。例如，Yan等人提出了一种基于改进的FasterR-CNN的刺梨果实识别方法，其召回率、精确率和识别速度分别达到了96. 93%、95. 53%和0. 2秒&#x2F;张图像。Xiong等人提出了一种基于FasterR-CNN的绿色柑橘视觉检测方法，能够在不同光照条件和不同大小的情况下准确识别绿色柑橘，平均精度均值（mAP）达到了85. 49%。虽然这些算法精度较高，但候选区域生成步骤消耗大量计算资源，且检测时间较长，难以满足实时性要求。另一类是单阶段目标检测算法，以SSD和YOLO（YouOnlyLookOnce）系列为代表。这些算法无需生成候选框，而是将边界框问题转化为回归问题，具有精度高、速度快、训练时间短、计算成本低等特点。例如，Zhang等人针对高度密集且严重粘连的樱桃番茄目标，提出了一种改进的YOLOv4-LITE轻量级神经网络检测算法。该模型使用MobileNet-v3作为特征提取网络，对金字塔网络进行了修改，并引入了小目标检测层，使模型权重显著降低，平均精度达到了99. 74%。Wang等人基于YOLOV8网络，引入MPDIoU来替代原有的CIoU作为损失函数，加快了模型收敛速度，添加了小目标检测层以提高小目标识别能力，并使用SCConv作为特征提取网络。测试结果表明，改进后的网络模型精确率、召回率和平均精度均值分别达到了97. 7%、97%和99%。<br>在柑橘检测方面，Lv等人基于改进的YOLOv5s提出的YOLO-GC模型，成功实现了在复杂自然环境中对果实的实时精确检测。该模型取得了优异的成果，精确率、召回率和平均精度均值（mAP）分别达到了96. 5%、89. 4%和96. 6%。Lv等人对YOLOv3网络架构进行了优化，在减小模型规模的同时，提高了检测速度和精度。Gao等人提出的改进的YOLOv5检测方法取得了突破：在将模型参数减少到原网络的七分之一的情况下，仍实现了98. 8%的精确率和99. 1%的平均精度，有效解决了传统算法中精度与模型复杂度之间的固有矛盾。<br>从现有研究来看，尽管基于深度学习的水果目标检测技术取得了显著进展，但目前的研究主要局限于单一水果类别的检测，显示出模型泛化能力的局限性。特别是对于柑橘类水果，其种类繁多且个体间差异较大，进一步增加了检测的难度。此外，早期版本的YOLO算法，如YOLOv8，往往存在模型架构复杂、计算需求高的问题，不太适合轻量级应用场景。为了解决这些问题并满足柑橘育种者和果园管理者的实际需求，本文以树上果实和掉落果实为研究对象，提出了一种基于改进的YOLOv11的柑橘检测与计数方法。<br>PART&#x2F;3<br>新方法解释<br>图像采集柑橘图像于2024年10月至11月在江西省南昌市的江西农业大学果园（东经115. 8°，北纬28. 7°）采集。图像是用荣耀70相机（荣耀终端有限公司，中国深圳）拍摄的。由于前期天气不佳，每棵果树都有不同程度的落果。为了提高模型在现实场景中的适用性，在不同距离、天气条件、光照条件、遮挡情况、视角和果实密度等条件下共拍摄了1200张分辨率为4096×3072像素的图像。每张图像中都包含树上的柑橘果实和落在地上的柑橘果实。一些样本图像如下图所示。<br>数据集标注与构建建立了两个类别：树上的果实（命名为“orange_T”）和落在地上的果实（命名为“orange_G”）。数据集标注过程是利用LabelImg图像标注软件（1. 8.0版本）执行的。数据集按8:1:1的比例划分为训练集、验证集和测试集。为了增强网络模型的鲁棒性和泛化能力，我们采用了全面的数据增强过程，包括六种变换技术：空间平移、旋转变换、几何翻转、策略性裁剪、亮度调整和高斯噪声注入。这一系列措施有效地增强了模型的鲁棒性，使其能够更好地应对复杂多变的数据环境。<br>数据分析对空间特征的定量分析揭示了几个重要发现。<br>上图a展示了柑橘边界框的空间分布分析，表明其主要呈均匀分布模式，没有明显的聚类现象。上图b展示了图像空间内边界框相对大小的维度分析，显示尺寸明显集中在0到0. 01范围内。这种分布模式表明数据集中小尺度目标物体占主导，这一特征可能给检测精度带来挑战。这些观察到的分布特征可归因于多个相互关联的因素，包括但不限于既定的柑橘种植方法、内在生长模式以及数据采集过程中的视角限制，所有这些因素都增加了模型检测参数的复杂性。<br>YOLOv11网络架构YOLOv11是YOLO（YouOnlyLookOnce，即“一次看全”）目标检测算法系列的最新发展成果。与之前的版本相比，它引入了复杂精密的架构范式和技术创新，在模型精度和计算效率上都有显著提升。YOLOv11框架包含五个不同的模型变体——n、s、l、m和x，其特点是网络深度和检测精度逐渐增加，这是为适应不同应用场景而进行的策略性设计。基于对检测精度、模型复杂度和硬件兼容性等因素的综合考虑，我们从这些变体中选择了YOLO11s作为我们研究的基础架构。<br>YOLOv11的框架由三个基本组件构成：主干网络（backbone）、颈部网络（neck）和头部网络（head）。主干网络负责特征提取，采用经典的Darknet-53深度残差网络架构，融入了精心设计的、具有不同内核尺度的卷积层，以实现全面的多尺度特征捕捉。值得注意的是，其中集成了C3k2模块，利用其在将高级特征与上下文信息合成方面已被证实的能力来提高检测精度。因此，YOLOv11对CSPLayer进行了精细修改，用更先进的C3k2模块取代了传统的C2f模块。经过多次卷积操作后，YOLOv11并入了SPPF模块，以扩大感受野并在复杂环境场景中捕捉层次特征。<br>YOLO-MECD模型尽管YOLOv11被设计为通用目标检测模型且表现出色，但针对柑橘检测任务，仍可通过考虑果实大小变化大、遮挡情况复杂以及颜色和纹理图案相似等特定目标特征来进一步优化，以提高检测精度和适应性。因此，我们提出了YOLO-MECD，它是YOLOv11s的增强衍生模型。这种新型模型提高了小尺寸目标的检测精度。具体的架构改进包括以下修改：<br>1. 采用EMA注意力机制取代原有的C2PSA注意力机制，在减少模型参数的同时，增强网络特征提取能力。<br>2. 用MPDIoU损失函数替代传统的CIoU损失函数，从而提高模型检测精度并加快收敛速度。<br>3. 集成CSPPC架构以取代YOLOv11中的C3K2结构，有效降低模型的参数复杂度。<br>4. 对主干组件中的卷积操作进行优化，在大幅减少参数的同时，增强小目标检测能力。YOLO-MECD模型的架构框架如下图所示。<br>CSPPC模块虽然减少主干中的卷积操作能有效减少模型参数和体积，但这可能会导致每秒十亿次浮点运算（GFLOPs）增加。为了在不影响检测精度的情况下提高模型效率，许多研究人员采用了深度卷积进行特征提取。尽管这种方法有效降低了计算复杂度，但同时也增加了内存访问需求，导致GFLOP效率降低。YOLOv11中的C3K2模块结合了多个瓶颈模块，能提取全面的特征，但会引入过多的通道信息冗余。因此，某些通道可能与其他通道表现出高度相似性，导致在正向传播过程中进行冗余处理，而不会提供额外的有效信息，从而增加了计算和内存开销。为了克服这些限制，本研究采用了PConv（部分卷积），这是一种具有高速推理能力的轻量级卷积结构。基于这种架构，我们开发了CSPPC结构来取代YOLOv11中的C3K2模块。CSPPC结构的架构框架如下图所示。<br>PConv的基本架构基于在卷积操作期间对输入通道的一个子集进行选择性处理，同时对未处理的通道保持通道完整性。这种创新的设计模式通过消除冗余的通道计算实现了显著的计算优化，在不损害操作能力的情况下，有助于提高空间特征提取效率，同时改善实时性能和模型效率指标。<br>从数量上看，给定特征图维度、总通道数、参与卷积的通道数以及卷积核维度，PConv模块的计算复杂度（FLOP）可以通过以下公式正式表示。其架构示意图如下图所示。<br>EMA注意力机制注意力机制是一个至关重要的架构组件，它有助于对特征进行选择性的重点关注，使模型能够优先处理图像中显著的特征，同时弱化不相关的背景信息，从而提升检测性能指标和泛化能力。EMA（高效多尺度注意力）是一种经过优化的多尺度注意力模块，其基本原理基于在保持模型复杂度限制的前提下，通过策略性的通道重组和分组方法来实现高效的跨通道学习。EMA注意力机制的架构如下图所示。<br>损失函数是检测模型框架中不可或缺的组成部分，是定量评估预测效果的关键指标。损失函数的值与预测边界框和对应真实坐标的空间接近程度成反比。YOLOv11采用了CIoU（完全交并比）边界损失函数。MPDIoU损失函数涵盖了其他损失函数通常会考虑的所有相关因素，为目标检测边界优化提供了更全面的方法。MPDIoU简化了两个检测框之间的相似度比较，适用于重叠和非重叠边界框的回归。MPDIoU的计算原理如下图所示。<br>它通过计算预测框和实际框之间的最小点距离作为相似度指标，提高了预测准确性并加速了模型回归收敛。<br>检测层重构<br>YOLOv11网络检测层架构如上图a所示。经过特征融合后，检测头p3、p4和p5输出的特征图尺寸分别为80×80像素、40×40像素和20×20像素，分别对应小、中、大目标。在检测头p3、p4和p5输出的特征图中，每个像素分别代表输入网络图像中32×32像素、16×16像素和8×8像素区域的信息。然而，图像中许多目标物体的尺寸小于8×8像素，这导致输出特征图中的细节信息相对有限，进而造成小目标检测精度不佳，出现大量漏检情况。<br>PART&#x2F;4<br>实验及结果<br>YOLO-MECD网络的性能实验结果表明，改进后的YOLO-MECD模型在柑橘检测任务中表现极为出色，准确率（P）达到了84. 4%，召回率（R）为73. 3%，平均精度均值（mAP）为81. 6%。通过对比YOLO-v11s和YOLO-MECD在精确率曲线、召回率曲线、平均精度均值（mAP）曲线以及损失曲线方面的性能（如下图所示）<br>很明显，改进后的模型在精确率、召回率和平均精度均值这三个关键指标上都有显著提升。此外，损失函数的收敛速度明显更快，这表明在训练过程中具有更高的效率和稳定性。这些改进充分证明了YOLO-MECD模型在柑橘目标检测任务中具有更强的检测能力和实用价值。<br>下图展示了YOLO-MECD模型在不同场景下的检测性能。<br>下图比较了YOLO-MECD与原始YOLOV11模型的实际检测性能。<br>泛化实验为了验证模型的泛化能力，需要在多个数据集上进行实验。柚子和金桔是常见的柑橘类水果，但它们在大小方面与柑橘有显著差异。因此，我们选择这些数据集进行测试，部分测试结果如下图所示。<br>为了探究YOLO-MECD检测优势的原因，本研究采用GradCAM++方法生成热力图，对柑橘类水果的关键特征进行可视化，突出YOLO-MECD的优势。热力图通过不同的颜色强度来表示目标分布信息，其中暖色（如红色和黄色）表示高活性或高重要性区域，而冷色（如蓝色和绿色）表示低活性或低重要性区域。热力图中暖色集中的区域对于检测性能尤为重要。下图展示了不同模型在各种条件下生成的热力图。<br>论文链接：https :&#x2F;&#x2F;www. mdpi.com&#x2F;2073-4395&#x2F;15&#x2F;3&#x2F;687<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/05/21/1000001613-2247539943-1/">https://zejuncao.github.io/2025/05/21/1000001613-2247539943-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/05/21/1000000985-2247521310-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000985_2247521310_1.jpg" class="responsive-img" alt="谷歌开发者大会炸场！Agent重磅升级， A2A、SDK大更新">
+                        
+                        <span class="card-title">谷歌开发者大会炸场！Agent重磅升级， A2A、SDK大更新</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-05-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC%E5%BC%80%E6%94%BE%E7%A4%BE%E5%8C%BA/">
+                        <span class="chip bg-color">AIGC开放社区</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/05/21/1000001613-2247539943-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001613_2247539943_2.jpg" class="responsive-img" alt="英特尔新显卡拉爆性价比！24GB显存售价3600+，网友：买它！">
+                        
+                        <span class="card-title">英特尔新显卡拉爆性价比！24GB显存售价3600+，网友：买它！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-05-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
