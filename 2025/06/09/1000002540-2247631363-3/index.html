@@ -1,0 +1,1112 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="目标检测正负样本区分策略和平衡策略总结, ZejunCao&#39;Blogs">
+    <meta name="description" content="目标检测正负样本区分策略和平衡策略总结
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击上方“小白学视觉”，选择加\“星标\“或“置顶”重磅干货，第一时间送达作者丨深度眸@知乎（已授权）来源丨https :&amp;#x2">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>目标检测正负样本区分策略和平衡策略总结 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002540_2247631363_3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">目标检测正负样本区分策略和平衡策略总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">小白学视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-09
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mHINa7J0pluksBzgP_k5nA">目标检测正负样本区分策略和平衡策略总结</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击上方“小白学视觉”，选择加\“星标\“或“置顶”<br>重磅干货，第一时间送达<br>作者丨深度眸@知乎（已授权）<br>来源丨https :&#x2F;&#x2F;www. zhihu.com&#x2F;people&#x2F;huanghaian<br>编辑丨极市平台<br>未经允许不得二次转载<br>极市导读<br>本文抛弃网络具体结构，仅仅从正负样本区分和正负样本平衡策略进行分析，大体可以分为正负样本定义、正负样本采样和平衡loss设计三个方面，主要是网络预测输出和loss核心设计即仅仅涉及网络的head部分。<br>本文抛弃网络具体结构，仅仅从正负样本区分和正负样本平衡策略进行分析，大体可以分为正负样本定义、正负样本采样和平衡loss设计三个方面，主要是网络预测输出和loss核心设计即仅仅涉及网络的head部分。所有涉及到的代码均以mmdetection为主。本文第一部分，主要包括fasterrcnn、librarcnn、retinanet、ssd和yolo一共5篇文章。第二部分包括anchor-free的平衡策略，以及最新改进算法。第三部分重点分析下anchor-free和anchor-base混合学习的GuidedAnchoring以及yolo-ASFF，包括思路和代码。<br>由于本人水平有限，如果有分析不对的地方，欢迎指正和交流！<br>论文名称：FasterR-CNN:TowardsReal-TimeObjectDetectionwithRegionProposalNetworks<br>(1)head结构<br>fasterrcnn包括两个head：rpnhead和rcnnhead。其结构如下：<br>rpnhead的输出是包括分类和回归，分类是二分类，只区分前景和背景；回归是仅仅对于前景样本(正样本)进行基于anchor的变换回归。rpnhead的目的是提取roi，然后输入到rcnnhead部分进行refine。rcnnhead的输出是包括分类和回归，分类输出是类别数+1(1是考虑背景)，回归是仅仅对于前景样本不考虑分类类别进行基于roi的变换回归，rcnnhead的目的是对rpn提取的roi特征进行refine，输出精准bbox。<br>(2)正负样本定义<br>rpn和rcnn的正负样本定义都是基于MaxIoUAssigner，只不过定义阈值不一样而已。rpn的assigner:<br>rcnn的assigner:<br>下面对MaxIoUAssigner进行详细分析。首先分析原理，然后分析细节。正负样本定义非常关键。MaxIoUAssigner的操作包括4个步骤：<br>首先初始化时候假设每个anchor的mask都是-1，表示都是忽略anchor<br>将每个anchor和所有gt的iou的最大Iou小于neg_iou_thr的anchor的mask设置为0，表示是负样本(背景样本)</p>
+<p>3的设置可能会出现某些gt没有分配到对应的anchor(由于iou低于pos_iou_thr)，故下一步对于每个gt还需要找出和最大iou的anchor位置，如果其iou大于min_pos_iou，将该anchor的mask设置为1，表示该anchor负责预测对应的gt。通过本步骤，可以最大程度保证每个gt都有anchor负责预测，如果还是小于min_pos_iou，那就没办法了，只能当做忽略样本了。从这一步可以看出，3和4有部分anchor重复分配了，即当某个gt和anchor的最大iou大于等于pos_iou_thr，那肯定大于min_pos_iou，此时3和4步骤分配的同一个anchor。<br>从上面4步分析，可以发现每个gt可能和多个anchor进行匹配，每个anchor不可能存在和多个gt匹配的场景。在第4步中，每个gt最多只会和某一个anchor匹配，但是实际操作时候为了多增加一些正样本，通过参数gt_max_assign_all可以实现某个gt和多个anchor匹配场景。通常第4步引入的都是低质量anchor，网络训练有时候还会带来噪声，可能还会起反作用。<br>简单总结来说就是：如果anchor和gt的iou低于neg_iou_thr的，那就是负样本，其应该包括大量数目；如果某个anchor和其中一个gt的最大iou大于pos_iou_thr，那么该anchor就负责对应的gt；如果某个gt和所有anchor的iou中最大的iou会小于pos_iou_thr，但是大于min_pos_iou，则依然将该anchor负责对应的gt；其余的anchor全部当做忽略区域，不计算梯度。该最大分配策略，可以尽最大程度的保证每个gt都有合适的高质量anchor进行负责预测，<br>下面结合代码进行分析：主要就是assign_wrt_overlaps函数，核心操作和注释如下：<br>通过代码可以发现，当设置self. gt_max_assign_all&#x3D;True时候是可能出现第4步的某个gt和多个anchor匹配场景，默认参数就是True。</p>
+<p>(3)正负样本采样<br>步骤2可以区分正负和忽略样本，但是依然存在大量的正负样本不平衡问题，解决办法可以通过正负样本采样或者loss上面一定程度解决，fasterrcnn默认是需要进行正负样本采样的。rpnhead和rcnnhead的采样器都比较简单，就是随机采样，阈值不一样而已。rpnhead采样器：<br>rcnnhead采样器：<br>num表示采样后样本总数，包括正负和忽略样本，pos_fraction表示其中的正样本比例。add_gt_as_proposals是为了放在正样本太少而加入的，可以保证前期收敛更快、更稳定，属于技巧。neg_pos_ub表示正负样本比例，用于确定负样本采样个数上界，例如我打算采样1000个样本，正样本打算采样500个，但是可能实际正样本才200个，那么正样本实际上只能采样200个，如果设置neg_pos_ub&#x3D;-1，那么就会对负样本采样800个，用于凑足1000个，但是如果设置为neg_pos_ub比例，例如1. 5，那么负样本最多采样200x1. 5&#x3D;300个，最终返回的样本实际上不够1000个。默认情况neg_pos_ub&#x3D;-1。由于rcnnhead的输入是rpnhead的输出，在网络训练前期，rpn无法输出大量高质量样本，故为了平衡和稳定rcnn训练过程，通常会对rcnnhead部分添加gt作为proposal。其代码非常简单：<br>对正负样本单独进行随机采样就行，如果不够就全部保留。<br>由于原始fasterrcnn采用的loss是ce和SmoothL1Loss，不存在loss层面解决正负样本不平衡问题，故不需要分析loss。<br>论文名称：LibraR-CNN:TowardsBalancedLearningforObjectDetection<br>libra主要是分析训练过程中的不平衡问题，提出了对应的解决方案。由于librarcnn的head部分和正负样本定义没有修改，故不再分析，仅仅分析正负样本采样和平衡loss设计部分。<br>(1)正负样本采样<br>注意librarcnn的正负样本采样规则修改仅仅是对于rcnn而言，对于rpnhead没有任何修改，依然是随机采样器。原因是作者的主要目的是为了涨点mAP,作者认为rpn涨几个点对最终bbox预测map没有多大帮助，因为主要是靠rcnn部分进行回归预测才能得到比较好的mAP。其参数如下：<br>主要看IoUBalancedNegSampler部分即可。仅仅作用于负样本(iou&#x3D;0~0. 5之间)。作者认为样本级别的随机采样会带来样本不平衡，由于负样本本身iou的不平衡，当采用随机采样后，会出现难负(iou0. 5附近)和易负(iou接近0)样本不平衡采样，导致后面性能不好。作者发现了如果是随机采样的话，随机采样到的样本超过70%都是在IoU在0到0. 05之间的，都是易学习负样本，作者觉得是不科学的，而实际统计得到的事实是60%的hardnegative都落在IoU大于0. 05的地方，但是随机采样只提供了30%，实在是太少了。最常用的解决难易样本不平衡问题的解决办法就是ohem，基于Loss排序来采样难负样本，但是作者分析，(1)这种方法对噪音数据会比较敏感,因为错误样本loss高；(2)参数比较难调。所以作者提出了IoU-balancedSampling，如下所示：<br>可以看出，随机采样效果最不好，而ioubalancedsampling操作会尽量保证各个iou区间内都会采样到。由于该操作比较简单，就不贴论文公式了。核心操作是对负样本按照iou划分k个区间，每个区间再进行随机采样，保证易学习负样本和难负样本比例尽量平衡，实验表明对K不敏感，作者设置的是3。具体做法是对所有负样本计算和gt的iou，并且划分K个区间后，在每个区间内均匀采样就可以了。假设分成三个区间，我想总共取9个，第一个区间有20个候选框，第二个区间有10个，第三个区间有5个，那这三个区间的采样概率就是9&#x2F;(3x20),9&#x2F;(3x10),9&#x2F;(3x5),这样的概率就能在三个区间分别都取3个，因为区间内候选框多，它被选中的概率小，最终体现各个区间都选这么多框。<br>实际代码做法是：首先按照iou分成k个区间，先尝试在不同区间进行随机采样采相同多数目的样本，如果不够就全部采样；进行一轮后，如果样本数不够，再剩下的样本中均匀随机采样。例如假设总共有1000个候选负样本(区间1:800个，区间2:120个，区间3:80个)，分为3个区间，总共想取333个，那么理论上每个区间是111个，首先第一次在不同区间均匀采样，此时区间1可以采样得到111个，区间2也可以得到111个，区间3不够，所以全部保留；然后不够的样本数，在剩下的(800-111)+(120-111)+0个里面随机取31个，最终补齐333个。核心代码如下：<br>意思是在各个区间内，如果够数目就随机采样，如果不够那就剩下的负样本里面全部采样。<br>(2)平衡回归loss<br>原始的fasterrcnn的rcnnhead，使用的回归loss是smoothl1,作者认为这个依然存在不平衡。作者分析是：loss解决Classification和Localization的问题，属于多任务loss，那么就存在一个平衡权重，一般来说回归权重会大一些，但一味的提高regression的loss其实会让outlier的影响变大(类似于OHEM中的noiselabel)，outlier外点样本这里作者认为是样本损失大于等于1. 0，这些样本会产生巨大的梯度不利于训练过程，小于的叫做inliers。平衡回归loss的目的是既不希望放大外点对梯度的影响，又要突出内点中难负样本的梯度，从而实现对外点容忍，对内点区分难负样本的作用。为此作者在smoothl1的基础上进行重新设计，得到BalancedL1Loss。核心操作就是想要得到一个当样本在附近产生稍微大点的梯度的函数。首先smoothl1的定义如下：<br>其梯度如下：<br>为了突出难样本梯度，需要重新设计梯度函数，作者想到了如下函数：<br>梯度公式可以实现上述任务。然后反向计算就可以得到Loss函数了。为了保证连续，还需要增加(9)的限制。<br>左边是梯度曲线，右边是loss曲线，可以看出非常巧妙。<br>论文名称：FeaturePyramidNetworksforObjectDetection<br>该论文也叫做retinanet，是目前非常主流的FPN目标检测one-stage网络结构，本文主要是提出了一个focalloss来对难易样本进行平衡，属于平衡loss范畴。<br>(1)网络结构<br>由于该网络结构非常流行，故这里仅仅简要说明下，不做具体分析。<br>图(d)即为retinanet的网络结构。主要特点是：(1)多尺度预测输出；(2)采用FPN结构进行多层特征图融合。网络进行多尺度预测，尺度一共是5个，每个尺度共享同一个head结构，但是分类和回归分支是不共享权重的。<br>为了方便和fasterrcnn进行对比，下面再次贴出rpn结构，并解释参数含义。<br>1. 共同部分</p>
+<p>2. 不同部分</p>
+<p>(2)正负样本定义<br>retinanet是one-stage算法，其采用的正负样本定义操作是MaxIoUAssigner，阈值定义和rpn不一样，更加严格。如下所示：<br>min_pos_iou&#x3D;0，可以保证每个GT一定有对应的anchor负责预测。0. 4以下是负样本，0. 5以上且是最大Iou的anchor是正样本0.4~0. 5之间的anchor是忽略样本。其不需要正负样本采样器，因为其是通过平衡分类loss来解决的。<br>(3)平衡分类loss<br>FocalLoss是本文重点，是用于处理分类分支中大量正负样本不平衡问题，或者说大量难易样本不平衡问题。作者首先也深入分析了OHEM的不足：它通过对loss排序，选出loss最大的example来进行训练，这样就能保证训练的区域都是hardexample，这个方法的缺陷，是把所有的easyexample(包括easypositive和easynegitive)都去除掉了，造成easypositiveexample无法进一步提升训练的精度(表现的可能现象是预测出来了，但是bbox不是特别准确)，而且复杂度高影响检测效率。故作者提出一个简单且高效的方法：FocalLoss焦点损失函数，用于替代OHEM，功能是一样的，需要强调的是：FL本质上解决的是将大量易学习样本的loss权重降低，但是不丢弃样本，突出难学习样本的loss权重，但是因为大部分易学习样本都是负样本，所以顺便解决了正负样本不平衡问题。其是根据交叉熵改进而来，本质是dynamicallyscaledcrossentropyloss，直接按照lossdecay掉那些easyexample的权重，这样使训练更加bias到更有意义的样本中去，说通俗点就是一个解决分类问题中类别不平衡、分类难度差异的一个loss。<br>上面的公式表示label必须是one-hot形式。只看图示就很好理解了，对于任何一个类别的样本，本质上是希望学习的概率为1，当预测输出接近1时候，该样本loss权重是很低的，当预测的结果越接近0，该样本loss权重就越高。而且相比于原始的CE，这种差距会进一步拉开。由于大量样本都是属于well-classifiedexamples，故这部分样本的loss全部都需要往下拉。其简单思想版本如下：<br>论文名称：YOLOv3:AnIncrementalImprovement<br>yolov2和yolov3差不多，主要是网络有差异，不是我们分析的重点，下面以yolov3为例。<br>(1)head结构</p>
+<p>(2)正负样本定义<br>yolo系列的正负样本定义比较简单，原则和MaxIoUAssigner(固定anchor和gt值计算)非常类似，但是更加简单粗暴：保证每个gtbbox一定有一个唯一的anchor进行对应，匹配规则就是IOU最大，而没有考虑其他乱七八糟的。具体就是：对于某个groundtruth，首先要确定其中心点要落在哪个cell上，然后计算这个cell的每个anchor与groundtruth的IOU值，计算IOU值时不考虑坐标，只考虑形状(因为anchor没有坐标xy信息)，所以先将anchor与groundtruth的中心点都移动到同一位置（原点），然后计算出对应的IOU值，IOU值最大的那个先验框anchor与groundtruth匹配，对应的预测框用来预测这个groundtruth。这个匹配规则和ssd和fasterrcnn相比，简单很多，其没有啥阈值的概念。对于分类分支和bbox回归分支，采用上述MaxIoU分配原则，可以保证每个gtbbox一定有唯一的anchor进行负责预测，而不考虑阈值，即使某些anchor与gt的匹配度不高也负责,而fasterrcnn里面的MaxIoUAssigner是可能由于anchor设置不合理导致某个gt没有anchor进行对应，而变成忽略区域的。可以看出这种分配制度会导致正样本比较少。对于confidence分支，其在上述MaxIoU分配原则下，还需要从负样本中划分出额外的忽略区域。因为有些anchor虽然没有和gt有最大iou，但是其iou依然很高，如果作为正样本来对待，由于质量不是很高以及为了和分类、回归分支的正样本定义一致，所以不适合作为正样本，但是如果作为负样本那也不合适，毕竟iou很大，这部分位置的anchor就应该设置为忽略区域，一般忽略iou阈值是0. 7即将负样本中的iou大于0.7中的anchor设置为忽略区域(需要特别注意一个细节：此处的iou是每个位置的anchor预测值和所有gt计算iou，而不是固定的anchor和所有gt计算iou，因为此处需要考虑位置信息，fasterrcnn系列不需要这么算的原因是fasterrcnn是每个位置都会预测xywh，而yolo系列是基于grid网格预测，xy和wh预测是分开来的，所以会更复杂一些)。总结就是：<br>1. 基于maxiou分配准则，区分正负样本<br>2. 在负样本范围内，将iou(基于anchor预测值和gt计算)大于忽略阈值的anchor定义为忽略区域，实时改变<br>3. 此时就区分出了正、负和忽略anchor样本，正anchor用于分类、回归分支学习，正负anchor用于confidence分支学习，忽略区域不考虑。<br>对于yolov3，由于是多尺度预测，故还有一个细节需要注意：首先需要将gt利用maxiou原则分配到不同的预测层上去，然后在每个层上单独计算正负样本和忽略样本，也就是和fasterrcnn不一样的地方是yolov3不存在某个gt会分配到多个层进行预测的可能性，而是一定是某一层负责的。但是不同的具体代码实现时候可能会有些许差别。<br>(3)loss<br>由于其采用的是普通的bce分类Loss和smoothl1回归loss，故不再进行分析。<br>论文地址：SSD:SingleShotMultiBoxDetector<br>(1)head结构<br>ssd是最典型的多尺度预测结构，是非常早期的网络。<br>其ssd300的head结构如下：</p>
+<p>k为特征图索引，m为5，而不是6，因为第一层输出特征图Conv4_3比较特殊，是单独设置的，表示anchor大小相对于图片的比例，和是比例的最小和最大值，论文中设置min&#x3D;0. 2(ssd300中，coco数据集设置为0. 15，voc数据集设置为0. 2)，max&#x3D;0. 9，但是实际上代码不是这样写的。实际上是：对于第一个特征图Conv4_3，其先验框的尺度比例一般设置为，故第一层的&#x3D;0. 1，输入是300，故conv4_3的min_size&#x3D;30。对于从第二层开始的特征图，则利用上述公式进行线性增加，然后再乘以图片大小，可以得到各个特征图的尺度为60,111,162,213,264。最后一个特征图conv9_2的size是直接计算的，300<em>105&#x2F;100&#x3D;315。以上计算可得每个特征的min_size和max_size，如下：<br>计算得到min_size和max_size后，需要再使用宽高比例因子来生成更多比例的anchor，一般选取,但是对于比例为1的先验框，作者又单独多设置了一种比例为1，的尺度，所以一共是6种尺度。但是在实现时，Conv4_3，Conv8_2和Conv9_2层仅使用4个先验框，它们不使用长宽比为3,1&#x2F;3的先验框，每个单元的先验框的中心点分布在各个单元的中心。具体细节如下：<br>以featuremap上每个点的中点为中心（offset&#x3D;0. 5），生成一些列同心的priorbox（然后中心点的坐标会乘以step，相当于从featuremap位置映射回原图位置）。<br>正方形priorbox最小边长为和最大边长为：min_size和<br>根据aspectratio，会生成2个长方形，长宽为<br>目的是保存在该比例下，面积不变。以fc7为例，前面知道其min_size&#x3D;60,max_size&#x3D;111，由于其需要6种比例，故生成过程是：<br>第一种比例，(min_size,min_size)&#x3D;(60,60)<br>第二种比例,，,，<br>第三种比例，，,，<br>第四种比例，(\sqrt{60×110}，\sqrt{60×110})$<br>不管哪个框架实现，核心思想都是一样，但是可能某些数据的设置不一样。下面以mmdetection为例：<br>(2)正负样本定义<br>ssd采用的正负样本定义器依然是MaxIoUAssigner,但是由于参数设置不一样，故有了不同的解释。<br>其定义anchor与gt的iou小于0. 5的就全部认为是负样本，大于0. 5的最大iou样本认为是正样本anchor，同时由于min_pos_iou&#x3D;0以及gt_max_assign_all&#x3D;False，可以发现该设置的结果是每个gt可能和多个anchor匹配上，匹配阈值比较低，且每个gt一定会和某个anchor匹配上，不可能存在gt没有anchor匹配的情况，且没有忽略样本。总结下意思就是：<br>anchor和所有gt的iou都小于0. 5，则认为是负样本<br>anchor和某个gt的最大iou大于0. 5，则认为是正样本<br>gt和所有anchor的最大iou值，如果大于0. 0，则认为该最大iouanchor是正样本<br>没有忽略样本<br>(3)平衡分类loss<br>由于正负样本差距较大，如果直接采用ce和smoothl1训练，效果可能不太好，比较样本不平衡严重。故作者的celoss其实采用了ohem+ce的策略，通过train_cfg. neg_pos_ratio&#x3D;3来配置负样本是正样本的3倍。<br>核心就是按照分类loss进行topk，得到3倍的负样本进行反向传播。<br>论文名称：FCOS:FullyConvolutionalOne-StageObjectDetection<br>FCOS堪称anchorfree论文的典范，因为其结构主流，思路简单清晰，效果蛮好，故一直是后续anchorfree的基准对比算法。FCOS的核心是将输入图像上的位置作为anchorpoint的中心点，并且对这些anchorpoint进行回归。<br>(1)head结构<br>fcos的骨架和neck部分是标准的resnet+fpn结构，和retinanet完全相同。如下所示：<br>我们仅仅考虑head部分。除去center-ness分支，则可以看出和retinanet完全相同。其配置如下：<br>可以看出一共5个尺度进行预测，每个尺度的stride可以从strides中看出来。由于其是anchorfree论文，故少了很多复杂参数。<br>(2)正负样本定义<br>考虑到anchorfree预测值和anchorbase不一样，故还是需要提前说下网络预测形式。FCOS是全卷积预测模式，对于cls分支，输出是hxwx(class+1)，每个空间位置值为1，表示该位置有特定类别的gtbbox，对于回归分支，输出是hxwx4，其4个值的含义是：<br>每个点回归的4个数代表距离4条边的距离，非常简单易懂。和所有目标检测算法一样，需要提前定义好正负样本，同时由于是多尺度预测输出，还需要首先考虑gt由哪一个输出层具体负责。作者首先设计了min_size和max_size来确定某个gt到底由哪一层负责，具体设置是0,64,128,256,512和无穷大,也就是说对于第1个输出预测层而言，其stride&#x3D;8，负责最小尺度的物体，对于第1层上面的任何一个空间位置点，如果有gtbbox映射到特征图上，满足0&lt;max(中心点到4条边的距离)&lt;64，那么该gtbbox就属于第1层负责，其余层也是采用类似原则。总结来说就是第1层负责预测尺度在0<del>64范围内的gt，第2层负责预测尺度在64</del>128范围内的gt，其余类推。通过该分配策略就可以将不同大小的gt分配到最合适的预测层进行学习。<br>第二步是需要确定在每个输出层上面，哪些空间位置是正样本区域，哪些是负样本区域。原版的fcos的正负样本策略非常简单粗暴：在bbox区域内的都是正样本，其余地方都是负样本，而没有忽略样本区域。可想而知这种做法不友好，因为标注本身就存在大量噪声，如果bbox全部区域都作为正样本，那么bbox边沿的位置作为正样本负责预测是难以得到好的效果的，显然是不太靠谱的(在文本检测领域，都会采用shrink的做法来得到正样本区域)，所以后面又提出了centersampling的做法来确定正负样本，具体是：引入了center_sample_radius(基于当前stride参数)的参数用于确定在半径范围内的样本都属于正样本区域，其余区域作为负样本，依然没有定义忽略样本。默认配置center_sample_radius&#x3D;1. 5，如果第1层为例，其stride&#x3D;8，那么也就是说在该输出层上，对于任何一个gt，基于gtbbox中心点为起点，在半径为1. 5</em>8&#x3D;12个像素范围内都属于正样本区域。其核心代码如下：<br>如果需要进行中心采样，那么基于采样半径比例×当前stride的范围内都属于正样本inside_gt_bbox_mask，其余样本全部属于负样本。可能很多人都有疑问：为啥不需要设置忽略区域？个人猜测原因可能是:1. 设置忽略区域，又需要增加一个超参；2. 多了一个center-ness分支，可以很大程度抑制这部分区域对梯度的影响。3. 间接的增加了正样本数目。不管咋说应该是作者实验后发现没有很大必要吧。<br>(3)平衡loss设计<br>可以发现上述肯定存在大量正负样本不平衡问题，故作者对于分类分支采用了one-stage常用的focalloss；对于bbox回归问题，由于很多论文表明直接优化bbox比单独优化4个值更靠谱，故作者采用了GIOUloss来回归4个值，对于center-ness分支，采用的是CrossEntropyLoss，当做分类问题处理。<br>(4)附加内容<br>center-ness作用比较大，从上面的正负样本定义就可以看出来，如果没有center-ness，对于所有正样本区域，其距离bbox中心不同远近的loss权重居然是一样的，这明显是违反直觉的，理论上应该越是远离Bbox中心的空间位置，其权重应该越小，作者实验也发现如果没有center-ness分支，会产生大量假正样本，导致很多虚检。center-ness本质就是对正样本区域按照距离gtbbox中心来设置权重，这是作者的做法，还有很多类似做法，不过有些是在Loss上面做文章，例如在celoss基础上乘上一个类似预center-ness的权重来实现同样效果(例如SoftAnchor-PointObjectDetection)。center-ness效果如下：<br>论文名称：ObjectsasPoints<br>centernet也是非常流行的anchor-free论文，其核心是：一些场景的cv任务例如2d目标检测、3d目标检测、深度估计和关键点估计等等任务都可以建模成以物体中心点学习，外加上在该中心点位置处额外学习一些各自特有属性的通用做法。对于目标检测，可以将bbox回归问题建模成学习bbox中心点+bbox宽高问题，如下所示：<br>(1)head结构<br>centernet的输出也非常简单，其相比较于FCOS等算法，使用更大分辨率的输出特征图(缩放了4倍)，本质上是因为其采用关键点检测思路做法，而关键点检测精度要高，通常是需要输出高分辨率特征图，同时不需要多尺度预测。其输出预测头包含3个分支，分别是<br>1. 分类分支h’xw’x(c+1)，如果某个特定类的gtbbox的中心点落在某个位置上，那么该通道的对应位置值设置为1，其余为0；<br>2. offset分支h’xw’x2,用于学习量化偏差，图像下采样时，gtbbox的中心点会因数据是离散的而产生偏差，例如gtbbox的中心点坐标是101，而由于输入和输出相差4倍，导致gtbbox映射到特征图上坐标由25. 25量化为了25，这就出现了101-25x4&#x3D;1个pix的误差，如果下采样越大，那么量化误差会越大，故可以使用offset分支来学习量化误差，这样可以提高预测精度。<br>3. 宽高分支h’xw’x2,表示gtbbox的宽高。<br>其中1. 2分支和cornetnet的做法完全相同。而由于objectsaspoints的建模方式和FCOS的建模方式不一样，故centernet的正负样本定义就会产生很大区别。主要是宽高分支的通道数是2，而不是4，也就是说其输入到宽高分支的正样本其实会非常少，必须是gtbbox的中心位置才是正样本，左右偏移位置无法作为正样本，也没有啥忽略样本的概念，这个是和FCOS的最大区别。<br>(2)正负样本定义<br>由于centernet特殊的建模方式，故其正负样本定义特别简单，不需要考虑多尺度、不需要考虑忽略区域，也不用考虑iou，正样本定义就是某个gtbbox中心落在哪个位置上，那么那个位置就是正样本，其余位置全部是负样本。<br>(3)平衡Loss设计<br>前面说过目标检测所有论文的样本平衡策略都主要包括正负样本定义、正负样本采样和平衡loss设计，不管啥目标检测算法都省不了，对于centernet，其正负样本定义非常简单，可以看出会造成极其严重的正负样本不平衡问题，然后也无法像two-stage算法一样设计正负样本采样策略，那么平衡问题就必须要在loss上面解决。对于offset和宽高预测分支，其只对正样本位置进行监督，故核心设计就在平衡分类上面。对于分类平衡loss，首选肯定是focalloss了，但是还不够，focalloss的核心是压制大量易学习样本的权重，但是由于我们没有设置忽略区域，在正样本附近的样本，实际上非常靠近正样本，如果强行设置为0背景来学习，那其实相当于难负样本，focalloss会突出学这部分区域，导致loss难以下降、不稳定，同时也是没有必要的，因为我们的label虽然是0或者1的，但是在前向后处理时候是当做高斯热图(0~1之间呈现2d高斯分布特点)来处理的，我们学到最后的输出只要满足gtbbox中心值比附近区域大就行，不一定要学习出0或者1的图。<br>基于上述设定，在不修改分类分支label的情况下，在使用focalloss的情况下，作者的做法是对正样本附近增加惩罚，基于2d高斯分布来降低这部分权重，相当于起到了类似于忽略区域的作用。可以简单认为是focalfocalloss。<br>其中<br>Y是label,0或者1,当Y&#x3D;1时候，也就是正样本位置，就是标准的focalloss设定；其余区域，分为附近区域和外围区域，附近的定义采用了自适应宽高标准差的做法，在2d高斯分布内部的属于附近区域，外面的都称为外围背景区域，外围区域也是标准的focalloss定义。故作者设计更改的就是附近区域，也就是,可以发现如果去掉，就是标准的focalloss。附近区域中越靠近中心点的惩罚Y越大，Loss权重越小，表示该位置对于正还是负的区分越模糊。<br>可能很多人有疑问：明明label是0-1的，为啥学出来的会是高斯热图，而不是0-1热图？我的分析是：如果不考虑附近区域，而是仅仅采用focalloss那么确实应该学出来的最接近0-1热图，但是由于基于距离gtbbox中心远近不同，设置了不同的惩罚系数，导致网络学习时候对于这部分学习出来的值关注程度不一样，可能就会产生这种现象，举例来说：即使采用上述label，最完美的输出应该是0或1的，但是实际上很难，对于偏离gtbbox附近一点点的位置，假设其预测输出为0，那么肯定是loss最低，但是可能训练不到那么好，那么由于其权重比较小，其学习出0. 9，其实loss也不会太大，但是如果距离远一点的，其也学习出0. 9，由于其loss权重比较大，就会迫使网络预测要变小一点点，例如变成0. 8输出。基于这种权重分布，训练出来的热图可能就会按照1-loss权重的分布呈现，出现高斯热图。学习关键点中心，作者采用的是分类loss，不清楚如果直接采用回归loss，效果咋样，我觉得效果应该不会差。因为关键点检测一般都是采用l2回归loss直接监督在高斯热图上。并且因为宽高、offset分支其实也都是回归loss，三个分支都采用回归Loss不好吗？<br>还有一个问题：宽高和offset的监督仅仅在gtbbox中心位置，其余位置全部是忽略区域。这种做法其实很不鲁棒，也就是说bbox性能其实完全靠分类分支，如果分类分支学习的关键点有偏差，那么由于宽高的特殊监督特性，可能会导致由于中心点定位不准而带来宽高不准的情况(特别的如果中心点预测丢失了，那么宽高预测再准也没有用)，后面有些论文有其他解决办法，<br>论文名称：BridgingtheGapBetweenAnchor-basedandAnchor-freeDetectionviaAdaptiveTrainingSampleSelection<br>本文写的非常好，作者试图分析问题：anchor-free和anchor-base算法的本质区别是啥？性能为啥不一样？最终结论是其本质区别就在于正负样本定义不同。只要我们能够统一正负样本定义方式，那么anchor-free和anchor-base就没有啥实际区别了，性能也是非常一致的。正负样本定义也是我写这篇文章的一个最大要说明的地方，因为其非常关键，要想彻底理解不同目标检测算法的区别，那么对于正负样本定义必须要非常清楚。<br>(1)head部分<br>由于这篇论文细节比较多，为了论文完整性，我这里大概说下，不重点描述。作者为了找出本质区别，采用了anchor-base经典算法retinanet以及anchor-free经典算法FCOS来说明，因为这两篇论文非常相似，最好进行对比。<br>由于FCOS是基于point进行预测，故可以认为就是一个anchor，为了公平对比，将retinanet的anchor也设置为1个(#A&#x3D;1),将FCOS的训练策略移动到retinanet上面，可以发现性能依然retinanet低于fcos0. 8mAP。排除这个因素后，现在两个算法的区别是1. 正负样本定义；2. 回归分支中从point回归还是从anchor回归。从point回归就是指的每个点预测距离4条边的距离模式，而从anchor回归是指的retinanet那种基于anchor回归的模式。<br>后面有实验分析可以知道回归分支中从point回归还是从anchor回归对最终影响很小。ATSS的head部分结构如下：<br>可以看出所有的参数其实就是retinanet和fcos参数的合并而已，没有新增参数。<br>(2)正负样本定义<br>正负样本定义是本文的讨论重点。作者首先详细分析了retinanet和fcos的正负样本定义策略的不同，首先这两个算法都是多尺度预测的，故其实都包括两个步骤：gt分配给哪一层负责预测；gt分配给哪一个位置anchor负责预测。retinanet完全依靠统一的iou来决定哪一层哪一个位置anchor负责预测，而fcos显式的分为两步：先利用scaleratio来确定gt分配到哪一层，然后利用centersampling策略来确定哪些位置是正样本。具体细节请参见的retinanet和fcos的正负样本定义总结。这两种操作的细微差别会导致如下情形：<br>对于1和2两个输出预测层，retinanet采用统一阈值iou，可以确定上图蓝色1位置是正样本，而对于fcos来说，有2个蓝色1，表明fcos的定义方式会产生更多的正样本区域。这种细微差距就会导致retinanet的性能比fcos低一些。<br>对于retinanet算法，正负样本定义采用iou阈值,回归分支采用原始的anchor变换回归模式(box)，mAP&#x3D;37. 0，采用fcos的point模式是36. 9，说明到底是point还是box不是关键因素。但是如果换成fcos的正负样本定义模式，mAP就可以上升为37. 8，和fcos一致了，说明正负样本定义的不同是决定anchor-base和anchor-free的本质区别。<br>既然找到了本质问题，作者分析肯定是fcos的正负样本定义策略比retinanet好，但是fcos算法需要定义超参scaleconstraint，比较麻烦，作者希望找到一种和fcos类似功能的正负样本定义算法，主要特定是几乎没有超参，或者说对超参不敏感，可以自适应，故作者提出ATSS算法。由于作者的设计可以认为是fcos正负样本定义策略的改进版本，故mmdetection的代码中也是针对fcos来说的，具体就是除了正负样本定义策略和fcos不一样外，其余全部相同，所以我们也仅仅需要关注atss部分代码就行。<br>其只有一个参数topk，实验表明参数适当就行，不敏感。下面具体分析ATSS：<br>流程比较简单，但是需要注意，由于依然需要计算iou，故anchor的设置不能少，只不过anchor仅仅用于计算正负样本区域而已，在计算loss时候还是anchor-free的，anchor默认设置就1个。主要是理解思想：<br>对于每个gtbbox，在每一个预测层上采样tokp个基于l2距离的位置，作为候选；<br>计算gt和每个候选anchor的iou；计算所有iou的均值和方差，相加变成iou阈值(每个gt都有一个自适应的iou阈值)；<br>遍历每个候选anchor，如果该anchor大于iou阈值，并且anchor中心位置在gtbbox内部，那么这个就是正样本区域，其余全部是负样本。<br>均值(所有层的候选样本算出一个均值)代表了anchor对gt衡量的普遍合适度，其值越高，代表候选样本质量普遍越高，iou也就越大，而方差代表哪一层适合预测该gtbbox，方差越高越能区分层和层之间的anchor质量差异。均值和方差相加就能够很好的反应出哪一层的哪些anchor适合作为正样本。一个好的anchor设计，应该是满足高均值、高方差的设定。<br>如上图所示，(a)的阈值计算出来是0. 612，采用该阈值就可以得到level3上面的才是正样本，是高均值高方差的。同样的如果anchor设置和gt不太匹配，计算出来的阈值为0. 219，依然可以选择出最合适的正样本区域，虽然其属于低均值、低方差的。采用自适应策略依然可以得到相对好的正负样本，实现了自适应功能，至少可以保证每个GT一定有至少一个anchor负责对应。从这个设定来看，应该会出现某个gt在多个层上面都属于正样本区域，而没有限制必须在其中某个层预测，相当于增加了些正样本。K默认是9。<br>(3)平衡loss设定<br>其loss函数设计完全和fcos一样，不再赘述。<br>论文名称：SoftAnchor-PointObjectDetection</p>
+<p>(1)head<br>本文属于anchorpoint类算法，即每个点都学习距离4条边的距离，这是标准的densebox算法流程，本质上和FCOS一样：<br>和FCOS的区别就在于1. 没有center-ness分支，2. 正样本区域的定义采用4条边向内shrink做法，而不是centersampling。<br>1. Attentionbias<br>作者采用上面的网络进行训练，发现一个问题如下：<br>(b)是标准网络训练的分类confidence图，可以看出在靠近物体中心的四周会依然会产生大量confidence很高的输出，即没有清晰的边界，在训练过程中可能会抑制掉周围小的物体，导致小物体检测不出来或者检测效果很差。作者分析原因可能是在anchor-point方法在边界地方point进行回归，会存在特征不对齐问题或者说很难对齐。这个现象在FCOS没有加center-ness时候也出现了，FCOS的解决办法就是加入新的center-ness分支训练时候抑制掉，本文解决办法不一样，其通过加权方法。加权后效果如(c)。<br>2. Featureselection<br>特性选择问题其实是指的对于任何一个gtbbox，到底采用何种策略分配到不同的层级进行预测？目前目标检测的做法是基于启发式人工准则将实例分配到金字塔层次(retinanet)，或将每个实例严格限制为单个层次(fcos)，从而可能会导致特征能力的不充分利用。<br>作者通过训练发现：虽然每个GT只在特定层进行回归，但是其学出来的特征图是相似的，如上图所示，也就是说：一个以上金字塔等级的特征可以共同为特定实例的检测做出贡献，但是来自不同等级的贡献程度应该有所不同。这就是本文的出发点，不再强行判断哪一层进行回归了，而是每一层都进行回归，但是让网络自行学习到金字塔层级的权重。说了半天，作者仔细谈到了这两个问题，但思考下可以发现说的都是同一个问题，都是正负样本定义问题。attentionbias说的是对于特定输出层内的正负样本定义问题，featureselection说的则是不同输出层间的正负样本定义问题，我们以前说的正负样本定义都是hard，这里解决办法都是soft。<br>(2)正负样本定义<br>对于特定输出层内的soft正负样本定义问题，作者的解决办法是引入类似center-ness一样的权重，属于Loss层面改进，我们放在(3)平衡loss分析；对于不同输出层间的soft正负样本定义问题，作者采用的是采用网络自动学习soft权重的做法。注意：输出层内hard正负样本定义，作者采用的依然和FCOS相同的策略，只不过正样本区域是通过4条边shrink得到，而不是centersampling。输出层间hard正负样本定义，作者没有用FCOS的分配策略，而是提出了新的soft代替hard。本文不再强行判断哪一输出层进行gtbbox回归了，而是每一层都进行所有gtbbox回归，但是让网络自行学习到金字塔层级的权重。<br>引入一个简单的网络来学习金字塔权重，具体做法是：利用gtbbox，映射到对应的特征图层，然后利用roialign层提出特征，在采用简单的分类器输出每个层级的权重。由于金字塔层数是5，故fc的输出是5。label设置上，这个思想的提出是参考FSAF(FeatureSelectiveAnchor-FreeModuleforSingle-ShotObjectDetection)的做法，核心思想是不再人为定义具体是哪一层负责预测GT，而是根据loss最小的动态选择的那个层。本文借鉴上述思想，也是自动选择最适合的层。meta选择网络的独热码label不是人为提前计算好的，而是根据输出softmax层的值或者说loss来选择的，哪个输出节点loss最小，那么Label就设置为1，其余为0。整个meta选择网络和目标检测网络联合训练。<br>(3)平衡loss设计<br>对于特定输出层内的soft正负样本定义问题，作者的解决办法是引入类似center-ness一样的权重，来对距离gtbbbx中心点进行惩罚。中心点权重最大，往外依次减少，其权重图如fcos里面所示：<br>从本质上来说和centernet的解决办法一模一样。<br>看过前面centernet平衡分类loss分析的人可能有疑问：在centernet里面，其对focalloss的权重设置是在半径范围内，除中心点外，离中心点越近，权重最小，往外依次增加；但是这里的设计是正好相反的，其是离中心点越近，权重越大，往外依次减少。看起来是矛盾的？其实不是，千万不要忘记了label设计规则，centernet的分类label设置是除了中心点是1外，其余全部为0，而本文的label设置是不仅仅中心点是1，shrink附近区域的点也是1，其余全部是0，也就是说模糊区域中，centernet出发点认为是背景样本，而本文出发点认为是前景样本，所以其权重设置规则是正好相反的。<br>看到上图，就可以知道本文所有的操作了。对于特定层内的正负样本定义，原先是hard，现在通过引入权重变成了soft；对于层级间的正负样本定义，原先只会分配到特定层，其余层都0，现在引入了soft操作，权重是自己学到的。<br>通过网络学习到的层级间的权重，可以发现符合作者设定。<br>论文名称：RegionProposalbyGuidedAnchoring<br>ga这篇论文我觉得做的蛮好，先不说最终效果提升多少个mAP,他的出发点是非常不错的。anchor-base的做法都需要预设anchor，特别是对于one-stage而言，anchor设置的好坏对结果影响很大，因为anchor本身不会改变，所有的预测值都是基于anchor进行回归，一旦anchor设置不太好，那么效果肯定影响很大。而对于two-stage而言，好歹还有一个rcnn层，其可以对RPN的输出roi(动态anchor)进行回归，看起来影响稍微小一点。不管是onestage还是two-stage，不管咋预测，肯定都是基于语义信息来预测的，在bbox内部的区域激活值肯定较大，这种语义信息正好可以指导anchor的生成，也就是本文的出发点：通过图像特征来指导anchor的生成。通过预测anchor的位置和形状，来生成稀疏而且形状任意的anchor。可以发现此时的anchor就是动态的了。如果将fasterrcnn进行改造，将RPN层替换为ga层，那肯定也是可以的，如果将retinanet或者yolo的预测层替换为ga，那其实就完全变成了anchor-free了。但是作者采用了一种更加优雅的实现方式，其采用了一种可以直接插入当前anchor-base网络中进行anchor动态调整的做法，而不是替换掉原始网络结构，属于锦上添花，从此anchor-base就变成了anchor-base混合anchor-free了(取长补短)，我觉得这就是一个不错的进步。<br>作者是以retinanet为例，但是可以应用于所有anchor-base论文中。核心操作就是在预测xywh的同时，新增两条预测分支，一条分支是loc(batch,anchor_num<em>1,h,w)，用于区分前后景，目标是预测哪些区域应该作为中心点来生成anchor，是二分类问题，这个非常好理解，另一条分支是shape(batch,anchor_num</em>2,h,w),用于预测anchor的形状。一旦训练好了，那么应该anchor会和语义特征紧密联系，如下所示：<br>其测试流程为：<br>对于任何一层，都会输出4条分支，分别是anchor的loc_preds，anchor的shape_preds，原始retinanet分支的cls_scores和bbox_preds<br>使用阈值将loc_preds预测值切分出前景区域，然后提取前景区域的shape_preds，然后结合特征图位置，concat得到4维的guided_anchors(x,y,w,h)</p>
+<p>可以发现和原始retinanet相比，就是多了anchor预测分支，得到动态anchor后，那就是正常的retinanet预测流程了。<br>主要就是anchor的loc_preds和shape_preds的loss设计。<br>(1)loc_preds<br>anchor的定位模块非常简单，就是个二分类问题，希望学习出前景区域。这个分支的设定和大部分anchor-free的做法是一样的(例如fcos)。<br>首先对每个gt,利用FPN中提到的roi重映射规则，将gt映射到不同的特征图层上<br>定义中心区域和忽略区域比例，将gt落在中心区域的位置认为是正样本，忽略区域是忽略样本(模糊样本)，其余区域是背景负样本，这种设定规则很常用，没啥细说的，如图所示：<br>采用focalloss进行训练<br>(2)loc_shape<br>loc_shape分支的目标是给定anchor中心点，预测最佳的长和宽，这是一个回归问题。先不用管作者咋做的，我们可以先思考下可以如何做，首先预测宽高，那肯定是回归问题，采用l1或者smoothl1就行了，关键是label是啥？还有哪些位置计算Loss?我们知道retinanet计算bbox分支的target算法就是利用MaxIoUAssigner来确定特征图的哪些位置anchor是正样本，然后将这些anchor进行bbox回归。现在要预测anchor的宽高，当然也要确定这个问题。<br>第一个问题：如何确定特征图的哪些位置是正样本区域？，注意作者采用的anchor个数其实是1(作者觉得既然是动态anchor，那么个数其实影响不会很大，设置为1是可以的错)，也就是说问题被简化了，只要确定每个特征图的每个位置是否是正样本即可。要解决这个问题其实非常容易，做法非常多，完全可以按照anchor-free的做法即可，例如FOCS，其实就是loc_preds分支如何确定正负样本的做法即可，确定中心区域和忽略区域。将中心区域的特征位置作为正样本，然后直接优化预测输出的anchorshape和对应gt的iou即可。但是论文没有这么做，我觉得直接按照fcos的做法来确定正样本区域，然后回归shape，是完全可行。本文做法是采用了ApproxMaxIoUAssigner来确定的，ApproxMaxIoUAssigner和MaxIoUAssigner非常相似，仅仅多了一个Approx，其核心思想是：利用原始retinanet的每个位置9个anchor设定，计算9个anchor和gt的iou，然后在9个anchor中采用max操作，选出每个位置9个iou中最高的iou值，然后利用该iou值计算后续的MaxIoUAssigner，此时就可以得到每个特征图位置上哪些位置是正样本了。简单来说，ApproxMaxIoUAssigner和MaxIoUAssigner的区别就仅仅是ApproxMaxIoUAssigner多了一个将9个anchor对应的iou中取最大iou的操作而已。<br>对于第二个问题：正样本位置对应的shapetarget是啥，其实得到了每个位置匹配的gt，那么对应的target肯定就是Gt值了。该分支的loss是boundediouloss，公式如下：<br>上面写的非常简陋，很多细节没有写，放在1. 5节代码分析中讲解。<br>可以看出非常符合预期。<br>(1)head<br>本文代码分析以retinanet为主，网络骨架和neck就没啥说的了，直接截图：<br>就是ResNet+FPN结构，输出5个分支进行预测。stride为[8,16,32,64,128]。对于head部分，可以对比retinanet的head部分进行查看:</p>
+<p>(2)loss计算<br>(2-1)anchor的loc分支loss计算<br>loc输出特征图大小是(batch,1,h,w)，本质上是一个二分类器，用于找出语义前景区域。<br>核心参数是中心区域占据比例center_ratio&#x3D;0. 2，忽略区域占比ignore_ratio&#x3D;0. 5.首先需要计算loc分支的target，方便后面计算loss，对应的函数是ga_loc_target，由于代码比较多，不太好写，我只能写个大概流程出来。<br>有了每个特征图上，每个位置是正负还是忽略样本的结果，就可以针对预测的Loc特征图计算focalloss了：<br>(2-2)anchor的shape分支loss计算<br>这个分支稍微复杂一点点。首先我们要先熟悉下train_cfg</p>
+<p>(1)计算5个特征图上，每个位置9个anchor，组成anchor_list<br>这个函数和其他anchor-base的anchor生成过程完全相同，就是利用特征图大小、anchor设置得到所有预设anchor的(x0,y0,x1,y1)坐标<br>(2)计算每个特征图的每个位置上shape预测的基数<br>可能这个不好理解。其实在原文中作者指出shape分支直接预测gtbbox的宽高值不太稳定，因为数值波动范围比较大，为了稳定，作者回归的shape预测值实际上是在某个缩放系数下的值，具体是：<br>，s是每个特征图的stride，w就是原始gtbbox宽，dw才是shape分支的预测值。上述的squares_list存储的就是每层特征图的每个位置的基数，用于还原shape预测值到真实比例，由于anchor&#x3D;1，且对于任意层而言是固定的，所以在代码实现上作者也用了anchor_generate代码来实现</p>
+<p>(3)计算shapetarget<br>在得到squares_list、approxs_list和gt_bboxes，下面核心就是计算shapetarget了。函数是：<br>计算shapetarget的流程包括2步：<br>1、确定哪些位置是正样本，通过ApproxMaxIoUAssigner类实现；<br>2. 每个正样本位置的label，通过RandomSampler实现。<br>这两个操作看起来和fasterrcnn的rpn阶段的loss计算相同，其实仅仅思想相同而已，但是实现差别还是很大的。<br>假设你已经了解了MaxIoUAssigner的实现过程，而ApproxMaxIoUAssigner的实现是继承自MaxIoUAssigner的，其核心差别是：<br>而MaxIoUAssigner仅仅有以下一行而已：</p>
+<p>而ga分支的调用过程是：</p>
+<p>到此，核心代码就分析完了。稍微难理解的就是shapetarget的计算过程了。<br>论文名称：LearningSpatialFusionforSingle-ShotObjectDetection<br>源码地址：https :&#x2F;&#x2F;github. com&#x2F;ruinmessi&#x2F;ASFF<br>先贴性能：<br>首先可以看出是非常强的。虽然本文题目重点是说ASFF层的牛逼地方，但是我觉得看本文，重点不在这里，而是yolov3的强baseline。<br>通过一些训练技巧，将yolov3从33. 0mAP,提升到38. 8mAP,我觉得这个才是重点需要学习的地方。这其实反映出一个明显问题：骨架的改进固然重要，但是训练技巧绝对要引起重视，很多新提出的算法搞了半天提升了1个mAP点，还不如从训练技巧上面想点办法来的快(在人脸检测领域就会针对人脸尺度问题针对性的提出大量训练技巧，是非常高效的)，毕竟训练技巧只会影响训练过程，对推理没有任何额外负担，何乐不为。<br>本文先分析不那么重要的部分，即本文最大改进ASFF(AdaptivelySpatialFeatureFusion)操作，其实熟悉BiFpn的人应该马上就能get到idea了，我觉得本质上没有啥区别。FPN操作是一个非常常用的用于对付大小尺寸物体检测的办法，作者指出FPN的缺点是不同尺度之间存在语义gap，举例来说基于iou准则，某个gtbbox只会分配到某一个特定层，而其余层级对应区域会认为是背景(但是其余层学习出来的语义特征其实也是连续相似的，并不是完全不能用的)，如果图像中包含大小对象，则不同级别的特征之间的冲突往往会占据要素金字塔的主要部分，这种不一致会干扰训练期间的梯度计算，并降低特征金字塔的有效性。<br>一句话就是：目前这种concat或者add的融合方式不够科学。本文觉得应该自适应融合，自动找出最合适的融合特征，如下所示：<br>简要思想就是：原来的FPNadd方式现在变成了add基础上多了一个可学习系数，该参数是自动学习的，可以实现自适应融合效果，类似于全连接参数。ASFF具体操作包括identicallyrescaling和adaptivelyfusing。定义FPN层级为l，为了进行融合，对于不同层级的特征都要进行上采样或者下采样操作，用于得到同等空间大小的特征图，上采样操作是1x1卷积进行通道压缩，然后双线性插值得到；下采样操作是对于1&#x2F;2特征图是采样3×3convolutionlayerwithastrideof2，对于1&#x2F;4特征图是adda2-stridemaxpoolinglayer然后引用stride卷积。AdaptiveFusion<br>下面讲解具体操作：<br>(1)首先对于第l级特征图输出cxhxw，对其余特征图进行上下采样操作，得到同样大小和channel的特征图，方便后续融合<br>(2)对处理后的3个层级特征图输出，输入到1x1xn的卷积中(n是预先设定的)，得到3个空间权重向量，每个大小是nxhxw<br>(3)然后通道方向拼接得到3nxhxw的权重融合图<br>(4)为了得到通道为3的权重图，对上述特征图采用1x1x3的卷积，得到3xhxw的权重向量<br>(5)在通道方向softmax操作，进行归一化，将3个向量乘加到3个特征图上面，得到融合后的cxhxw特征图<br>(6)采用3x3卷积得到输出通道为256的预测输出层<br>ASFF层学习得到的各种特征可视化效果如下：<br>YOLOv3包括darknet53骨架网络和3层特征金字塔网络构成的3个尺度输出。</p>
+<p>对应的代码是YOLOv3Head. py<br>首先和GA一样，也是有FeatureAdaption，用于对动态anchor特征进行自适应。<br>(1)初始化函数<br>anchors里面存储的就是原始yolov3的9组anchor，但是特别需要注意的是这里实现的anchor个数是4个，而不是GA原文的1个anchor，这个小差别会导致后面代码有些差别。按照GA论文做法，其实1个anchor就足够了。而且需要注意这里的GA分支没有输出Loc,仅仅有shape预测。原因是loc分支的目的仅仅是用于进行前后景提取，是个二分类问题，但是由于yolo有confidence分支，其有前后景提取功能，故不再需要loc分支。loss函数方面，就是多了shape预测的IOUWH_loss函数，以及bbox回归额外引入的IOUloss，其余相同。<br>(2)forward函数<br>(2-1)输出预测值</p>
+<p>(2-2)将预测anchor变换到原图尺度，得到guideanchor<br>(2-3)前向模式下基于预测anchor直接进行回归即可得到最终bbox<br>(2-4)训练模式下准备target先准备数据：<br>计算匹配anchor和confidencemask<br>理解下面的操作才是理解了本文核心：<br>前面所有准备都好了后，就是计算loss了：<br>可以看出前两个loss是额外加入的。<br>GA的引入可以实现：<br>(1)在anchor设置不合理时候，动态引导anchor预测分支得到更好的anchor<br>(2)在anchor设置合理时候，可以加速收敛，且可以进一步refine默认anchor<br>我觉得本文的GA实现过程非常好，思路清晰，很好理解，可以实现anchor-base混合anchor-free，发挥各自的优势。后续会进行各种对比实验，验证GA在yolo中的引导作用。<br>下载1：OpenCV-Contrib扩展模块中文版教程<br>在「小白学视觉」公众号后台回复：扩展模块中文教程，即可下载全网第一份OpenCV扩展模块教程中文版，涵盖扩展模块安装、SFM算法、立体视觉、目标跟踪、生物视觉、超分辨率处理等二十多章内容。<br>下载2：Python视觉实战项目52讲<br>在「小白学视觉」公众号后台回复：Python视觉实战项目，即可下载包括图像分割、口罩检测、车道线检测、车辆计数、添加眼线、车牌识别、字符识别、情绪检测、文本内容提取、面部识别等31个视觉实战项目，助力快速学校计算机视觉。<br>下载3：OpenCV实战项目20讲<br>在「小白学视觉」公众号后台回复：OpenCV实战项目20讲，即可下载含有20个基于OpenCV实现20个实战项目，实现OpenCV学习进阶。<br>交流群<br>欢迎加入公众号读者群一起和同行交流，目前有SLAM、三维视觉、传感器、自动驾驶、计算摄影、检测、分割、识别、医学影像、GAN、算法竞赛等微信群（以后会逐渐细分），请扫描下面微信号加群，备注：”昵称+学校&#x2F;公司+研究方向“，例如：”张三+上海交大+视觉SLAM“。请按照格式备注，否则不予通过。添加成功后会根据研究方向邀请进入相关微信群。请勿在群内发送广告，否则会请出群，谢谢理解~</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/09/1000002540-2247631363-3/">https://zejuncao.github.io/2025/06/09/1000002540-2247631363-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">小白学视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/09/1000002540-2247631363-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002540_2247631363_2.jpg" class="responsive-img" alt="机器视觉中的滤波">
+                        
+                        <span class="card-title">机器视觉中的滤波</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">小白学视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/09/1000002629-2247587253-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002629_2247587253_2.jpg" class="responsive-img" alt="从「记忆解题」到「深度推理」：港科大推出首个本科数学动态评测基准 UGMathBench">
+                        
+                        <span class="card-title">从「记忆解题」到「深度推理」：港科大推出首个本科数学动态评测基准 UGMathBench</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI%E7%A7%91%E6%8A%80%E5%A4%A7%E6%9C%AC%E8%90%A5/">
+                        <span class="chip bg-color">AI科技大本营</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
