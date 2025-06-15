@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="AI 协作的未来？Anthropic 多智能体系统的实战设计, ZejunCao&#39;Blogs">
+    <meta name="description" content="AI 协作的未来？Anthropic 多智能体系统的实战设计
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+深度学习自然语言处理出品整理：喵小六原文链接：https :&amp;#x2F;&amp;#x2F;www. anthrop">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>AI 协作的未来？Anthropic 多智能体系统的实战设计 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001998_2247540143_1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">AI 协作的未来？Anthropic 多智能体系统的实战设计</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">
+                                <span class="chip bg-color">深度学习自然语言处理</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/8HkAD81x9aS0NPl1mvjTfw">AI 协作的未来？Anthropic 多智能体系统的实战设计</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>深度学习自然语言处理出品整理：喵小六<br>原文链接：https :&#x2F;&#x2F;www. anthropic.com&#x2F;engineering&#x2F;built-multi-agent-research-system<br>近日，Anthropic发布了一篇重磅技术博客，详细介绍了他们如何从零构建一个多智能体支持的研究系统。<br>Claude现已具备研究能力，能够跨网络、谷歌工作空间及任何集成应用进行搜索，以完成复杂任务。通过解析这个多智能体系统从原型到产品的历程，博客分享了Anthropic在系统架构、工具设计和提示工程方面的重要经验。<br>研究任务往往起始于模糊问题，随着信息的揭示逐步调整方向，本质上具有开放性和不可预测性，难以预设清晰路径或单一解决方案，因此模型在探索过程中必须具备高度的自主调整能力。多智能体系统通过任务分解、并行推理和关注点分离等机制，能够同时从多个角度对问题展开调查，从而更高效地完成信息压缩和洞察提炼，特别适合广度优先的探索需求。随着大模型能力提升，单一智能体在上下文处理、推理容量和路径灵活性方面日益受限，多智能体架构由此成为突破性能瓶颈的关键工具。<br>多智能体系统通过将复杂问题分发给多个子智能体，使不同探索路径得以并行进行。例如，在调查一个企业的董事会构成时，系统可以让每个子智能体分别负责一家公司并独立搜索和验证结果，极大提升效率。子智能体之间通过各自的上下文窗口和工具调用进行“关注点分离”，减少相互干扰，最终由主智能体进行汇总和判断。这种模式模拟了现实中科研团队的协作方式，大幅提升了在信息广度和推理深度上的覆盖能力。<br>多智能体系统能显著扩展模型在任务中的令牌使用上限，使得更大规模的信息输入、处理和推理成为可能。在内部评估中发现，仅令牌使用量一项就解释了80%以上的性能差异。例如，相较于单智能体顺序搜索标准普尔500公司董事会信息，多智能体系统通过并行操作显著提速并提高准确率。然而，这种能力以显著更高的资源成本为代价：多智能体平均消耗令牌是普通聊天交互的15倍。因此，其适用场景集中在信息密集、流程复杂、且任务价值足够高的领域，如法律调研、前沿科技研究或跨国情报整合等，而不适合对资源敏感或任务结构单一的场景（如简单代码生成或格式转换）。<br>Anthropic的研究系统采用了一种基于协调者-工作者模式的多智能体架构，其中一个主导智能体负责协调整个过程，同时将任务委派给并行运作的专业子智能体。<br>当用户提交查询时，主导智能体会对其进行分析，制定策略，并生成子智能体以同时探索不同方面。如上图所示，子智能体通过反复使用搜索工具收集信息（在本案例中是2025年的人工智能智能体公司相关信息），充当智能筛选器，然后将公司列表返回给主导智能体，以便其完成最终答案。<br>传统的基于检索增强生成（RAG）的方法采用静态检索。也就是说，它们获取与输入查询最相似的一些文本块，并使用这些文本块生成回复。相比之下，Anthropic的架构采用多步搜索，能够动态地找到相关信息，适应新发现，并分析结果以生成高质量的答案。<br>完整流程示意图解析👇<br>该流程示意图展示了多智能体研究系统的完整工作流程。当用户提交查询时，系统会创建一个首席研究员智能体，该智能体进入迭代研究过程。首席研究员首先思考研究方法，并将其计划保存到内存中以保留上下文，因为如果上下文窗口超过200,000个令牌，它将被截断，而保留计划非常重要。然后，它会创建具有特定研究任务的专门子智能体（此处显示了两个，但可以是任意数量）。每个子智能体独立进行网络搜索，使用交错思考评估工具结果，并将发现返回给首席研究员。首席研究员综合这些结果，决定是否需要更多研究——如果需要，它可以创建更多子智能体或改进其策略。一旦收集到足够的信息，系统就会退出研究循环，并将所有发现传递给引用智能体，该智能体处理文档和研究报告，以确定引用的具体位置。这确保所有主张都能正确追溯来源。最终的研究结果，包括引用，随后会返回给用户。<br>我们的提示策略侧重于灌输良好的启发式方法，而非僵化的规则。<br>多智能体系统相较于单智能体系统，核心差异在于协调复杂度的显著提升。早期智能体常出现诸如为简单查询生成过多子智能体（如50个）、在网络上无限搜索不存在的资源，以及彼此间更新干扰等问题。鉴于智能体行为由提示词驱动，提示词工程成为优化其表现的关键手段。Anthropic总结出以下核心原则：<br>代入智能体视角：要迭代优化提示词，必须理解其实际效果。为此，我们通过控制台构建了模拟环境——使用与生产系统完全一致的提示词和工具集，逐步观察代理的执行过程。这种方法即时暴露出三类问题：代理在已获得充分结果后仍继续执行、使用冗长低效的搜索查询、错误选择工具。高效的提示工程依赖于建立精准的代理心智模型，这能让最关键的系统改进方向变得一目了然。<br>强化协调器任务分配能力：主导智能体负责分解查询为子任务并描述给子智能体。每个子任务描述必须包含明确目标、输出格式、工具&#x2F;信息源指引及清晰边界。模糊指令（如早期仅要求“研究半导体短缺”）易导致重复工作、疏漏或信息获取失败。<br>按查询复杂度调配资源：智能体难以判断任务所需投入，因此我们在提示词中嵌入明确规则：简单事实查询（1个智能体，3-10次工具调用）、直接比较（2-4个子智能体，各10-15次调用）、复杂研究（10+子智能体，职责明确划分）。这些规则指导主导智能体高效分配资源，避免在简单查询上过度投入——这是早期版本的常见问题。<br>工具设计与选择至关重要：智能体与工具的交互界面与人机界面同等重要。选择正确工具是效率保障，有时甚至是必要条件；同时智能体可能遇到陌生工具，且其描述质量不一。我们提供明确启发式规则：检查可用工具、匹配用户意图、优先专用工具、必要时广泛外部搜索。工具描述若不清，易误导智能体，因此每个工具都需用途明确、描述清晰。<br>赋能智能体自我优化：Claude4模型展现出卓越的提示工程能力。给定提示和失败模式，它能诊断原因并提出改进建议。我们甚至开发了工具测试智能体：面对有缺陷的MCP工具，它会尝试使用并重写描述以避免失败。通过数十次测试，该智能体能发现关键细节与漏洞。优化后的工具描述使后续智能体任务完成时间减少40%，避免了多数错误。<br>搜索策略——先广后深：搜索应效仿人类专家：先探索全局再聚焦细节。智能体常默认冗长、具体的查询，导致结果稀少。我们通过提示引导其从简短、宽泛的查询开始，评估信息后逐步缩小范围。<br>引导结构化思考：扩展思考模式为Claude提供可控的“草稿区”，输出更多思考过程。主导智能体借此规划方法、评估工具适用性、确定查询复杂度与子智能体数量、定义角色。测试表明，扩展思考显著提升了指令遵循、推理能力和效率。子智能体同样进行规划，并在获得工具结果后运用交错思考评估质量、识别缺口、优化后续查询，增强任务适应力。<br>并行化驱动性能跃升：复杂研究天然涉及多源信息探索。早期顺序搜索极慢。我们引入两种并行化：(1)主导智能体并行启动3-5个子智能体；(2)子智能体并行调用3个及以上工具。此优化使复杂查询研究时间缩短高达90%，使“研究”功能能在数分钟内完成以往需数小时的工作，且覆盖信息更广。<br>我们注重建立一个具备可观测性和测试用例的快速迭代循环。<br>1. 接受路径多样性，聚焦结果与过程合理性多智能体系统的核心挑战在于：相同起点可能产生多种有效执行路径（例如：使用不同工具、检索不同数量信息源达成相同目标）。评估应放弃预设\“正确步骤\“的传统思路，转而关注：<br>是否达成正确结果<br>执行过程是否合理<br>2. 早期小样本快速启动评估<br>开发初期微调往往带来显著效果跃升（如成功率30%→80%）<br>无需等待大规模测试集：20个真实用例即可清晰观测改进效果<br>避免陷入\“必须构建数百测试用例\“的拖延陷阱<br>3. 善用LLM-as-judge实现规模化评估针对文本类复杂输出（研究结论等无标准答案场景），使用LLM分别评估以下维度：<br>评估维度<br>说明<br>事实准确性<br>主张是否匹配信源内容<br>引用准确性<br>来源是否支持对应主张<br>回答完备性<br>是否覆盖所有需求要点<br>信源质量<br>是否优先采用高质量原始资料<br>工具使用效率<br>工具选择及调用次数是否合理<br>最佳实践：单次LLM调用输出0. 0-1. 0分制+通过&#x2F;失败判定<br>优势：在答案明确场景（如\“列举研发预算前三药企\“）尤其高效，可扩展至数百输出评估<br>4. 人工评估不可或缺自动化评估的盲区需人工补足：<br>发现非常规查询的幻觉回答<br>捕捉系统级故障<br>识别隐蔽偏见（案例：早期系统倾向选择SEO优化的内容农场，忽视学术PDF等权威信源）<br>解决方案：通过提示工程加入信源质量启发式规则<br>5. 应对涌现行为的特殊设计多智能体系统会产生非预设的涌现行为：<br>主智能体微调可能引发子智能体行为剧变<br>成功关键：理解交互模式而非个体行为<br>优化方向：<br>构建协作框架（明确定义：职责分工&#x2F;解决路径&#x2F;资源预算）<br>核心要素：精准提示词设计、工具链优化、健壮启发式规则、深度可观测性、紧密反馈循环<br>实践参考：https :&#x2F;&#x2F;github. com&#x2F;anthropics&#x2F;anthropic-cookbook&#x2F;tree&#x2F;main&#x2F;patterns&#x2F;agents&#x2F;prompts<br>1. 状态化与错误传导与传统软件不同，智能体系统的核心特征：<br>长时状态保持：跨多轮工具调用的持续执行<br>级联失效风险：微小错误可能引发行为剧变<br>▶️关键应对机制：<br>断点续执行：故障后从中断状态恢复（避免全流程重启）<br>智能容错体系：<br>主动向模型通报工具故障<br>引导模型自主调整策略<br>结合重试逻辑与定期检查点等确定性保障<br>2. 调试范式革新智能体的非确定性运行特性（相同输入产生不同行为路径）导致常规调试失效：<br>传统困境<br>创新解决方案<br>用户反馈\“遗漏明显信息\“<br>部署全链路生产追踪系统<br>无法定位失败根源<br>监控决策模式+交互结构<br>成效：精准诊断失败根因（如检索查询缺陷&#x2F;信源选择失误&#x2F;工具故障）<br>3. 灰度部署协同控制智能体持续运行特性带来的部署挑战：<br>核心矛盾：版本更新时，智能体可能处于任意执行阶段<br>解决方案：彩虹部署（RainbowDeployments）<br>新旧版本并行运行<br>流量渐进迁移（避免中断进行中的任务）<br>4. 同步执行瓶颈与异步演进当前同步模式的局限：<br>串行阻塞：主智能体需等待所有子智能体完成<br>能力缺失：<br>主智能体无法动态引导子任务<br>子智能体间缺乏协作<br>▶️异步化价值与挑战：<br>优势<br>风险<br>并行提升吞吐量<br>结果协调复杂性增加<br>支持动态创建子智能体<br>状态一致性维护难度上升<br>解除单点阻塞<br>错误跨节点传导加剧<br>随着任务复杂度提升，异步执行的性能收益将超越管理复杂度成本。<br>如今人们使用“研究”功能的最常见方式。主要用例类别包括跨专业领域开发软件系统（10%）、开发和优化专业技术内容（8%）、制定业务增长和创收策略（8%）、协助学术研究和教育材料开发（7%），以及研究和核实有关人员、地点或组织的信息（5%）。<br>构建人工智能智能体的“最后一公里”往往是决定成败的关键：将开发者机器上的原型代码转变为可靠的生产系统，需要巨大的工程投入。<br>智能体系统中错误的复杂性被显著放大——传统软件中的小问题可能导致智能体彻底瘫痪，单个步骤的失败即可引发不可预测的路径偏离。正因如此，原型与生产环境之间的差距通常远超预期。然而，尽管挑战重重，多智能体系统在开放式研究任务中展现出不可替代的价值。用户反馈证实，Claude帮助他们发掘了未曾预见的商业机遇、梳理了复杂的医疗决策、解决了棘手的技术漏洞，并通过揭示独自难以发现的研究关联，节省了数天的工作量。<br>最终，实现大规模可靠运行的多智能体研究系统，依赖于精心的设计、全面的测试、精细的提示工程与工具设计、稳健的操作实践，以及研究、产品和工程团队基于对当前智能体能力的深刻理解所进行的紧密协作。这些系统正在切实改变人们解决复杂问题的方式。<br>备注：昵称-学校&#x2F;公司-方向&#x2F;会议(eg. ACL)，进入技术&#x2F;投稿群<br>id：DLNLPer，记得备注呦</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/15/1000001998-2247540143-1/">https://zejuncao.github.io/2025/06/15/1000001998-2247540143-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">
+                                    <span class="chip bg-color">深度学习自然语言处理</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/15/1000000510-2247493407-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000510_2247493407_1.jpg" class="responsive-img" alt="多人视频生成技术新突破！清华提出 DanceTogether：从单张图像到多人互动视频生成，从此告别身份混淆。">
+                        
+                        <span class="card-title">多人视频生成技术新突破！清华提出 DanceTogether：从单张图像到多人互动视频生成，从此告别身份混淆。</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/15/1000001998-2247540143-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001998_2247540143_2.jpg" class="responsive-img" alt="ICLR 2025 | 中国团队颠覆AI视频分析！纯文本模型+工具包吊打GPT-4o">
+                        
+                        <span class="card-title">ICLR 2025 | 中国团队颠覆AI视频分析！纯文本模型+工具包吊打GPT-4o</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">
+                        <span class="chip bg-color">深度学习自然语言处理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

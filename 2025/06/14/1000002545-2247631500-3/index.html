@@ -1,0 +1,1149 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="全网最全的Scikit-Learn学习手册！, ZejunCao&#39;Blogs">
+    <meta name="description" content="全网最全的Scikit-Learn学习手册！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击上方“小白学视觉”，选择加\“星标\“或“置顶”重磅干货，第一时间送达前言文章详解scikit-learn工具库的用法，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>全网最全的Scikit-Learn学习手册！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002545_2247631500_3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">全网最全的Scikit-Learn学习手册！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">小白学视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Gb1f-lqQ8QZ6kilBNHSoog">全网最全的Scikit-Learn学习手册！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击上方“小白学视觉”，选择加\“星标\“或“置顶”<br>重磅干货，第一时间送达<br>前言<br>文章详解scikit-learn工具库的用法，覆盖机器学习基础知识、SKLearn讲解、SKLearn三大核心API、SKLearn高级API等内容。<br>编辑丨关于数据分析与可视化<br>https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;203<br>我们在上一篇SKLearn入门与简单应用案例[ 1]https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;202里给大家讲到了SKLearn工具的基本板块与使用方法，在本篇内容中，我们展开讲解SKLearn的进阶与核心内容。SKLearn中有六大任务模块，如下图所示：分别是分类、回归、聚类、降维、模型选择和预处理。<br>SKLearn官网：https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;[2]<br>SKLearn的快速使用方法也推荐大家查看ShowMeAI的文章和速查手册AI建模工具速查|Scikit-learn使用指南[ 3]<br>在SKLearn中，因为做了上层的封装，分类模型、回归模型、聚类与降维模型、预处理器等等都叫做估计器(estimator)，就像在Python里『万物皆对象』，在SKLearn里『万物皆估计器』。<br>在本篇内容中，我们将给大家进一步深入讲解scikit-learn工具库的使用方法，力求完整覆盖SKLearn工具库应用的方方面面。本文的内容板块包括：<br>①机器学习基础知识：机器学习定义与四要素：数据、任务、性能度量和模型。机器学习概念，以便和SKLearn对应匹配上。<br>②SKLearn讲解：API设计原理，SKLearn几大特点：一致性、可检验、标准类、可组合和默认值，以及SKLearn自带数据以及储存格式。<br>③SKLearn三大核心API讲解：包括估计器、预测器和转换器。这个板块很重要，大家实际应用时主要是借助于核心API落地。</p>
+<p>关于本节内容，强烈推荐大家阅读ShowMeAI文章图解机器学习|机器学习基础知识[ 4]和图解机器学习|模型评估方法与准则[ 5]，ShowMeAI对相关知识内容展开做了详细讲解。<br>何为机器学习？大师汤姆米切尔（TomMitchell）对机器学习定义的原话是：</p>
+<p>这段英文中有两个词computerprogram和learn，翻译成中文就是机器(计算机程序)和学习，整体翻译下来就是说：如果计算机程序在T任务上的性能(由P衡量)随着经验E而提高，则称计算机程序从经验E中学习某类任务T。<br>由上述机器学习的定义可知机器学习包含四个元素：<br>数据(Data)<br>任务(Task)<br>性能度量(QualityMetric)<br>算法(Algorithm)<br>数据(data)是信息的载体。数据可以有以下划分方式：<br>从『数据具体类型』维度划分：结构化数据和非结构化数据。<br>结构化数据(structureddata)是由二维表结构来逻辑表达和实现的数据。<br>非结构化数据是没有预定义的数据，不便用数据库二维表来表现的数据。非结构化数据包括图片，文字，语音和视频等。<br>从『数据表达形式』维度划分：原始数据和加工数据。<br>从『数据统计性质』维度划分：样本内数据和样本外数据。<br>对于非结构数据，通常神经网络有更好的效果，可以参考ShowMeAI的文章Python机器学习算法实践[ 6]中的图像建模例子。<br>机器学习模型很多时候使用的是结构化数据，即二维的数据表。我们这里以iris花瓣数据集举例，如下图。<br>下面术语大家在深入了解机器学习前一定要弄清楚：<br>每行的记录(这是一朵鸢尾花的数据统计)，称为一个『样本(sample)』。<br>反映样本在某方面的性质，例如萼片长度(SepalLength)、花瓣长度(PetalLength)，称为『特征(feature)』。<br>特征上的取值，例如『样本1』对应的5. 1、3. 5称为『特征值(featurevalue)』。<br>关于样本结果的信息，例如Setosa、Versicolor，称为『类别标签(classlabel)』。<br>包含标签信息的示例，则称为『样例(instance)』，即样例&#x3D;(特征,标签)。<br>从数据中学得模型的过程称为『学习(learning)』或『训练(training)』。<br>在训练数据中，每个样例称为『训练样例(traininginstance)』，整个集合称为『训练集(trainingset)』。<br>根据学习的任务模式(训练数据是否有标签)，机器学习可分为几大类。上图画出机器学习各类之间的关系。<br>监督学习(有标签)<br>无监督学习(无标签)<br>半监督学习(有部分标签)<br>强化学习(有延迟的标签)<br>回归和分类任务中最常见的误差函数以及一些有用的性能度量如下，详细内容可以参考ShowMeAI文章机器学习评估与度量准则[ 7]。<br>SKLearn作为通用机器学习建模的工具包，包含六个任务模块和一个数据导入模块：<br>监督学习：分类任务[ 8]<br>监督学习：回归任务[ 9]<br>无监督学习：聚类任务[ 10]<br>无监督学习：降维任务[ 11]<br>模型选择任务[ 12]<br>数据预处理任务[ 13]<br>数据导入模块[ 14]<br>首先看看SKLearn默认数据格式和自带数据集。<br>Sklearn里模型能直接使用的数据有两种形式：<br>Numpy二维数组(ndarray)的稠密数据(densedata)，通常都是这种格式。<br>SciPy矩阵(scipy. sparse.matrix)的稀疏数据(sparsedata)，比如文本分析每个单词(字典有100000个词)做独热编码得到矩阵有很多0，这时用ndarray就不合适了，太耗内存。<br>SKLearn里面有很多自带数据集供用户使用。<br>比如在之前文章Python机器学习算法实践中用到的鸢尾花数据集，包含四个特征(萼片长&#x2F;宽和花瓣长&#x2F;宽)和三个类别。<br>我们可以直接从SKLearn里面的datasets模块中引入，代码如下(代码可以在线上Jupyter环境[ 15]中运行)：<br>#导入工具库fromsklearn. datasetsimportload_irisiris&#x3D;load_iris()#数据是以『字典』格式存储的，看看iris的键有哪些。iris. keys()<br>输出如下：<br>dict_keys([‘data’,’target’,’target_names’,’DESCR’,’feature_names’,’filename’])<br>读取数据集的信息：</p>
+<p>输出如下：</p>
+<p>构建Dataframe格式的数据集：</p>
+<p>输出如下：<br>sepallength(cm)<br>sepalwidth(cm)<br>petallength(cm)<br>petalwidth(cm)<br>species<br>0<br>5. 1<br>3. 5<br>1. 4<br>0. 2<br>setosa<br>1<br>4. 9<br>3. 0<br>1. 4<br>0. 2<br>setosa<br>2<br>4. 7<br>3. 2<br>1. 3<br>0. 2<br>setosa<br>147<br>6. 5<br>3. 0<br>5. 2<br>2. 0<br>virginica<br>148<br>6. 2<br>3. 4<br>5. 4<br>2. 3<br>virginica<br>149<br>5. 9<br>3. 0<br>5. 1<br>1. 8<br>virginica<br>我们使用seaborn来做一些数据分析，查看一下数据的分布特性。这里使用到的是成对维度的关联分析，关于seaborn的使用方法可以参阅ShowMeAI的文章seaborn工具与数据可视化教程[ 16]。<br>#使用Seaborn的pairplot查看两两特征之间的关系sns. pairplot(iris_data,hue&#x3D;’species’,palette&#x3D;’husl’)<br>前面提到的是鸢尾花iris数据集，我们通过load_iris加载进来，实际上SKLearn有三种引入数据形式。<br>打包好的数据：对于小数据集，用sklearn. datasets.load_*<br>分流下载数据：对于大数据集，用sklearn. datasets.fetch_*<br>随机创建数据：为了快速展示，用sklearn. datasets.make_*<br>上面这个星号*指代具体文件名，如果大家在Jupyter这种IDE环境中，可以通过tab制表符自动补全和选择。<br>datasets. load_<br>datasets. fetch_<br>datasets. make_<br>比如我们调用load_iris<br>fromsklearnimportdatasetsdatasets. load_iris<br>输出如下：</p>
+<p>我们调用load_digits加载手写数字图像数据集<br>digits&#x3D;datasets. load_digits()digits. keys()<br>输出：<br>dict_keys([‘data’,’target’,’target_names’,’images’,’DESCR’])<br>我们再来看看通过fetch拉取数据的示例：<br>#加州房屋数据集california_housing&#x3D;datasets. fetch_california_housing()california_housing. keys()<br>输出：<br>dict_keys([‘data’,’target’,’feature_names’,’DESCR’])<br>我们前面提到SKLearn里万物皆估计器。估计器是个非常抽象的叫法，不严谨的一个理解，我们可以视其为一个模型(用来回归、分类、聚类、降维)，或一套流程(预处理、网格搜索交叉验证)。<br>本节三大API其实都是估计器：<br>估计器(estimator)通常是用于拟合功能的估计器。<br>预测器(predictor)是具有预测功能的估计器。<br>转换器(transformer)是具有转换功能的估计器。<br>任何可以基于数据集对一些参数进行估计的对象都被称为估计器，它有两个核心点：<br>①需要输入数据。<br>②可以估计参数。<br>估计器首先被创建，然后被拟合。<br>创建估计器：需要设置一组超参数，比如<br>线性回归里超参数normalize&#x3D;True<br>K均值里超参数n_clusters&#x3D;5<br>拟合估计器：需要训练集<br>在监督学习中的代码范式为model. fit(X_train,y_train)<br>在无监督学习中的代码范式为model. fit(X_train)<br>拟合之后可以访问model里学到的参数，比如线性回归里的特征系数coef，或K均值里聚类标签labels，如下(具体的可以在SKLearn文档的每个模型页查到)。<br>model. coef_<br>model. labels_<br>下面看看监督学习的『线性回归』和无监督学习的『K均值聚类』的具体例子。</p>
+<p>fromsklearn. linear_modelimportLinearRegressionmodel&#x3D;LinearRegression(normalize&#x3D;True)model<br>输出：<br>LinearRegression(copy_X&#x3D;True,fit_intercept&#x3D;True,n_jobs&#x3D;None,normalize&#x3D;True)<br>创建完后的估计器会显示所有的超参数（比如刚才设置的normalize&#x3D;True），未设置的超参数都使用默认值。<br>自己创建一个简单数据集（一条直线上的数据点），简单讲解一下估计器里面的特征。<br>importnumpyasnpimportmatplotlib. pyplotaspltx&#x3D;np. arange(10)y&#x3D;2*x+1plt. plot(x,y,’o’)<br>在我们生成的数据里，X是一维，我们做一点小小的调整，用np. newaxis加一个维度，把[1,2,3]转成[[1],[2],[3]]，这样的数据形态可以符合sklearn的要求。接着把X和y送入fit()函数来拟合线性模型的参数。<br>X&#x3D;x[:,np. newaxis]model. fit(X,y)<br>输出为：<br>LinearRegression(copy_X&#x3D;True,fit_intercept&#x3D;True,n_jobs&#x3D;None,normalize&#x3D;True)<br>拟合完后的估计器和创建完似乎没有差别，但我们已经可以用model. param_访问到拟合完数据的参数了，如下代码。<br>print(model. coef_)print(model. intercept_)#输出结果#[2.]#0. 9999999999999982<br>我们来看看聚类[ 17]的例子，先从SKLearn的cluster中导入KMeans，初始化模型对象命名为model，设置超参数n_cluster为3(为了展示方便而我们知道用的iris数据集有3类，实际上可以设置不同数量的n_cluster)。<br>虽然iris数据里包含标签y，但在无监督的聚类中我们不会使用到这个信息。<br>fromsklearn. clusterimportKMeansmodel&#x3D;KMeans(n_clusters&#x3D;3)model<br>输出为：</p>
+<p>iris数据集包含四维特征(萼片长、萼片宽、花瓣长、花瓣宽)，在下面的例子中我们希望可视化，这里我们简单选取两个特征(萼片长、萼片宽)来做聚类并且可视化结果。<br>注意下面代码X&#x3D;iris. data[:,0:2]其实就是提取特征维度。<br>fromsklearn. datasetsimportload_irisiris&#x3D;load_iris()X&#x3D;iris. data[:,0:2]model. fit(X)<br>输出为：</p>
+<p>拟合完后的估计器和创建完似乎没有差别，但我们已经可以用model. param_访问到拟合完数据的参数了，如下代码。<br>print(model. cluster_centers_,’\n’)print(model. labels_,’\n’)print(model. inertia_,’\n’)print(iris. target)[[5. 773584912.69245283][6. 812765963.07446809][5. 0063.428]][222222222222222222222222222222222222222222222222221110101010000001000000001111000000001000000000000010111101111110011110101011001111100111011101110110]37. 05070212765958[ 000000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111122222222222222222222222222222222222222222222222222]<br>这里解释一下KMeans模型这几个参数：<br>model. clustercenters：簇中心。三个簇意味着有三个坐标。<br>model. labels_：聚类后的标签。<br>model. inertia_：所有点到对应的簇中心的距离平方和(越小越好)<br>虽然上面以有监督学习的LinearRegression和无监督学习的KMeans举例，但实际上你可以将它们替换成其他别的模型，比如监督学习的LogisticRegression和无监督学习的DBSCAN。它们都是『估计器』，因此都有fit()方法。<br>使用它们的通用伪代码如下：</p>
+<p>预测器是估计器做的一个延展，具备对数据进行预测的功能。<br>预测器最常见的是predict()函数：<br>model. predict(X_test)：评估模型在新数据上的表现。<br>model. predict(X_train)：确认模型在老数据上的表现。<br>为了进行新数据评估，我们先将数据分成80:20的训练集(X_train,y_train)和测试集(X_test,y_test)，再用从训练集上拟合fit()的模型在测试集上预测predict()。</p>
+<p>对于分类问题，我们不仅想知道预测的类别是什么，有时我们还希望获取预测概率等信息。前者用predict()，后者用predict_proba()。</p>
+<p>预测器里还有额外的两个函数可以使用。在分类问题中：<br>score()返回的是分类准确率。<br>decision_function()返回的是每个样例在每个类下的分数值。</p>
+<p>使用它们的通用伪代码如下：</p>
+<p>转换器是一种估计器，也有拟合功能，对比预测器做完拟合来预测，转换器做完拟合来转换。核心点如下：<br>估计器里fit+predict<br>转换器里fit+transform<br>本节介绍两大类转换器：<br>将类别型变量(categorical)编码成数值型变量(numerical)<br>规范化(normalize)或标准化(standardize)数值型变量<br>①LabelEncoder&amp;OrdinalEncoder<br>LabelEncoder和OrdinalEncoder都可以将字符转成数字，但是：<br>LabelEncoder的输入是一维，比如1dndarray<br>OrdinalEncoder的输入是二维，比如DataFrame</p>
+<p>除了LabelEncoder，OrdinalEncoder也可以完成编码。如下代码所示：</p>
+<p>上面这种编码的问题是，在编码过后会带来不同类别的大小关系，比如这里3种颜色其实本质上是平等的，没有大小关系。<br>我们的另外一种类别型数据编码方式，独热向量编码(one-hotencoding)可以解决这个问题，大家继续往下看。<br>②OneHotEncoder<br>独热向量编码其实就是把一个整数用向量的形式表现。上图右侧就是对颜色做独热向量编码。转换器OneHotEncoder可以接受两种类型的输入：<br>①用LabelEncoder编码好的一维数组<br>②DataFrame<br>一、用LabelEncoder编码好的一维数组(元素为整数)，重塑(用reshape(-1,1))成二维数组作为OneHotEncoder输入。</p>
+<p>输出为：<br>‘with4storedelementsinCompressedSparseRowformat&gt;<br>上面结果解释如下：<br>第3行打印出编码结果[ 2012]。<br>第5行将其转成独热形式，输出是一个『稀疏矩阵』形式，因为实操中通常类别很多，因此就一步到位用稀疏矩阵来节省内存。<br>想看该矩阵里具体内容，用toarray()函数。<br>OHE_y. toarray()<br>输出为：<br>array([[0.,0.,1.],[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]])<br>二、用DataFrame作为OneHotEncoder输入。<br>OHE&#x3D;OneHotEncoder()OHE. fit_transform(enc_DF).toarray()<br>输出为：<br>array([[0.,0.,1.],[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]])<br>数据要做的最重要的转换之一是特征缩放(featurescaling)。类似逻辑回归，神经网络这种计算型模型，对于不同特征的幅度大小差异是敏感的。<br>具体来说，对于某个特征，我们有两种变换方法：<br>标准化(standardization)：每个维度的特征减去该特征均值，除以该维度的标准差。<br>规范化(normalization)：每个维度的特征减去该特征最小值，除以该特征的最大值与最小值之差。<br>①MinMaxScaler<br>如上图所示，MinMaxScaler会根据特征的最大最小取值，对数据进行幅度缩放。</p>
+<p>输出为：<br>array([[0.],[0. 005],[0. 01],[0. 015],[0. 02],[1.]])<br>②StandardScaler<br>StandardScaler做的事情是调整数据分布，尽量接近正态分布。</p>
+<p>输出为：<br>array([[-0. 47424487],[-0. 46069502],[-0. 44714517],[-0. 43359531],[-0. 42004546],[2. 23572584]])<br>注意：fit()函数只能作用在训练集上，如果希望对测试集变换，只要用训练集上fit好的转换器去transform即可。不能在测试集上fit再transform，否则训练集和测试集的变换规则不一致，模型学习到的信息就无效了。</p>
+<p>ensemble. BaggingClassifier<br>ensemble. VotingClassifier<br>multiclass. OneVsOneClassifier<br>multiclass. OneVsRestClassifier<br>multioutput. MultiOutputClassifier<br>model_selection. GridSearchCV<br>model_selection. RandomizedSearchCV<br>pipeline. Pipeline<br>如上图：分类器统计每个子分类器的预测类别数，再用『多数投票』原则得到最终预测。回归器计算每个子回归器的预测平均值。<br>最常用的Ensemble估计器排列如下：<br>AdaBoostClassifier：逐步提升分类器<br>AdaBoostRegressor：逐步提升回归器<br>BaggingClassifier：Bagging分类器<br>BaggingRegressor：Bagging回归器<br>GradientBoostingClassifier：梯度提升分类器<br>GradientBoostingRegressor：梯度提升回归器<br>RandomForestClassifier：随机森林分类器<br>RandomForestRegressor：随机森林回归器<br>VotingClassifier：投票分类器<br>VotingRegressor：投票回归器<br>我们用鸢尾花数据iris，拿以下estimator来举例：<br>含同质估计器RandomForestClassifier<br>含异质估计器VotingClassifier<br>首先将数据分成80:20的训练集和测试集，并引入metrics来计算各种性能指标。</p>
+<p>随机森林RandomForestClassifier通过控制n_estimators超参数来决定基估计器的个数，在这里是4棵决策树(森林由树组成)；此外每棵树的最大树深为5(max_depth&#x3D;5)。</p>
+<p>输出为：</p>
+<p>元估计器和预估器一样也有fit()。下面看看随机森林里包含的估计器个数和其本身。<br>print(RF. n_estimators)RF. estimators_<br>输出为：</p>
+<p>拟合RF完再做预测，用metrics里面的accuracy_score来计算准确率。训练准确率98. 33%，测试准确率100%。</p>
+<p>RF-Accuracy(Train):1RF-Accuracy(Test):0. 9667<br>和随机森林由同质分类器『决策树』不同，投票分类器由若干个异质分类器组成。下面我们用VotingClassifier建立个含有逻辑回归(Logisticregression)、随机森林(RandomForest)和高斯朴素贝叶斯(GNB)三个分类器的集成模型。<br>RandomForestClassifier的基分类器只能是决策树，因此只用通过控制n_estimators超参数来决定树的个数，而VotingClassifier的基分类器要输入每个异质分类器。</p>
+<p>结果如下：</p>
+<p>看看Ensemble集成模型里包含的估计器个数和其本身。<br>print(len(Ensemble. estimators_))Ensemble. estimators_<br>结果如下：</p>
+<p>对比元估计器和它三个组成元素的表现，下过表现如下：<br>#拟合LR. fit(X_train,y_train)RF. fit(X_train,y_train)GNB. fit(X_train,y_train)</p>
+<p>sklearn. multiclass可以处理多类别(multi-class)的多标签(multi-label)的分类问题。下面我们会使用数字数据集digits作为示例数据来讲解。我们先将数据分成80:20的训练集和测试集。<br>#导入数据fromsklearn. datasetsimportload_digitsdigits&#x3D;load_digits()digits. keys()<br>输出如下：<br>#输出结果dict_keys([‘data’,’target’,’target_names’,’images’,’DESCR’])<br>下面我们切分数据集：</p>
+<p>输出如下<br>ThesizeofX_trainis(1437,64)Thesizeofy_trainis(1437,)ThesizeofX_testis(360,64)Thesizeofy_testis(360,)<br>训练集和测试集分别有1437和360张图像。每张照片是包含8×8的像素，我们用flatten操作把2维的8×8展平为1维的64。<br>看看训练集中前100张图片和对应的标签（如下图）。像素很低，但基本上还是能看清。</p>
+<p>手写数字有0-9十类，但手头上只有二分类估计器（比如像支撑向量机）怎么用呢？我们可以采取以下策略处理：<br>一对一(OnevsOne，OvO)：一个分类器用来处理数字0和数字1，一个用来处理数字0和数字2，一个用来处理数字1和2，以此类推。N个类需要N(N-1)&#x2F;2个分类器。<br>一对其他(OnevsAll，OvA)：训练10个二分类器，每一个对应一个数字，第一个分类『1』和『非1』，第二个分类『2』和『非2』，以此类推。N个类需要N个分类器。<br>①OneVsOneClassifier<br>考虑一个具体天气多分类问题，天气可以是晴天、阴天和雨天，在OvO中，三个分类器为f1、f2和f3。<br>f1负责区分橙色和绿色样本<br>f2负责区分橙色和紫色样本<br>f3负责区分绿色和紫色样本<br>在下图的例子中，f1和f2都预测为橙色，f3预测为紫色。根据多数原则得到的结合预测为橙色，如下图所示。<br>回到数字分类问题上，代码及结果如下：</p>
+<p>10*9&#x2F;2&#x3D;45，10类总共45个OvO分类器。<br>print(len(ovo_lr. estimators_))ovo_lr. estimators_<br>结果如下：</p>
+<p>训练集分类全对，测试集准确率98%。</p>
+<p>#运行结果OvOLR-Accuracy(Train):1OvOLR-Accuracy(Test):0. 9806<br>②OneVsRestClassifier<br>在OvA中，把数据分成“某个”和“其他”<br>图一，某个&#x3D;橙色，其他&#x3D;绿色和紫色<br>图二，某个&#x3D;绿色，其他&#x3D;橙色和紫色<br>图三，某个&#x3D;紫色，其他&#x3D;橙色和绿色<br>三分类分解成三个二分类，对应的分类器为f1、f2和f3。<br>f1预测负类，即预测绿色和紫色<br>f2预测负类，即预测橙色和紫色<br>f3预测正类，即预测紫色<br>三个分类器都预测了紫色，根据多数原则得到的预测是紫色，即阴天。<br>回到数字分类问题上，代码和结果如下：</p>
+<p>10类总共10个OvA分类器。<br>print(len(ova_lr. estimators_))ova_lr. estimators_<br>结果如下：</p>
+<p>训练集准确率几乎100%，测试集准确率96%。代码与结果如下：</p>
+<p>OvALR-Accuracy(Train):6. 9993OvALR-Accuracy(Test}:6. 9639<br>到目前为止，所有的样例都总是被分配到仅一个类。有些情况下，你也许想让分类器给一个样例输出多个类别。在无人驾驶的应用中，在下图识别出有车和指示牌，没有交通灯和人。<br>物体识别是一个复杂的深度学习问题，我们在这里暂且不深入探讨。我们先看一个简单点的例子，在手写数字的例子上，我们特意为每个数字设计了两个标签：<br>标签1：奇数、偶数<br>标签2：小于等于4，大于4<br>我们构建多标签y_train_multilabel，代码如下（OneVsRestClassifier也可以用来做多标签分类）：</p>
+<p>[[TrueTrue][FalseFalse][FalseFalse]…[FalseFalse][FalseFalse][FalseFalse]]<br>看下图训练集第1和2个图片是数字4和5，对应上面两种标签结果为：<br>[TrueTrue]：4是偶数，小于等于4<br>[FalseFalse]：5不是偶数，大于4<br>我们这次用y_train_multilabel来训练模型。代码如下</p>
+<p>有两个估计器，每个对应一个标签。<br>print(len(ova_ml. estimators_))ova_ml. estimators_<br>运行结果如下：</p>
+<p>展示一下测试集上100张图片。</p>
+<p>第一张图片是数字2，它是偶数(标签1为true)，小于等于4(标签2为true)。<br>print(y_test[:1])print(ova_ml. predict(X_test[:1,:]))<br>[2][[11]]<br>sklearn. multioutput可以处理多输出(multi-output)的分类问题。<br>多输出分类是多标签分类的泛化，在这里每一个标签可以是多类别(大于两个类别)的。一个例子就是预测图片每一个像素(标签)的像素值是多少(从0到255的256个类别)。<br>Multioutput估计器有两个：<br>MultiOutputRegressor：多输出回归<br>MultiOutputClassifier：多输出分类<br>这里我们只关注多输出分类。<br>首先引入MultiOutputClassifier和RandomForestClassifier。<br>fromsklearn. multioutputimportMultiOutputClassifierfromsklearn.ensembleimportRandomForestClassifier<br>在手写数字的例子上，我们也为特意每个数字设计了多标签而且每个标签的类别都大于二。<br>标签1：小于等于4，4和7之间，大于等于7(三类)<br>标签2：数字本身(十类)<br>代码如下：</p>
+<p>#运行结果array([[0,4],[1,5],[2,7],[1,5],[2,9],[2,9]])<br>用含有100棵决策树的随机森林来解决这个多输入分类问题。</p>
+<p>看看这个模型在测试集前五张照片上的预测。<br>MO. predict(X_test[:5,:])<br>array([[0,2],[0,2],[0,0],[2,9],[1,5]])<br>这个ndarray第一列是标签1的类别，第二列是标签2的类别。预测结果是这五张照片分别显示数字2、2、0、9、5(标签2)，它们前三个数2、2、0都小于等于4(标签1第一类)，第四个数9大于等于7(标签1第二类)，而第五个数5在4和7之间(标签1第三类)。<br>再看看真实标签。</p>
+<p>array([[0,2],[0,2],[0,0],[2,9],[1,5]])<br>对比参考结果标签，模型预测的结果还是很不错的。<br>模型选择(ModelSelction)在机器学习非常重要，它主要用于评估模型表现，常见的ModelSelection估计器有以下几个：<br>cross_validate：评估交叉验证的结果。<br>learning_curve：构建与绘制学习曲线。<br>GridSearchCV：用交叉验证从超参数候选网格中搜索出最佳超参数。<br>RandomizedSearchCV：用交叉验证从一组随机超参数搜索出最佳超参数。<br>这里我们只关注调节超参数的两个估计器，即GridSearchCV和RandomizedSearchCV。我们先回顾一下交叉验证（更详细的讲解请查看ShowMeAI文章图解机器学习|模型评估方法与准则）。<br>K-折交叉验证(K-foldcrossvalidationset)，指的是把整个数据集平均但随机分成K份，每份大概包含m&#x2F;K个数据(m是总数据数)。<br>在这K份，每次选K-1份作为训练集拟合参数，在剩下1份验证集上进行评估计算。由于遍历了这K份数据，因此该操作称为交叉验证。操作如下图所示<br>下图展示了两个调参的估计器：『网格搜索』和『随机搜索』。<br>网格搜索调参：参数1在[1,10,100,1000]中取值，参数2在[0. 01,0. 1,110]中取值，注意并不是等间距取值。模型在所有16组超参数上实验，选取交叉验证误差最小的参数。<br>随机搜索调参：根据指定分布随机搜索，可以选择独立于参数个数，比如log(参数1)服从0到3的均匀分布，log(参数2)服从-2到1的均匀分布。<br>应用方式与参考代码如下：</p>
+<p>输出结果如下：</p>
+<p>这里我们对代码做一个解释：<br>前5行引入相应工具库。<br>第7-8行准备好数据X和y，创建一个含20个决策树的随机森林模型。<br>第10-14和23-27行为对随机森林的超参数『最大树深、最多特征数、最小可分裂样本数、分裂标准』构建候选参数分布与参数网格。<br>第15-18行是运行随机搜索。<br>第18-30行是运行网格搜索。<br>运行结果里：<br>第一行输出每种追踪法运行的多少次和花的时间。<br>第二行输出最佳超参数的组合。<br>第三行输出最高得分。<br>在本例中，随机搜索比网格搜索用更短时间内找到一组超参数，获得了更高的得分。<br>Pipeline估计器又叫流水线，把各种估计器串联(Pipeline)或并联(FeatureUnion)的方式组成一条龙服务。用好了它真的能大大提高效率。<br>Pipeline将若干个估计器按顺序连在一起，比如：特征提取→降维→拟合→预测<br>Pipeline的属性永远和最后一个估计器属性一样：<br>如果最后一个估计器是预测器，那么Pipeline是预测器。<br>如果最后一个估计器是转换器，那么Pipeline是转换器。<br>下面是一个简单示例，使用Pipeline来完成『填补缺失值-标准化』这两步的。我们先构建含缺失值NaN的数据X。</p>
+<p>我们用以下流程组件构建Pipeline：<br>处理缺失值的转换器SimpleImputer。<br>做规划化的转换器MinMaxScaler。</p>
+<p>因为最后一个估计器是转换器，因此pipeline也是个转换器。下面我们来运行一下，我们发现值都被填满了，而且两列也被标准化了。<br>X_proc&#x3D;pipe. fit_transform(X)<br>来验证上面流水线的参数，我们可以按顺序来运行这两个转换器，结果是一样的。<br>X_impute&#x3D;SimpleImputer(missingvalues&#x3D;np. nan,strategy&#x3D;’mean’).fit_transform(X)X_impute</p>
+<p>X_normalize&#x3D;MinMaxScaler().fit_transform(X_impute)X_normalize<br>运行结果<br>array([[1.,0. 12],[0. 77777778,0. 72],[0. 55555556,6. 48],[0. 52,1],[0. 04444444,1.],[0. 11111111,9.],[0. 08888889,6. 92],[0. 34166667,6. 52],[0. 15555556,0. 4]])<br>如果我们想在一个节点同时运行几个估计器，我们可用FeatureUnion。在下面的例子中，我们首先建立一个DataFrame数据，它有如下特点：<br>前两列字段『智力IQ』和『脾气temper』都是类别型变量。<br>后两列字段『收入income』和『身高height』都是数值型变量。<br>每列中都有缺失值。</p>
+<p>结果如下：<br>我们现在按下列步骤来清洗数据。<br>对类别型变量：获取数据→中位数填充→独热编码<br>对数值型变量：获取数据→均值填充→标准化<br>上面两步是并行进行的。<br>首先我们自己定义一个从DataFrame里面获取数据列的类，起名叫DataFrameSelector。</p>
+<p>上述代码在transform函数中，我们将输入的DataFrameX根据属性名称来获取其值。<br>接下来建立流水线full_pipe，它并联着两个流水线<br>categorical_pipe处理分类型变量<br>DataFrameSelector用来获取<br>SimpleImputer用出现最多的值来填充None<br>OneHotEncoder来编码返回非稀疏矩阵<br>numeric_pipe处理数值型变量<br>DataFrameSelector用来获取<br>SimpleImputer用均值来填充NaN<br>normalize来规范化数值<br>代码如下：</p>
+<p>我们打印结果如下：<br>X_proc&#x3D;full_pipe. fit_transform(X)print(X_proc)<br>[[1. 0.120. 1.0. 0.1.][0. 777777780.721. 0.0. 1.0.][0. 555555560.481. 0.0. 0.1.][0. 0.520. 0.1. 1.0.][0. 044444441.0. 1.0. 1.0.][0. 111111110.1. 0.0. 1.0.][0. 088888890.920. 1.0. 1.0.][0. 341666670.520. 1.0. 1.0.][0. 155555560.40. 1.0. 1.0.]]<br>下面我们对上面讲解到的sklearn工具库应用知识做一个总结。<br>SKLearn的设计下，它的主要API遵循五大原则<br>所有对象的接口一致且简单，在『估计器』中<br>创建：model&#x3D;Constructor(hyperparam)<br>拟参：<br>有监督学习：model. fit(X_train,y_train)<br>无监督学习：model. fit(X_train)<br>在『预测器』中<br>有监督学习里预测标签：y_pred&#x3D;model. predict(X_test)<br>无监督学习里识别模式：idx_pred&#x3D;model. predict(Xtest)<br>在『转换器』中<br>创建：trm&#x3D;Constructor(hyperparam)<br>获参：trm. fit(X_train)<br>转换：X_trm&#x3D;trm. transform(X_train)<br>所有估计器里设置的超参数和学到的参数都可以通过实例的变量直接访问来检验其值，区别是超参数的名称最后没有下划线_，而参数的名称最后有下划线_。举例如下：<br>通例：model. hyperparameter<br>特例：SVC. kernel<br>通例：model. parameter_<br>特例：SVC. support_vectors_<br>SKLearn模型接受的数据集的格式只能是『Numpy数组』和『Scipy稀疏矩阵』。超参数的格式只能是『字符』和『数值』。不接受其他的类！<br>模块都能重复『连在一起』或『并在一起』使用，比如两种形式流水线(pipeline)<br>任意转换器序列<br>任意转换器序列+估计器<br>SKLearn给大多超参数提供了合理的默认值，大大降低了建模的难度。<br>sklearn的建模应用流程框架大概如下：<br>是『有监督』的分类或回归？还是『无监督』的聚类或降维？确定好后基本就能知道用Sklearn里哪些模型了。<br>这步最繁琐，要处理缺失值、异常值；要编码类别型变量；要正规化或标准化数值型变量，等等。但是有了Pipeline神器一切变得简单高效。<br>这步最简单，训练用估计器fit()先拟合，评估用预测器predict()来评估。<br>启动ModelSelection估计器里的GridSearchCV和RandomizedSearchCV，选择得分最高的那组超参数(即模型)。<br>SKLearn入门与简单应用案例:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;202<br>SKLearn官网:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;<br>AI建模工具速查|Scikit-learn使用指南:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;108<br>图解机器学习|机器学习基础知识:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;185<br>图解机器学习|模型评估方法与准则:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;186<br>Python机器学习算法实践:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;201<br>机器学习评估与度量准则:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;186<br>监督学习：分类任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;supervised_learning. html#supervised-learning<br>监督学习：回归任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;supervised_learning. html#supervised-learning<br>无监督学习：聚类任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;modules&#x2F;clustering. html#clustering<br>无监督学习：降维任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;modules&#x2F;decomposition. html#decompositions<br>模型选择任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;model_selection. html#model-selection<br>数据预处理任务:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;modules&#x2F;preprocessing. html#preprocessing<br>数据导入模块:https :&#x2F;&#x2F;scikit-learn. org&#x2F;stable&#x2F;datasets. html<br>线上Jupyter环境:https :&#x2F;&#x2F;jupyter. org&#x2F;try<br>seaborn工具与数据可视化教程:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;151<br>聚类:https :&#x2F;&#x2F;www. showmeai.tech&#x2F;article-detail&#x2F;197<br>下载1：OpenCV-Contrib扩展模块中文版教程<br>在「小白学视觉」公众号后台回复：扩展模块中文教程，即可下载全网第一份OpenCV扩展模块教程中文版，涵盖扩展模块安装、SFM算法、立体视觉、目标跟踪、生物视觉、超分辨率处理等二十多章内容。<br>下载2：Python视觉实战项目52讲<br>在「小白学视觉」公众号后台回复：Python视觉实战项目，即可下载包括图像分割、口罩检测、车道线检测、车辆计数、添加眼线、车牌识别、字符识别、情绪检测、文本内容提取、面部识别等31个视觉实战项目，助力快速学校计算机视觉。<br>下载3：OpenCV实战项目20讲<br>在「小白学视觉」公众号后台回复：OpenCV实战项目20讲，即可下载含有20个基于OpenCV实现20个实战项目，实现OpenCV学习进阶。<br>交流群<br>欢迎加入公众号读者群一起和同行交流，目前有SLAM、三维视觉、传感器、自动驾驶、计算摄影、检测、分割、识别、医学影像、GAN、算法竞赛等微信群（以后会逐渐细分），请扫描下面微信号加群，备注：”昵称+学校&#x2F;公司+研究方向“，例如：”张三+上海交大+视觉SLAM“。请按照格式备注，否则不予通过。添加成功后会根据研究方向邀请进入相关微信群。请勿在群内发送广告，否则会请出群，谢谢理解~</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/14/1000002545-2247631500-3/">https://zejuncao.github.io/2025/06/14/1000002545-2247631500-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">小白学视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/14/1000002545-2247631500-2/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002545_2247631500_2.jpg" class="responsive-img" alt="卷积神经网络中用1*1 卷积有什么作用或者好处呢？">
+                        
+                        <span class="card-title">卷积神经网络中用1*1 卷积有什么作用或者好处呢？</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">小白学视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/14/1000000978-2247500696-1/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000978_2247500696_1.jpg" class="responsive-img" alt="国企6年破茧，我“杀入”大模型算法圈">
+                        
+                        <span class="card-title">国企6年破茧，我“杀入”大模型算法圈</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/DASOU/">
+                        <span class="chip bg-color">DASOU</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
