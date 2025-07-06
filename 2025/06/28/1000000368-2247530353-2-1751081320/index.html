@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="321-A1｜图像生成篇（多种下游应用任务、自回归、安全等）, ZejunCao&#39;Blogs">
+    <meta name="description" content="321-A1｜图像生成篇（多种下游应用任务、自回归、安全等）
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+AIGCResearch主编｜庄才林（CailinZhuang）技术支持｜胡耀淇（YaoqiHu）｜编辑支持">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>321-A1｜图像生成篇（多种下游应用任务、自回归、安全等） | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000368-2247530353_2-1751081320.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">321-A1｜图像生成篇（多种下游应用任务、自回归、安全等）</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AIGC-Research/">
+                                <span class="chip bg-color">AIGC Research</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-28
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/eQy0ne0fqnxJRyc0cExA-A">321-A1｜图像生成篇（多种下游应用任务、自回归、安全等）</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>AIGCResearch<br>主编｜庄才林（CailinZhuang）技术支持｜胡耀淇（YaoqiHu）｜编辑支持｜张奇佳（QijiaZhang）发布日期｜2025年3月17日｜周一<br>New!｜为了更好的服务广大研究者与爱好者，未来，我们将陆续开源PaperDaily系列源文件至Github平台，欢迎大家持续关注！！！<br>https :&#x2F;&#x2F;github. com&#x2F;AIGCResearch&#x2F;Awesome-PaperDaily<br>2025-03-13｜ByteDanceSeed,JHU<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 10772v1https :&#x2F;&#x2F;tacju. github.io&#x2F;projects&#x2F;flowtok. html<br>FlowTok是一种新颖的框架，旨在实现文本和图像之间的无缝流动，尤其是在生成任务中。该框架通过将文本和图像编码为紧凑的1D潜在表示，解决了跨模态生成中的挑战。传统方法通常将文本视为条件信号，逐步引导去噪过程，而FlowTok则采用直接流匹配的方式，简化了这一过程。通过将文本和图像映射到共享的潜在空间，FlowTok减少了潜在空间的规模，提高了生成效率。此外，该框架不仅支持文本到图像的生成，还扩展到图像到文本的生成，展示了其灵活性和高效性。整体而言，FlowTok在资源消耗和生成速度上都有显著提升，为跨模态生成研究提供了新的思路。<br>FlowTok的核心在于其简化的架构，通过将文本和图像都编码为1D潜在令牌，实现无缝流动。具体方法包括以下几个步骤：<br>统一潜在空间：文本通过预训练的文本编码器提取1D嵌入，而图像则使用改进的图像编码器编码为紧凑的1D潜在令牌。<br>流匹配机制：采用流匹配的方法，直接在文本和图像的潜在空间之间进行转换，消除了复杂的条件机制。<br>损失函数设计：引入KL散度损失和文本对齐损失，以保持生成图像与输入文本之间的语义一致性。<br>扩展性：通过相同的框架，FlowTok还可以用于图像到文本的生成，展示了其在多模态生成任务中的广泛适用性。<br>在实验部分，FlowTok的性能通过多个数据集进行评估，包括COCO和MJHQ-30K。实验结果显示，FlowTok在文本到图像生成和图像到文本生成任务中均表现出色。在文本到图像生成中，FlowTok相较于其他先进模型显著减少了训练资源需求和推理时间，且在FID分数上表现相当。此外，FlowTok的图像到文本生成能力也同样优越，能够生成准确的描述，展示了其在实际应用中的潜力。通过一系列消融实验，研究者还分析了不同设计选择对模型性能的影响，进一步验证了FlowTok的有效性和高效性。<br>FlowTok的工作原理可以简单理解为将文字和图片转换为一种简化的表示形式，就像把复杂的图形变成简单的线条。首先，系统会把文字信息转化为一种数字代码，然后把图片也转化为类似的数字代码。这两种代码都在一个共享的空间里，这样就可以直接进行转换，而不需要复杂的步骤。接下来，系统会通过一些智能算法确保生成的图片能真实反映输入的文字描述，比如在描述一只猫的时候，生成的图片也会是一只猫。最后，FlowTok还可以把图片转回文字，形成一个完整的生成过程。整体上，这种方法使得生成的速度更快，所需的计算资源更少，非常适合用于实际应用。<br>2025-03-12｜Link-To,MUST,HUST<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 10697v1<br>本研究提出了一种基于熵融合的零样本主题中心生成框架，旨在提升创意应用中的图像生成质量。当前的文本到图像模型在实际应用中面临诸多挑战，尤其是在设计纺织品和生成表情包时，常常难以去除不必要的元素。为了应对这一问题，我们开发了一种新颖的生成框架，专注于生成高质量的主题图像，并有效剔除多余的背景元素。通过引入基于熵的特征加权融合方法，我们能够在每个采样步骤中合并来自预训练文本到图像模型FLUX的交叉注意力特征，确保生成的图像专注于主要元素。我们的实验结果和用户研究表明，该方法在生成高质量主题中心图像方面优于现有技术，突显了其有效性和实用性。<br>本研究的方法主要分为几个关键步骤。首先，我们设计了一个基于大型语言模型的代理框架，能够将用户的简单输入转化为更具描述性的提示，从而引导图像生成过程。其次，我们采用了熵加权的特征融合模块，该模块在每个反向扩散步骤中提取与主要提示词（通常是与主题相关的名词）相关的交叉注意力图。随后，利用这些加权的注意力图，我们能够准确预测主要主题的掩码，进而去除不相关的元素，确保生成的图像聚焦于主题。最后，整个流程实现了用户输入的自动化处理，简化了生成过程，提高了生成的图像质量和准确性。<br>在实验部分，我们使用了当前最先进的文本到图像模型FLUX进行比较实验。我们将本方法与两种不同的生成管道进行了对比：一种是生成后分割的方法，另一种是直接的RGBA生成方法。实验结果显示，我们的方法在生成主题中心图像的质量上显著优于这两种方法。通过定性和定量分析，我们计算了CLIP分数，并进行了用户研究，评估生成图像的视觉吸引力和有效性。结果表明，我们的方法不仅在图像质量上表现优异，而且在用户偏好调查中也获得了最高的评分，验证了其在创意应用中的实用性。<br>我们的研究主要是为了让计算机生成更好看的图片，尤其是那些只关注特定主题的图像。我们设计了一个智能代理系统，可以将用户简单的想法变成详细的描述，帮助计算机更好地理解我们想要的内容。比如，如果你输入“圣诞树”，我们的系统会自动扩展这个提示，加入相关的词汇，比如“铃铛”和“星星”，使生成的图像更加丰富。同时，我们使用了一种聪明的加权方法，确保计算机在生成图像时，能够更好地关注到这些重要的元素，而忽略掉那些不必要的背景。通过这些步骤，我们的目标是让生成的图像既美观又符合用户的期望，让创意设计变得更加简单和高效。<br>2025-03-14｜Sony<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11060v1<br>在当今数字营销中，广告横幅是吸引用户注意力和传达品牌信息的重要工具。设计有效的广告横幅不仅需要美观的视觉效果，还要能够准确传达营销信息。然而，现有的设计工具往往面临着灵活性不足和编辑困难的问题。为了解决这些挑战，本文提出了一种名为BannerAgency的全新框架，利用多模态大型语言模型（MLLMs）来自动化广告横幅设计。该系统的核心在于模拟专业设计团队的工作流程，通过不同的智能代理（如战略师、背景设计师、前景设计师和开发者）协同工作，实现从概念到最终设计的无缝过渡。通过这一创新方法，BannerAgency能够生成可编辑的设计组件，满足多样化的广告需求。<br>BannerAgency的设计流程由四个主要智能代理组成，每个代理负责特定的任务。首先，战略师与广告客户沟通，明确设计目标和品牌指南，确保设计符合品牌形象。接下来，背景设计师生成视觉背景，使用文本到图像工具（T2I）创建与广告主题相匹配的图像，同时确保背景中不包含文字，以避免后续设计中的干扰。然后，前景设计师根据客户要求生成前景元素的蓝图，包括文本、图标和行动呼吁按钮等。最后，开发者将这些设计蓝图转化为可在Figma或SVG格式中编辑的组件，确保设计的灵活性和可编辑性。此外，系统还具备记忆增强功能，可以在设计过程中不断吸收反馈，以优化最终输出。<br>为了验证BannerAgency的有效性，研究团队设计了一项实验，使用BannerRequest400基准测试，涵盖了100个独特的品牌标志和400个多样的广告请求。实验通过定量和定性评估的方法，比较了BannerAgency与其他现有设计工具（如DALL-E3和OpenCOLE）的表现。在多个维度上，BannerAgency显示出显著的优势，包括设计质量、适应性和编辑灵活性。参与者对生成的广告横幅进行了评分，结果表明，BannerAgency的设计在视觉吸引力和品牌一致性方面表现优异，能够有效满足不同目标受众的需求。此外，实验还探讨了设计迭代过程中的反馈机制，证明了系统在设计质量上的持续提升。<br>BannerAgency的工作流程可以简单地理解为一个团队的合作。首先，战略师就像是项目经理，负责与客户沟通，了解他们想要什么样的广告。然后，背景设计师会根据这些要求制作一个合适的背景图，就像画家为画布打底。接着，前景设计师会添加文字和按钮等前景元素，确保这些内容既美观又能引起观众的注意。最后，开发者会把这些设计转化为可以编辑的格式，方便后续修改和调整。整个过程就像是一个团队合作的舞台剧，每个角色都有自己的任务，最终共同呈现出一个完美的广告横幅。这个系统还会记住每次的反馈，帮助设计不断改进，确保每次的广告都能更好地满足客户的需求。<br>2025-03-14｜VISTEC,SiData+,Pixiv<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11054v1https :&#x2F;&#x2F;github. com&#x2F;sincostanx&#x2F;LUSD<br>本文介绍了一种新的图像编辑方法，称为LocalizedUpdateScoreDistillation（LUSD），旨在提高文本引导的图像编辑的效果。尽管现有的扩散模型在图像编辑任务中表现出色，但在保持背景完整性和确保编辑内容与文本提示一致性上仍面临挑战。传统的分数蒸馏技术虽然利用了文本到图像的生成先验，但在对象插入等复杂任务中往往表现不佳。研究表明，这些方法在梯度幅度和空间分布上存在显著变化，导致超参数调整高度依赖输入。为了解决这一问题，LUSD提出了两项有效的改进：基于注意力的空间正则化和梯度过滤归一化。实验结果显示，LUSD在编辑成功率和背景保留方面优于现有的最先进技术。<br>LUSD方法的核心在于通过分数蒸馏技术优化输入图像，使其符合给定的文本提示。具体流程如下：<br>输入处理：从源图像中提取潜在代码，并通过优化算法进行更新，以逐步调整图像。<br>背景保留：引入正则化项，确保与源图像无关的背景区域在编辑过程中得以保留。<br>空间正则化：使用注意力机制来估计编辑区域的掩码，从而调节梯度更新，使得背景区域的更新幅度降低。<br>梯度过滤与归一化：在优化过程中，检测和过滤掉低标准差的“坏梯度”，以确保每次更新都能有效推动图像朝向目标。通过这些步骤，LUSD能够在保持原图背景的同时，实现高质量的对象插入和图像修改。<br>在实验部分，研究者将LUSD与多种现有的图像编辑方法进行了比较，包括指令引导和扩散反演等技术。使用标准的MagicBrush数据集，包含1053个示例，评估了不同方法在背景保留和文本一致性方面的表现。用户研究显示，LUSD在背景保留、提示一致性和整体质量上均优于其他方法。此外，通过定量评估，LUSD在多项指标上均表现出色，尤其是在对象插入任务中，相较于传统方法具有更高的成功率。实验结果清晰地表明，LUSD在处理复杂的图像编辑任务时，能够有效地平衡编辑质量与背景完整性，展示了其在实际应用中的潜力。<br>LUSD是一种新颖的图像编辑技术，旨在帮助用户通过简单的文本指令来修改图片。想象一下，你有一张照片，想要在其中添加一个新物体，比如一只猫。LUSD的工作原理是，首先，它会分析你想要的修改，然后通过一种叫做“分数蒸馏”的方法来逐步调整图片。具体来说，它会确保在添加新物体时，原本的背景不会被破坏。为了做到这一点，LUSD会使用一种智能的算法，判断哪些区域需要改变，哪些区域需要保持不变。此外，它还会过滤掉那些不太有效的修改建议，确保每次更新都能带来积极的改变。通过这些步骤，LUSD能够让用户得到更自然、更符合预期的图像编辑效果。<br>2025-03-14｜CUC,NUS<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11290v1<br>EmoAgent是一个创新的多智能体协作框架，旨在解决情感图像处理中的复杂挑战。情感图像处理（AffectiveImageManipulation,AIM）旨在通过调整图像的视觉元素来改变其传达的情感，从而引发观众的特定情感反应。与传统的语义图像处理（SemanticImageManipulation,SIM）不同，AIM不仅关注图像内容的修改，还强调情感的表达。EmoAgent通过模拟人类画家的认知过程，整合了三个专门的智能体：规划、编辑和评估，这些智能体协同工作以提高情感表达的准确性和有效性。通过引入情感因子知识检索器和决策树空间，EmoAgent显著增强了在AIM任务中的表现，能够更好地处理情感表达和语义合理性的问题。<br>EmoAgent的工作流程分为两个主要阶段：预创建阶段和优化阶段。在预创建阶段，规划智能体接收原始图像和目标情感，生成初步的编辑计划。该计划经过评估后，编辑智能体执行具体的编辑指令，生成初步结果。优化阶段则专注于评估和调整编辑结果，以确保最终输出准确传达目标情感。具体方法包括：<br>视觉情感分析：分析原始图像的情感和语义线索，确保编辑计划的针对性。<br>情感因子知识检索器：从情感数据库中提取与目标情感相关的编辑元素，帮助规划智能体制定更有效的编辑策略。<br>编辑工具库：为编辑智能体提供多种编辑工具，确保能够执行多样化的编辑操作，如对象替换、颜色调整和背景修改。<br>在实验部分，研究团队通过定量和定性的方法评估EmoAgent的表现。采用了来自EmoSet的100幅图像，涵盖多种情感（如快乐、愤怒、恐惧等），并与多种现有的AIM和SIM方法进行比较。实验结果表明，EmoAgent在情感匹配、情感转化和语义合理性方面均优于对比方法，显示出其在情感表达和图像结构保持方面的优势。此外，通过消融实验，研究者验证了情感因子知识检索器和自我评估机制对提升最终结果的重要性。这些结果表明，EmoAgent在复杂情感图像处理任务中的有效性和可靠性。<br>EmoAgent的工作原理可以简单理解为一个团队合作的过程。首先，系统会接收一张图像和用户想要表达的情感，比如“快乐”或“愤怒”。然后，系统的规划智能体会分析这张图像，找出能够传达目标情感的元素，比如颜色和光线。接着，编辑智能体会根据规划智能体的指示进行具体的调整，比如改变图像的色调或添加新的元素。最后，评估智能体会检查修改后的图像是否成功传达了预期的情感。如果没有，它会提供反馈，指导编辑智能体进行进一步的调整。这个过程确保了最终的图像不仅在视觉上吸引人，而且能够有效地传达出用户想要表达的情感。<br>2025-03-14｜SUT｜ECCV2024<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11481v1https :&#x2F;&#x2F;github. com&#x2F;hadi-hosseini&#x2F;T2I-FineEval<br>在文本到图像生成领域，尽管近年来的生成模型已经取得了显著的进展，但它们在处理复杂提示时仍然面临挑战，尤其是在捕捉属性绑定和不同实体间的空间关系方面。传统的评估指标如CLIPScore未能充分反映这些复杂性。为了弥补这一不足，研究者们提出了一种新颖的评估指标T2I-FineEval。该指标通过将图像分解为组件，并将文本转换为针对生成图像的细粒度问题，以更精确地评估生成图像的质量。T2I-FineEval的有效性在多项实验中得到了验证，显示出其在评估文本到图像生成模型时的优越性。<br>T2I-FineEval的核心方法包括两个主要步骤。首先，研究者们将输入文本分解为多个独立的断言，并基于这些断言生成一系列细粒度问题，包括实体问题和关系问题。其次，通过使用YOLOv9对象检测器，从生成的图像中提取对象框，并将其合并为候选关系框。接着，利用预训练的BLIP-VQA模型对每个问题-框对进行评分，以评估它们之间的对齐程度。具体步骤如下：<br>文本分解：使用GPT-4将输入文本分解为单独的断言。<br>问题生成：基于断言生成细粒度的实体和关系问题。<br>对象检测：使用YOLOv9提取图像中的对象框，并创建候选关系框。<br>评分机制：通过BLIP-VQA模型评估问题与图像组件的对齐程度，计算最终的相似性得分。<br>为了验证T2I-FineEval的有效性，研究者们在多个文本到图像生成模型上进行了评估，使用T2I-CompBench基准进行比较。实验涉及了多种现有评估指标，包括DA-Score、TIFA和CompBench等。结果显示，T2I-FineEval在与人类评估的对齐程度上显著优于其他指标，尤其在处理复杂提示时表现出色。实验还考察了不同类别（如形状、颜色、纹理等）下的生成图像质量，结果表明T2I-FineEval在各类别中均取得了较高的平均得分，进一步证明了其作为文本到图像生成质量评估工具的潜力。<br>T2I-FineEval的工作原理可以简单理解为将图像和文字进行“拆解”和“问答”。首先，它会把输入的文字说明分成几个简单的部分，比如说“灰色的熊”和“在餐桌上”。接下来，它会根据这些部分生成一些问题，比如“这是一只灰色的熊吗？”或“熊在桌子上吗？”然后，系统会使用一种叫YOLO的技术来识别生成图像中的对象，比如找到熊和桌子。最后，它会用一个智能问答模型来判断这些问题与图像中的对象是否匹配，给出一个得分。这样做的目的是为了更准确地评估图像是否符合文字描述，确保生成的图像不仅看起来合理，而且与文字内容紧密相关。<br>2025-03-14｜ZJU,NTU,HKUST,THU｜CVPR2025<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11240v1https :&#x2F;&#x2F;github. com&#x2F;hu-zijing&#x2F;B2-DiffuRL<br>本研究针对文本到图像生成中的扩散模型，提出了一种新颖的强化学习（RL）框架B2-DiffuRL，旨在解决生成图像与文本提示之间的对齐问题。尽管扩散模型在生成高质量图像方面取得了显著成功，但其在实际应用中常常面临生成结果与文本描述不一致的挑战。传统的RL方法由于奖励稀疏性，导致在生成过程结束时才能获得反馈，难以识别每个时间步的具体贡献，从而影响模型的学习效果。为了解决这一问题，B2-DiffuRL采用了逆向渐进训练和基于分支的采样策略，旨在提高生成图像的对齐度，同时保持图像多样性。通过对比现有的RL方法，B2-DiffuRL在对齐和多样性方面表现出色，展示了其在文本到图像生成中的潜在应用价值。<br>B2-DiffuRL框架通过两种主要策略来应对奖励稀疏的问题。首先，逆向渐进训练（BackwardProgressiveTraining,BPT）策略从生成过程的最后时间步开始训练，逐步向前扩展训练时间步。这种方法使模型能够在生成较为清晰的图像时，先掌握后期的去噪过程，从而降低学习的复杂性。其次，基于分支的采样（Branch-basedSampling,BS）策略在每个训练时间段内进行分支采样，通过比较同一分支内的样本，模型能够更清晰地识别当前训练时间段的策略对最终图像的贡献。这两种策略结合使用，可以有效缓解稀疏奖励带来的负面影响，帮助模型学习更有效的去噪策略，避免学习到不必要的风格化策略，进而提高生成图像的多样性。<br>在实验部分，我们评估了B2-DiffuRL在提高文本与生成图像对齐度以及保持图像多样性方面的有效性。我们首先将B2-DiffuRL与现有的最先进方法DDPO进行比较，观察其在不同提示模板下的表现。此外，通过消融研究，分析了逆向渐进训练和基于分支的采样策略对模型性能的影响。实验中使用了稳定扩散模型作为基础，通过多组实验验证了B2-DiffuRL在对齐度和多样性上的优势。结果表明，B2-DiffuRL在保持图像多样性的同时，显著提高了生成图像的对齐度，显示出其在文本到图像生成任务中的广泛适用性和有效性。<br>在我们的研究中，我们想要解决一个问题：如何让计算机根据文字描述生成更好的图像。我们发现，计算机在生成图像时，往往只在最后才知道自己做得好不好，这就像在考试后才能知道答案对不对，导致它很难学习到在每一步该怎么做。为了解决这个问题，我们提出了一个新方法，叫做B2-DiffuRL。这个方法分为两个步骤：第一步，我们先让计算机专注于生成图像的最后部分，然后再逐步回到前面的部分，这样可以让它更容易学会如何生成清晰的图像；第二步，我们让计算机在每个阶段生成多个图像，并进行比较，这样它就能更好地理解哪些步骤是有效的。通过这两种方法，我们发现计算机生成的图像与文字描述的匹配度更高，同时也能保持图像的多样性，避免生成过于单一的图像风格。<br>2025-03-14｜THU,PolyU,OPPO<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11073v1https :&#x2F;&#x2F;github. com&#x2F;nonwhy&#x2F;PURE<br>本研究提出了一种新颖的图像超分辨率框架PURE，旨在通过自回归多模态生成模型来恢复真实世界中的低质量图像。传统的图像恢复方法往往在处理复杂和严重退化的场景时表现不佳，生成的图像常常不自然且细节缺失。为了解决这一问题，PURE利用了预训练的文本到图像扩散模型的生成先验，结合图像的感知和理解能力，从而实现更高质量的图像恢复。具体而言，PURE采用了指令调优技术，能够感知图像的退化程度、理解图像内容，并通过生成高质量图像标记来恢复原始图像。实验结果表明，PURE在复杂场景中能够更好地保留图像内容，同时生成更具真实感的细节，展示了自回归多模态生成模型在图像超分辨率任务中的潜力。<br>PURE框架的核心由三个主要模块组成：文本标记器、视觉标记器和解码器。首先，文本标记器将输入的指令转换为离散文本标记，而视觉标记器则将低质量图像转换为离散图像标记。这些标记随后被输入到自回归变换器中进行处理。具体步骤包括：<br>感知模块：通过退化估计模块，定量分析输入图像的退化程度，生成噪声和模糊的评分。<br>理解模块：使用LLaVa生成结构化的图像语义描述，并将其与低质量输入的图像进行关联，以增强模型的语义理解能力。<br>恢复模块：根据感知的退化程度、语义上下文和生成序列的结构一致性，生成高质量的图像标记，最终通过视觉解码器将这些标记转换为恢复的图像。此外，采用了基于熵的Top-k采样策略，以适应不同区域的细节需求，进一步优化生成图像的局部结构。<br>在实验中，PURE在多个数据集上进行了评估，包括合成数据集和真实世界数据集。通过与现有的最先进的图像超分辨率方法进行比较，PURE在多个指标上表现出色，尤其在处理复杂场景时具有明显优势。实验结果表明，PURE能够有效恢复图像的高频细节，同时保持语义一致性。具体来说，PSNR、SSIM等参考指标显示了PURE的图像恢复质量，且在无参考指标如NIQE和MUSIQ上也表现出色。此外，用户研究的结果显示，参与者更倾向于选择PURE生成的图像，证明了其在视觉质量和内容一致性方面的优越性。这些结果表明，PURE在真实世界图像超分辨率任务中具有广泛的应用潜力。<br>PURE的工作原理可以简单理解为一个智能的图像修复助手。首先，它会观察你给的模糊或低质量的图片，分析这张图片的模糊程度，比如是因为噪声、模糊还是其他原因。接着，它会理解图片中包含的内容，比如识别出图片中有一只狮子在草地上。最后，PURE会根据这些信息，逐步生成一张高质量的图像，确保修复后的图片不仅清晰，还能保持原有的细节和色彩。为了让生成的图片更真实，PURE还采用了一种聪明的采样方法，根据不同区域的复杂性来决定生成细节的丰富程度。这种方法使得即使在复杂的场景中，PURE也能生成更自然的图像，达到更好的修复效果。<br>2025-03-14｜UMannheim,UTN,NICT<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11509v1https :&#x2F;&#x2F;github. com&#x2F;potamides&#x2F;DeTikZify<br>TikZero是一种创新的零样本文本引导图形程序合成方法，旨在解决生成图形程序时对训练数据的依赖。与传统的图形程序合成模型不同，TikZero通过将图形程序生成与文本理解解耦，利用图像表示作为中介，从而实现独立训练。这种方法不仅显著提高了生成图形的质量，还允许在没有配对数据的情况下进行文本引导的图形合成。研究表明，TikZero在性能上超越了仅依赖于配对数据的基准模型，并且在结合配对图形程序和图像的训练信号时，其表现甚至可以与更大规模的模型（如GPT-4o）相媲美。该方法的代码、数据集和部分模型均已公开，促进了学术界和工业界的进一步研究。<br>TikZero的方法主要包括两个阶段的架构设计。首先，构建一个逆图形模型，该模型通过图像补丁嵌入生成图形程序，同时不涉及文本。这一过程利用了视觉语言模型（VLM）的架构，确保了图形程序的生成与图像内容的高度一致。其次，采用跨注意力适配器网络，将文本信息注入视觉编码器中，从而影响文本解码器的输出。具体步骤如下：<br>图像嵌入：使用未修改的视觉编码器对输入图像进行补丁嵌入。<br>跨注意力适配器：通过适配器网络将文本信息与图像嵌入结合，训练适配器以模仿视觉编码器的输出。<br>图形程序生成：在解码阶段，适配器生成的图形程序与图像补丁嵌入相结合，实现文本引导的图形合成。这一设计使得TikZero能够在没有配对数据的情况下进行有效的图形程序生成。<br>在实验中，TikZero的性能通过与多个基准模型的比较来评估。使用了DaTikZ数据集，该数据集包含超过45万个TikZ图形程序和约17万个带有说明的样本。实验分为几个部分：<br>零样本性能评估：TikZero在没有配对数据的情况下，展示了超过传统模型的合成能力。<br>与基准模型比较：将TikZero与AutomaTikZ和其他大型模型进行比较，结果表明TikZero在多个指标上均表现优异。<br>人类评估：通过人类评估者对生成图形与参考图形的相似度进行打分，进一步验证了模型的有效性。<br>细化训练效果：通过对TikZero进行微调，评估其在使用配对数据时的性能提升，结果显示微调显著提高了生成图形的质量。<br>TikZero的工作原理可以简单理解为一个两步的过程。首先，它会把输入的图像转化为一种特殊的格式，这个格式可以让计算机更容易理解。接着，TikZero会利用这些信息，结合输入的文字描述，生成相应的图形程序。这个过程就像是把图像和文字的特征结合起来，形成一个新的图形。通过这种方法，TikZero可以在没有大量配对数据的情况下，依然生成高质量的图形。这种灵活性使得TikZero在实际应用中非常有用，比如在科学研究中快速生成所需的图形，而不需要手动编写复杂的代码。<br>2025-03-12｜ZJU,ShanghaiAILab,UAdelaide<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 10696v1https :&#x2F;&#x2F;github. com&#x2F;ThisisBillhe&#x2F;NAR<br>本研究提出了一种新的视觉生成模型——邻近自回归建模（NeighboringAutoregressiveModeling,NAR），旨在提高视觉生成的效率和质量。传统的自回归模型通常采用逐步预测下一个标记的方式，这种方法未能充分利用视觉内容的空间和时间局部性。NAR通过引入“近邻预测”机制，重新定义了生成过程，使其成为一种逐步扩展的外推过程。具体而言，NAR从一个初始标记开始，按照马哈拉诺比距离的升序逐步解码剩余标记。这种方法不仅提高了生成的吞吐量，还在图像和视频生成任务中取得了优越的FID和FVD分数。<br>NAR的核心在于其邻近自回归建模框架，具体方法如下：<br>邻近预测机制：生成过程从初始标记开始，逐步扩展解码区域，确保所有邻近标记在当前标记之前被解码，增强了局部性。<br>维度导向解码头：引入多个解码头，每个解码头负责沿着不同的正交维度预测下一个标记。这使得在推理阶段可以并行生成多个邻近标记。<br>训练过程：与传统的自回归模型共享相同的图像标记器和训练流程，采用因果掩码保证自回归特性，同时使用双向注意力增强一致性。<br>推理过程：在推理时，从左上角的初始标记开始，逐步生成相邻的标记，减少生成步骤的数量，并提高生成效率。<br>实验部分采用了多种数据集来验证NAR的有效性。首先，在ImageNet256×256数据集上进行类别条件图像生成，结果显示NAR显著减少了生成步骤，并降低了FID分数。其次，在UCF-101数据集上进行类别条件视频生成，NAR同样展示了更高的生成效率和更低的FVD分数。在文本到图像生成的实验中，NAR在GenEval基准上超越了许多现有模型，尽管训练数据量仅为传统模型的0. 4%。这些实验结果表明，NAR在图像和视频生成任务中均实现了高质量和高效率的平衡。<br>NAR模型的工作原理可以简单理解为从一个起点开始，逐步“扩展”生成的图像或视频。首先，它会从一个初始的像素开始，然后根据与这个像素距离最近的其他像素来生成。为了加快这个过程，NAR使用了多个“解码头”，每个头负责生成不同方向的像素，这样就可以同时生成多个相邻的像素，而不是一个一个地来。这样的设计不仅使得生成的图像质量更高，还大大减少了生成所需的时间和步骤。总的来说，NAR通过智能地利用图像中的空间关系，使得视觉生成变得更加高效和精准。<br>2025-03-14｜PKU,Xiaomi<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11129v1<br>本文提出了一种新的图像生成方法，称为方向感知对角自回归图像生成（DAR）。该方法针对传统自回归模型在图像生成中面临的挑战，特别是栅格扫描顺序导致的相邻索引令牌之间的欧几里得距离较大问题。DAR通过引入对角扫描顺序，确保相邻索引的令牌保持在近距离内，从而提高信息捕获的效率。此外，DAR还集成了两个方向感知模块：4D-RoPE和方向嵌入，增强模型处理频繁变化生成方向的能力。通过利用图像标记器的代码本作为图像令牌嵌入，DAR在256×256的ImageNet基准测试中，达到了1. 37的最优FID分数，超越了所有先前的自回归图像生成模型，展示了其卓越的生成能力。<br>DAR的核心方法包括以下几个关键组成部分：<br>对角扫描顺序：与传统的栅格扫描顺序不同，DAR采用对角扫描顺序生成图像令牌，确保相邻令牌保持近距离，从而改善模型在生成时的信息捕获能力。<br>4D-RoPE模块：该模块结合了当前和下一个令牌的位置，通过注入相对位置信息到注意力矩阵中，使模型能够有效处理不同的生成方向。<br>方向嵌入：通过引入方向嵌入，模型能够在自适应层归一化（AdaLN）中计算缩放和偏移参数，从而提升生成图像的质量。<br>图像令牌嵌入：DAR直接利用图像标记器的代码本作为图像令牌嵌入，避免了从头开始学习图像令牌嵌入的复杂性，从而提高训练效率。这些方法的结合使得DAR在生成任务中表现出色，尤其是在处理频繁变化的生成方向时。<br>在实验部分，DAR模型在多个规模上进行评估，包括485M、1. 1B和2.0B参数的配置。通过在256×256的ImageNet数据集上训练，DAR实现了显著的性能提升。实验结果显示，DAR-XL模型达到了1. 37的FID分数，超越了当前最先进的自回归图像生成方法。此外，实验还验证了对角扫描顺序和方向感知模块的有效性。通过与栅格扫描顺序的比较，DAR展现了更高的FID分数，说明其在处理相邻令牌的生成时更具优势。同时，DAR的采样速度也优于其他方法，表明其在效率方面的优势。实验结果全面展示了DAR在图像生成任务中的潜力和优越性。<br>DAR的工作原理可以简单理解为一种更聪明的图像生成方式。首先，它不再按照传统的从左到右的方式生成图像，而是采用对角线的方式，这样可以让相邻的像素点保持更近的距离，从而使生成的图像更加自然。其次，DAR引入了一种新的技术，叫做4D-RoPE，它帮助模型了解当前像素与下一个像素之间的关系，这样在生成图像时，模型能够更好地捕捉到不同方向的信息。此外，DAR还使用了一种叫做方向嵌入的技术，这可以让模型在生成图像时更灵活地处理不同的方向变化。通过这些创新，DAR不仅能够生成更高质量的图像，还能提高生成速度，展示了在图像生成领域的强大潜力。<br>2025-03-14｜UNIST<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11078v1<br>本研究探讨了生成模型中损失表面的平坦性及其对模型性能的影响，特别关注扩散模型。平坦极小值已在监督学习中被证明能增强模型的泛化能力和鲁棒性，但在生成模型中的作用尚未得到充分理解。研究表明，平坦的损失表面能提高模型对目标先验分布扰动的鲁棒性，减少暴露偏差，并在模型量化时保持生成性能。通过理论分析和实证研究，作者们展示了平坦极小值在扩散模型中的优势，表明采用Sharpness-AwareMinimization（SAM）可以显著提升模型的平坦性，并且相比于其他方法如随机权重平均（SWA）和指数移动平均（EMA），SAM在提升平坦性方面更为有效。<br>本研究采用理论和实证相结合的方法，首先建立了平坦极小值与生成模型鲁棒性之间的理论联系。具体方法包括：<br>理论分析：通过数学推导，证明平坦极小值能够减少真实分布与学习分布之间的差异，从而提升模型在扰动数据密度下的泛化能力。<br>损失平坦性度量：利用低通滤波器（LPF）来评估不同训练方法对损失表面平坦性的影响，比较使用SAM、SWA和EMA的模型。<br>实验设计：在CIFAR-10、LSUNTower和FFHQ等数据集上进行广泛实验，评估模型的生成性能、暴露偏差和量化误差，分析不同方法对平坦性的影响。<br>实验部分通过对比不同训练策略下生成模型的性能，验证了平坦极小值的优势。实验设置包括：<br>数据集：使用CIFAR-10、LSUNTower和FFHQ数据集，评估模型在不同条件下的生成能力。<br>评估指标：采用FrechetInceptionDistance（FID）作为生成性能的评估指标，同时测量低通滤波器（LPF）值来反映损失表面的平坦性。<br>结果分析：通过对比不同模型在32位和8位量化下的表现，发现应用SAM的模型在量化后依然保持较高的生成性能，且暴露偏差显著降低。<br>在这项研究中，作者们想要了解生成模型中的“平坦性”是如何影响模型性能的。简单来说，平坦性指的是模型在损失函数中的表现，如果模型在一些参数的小变化下，损失变化不大，那么这个模型就被认为是平坦的。研究表明，使用一种叫做SAM的方法，可以帮助模型找到更平坦的损失区域，从而使模型在面对数据扰动时表现得更加稳定。通过大量实验，作者们发现那些平坦的模型在生成图像时，不仅质量更高，而且即使在数据量化（比如把32位数据压缩成8位）后，依然能保持较好的表现。这意味着，平坦性能够有效提高生成模型的鲁棒性和泛化能力。<br>2025-03-14｜StanfordU,UMichigan<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11056v1https :&#x2F;&#x2F;kylesargent. github.io&#x2F;flowmo<br>在图像生成领域，FlowMo是一种基于变换器的扩散自编码器，旨在实现先进的图像标记化。传统的图像生成系统通常采用两阶段的方法：首先通过标记器将图像压缩为低维潜在空间，然后训练生成模型。FlowMo的创新之处在于其采用了一种新颖的训练策略，将训练过程分为“模式匹配预训练”和“模式寻求后训练”两个阶段。该方法无需使用卷积、对抗损失或依赖于其他标记器进行蒸馏，直接在潜在空间中进行优化。通过这种方式，FlowMo在多个压缩率下的图像标记化任务中取得了新的最佳性能，尤其是在ImageNet-1K重建任务中表现突出。<br>FlowMo的核心架构为扩散自编码器，包含编码器和解码器两个部分。编码器负责将输入图像编码为量化的潜在代码，而解码器则通过条件扩散模型重建图像。方法分为三个主要部分：<br>架构设计：FlowMo使用全变换器架构，能够处理一维潜在代码，避免了传统卷积网络的局限性。<br>阶段一：模式匹配预训练：在这一阶段中，编码器和解码器被共同训练，以确保量化潜在代码能最大程度上保留原始图像的信息，优化生成的图像分布。<br>阶段二：模式寻求后训练：在这一阶段，解码器被固定，专注于优化生成的图像，使其在感知上更接近原始图像。通过这种方式，FlowMo能够生成高质量的图像，同时减少对抗性训练带来的不稳定性。<br>在实验中，FlowMo在ImageNet-1K数据集上进行了广泛的评估，重点关注图像重建质量。通过测量重建FID、PSNR、SSIM和LPIPS等指标，FlowMo在多个压缩比下均实现了最佳性能。与其他先进的标记器相比，FlowMo在0. 07和0.22比特每像素（BPP）下表现出色，尤其在重建FID和PSNR指标上领先。此外，FlowMo还展示了其在生成模型训练中的有效性，尽管在某些生成质量指标上仍有提升空间。实验结果表明，FlowMo的设计选择和训练策略在提升图像标记化的性能方面具有重要意义。<br>FlowMo的工作原理可以简单理解为一个智能的图像处理系统。首先，它把图片转换成一种“简化版”的形式，这样计算机更容易理解和处理。这个过程就像把一幅复杂的画缩小成一个简洁的图标。FlowMo的训练分为两个步骤。第一步是让系统学习如何把图像压缩得更好，确保压缩后的信息尽量保留原图的细节。第二步则是让系统在生成图像时，尽量选择那些看起来更像原图的版本。通过这样的训练，FlowMo能够在不牺牲图像质量的情况下，快速生成高质量的图像，就像把复杂的艺术作品变成简单的图标，然后再把它们变回精美的画作。<br>2025-03-13｜UTA<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 10832v1https :&#x2F;&#x2F;github. com&#x2F;jacobluber&#x2F;DualCodebookVQ&#x2F;<br>在本研究中，我们提出了一种名为“双代码本”（DualCodebook）的新机制，旨在提升图像重建的质量并减少代码本的大小。传统的矢量量化（VQ）方法在重建图像时面临一些挑战，主要是由于代码本的利用效率低下，这限制了图像建模的准确性。我们的双代码本机制通过将表示分为全局和局部两个互补部分来解决这一问题。全局代码本采用轻量级变换器进行同时更新，而局部代码本则通过确定性选择保持精确的特征表示。该方法无需依赖预训练知识，从零开始训练，且在多个标准基准数据集上显示出了优越的重建质量，尤其在场景和面部重建任务中表现突出。<br>我们的双代码本机制分为两个主要部分：全局代码本和局部代码本。具体而言：<br>全局代码本：使用轻量级变换器对所有代码向量进行并行更新，增强代码本的上下文信息捕捉能力。变换器架构由6层组成，每层使用一半的嵌入维度和8个注意力头，以高效更新代码本。<br>局部代码本：采用确定性选择方法，在每次迭代中选择最近的代码向量进行更新，从而确保局部特征的准确表示。通过将输入图像编码为连续表示后，我们将其分为两部分，分别送入全局和局部代码本进行处理，最终将更新后的两个部分合并并解码重建图像。此外，训练目标包括重建损失、代码本损失和承诺损失，以确保编码器的稳定性。<br>我们在三个公开数据集（ADE20K、CelebA-HQ和MS-COCO）上评估了所提出的方法。实验结果表明，与传统的VQ-GAN等方法相比，双代码本方法在图像重建质量上有显著提升，尤其在FID（FrechetInceptionDistance）和PSNR（峰值信噪比）等指标上表现优异。具体而言，在ADE20K数据集上，我们的模型以512的代码本大小实现了17. 03的FID分数，而VQCT模型则需要6207的代码本才能达到20. 25的FID。通过消融实验，我们还验证了全局和局部代码本的组合策略对重建质量的影响，结果显示使用变换器的全局代码本显著提高了图像的细节保留和质量。<br>在我们的研究中，提出了一种新方法，叫做“双代码本”，可以帮助计算机更好地重建图像。想象一下，当你用拼图拼图时，有些拼块是大块的（全局信息），而有些是小块的（局部信息）。我们的双代码本机制就像使用两个不同的拼图盒子：一个装着大块拼图，帮助我们了解整体的图案；另一个则装着小块拼图，确保每个细节都能完美匹配。我们用一种叫做变换器的工具来同时更新大块拼图的形状，同时用简单的方法更新小块拼图。通过这种方式，我们不仅能更快地重建图像，还能确保图像的质量更高。我们的实验显示，这种方法在多个图像数据集上都表现得非常好，甚至比一些传统方法更有效。<br>2025-03-14｜MIT,NewcastleU,PAN,Zellic<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11195v1https :&#x2F;&#x2F;proteus. photos<br>随着AI生成图像的普及，识别其来源变得愈发重要，以便将其与真实图像区分开来。传统的图像水印方法在面对常见的图像变换（如滤镜、压缩和截图）时显得脆弱，且水印容易被伪造或删除。为了解决这些问题，研究者们提出了一种三部分的框架，旨在实现安全且具有变换鲁棒性的AI内容来源检测。该框架结合了先进的感知哈希算法DinoHash、完全同态加密（MP-FHE）和AI内容检测模型，显著提升了对AI生成内容的检测能力。与传统方法相比，该系统在准确性和隐私保护方面都表现出色，能够有效应对多种图像变换，确保用户隐私不被泄露。<br>本研究提出的框架主要包含三个核心部分：感知哈希设计、隐私保护的查询机制和未知图像的检测器。首先，感知哈希算法基于DINOV2网络，提取图像的语义和结构特征，生成96位的二进制哈希值，这些哈希值对图像的常见变换具有较强的鲁棒性。其次，使用多方完全同态加密（MP-FHE）来确保在查询过程中用户的隐私不被泄露。具体而言，用户在查询时不会直接暴露其图像数据，而是通过加密的哈希值与数据库中的哈希值进行比对，确保敏感信息的安全。最后，研究还训练了一个基于深度学习的检测器，能够识别未存储在数据库中的AI生成图像，提升了系统的整体检测能力。<br>在实验部分，研究者们主要进行了两组实验。第一组实验旨在评估DinoHash与其他主流方法（如NeuralHash和StableSignature）在面对多种图像变换时的鲁棒性。通过对图像进行裁剪、JPEG压缩及其他常见的图像处理操作，结果显示DinoHash在各项指标上均优于对比方法，特别是在复杂变换下的表现。第二组实验则针对AI生成内容的检测器进行评估，使用了来自多个生成模型的合成图像和真实图像进行训练和测试。实验结果表明，基于深度学习的检测器在识别合成图像时的准确率和鲁棒性均有显著提升，验证了该框架在实际应用中的有效性。<br>在这个研究中，科学家们想要解决一个重要问题：如何确认一张图像是否是由AI生成的，而不是拍摄的真实照片。他们设计了一个聪明的系统，分为三个主要部分。首先，系统使用一种叫做感知哈希的技术，这种技术可以从图像中提取出一些特征，生成一个独特的数字指纹，这个指纹在图像经过一些常见编辑（比如裁剪或压缩）后依然有效。其次，为了保护用户的隐私，系统采用了一种特殊的加密方法，确保用户在查询图像来源时不泄露任何个人信息。最后，研究者们还开发了一个智能检测器，可以识别那些不在数据库中的AI生成图像，从而提高了整个系统的检测能力。这样一来，用户就能更安心地使用图像，而不必担心它们的真实性。<br>2025-03-14｜ZJU,NUS,SCUT｜CVPR2025<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11071v1https :&#x2F;&#x2F;github. com&#x2F;sccsok&#x2F;CoprGuard. git<br>随着扩散模型在图像生成领域的成功，其对大规模、来源多样且难以追踪的网络数据集的依赖引发了对图像版权保护的严重关注。现有方法在识别未经授权的图像使用方面表现不佳，特别是在训练数据中包含多来源图像且可识别样本稀少的情况下。本文提出了一种新颖的解决方案——CoprGuard，一个基于频率域的水印框架，旨在有效保护图像版权。研究表明，扩散生成的图像能够保留其训练数据的统计特性，尤其是在频谱特征上。CoprGuard利用这一发现，能够在训练和微调过程中检测未授权的图像使用，且在水印图像仅占训练数据1%的情况下仍能保持高效性，展示了出色的鲁棒性和适应性，为内容拥有者在AI驱动的图像生成时代提供了有效的版权保护手段。<br>CoprGuard的核心方法包括两个主要步骤：水印嵌入和水印提取。首先，在水印嵌入阶段，使用频率域水印编码器将水印图像嵌入到原始图像的离散小波变换（DWT）域中，确保对图像质量的影响最小。接着，在水印提取阶段，当怀疑模型使用了未经授权的图像进行训练或微调时，保护者会在无先验知识的情况下，从被检查模型生成的图像中提取水印。提取后的水印与原始水印进行比较，通过计算余弦相似度来判断模型是否使用了受保护的图像。此外，该方法具备模型无关性，能够适应各种扩散模型，且在水印注入比例低至1%的情况下仍能保持高效的检测能力。这种灵活性和可靠性使得CoprGuard在图像版权保护领域具有显著的进步。<br>为了验证CoprGuard的有效性，研究团队在多个主流扩散模型（如DDIM和Classifier-FreeGuidance）上进行了广泛的实验，使用了FFHQ、ImageNet和Pokemon等数据集。实验结果表明，当训练数据中水印图像的比例为100%时，CoprGuard能实现100%的侵权模型检测准确率，而即使水印图像仅占1%的情况下，依然能够有效识别未经授权的使用。此外，CoprGuard在不同的图像变换（如旋转、翻转和压缩）情况下也表现出强大的鲁棒性，保持了100%的检测准确率。通过对生成图像的频谱特征进行分析，研究还发现CoprGuard能够有效提取水印，进一步证明了其在实际应用中的可靠性和有效性。<br>CoprGuard的工作原理可以简单理解为一个“图像保护器”。首先，它会在每张图像中嵌入一个隐秘的水印，这个水印就像是一个秘密标记，只有拥有者知道。当有人试图使用这些图像来训练自己的模型时，CoprGuard可以在他们生成的新图像中提取出这个水印。通过比较提取出的水印和原始水印，CoprGuard能够判断这些图像是否未经授权被使用。这个过程就像是一个侦探，通过分析图像的特征来找出是否有盗用的情况。即使水印只占图像数据的一小部分，CoprGuard依然能有效工作，确保创作者的权益得到保护。这种方法不仅能保护图像质量，还能适应各种不同的图像生成模型，真正为版权保护带来了新的可能性。<br>2025-03-14｜RUB<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11404v1<br>本研究探讨了在潜在扩散模型中应用语义水印的加密技术，尤其是高斯阴影方法。语义水印通过仅修改初始潜在噪声，将水印直接融入生成过程，避免对模型本身的修改。尽管高斯阴影依赖于加密原语来引导采样过程，但研究发现其在无损性能证明和密钥管理方面存在多重问题，这导致后续研究中的模糊性。为了解决这些问题，本文重新审视了语义水印的加密原语，提出了一种基于IND$-CPA安全性的新型无损性能证明，并讨论了这些加密原语在语义水印中的配置，特别关注安全性、效率和生成质量。<br>本文的方法主要集中在高斯阴影的加密原语上，具体步骤包括：<br>流密码的应用：采用流密码（如ChaCha20）生成伪随机密钥流，结合用户ID进行数据加密。<br>水印生成：在生成图像之前，为每个用户生成随机用户ID，并通过采样策略生成初始潜在噪声。用户ID被复制多次以增强水印的鲁棒性，然后通过流密码加密，得到的密文用于引导潜在噪声的采样。<br>水印验证：通过对生成的图像进行反向采样和量化，恢复出水印信息，并与已知用户ID进行匹配，确保水印的有效性。<br>密钥管理的优化：新提出的无损性能证明涵盖多图像生成场景，并明确了加密参数的配置，确保安全性和效率，避免了高斯阴影原有的模糊性。<br>在实验部分，研究对不同高斯阴影配置的生成图像质量进行了比较，评估其对图像质量和多样性的影响。实验结果显示，采用相同密钥和新随机数的配置在生成质量和多样性方面表现优于其他配置。具体而言，保持密钥不变并为每个图像使用新随机数的配置能够有效防止水印被检测，同时确保生成图像的质量接近未水印的图像。实验还表明，使用相同密钥和相同随机数的配置虽易于实施，但会显著降低图像的质量和多样性。通过这些实验，研究验证了新提出的配置在安全性和生成效果上的优势。<br>在这项研究中，科学家们开发了一种新方法，将水印隐藏在生成的图像中。首先，他们使用一种特殊的加密技术，称为流密码，来保护用户的身份信息。然后，当用户请求生成图像时，系统会生成一个随机的潜在噪声，并根据用户的身份信息来调整这个噪声，从而在图像中嵌入水印。接下来，为了验证图像是否包含水印，系统会反向分析图像，提取出水印信息，并将其与已有的用户信息进行比较。如果匹配成功，说明水印有效。研究还强调，保持每个图像使用不同的随机数是确保水印隐蔽性的重要策略，这样可以防止任何人轻易识别出水印。<br>2025-03-14｜ZJU,SZU,SCUT,CAS-IA,PKU,GD-AI-DE-SZ<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11324v1<br>随着自回归学习在大型语言模型中的成功，文本到图像生成已经成为一种高效且高质量的生成方法。然而，针对视觉自回归（VAR）模型的隐形水印技术仍然不够成熟，尤其是在防止滥用方面。现有的水印方法主要针对扩散模型，难以适应VAR模型的顺序生成特性。为此，我们提出了Safe-VAR，这是首个专门为自回归文本到图像生成设计的水印框架。我们的研究表明，水印注入的时机对生成质量有显著影响，而不同复杂度的水印在不同的注入时机下表现出最佳效果。通过引入自适应尺度交互模块和跨尺度融合机制，Safe-VAR实现了水印的鲁棒嵌入，同时尽量减少对图像质量的影响。实验结果表明，Safe-VAR在图像质量、水印保真度和抗干扰能力方面显著优于现有方法，展示了其广泛的适应性和泛化能力。<br>Safe-VAR的设计包括多个关键组件。首先，自适应尺度交互模块（ASIM）动态选择最佳的水印嵌入策略，基于水印和生成图像的复杂性。这一模块确保了水印的鲁棒性，同时最大限度地减少对图像质量的影响。其次，跨尺度融合模块（CSFM）通过混合头（MoH）和专家（MoE）机制有效融合多尺度特征，提升了水印和图像信息的整合效率。最后，融合注意力增强模块（FAEM）通过空间和通道注意力机制提取关键特征，进一步优化了最终的特征表示。这些模块协同工作，确保Safe-VAR在生成过程中保持高效性和高质量，同时实现水印的隐蔽性和稳定性。<br>在实验部分，我们首先对Safe-VAR与其他水印保护模型进行了定量和定性的比较。通过在LAION-Aesthetic、LSUN-Church和ImageNet等数据集上进行评估，Safe-VAR在图像质量和水印保真度方面均显著优于现有方法。我们还评估了Safe-VAR在不同攻击场景下的鲁棒性，展示了其在多种干扰下的稳定性和有效性。此外，通过一系列消融实验验证了各个组件对整体性能的影响，结果显示，去除任一组件都会导致性能的明显下降。最终，我们的实验结果表明，Safe-VAR在处理真实世界的图像生成和水印嵌入任务中表现出色，具备良好的泛化能力。<br>Safe-VAR的工作原理可以简单理解为一个智能的水印系统。首先，它会根据图像和水印的复杂程度，自动选择最合适的水印嵌入方式。就像在不同的画布上画画，画家会选择最适合的颜料和工具。接下来，Safe-VAR通过一种特殊的技术，将水印和图像信息进行有效融合，这样即使有人试图去掉水印，图像的质量也不会受到太大影响。最后，它会使用注意力机制，确保图像中的重要细节不会被忽视。这种方法使得水印变得更加隐蔽，同时保持了图像的高质量，确保在各种情况下都能有效保护图像的版权。<br>2025-03-14｜HKUST(GZ),BJUT,DrexelU,OxfordU<br>http :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 11519v1<br>本文探讨了在跨模态生成模型中，排版视觉提示注入（TypographicVisualPromptInjection,TVPI）所带来的安全威胁。当前的跨模态生成模型（GMs）在各种生成任务中展现出显著的能力，尤其是在视觉-语言感知（VLP）和图像到图像（I2I）任务中。研究表明，将排版文字印刷到输入图像中，会显著影响大规模视觉语言模型（LVLMs）和I2IGMs的输出，导致生成结果偏离预期语义。通过引入TVPI数据集，本文对不同模型在各种任务中的表现进行了全面分析，揭示了视觉提示注入对模型输出的潜在影响及其背后的原因。这一研究不仅增强了我们对TVPI威胁的理解，还为未来的研究提供了重要的见解。<br>本研究采用了一种系统的分析方法来评估TVPI对各种跨模态生成模型的影响。首先，构建了TVPI数据集，分为视觉-语言感知（VLP）和图像到图像（I2I）两类子数据集，每个子集包含经过精心挑选的干净图像、不同视觉提示因子（如大小、透明度、位置）和不同攻击目标。其次，针对不同的模型（包括开源和闭源），设计了具体的攻击目标，包括保护性、危害性和偏见性内容。通过交叉模态融合技术，将视觉和语言特征结合，生成最终输出。实验中使用了多种评价指标，如攻击成功率（ASR）和CLIP评分，以量化模型对视觉提示的敏感度。此外，研究还探讨了文本因素（如大小、透明度和位置）对TVPI效果的影响，进一步验证了模型在不同条件下的脆弱性。<br>在实验部分，研究者对多种开源和闭源的LVLMs和I2IGMs进行了广泛的测试，评估了它们在VLP和I2I任务中的表现。实验设计包括不同的文本因素设置，如文本大小、透明度和位置，分析了这些因素如何影响模型的输出。通过对比实验，发现较大文本尺寸和高透明度通常会导致更强的攻击效果。此外，针对不同攻击目标的实验结果表明，模型在面对保护性、危害性和偏见性内容时的表现存在显著差异。为评估TVPI的有效性，研究还采用了多种评价指标，结果显示，视觉提示的注入显著干扰了模型的输出，进一步证实了TVPI在跨模态生成中的安全隐患。<br>在这项研究中，我们主要关注了一种叫做“排版视觉提示注入”的技术，它可以通过在图像中加入特定的文字来影响计算机生成的内容。研究者们构建了一个专门的数据集，里面包含了不同类型的图像和文字，目的是测试这些文字是如何影响计算机模型输出的。研究过程中，他们发现，文字的大小、透明度和位置都会对生成结果产生很大影响。比如，使用较大的文字或者更明显的颜色，模型往往会更容易受到影响，生成的内容也会偏离原本的意图。通过这些实验，研究者们希望能够理解这些视觉提示是如何影响计算机生成内容的，从而为未来的研究提供参考，并帮助设计更安全的生成模型。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/28/1000000368-2247530353-2-1751081320/">https://zejuncao.github.io/2025/06/28/1000000368-2247530353-2-1751081320/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AIGC-Research/">
+                                    <span class="chip bg-color">AIGC Research</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/28/1000000368-2247530353-3-1751081320/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000368-2247530353_3-1751081320.jpg" class="responsive-img" alt="321-A2｜视频与音视频生成篇">
+                        
+                        <span class="card-title">321-A2｜视频与音视频生成篇</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Research/">
+                        <span class="chip bg-color">AIGC Research</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/28/1000000368-2247530353-6-1751081320/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000368-2247530353_6-1751081320.jpg" class="responsive-img" alt="321-B2｜图像相关任务；视频相关任务；3D重建相关">
+                        
+                        <span class="card-title">321-B2｜图像相关任务；视频相关任务；3D重建相关</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Research/">
+                        <span class="chip bg-color">AIGC Research</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

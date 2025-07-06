@@ -1,0 +1,1099 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="张正友相机标定法原理与实现, ZejunCao&#39;Blogs">
+    <meta name="description" content="张正友相机标定法原理与实现
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+点击上方“小白学视觉”，选择加\“星标\“或“置顶”重磅干货，第一时间送达、张正友相机标定法是张正友教授1998年提出的单平面棋盘格的相机标定">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>张正友相机标定法原理与实现 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002559-2247631759_3-1751105920.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">张正友相机标定法原理与实现</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">小白学视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-28
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/HhvfVcBc5YG9-urEODarqA">张正友相机标定法原理与实现</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>点击上方“小白学视觉”，选择加\“星标\“或“置顶”<br>重磅干货，第一时间送达<br>、<br>张正友相机标定法是张正友教授1998年提出的单平面棋盘格的相机标定方法。传统标定法的标定板是需要三维的，需要非常精确，这很难制作，而张正友教授提出的方法介于传统标定法和自标定法之间，但克服了传统标定法需要的高精度标定物的缺点，而仅需使用一个打印出来的棋盘格就可以。同时也相对于自标定而言，提高了精度，便于操作。因此张氏标定法被广泛应用于计算机视觉方面。<br>传统标定法的的标定板<br>张正友标定法的标定板<br>今天，我们就来讲解一下张氏标定法的原理和实现，学会之后，我们就可以自己去制作一个棋盘标定板，然后拍照，标定自己手机相机的参数啦！<br>今天，我们就来讲解一下张氏标定法的原理和实现，学会之后，我们就可以自己去制作一个棋盘标定板，然后拍照，标定自己手机相机的参数啦！<br>一、相机标定介绍<br>二、算法原理<br>1. 整体流程<br>2. 模型假设<br>3. 模型求解<br>（1）内外参数求解<br>（2）畸变系数求解<br>（3）精度优化<br>三、算法实现<br>1. main.py<br>2. homography.py<br>4. extrinsics.py<br>5. distortion.py<br>6. refine_all.py<br>7. 结果<br>相机标定指建立相机图像像素位置与场景点位置之间的关系，根据相机成像模型，由特征点在图像中坐标与世界坐标的对应关系，求解相机模型的参数。相机需要标定的模型参数包括内部参数和外部参数。<br>针孔相机成像原理其实就是利用投影将真实的三维世界坐标转换到二维的相机坐标上去，其模型示意图如下图所示：<br>从图中我们可以看出，在世界坐标中的一条直线上的点在相机上只呈现出了一个点，其中发生了非常大的变化，同时也损失和很多重要的信息，这正是我们3D重建、目标检测与识别领域的重点和难点。实际中，镜头并非理想的透视成像，带有不同程度的畸变。理论上镜头的畸变包括径向畸变和切向畸变，切向畸变影响较小，通常只考虑径向畸变。<br>径向畸变：径向畸变主要由镜头径向曲率产生（光线在远离透镜中心的地方比靠近中心的地方更加弯曲）。导致真实成像点向内或向外偏离理想成像点。其中畸变像点相对于理想像点沿径向向外偏移，远离中心的，称为枕形畸变；径向畸点相对于理想点沿径向向中心靠拢，称为桶状畸变。<br>用数学公式来表示：<br>其中，X为相机中的坐标；X为真实世界坐标；K为内参矩阵；RT为外参矩阵K为内参矩阵，是相机内部参数组成的一个3<em>3的矩阵，其中，代表焦距；S为畸变参数为中心点坐标，a为纵横比例参数，我们可以默认设为1，所以RT为外参矩阵，R是描述照相机方向的旋转矩阵，T是描述照相机中心位置的三维平移向量。<br>我们令，则<br>其中，H为一个3</em>3的矩阵，并且有一个元素作为齐次坐标。因此，H有8个自由度。<br>现在有8个自由度需要求解，所以需要四个对应点。也就是四个点就可以求出图像平面到世界平面的单应性矩阵H。<br>我想，张氏标定法选用的棋盘格作为标定板的原因除了角点方便检测的另外一个原因可能就是这个吧。<br>通过4个点，我们就可以可以获得单应性矩阵H。但是，H是内参阵和外参阵的合体。我们想要最终分别获得内参和外参。所以需要想个办法，先把内参求出来。然后外参也就随之解出了。观察一下这个式子：<br>我们可以知道以下约束条件:<br>①,R1R2正交，也就是说R1R2&#x3D;0。其实这个不难理解，因为R1R2是分别绕x轴和y轴得到的，而x轴和y轴均垂直z轴。<br>②旋转向量的模为1，也就是说R1&#x3D;R2&#x3D;1,这是因为旋转不改变尺度。<br>根据这两个约束条件，经过数学变换，我们可以得到：<br>观察上面的两个式子，我们可以看出，由于H1和H2是通过单应性求解出来的，所以我们要求解的参数就变成A矩阵中未知的5个参数。我们可以通过三个单应性矩阵来求解这5个参数，利用三个单应性矩阵在两个约束下可以生成6个方程。其中，三个单应性矩阵可以通过三张对同一标定板不同角度和高度的照片获得。<br>用数学公式来表达如下：<br>我们很容易发现B是一个对称阵，所以B的有效元素就剩下6个，即<br>进一步化简：<br>通过计算，我们可以得到<br>利用上面提到的两个约束条件，我们可以得到下面的方程组：<br>这个方程组的本质和前面那两个用h和A组成的约束条件方程组是一样的。<br>通过至少含一个棋盘格的三幅图像，应用上述公式我们就可以估算出B了。得到B后，我们通过cholesky分解，就可以得到摄相机机的内参阵A的六个自由度，即：<br>再根据化简可得外部参数，即：<br>在文章的开始，我们就讲到真实的镜头并非理想的透视成像，而是带有不同程度的畸变。理论上镜头的畸变包括径向畸变和切向畸变，切向畸变影响较小，通常只考虑径向畸变，而且在径向畸变的求解中，仅考虑了起主导的二元泰勒级数展开的前两个系数。<br>具体推导，参考https :&#x2F;&#x2F;blog. csdn.net&#x2F;onthewaysuccess&#x2F;article&#x2F;details&#x2F;40736177<br>在张正友标定法中，使用了两次极大似然估计策略，第一次是在不考虑畸变的情况下求解内参和外参，第二次是求解实际的畸变系数。<br>极大似然参数估计，参考https :&#x2F;&#x2F;blog. csdn.net&#x2F;onthewaysuccess&#x2F;article&#x2F;details&#x2F;40717213<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#<em><em><em>coding:utf-8</em></em></em><br>importcv2ascv<br>importnumpyasnp<br>importos<br>fromstep. homographyimportget_homography<br>fromstep. intrinsicsimportget_intrinsics_param<br>fromstep. extrinsicsimportget_extrinsics_param<br>fromstep. distortionimportget_distortion<br>fromstep. refine_allimportrefinall_all_param<br>defcalibrate():<br>#求单应矩阵<br>H&#x3D;get_homography(pic_points,real_points_x_y)<br>#求内参<br>intrinsics_param&#x3D;get_intrinsics_param(H)<br>#求对应每幅图外参<br>extrinsics_param&#x3D;get_extrinsics_param(H,intrinsics_param)<br>#畸变矫正<br>k&#x3D;get_distortion(intrinsics_param,extrinsics_param,pic_points,real_points_x_y)<br>#微调所有参数<br>[new_intrinsics_param,new_k,new_extrinsics_param]&#x3D;refinall_all_param(intrinsics_param,<br>k,extrinsics_param,real_points,pic_points)<br>print(\“intrinsics_parm:\t\“,new_intrinsics_param)<br>print(\“distortionk:\t\“,new_k)<br>print(\“extrinsics_parm:\t\“,new_extrinsics_param)<br>if__name__&#x3D;&#x3D;\“<em><em>main__\“:<br>file_dir&#x3D;r’..\pic’<br>#标定所用图像<br>pic_name&#x3D;os. listdir(file_dir)<br>#由于棋盘为二维平面，设定世界坐标系在棋盘上，一个单位代表一个棋盘宽度，产生世界坐标系三维坐标<br>cross_corners&#x3D;[9,6]#棋盘方块交界点排列<br>real_coor&#x3D;np. zeros((cross_corners[ 0]*cross_corners[ 1],3),np. float32)<br>real_coor[:,:2]&#x3D;np. mgrid[0:9,0:6].T. reshape(-1,2)<br>real_points&#x3D;[]<br>real_points_x_y&#x3D;[]<br>pic_points&#x3D;[]<br>forpicinpic_name:<br>pic_path&#x3D;os. path.join(file_dir,pic)<br>pic_data&#x3D;cv. imread(pic_path)<br>#寻找到棋盘角点<br>succ,pic_coor&#x3D;cv. findChessboardCorners(pic_data,(cross_corners[ 0],cross_corners[ 1]),None)<br>ifsucc:<br>#添加每幅图的对应3D-2D坐标<br>pic_coor&#x3D;pic_coor. reshape(-1,2)<br>pic_points. append(pic_coor)<br>real_points. append(real_coor)<br>real_points_x_y. append(real_coor[:,:2])<br>calibrate()<br>这是用于求解单应性矩阵的文件<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#</em><em><em>coding:utf-8</em></em>_<br>importnumpyasnp<br>fromscipyimportoptimizeasopt<br>#求输入数据的归一化矩阵<br>defnormalizing_input_data(coor_data):<br>x_avg&#x3D;np. mean(coor_data[:,0])<br>y_avg&#x3D;np. mean(coor_data[:,1])<br>sx&#x3D;np. sqrt(2)&#x2F;np. std(coor_data[:,0])<br>sy&#x3D;np. sqrt(2)&#x2F;np. std(coor_data[:,1])<br>norm_matrix&#x3D;np. matrix([[sx,0,-sx<em>x_avg],<br>[0,sy,-sy</em>y_avg],<br>[0,0,1]])<br>returnnorm_matrix<br>#求取初始估计的单应矩阵<br>defget_initial_H(pic_coor,real_coor):<br>#获得归一化矩阵<br>pic_norm_mat&#x3D;normalizing_input_data(pic_coor)<br>real_norm_mat&#x3D;normalizing_input_data(real_coor)<br>M&#x3D;[]<br>foriinrange(len(pic_coor)):<br>#转换为齐次坐标<br>single_pic_coor&#x3D;np. array([pic_coor[ i][0],pic_coor[ i][1],1])<br>single_real_coor&#x3D;np. array([real_coor[ i][0],real_coor[ i][1],1])<br>#坐标归一化<br>pic_norm&#x3D;np. dot(pic_norm_mat,single_pic_coor)<br>real_norm&#x3D;np. dot(real_norm_mat,single_real_coor)<br>#构造M矩阵<br>M. append(np. array([-real_norm. item(0),-real_norm. item(1),-1,<br>0,0,0,<br>pic_norm. item(0)<em>real_norm. item(0),pic_norm. item(0)<em>real_norm. item(1),pic_norm. item(0)]))<br>M. append(np. array([0,0,0,<br>-real_norm. item(0),-real_norm. item(1),-1,<br>pic_norm. item(1)<em>real_norm. item(0),pic_norm. item(1)<em>real_norm. item(1),pic_norm. item(1)]))<br>#利用SVD求解M</em>h&#x3D;0中h的解<br>U,S,VT&#x3D;np. linalg.svd((np. array(M,dtype&#x3D;’float’)).reshape((-1,9)))<br>#最小的奇异值对应的奇异向量,S求出来按大小排列的，最后的最小<br>H&#x3D;VT[-1].reshape((3,3))<br>H&#x3D;np. dot(np. dot(np. linalg.inv(pic_norm_mat),H),real_norm_mat)<br>H&#x2F;&#x3D;H[-1,-1]<br>returnH<br>#返回估计坐标与真实坐标偏差<br>defvalue(H,pic_coor,real_coor):<br>Y&#x3D;np. array([])<br>foriinrange(len(real_coor)):<br>single_real_coor&#x3D;np. array([real_coor[i,0],real_coor[i,1],1])<br>U&#x3D;np. dot(H. reshape(3,3),single_real_coor)<br>U&#x2F;&#x3D;U[-1]<br>Y&#x3D;np. append(Y,U[:2])<br>Y_NEW&#x3D;(pic_coor. reshape(-1)-Y)<br>returnY_NEW<br>#返回对应jacobian矩阵<br>defjacobian(H,pic_coor,real_coor):<br>J&#x3D;[]<br>foriinrange(len(real_coor)):<br>sx&#x3D;H[ 0]</em>real_coor[ i][0]+H[ 1]</em>real_coor[ i][1]+H[ 2]<br>sy&#x3D;H[ 3]</em>real_coor[ i][0]+H[ 4]<em>real_coor[ i][1]+H[ 5]<br>w&#x3D;H[ 6]</em>real_coor[ i][0]+H[ 7]<em>real_coor[ i][1]+H[ 8]<br>w2&#x3D;w</em>w<br>J. append(np. array([real_coor[ i][0]&#x2F;w,real_coor[ i][1]&#x2F;w,1&#x2F;w,<br>0,0,0,<br>-sx<em>real_coor[ i][0]&#x2F;w2,-sx</em>real_coor[ i][1]&#x2F;w2,-sx&#x2F;w2]))<br>J. append(np. array([0,0,0,<br>real_coor[ i][0]&#x2F;w,real_coor[ i][1]&#x2F;w,1&#x2F;w,<br>-sy<em>real_coor[ i][0]&#x2F;w2,-sy</em>real_coor[ i][1]&#x2F;w2,-sy&#x2F;w2]))<br>returnnp. array(J)<br>#利用LevenbergMarquart算法微调H<br>defrefine_H(pic_coor,real_coor,initial_H):<br>initial_H&#x3D;np. array(initial_H)<br>final_H&#x3D;opt. leastsq(value,<br>initial_H,<br>Dfun&#x3D;jacobian,<br>args&#x3D;(pic_coor,real_coor))[0]<br>final_H&#x2F;&#x3D;np. array(final_H[-1])<br>returnfinal_H<br>#返回微调后的H<br>defget_homography(pic_coor,real_coor):<br>refined_homographies&#x3D;[]<br>error&#x3D;[]<br>foriinrange(len(pic_coor)):<br>initial_H&#x3D;get_initial_H(pic_coor[ i],real_coor[ i])<br>final_H&#x3D;refine_H(pic_coor[ i],real_coor[ i],initial_H)<br>refined_homographies. append(final_H)<br>returnnp. array(refined_homographies)<br>3. intrinsics.py<br>这是用于求解内参矩阵的文件<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#_<em><em>coding:utf-8</em></em></em><br>importnumpyasnp<br>#返回pq位置对应的v向量<br>defcreate_v(p,q,H):<br>H&#x3D;H. reshape(3,3)<br>returnnp. array([<br>H[0,p]*H[0,q],<br>H[0,p]*H[1,q]+H[1,p]*H[0,q],<br>H[1,p]*H[1,q],<br>H[2,p]*H[0,q]+H[0,p]*H[2,q],<br>H[2,p]*H[1,q]+H[1,p]*H[2,q],<br>H[2,p]<em>H[2,q]<br>])<br>#返回相机内参矩阵A<br>defget_intrinsics_param(H):<br>#构建V矩阵<br>V&#x3D;np. array([])<br>foriinrange(len(H)):<br>V&#x3D;np. append(V,np. array([create_v(0,1,H[ i]),create_v(0,0,H[ i])-create_v(1,1,H[ i])]))<br>#求解V</em>b&#x3D;0中的b<br>U,S,VT&#x3D;np. linalg.svd((np. array(V,dtype&#x3D;’float’)).reshape((-1,6)))<br>#最小的奇异值对应的奇异向量,S求出来按大小排列的，最后的最小<br>b&#x3D;VT[-1]<br>#求取相机内参</p>
+<p>d&#x3D;b[ 0]<em>b[ 2]-b[ 1]</em>b[ 1]<br>alpha&#x3D;np. sqrt(w&#x2F;(d<em>b[ 0]))<br>beta&#x3D;np. sqrt(w&#x2F;d**2</em>b[ 0])<br>gamma&#x3D;np. sqrt(w&#x2F;(d<strong>2<em>b[ 0]))<em>b[ 1]<br>uc&#x3D;(b[ 1]</em>b[ 4]-b[ 2]</em>b[ 3])&#x2F;d<br>vc&#x3D;(b[ 1]<em>b[ 3]-b[ 0]</em>b[ 4])&#x2F;d<br>returnnp. array([<br>[alpha,gamma,uc],<br>[0,beta,vc],<br>[0,0,1]<br>])<br>这是用于求解外参矩阵的文件<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#<em><em><em>coding:utf-8</em></em></em><br>importnumpyasnp<br>#返回每一幅图的外参矩阵[R|t]<br>defget_extrinsics_param(H,intrinsics_param):<br>extrinsics_param&#x3D;[]<br>inv_intrinsics_param&#x3D;np. linalg.inv(intrinsics_param)<br>foriinrange(len(H)):<br>h0&#x3D;(H[ i].reshape(3,3))[:,0]<br>h1&#x3D;(H[ i].reshape(3,3))[:,1]<br>h2&#x3D;(H[ i].reshape(3,3))[:,2]<br>scale_factor&#x3D;1&#x2F;np. linalg.norm(np. dot(inv_intrinsics_param,h0))<br>r0&#x3D;scale_factor<em>np. dot(inv_intrinsics_param,h0)<br>r1&#x3D;scale_factor</em>np. dot(inv_intrinsics_param,h1)<br>t&#x3D;scale_factor<em>np. dot(inv_intrinsics_param,h2)<br>r2&#x3D;np. cross(r0,r1)<br>R&#x3D;np. array([r0,r1,r2,t]).transpose()<br>extrinsics_param. append(R)<br>returnextrinsics_param<br>这是用于求解畸变矫正系数的文件<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#_</em><em>coding:utf-8</em>*_<br>importnumpyasnp<br>#返回畸变矫正系数k0,k1<br>defget_distortion(intrinsic_param,extrinsic_param,pic_coor,real_coor):<br>D&#x3D;[]<br>d&#x3D;[]<br>foriinrange(len(pic_coor)):<br>forjinrange(len(pic_coor[ i])):<br>#转换为齐次坐标<br>single_coor&#x3D;np. array([(real_coor[ i])[j,0],(real_coor[ i])[j,1],0,1])<br>#利用现有内参及外参求出估计图像坐标<br>u&#x3D;np. dot(np. dot(intrinsic_param,extrinsic_param[ i]),single_coor)<br>[u_estim,v_estim]&#x3D;[u[ 0]&#x2F;u[ 2],u[ 1]&#x2F;u[ 2]]<br>coor_norm&#x3D;np. dot(extrinsic_param[ i],single_coor)<br>coor_norm&#x2F;&#x3D;coor_norm[-1]<br>#r&#x3D;np. linalg.norm((real_coor[ i])[j])<br>r&#x3D;np. linalg.norm(coor_norm)<br>D. append(np. array([(u_estim-intrinsic_param[0,2])*r**2,(u_estim-intrinsic_param[0,2])*r**4]))<br>D. append(np. array([(v_estim-intrinsic_param[1,2])*r</strong>2,(v_estim-intrinsic_param[1,2])*r**4]))<br>#求出估计坐标与真实坐标的残差<br>d. append(pic_coor[ i][j,0]-u_estim)<br>d. append(pic_coor[ i][j,1]-v_estim)<br>‘’’</p>
+<p>#求出估计坐标与真实坐标的残差<br>d. append(u_estim-pic_coor[ i][j,0])<br>d. append(v_estim-pic_coor[ i][j,1])<br>‘’’<br>D&#x3D;np. array(D)<br>temp&#x3D;np. dot(np. linalg.inv(np. dot(D. T,D)),D. T)<br>k&#x3D;np. dot(temp,d)<br>‘’’<br>#也可利用SVD求解D<em>k&#x3D;d中的k<br>U,S,Vh&#x3D;np. linalg.svd(D,full_matrices&#x3D;False)<br>temp_S&#x3D;np. array([[S[ 0],0],<br>[0,S[ 1]]])<br>temp_res&#x3D;np. dot(Vh. transpose(),np. linalg.inv(temp_S))<br>temp_res_res&#x3D;np. dot(temp_res,U. transpose())<br>k&#x3D;np. dot(temp_res_res,d)<br>‘’’<br>returnk<br>这是用于微调参数的文件<br>#!usr&#x2F;bin&#x2F;env&#x2F;python<br>#_</em><em>coding:utf-8</em><em>_<br>importnumpyasnp<br>importmath<br>fromscipyimportoptimizeasopt<br>#微调所有参数<br>defrefinall_all_param(A,k,W,real_coor,pic_coor):<br>#整合参数<br>P_init&#x3D;compose_paramter_vector(A,k,W)<br>#复制一份真实坐标<br>X_double&#x3D;np. zeros((2</em>len(real_coor)<em>len(real_coor[ 0]),3))<br>Y&#x3D;np. zeros((2</em>len(real_coor)<em>len(real_coor[ 0])))<br>M&#x3D;len(real_coor)<br>N&#x3D;len(real_coor[ 0])<br>foriinrange(M):<br>forjinrange(N):<br>X_double[(i</em>N+j)<em>2]&#x3D;(real_coor[ i])[j]<br>X_double[(i</em>N+j)<em>2+1]&#x3D;(real_coor[ i])[j]<br>Y[(i</em>N+j)<em>2]&#x3D;(pic_coor[ i])[j,0]<br>Y[(i</em>N+j)<em>2+1]&#x3D;(pic_coor[ i])[j,1]<br>#微调所有参数<br>P&#x3D;opt. leastsq(value,<br>P_init,<br>args&#x3D;(W,real_coor,pic_coor),<br>Dfun&#x3D;jacobian)[0]<br>#raial_error表示利用标定后的参数计算得到的图像坐标与真实图像坐标点的平均像素距离<br>error&#x3D;value(P,W,real_coor,pic_coor)<br>raial_error&#x3D;[np. sqrt(error[2</em>i]<strong>2+error[2<em>i+1]<strong>2)foriinrange(len(error)&#x2F;&#x2F;2)]<br>print(\“totalmaxerror:\t\“,np. max(raial_error))<br>#返回拆解后参数，分别为内参矩阵，畸变矫正系数，每幅图对应外参矩阵<br>returndecompose_paramter_vector(P)<br>#把所有参数整合到一个数组内<br>defcompose_paramter_vector(A,k,W):<br>alpha&#x3D;np. array([A[0,0],A[1,1],A[0,1],A[0,2],A[1,2],k[ 0],k[ 1]])<br>P&#x3D;alpha<br>foriinrange(len(W)):<br>R,t&#x3D;(W[ i])[:,:3],(W[ i])[:,3]<br>#旋转矩阵转换为一维向量形式<br>zrou&#x3D;to_rodrigues_vector(R)<br>w&#x3D;np. append(zrou,t)<br>P&#x3D;np. append(P,w)<br>returnP<br>#分解参数集合，得到对应的内参，外参，畸变矫正系数<br>defdecompose_paramter_vector(P):<br>[alpha,beta,gamma,uc,vc,k0,k1]&#x3D;P[0:7]<br>A&#x3D;np. array([[alpha,gamma,uc],<br>[0,beta,vc],<br>[0,0,1]])<br>k&#x3D;np. array([k0,k1])<br>W&#x3D;[]<br>M&#x3D;(len(P)-7)&#x2F;&#x2F;6<br>foriinrange(M):<br>m&#x3D;7+6<em>i<br>zrou&#x3D;P[m:m+3]<br>t&#x3D;(P[m+3:m+6]).reshape(3,-1)<br>#将旋转矩阵一维向量形式还原为矩阵形式<br>R&#x3D;to_rotation_matrix(zrou)<br>#依次拼接每幅图的外参<br>w&#x3D;np. concatenate((R,t),axis&#x3D;1)<br>W. append(w)<br>W&#x3D;np. array(W)<br>returnA,k,W<br>#返回从真实世界坐标映射的图像坐标<br>defget_single_project_coor(A,W,k,coor):<br>single_coor&#x3D;np. array([coor[ 0],coor[ 1],coor[ 2],1])<br>#’’’<br>coor_norm&#x3D;np. dot(W,single_coor)<br>coor_norm&#x2F;&#x3D;coor_norm[-1]<br>#r&#x3D;np. linalg.norm(coor)<br>r&#x3D;np. linalg.norm(coor_norm)<br>uv&#x3D;np. dot(np. dot(A,W),single_coor)<br>uv&#x2F;&#x3D;uv[-1]<br>#畸变<br>u0&#x3D;uv[ 0]<br>v0&#x3D;uv[ 1]<br>uc&#x3D;A[0,2]<br>vc&#x3D;A[1,2]<br>#u&#x3D;(uc</em>r</strong>2</em>k[ 0]+uc*r</strong>4<em>k[ 1]-u0)&#x2F;(r**2</em>k[ 0]+r<strong>4<em>k[ 1]-1)<br>#v&#x3D;(vc</em>r</strong>2<em>k[ 0]+vc</em>r<strong>4*k[ 1]-v0)&#x2F;(r</strong>2<em>k[ 0]+r**4</em>k[ 1]-1)<br>u&#x3D;u0+(u0-uc)<em>r**2</em>k[ 0]+(u0-uc)<em>r**4</em>k[ 1]<br>v&#x3D;v0+(v0-vc)<em>r**2</em>k[ 0]+(v0-vc)<em>r**4</em>k[ 1]<br>‘’’<br>uv&#x3D;np. dot(W,single_coor)<br>uv&#x2F;&#x3D;uv[-1]<br>#透镜矫正<br>x0&#x3D;uv[ 0]<br>y0&#x3D;uv[ 1]<br>r&#x3D;np. linalg.norm(np. array([x0,y0]))<br>k0&#x3D;0<br>k1&#x3D;0<br>x&#x3D;x0*(1+r<strong>2*k0+r</strong>4<em>k1)<br>y&#x3D;y0</em>(1+r<strong>2*k0+r</strong>4<em>k1)<br>#u&#x3D;A[0,0]<em>x+A[0,2]<br>#v&#x3D;A[1,1]<em>y+A[1,2]<br>[u,v,_]&#x3D;np. dot(A,np. array([x,y,1]))<br>‘’’<br>returnnp. array([u,v])<br>#返回所有点的真实世界坐标映射到的图像坐标与真实图像坐标的残差<br>defvalue(P,org_W,X,Y_real):<br>M&#x3D;(len(P)-7)&#x2F;&#x2F;6<br>N&#x3D;len(X[ 0])<br>A&#x3D;np. array([<br>[P[ 0],P[ 2],P[ 3]],<br>[0,P[ 1],P[ 4]],<br>[0,0,1]<br>])<br>Y&#x3D;np. array([])<br>foriinrange(M):<br>m&#x3D;7+6</em>i<br>#取出当前图像对应的外参<br>w&#x3D;P[m:m+6]<br>#不用旋转矩阵的变换是因为会有精度损失<br>‘’’<br>R&#x3D;to_rotation_matrix(w[:3])<br>t&#x3D;w[3:].reshape(3,1)<br>W&#x3D;np. concatenate((R,t),axis&#x3D;1)<br>‘’’<br>W&#x3D;org_W[ i]<br>#计算每幅图的坐标残差<br>forjinrange(N):<br>Y&#x3D;np. append(Y,get_single_project_coor(A,W,np. array([P[ 5],P[ 6]]),(X[ i])[j]))<br>error_Y&#x3D;np. array(Y_real).reshape(-1)-Y<br>returnerror_Y<br>#计算对应jacobian矩阵<br>defjacobian(P,WW,X,Y_real):<br>M&#x3D;(len(P)-7)&#x2F;&#x2F;6<br>N&#x3D;len(X[ 0])<br>K&#x3D;len(P)<br>A&#x3D;np. array([<br>[P[ 0],P[ 2],P[ 3]],<br>[0,P[ 1],P[ 4]],<br>[0,0,1]<br>])<br>res&#x3D;np. array([])<br>foriinrange(M):<br>m&#x3D;7+6</em>i<br>w&#x3D;P[m:m+6]<br>R&#x3D;to_rotation_matrix(w[:3])<br>t&#x3D;w[3:].reshape(3,1)<br>W&#x3D;np. concatenate((R,t),axis&#x3D;1)<br>forjinrange(N):<br>res&#x3D;np. append(res,get_single_project_coor(A,W,np. array([P[ 5],P[ 6]]),(X[ i])[j]))<br>#求得x,y方向对P[ k]的偏导<br>J&#x3D;np. zeros((K,2</em>M<em>N))<br>forkinrange(K):<br>J[ k]&#x3D;np. gradient(res,P[ k])<br>returnJ. T<br>#将旋转矩阵分解为一个向量并返回，Rodrigues旋转向量与矩阵的变换,最后计算坐标时并未用到，因为会有精度损失<br>defto_rodrigues_vector(R):<br>p&#x3D;0. 5</em>np. array([[R[2,1]-R[1,2]],<br>[R[0,2]-R[2,0]],<br>[R[1,0]-R[0,1]]])<br>c&#x3D;0. 5*(np. trace(R)-1)<br>ifnp. linalg.norm(p)&#x3D;&#x3D;0:<br>ifc&#x3D;&#x3D;1:<br>zrou&#x3D;np. array([0,0,0])<br>elifc&#x3D;&#x3D;-1:<br>R_plus&#x3D;R+np. eye(3,dtype&#x3D;’float’)<br>norm_array&#x3D;np. array([np. linalg.norm(R_plus[:,0]),<br>np. linalg.norm(R_plus[:,1]),<br>np. linalg.norm(R_plus[:,2])])<br>v&#x3D;R_plus[:,np. where(norm_array&#x3D;&#x3D;max(norm_array))]<br>u&#x3D;v&#x2F;np. linalg.norm(v)<br>ifu[ 0]&lt;0or(u[ 0]&#x3D;&#x3D;0andu[ 1]&lt;0)or(u[ 0]&#x3D;&#x3D;u[ 1]andu[ 0]&#x3D;&#x3D;0andu[ 2]&lt;0):<br>u&#x3D;-u<br>zrou&#x3D;math. pi<em>u<br>else:<br>zrou&#x3D;[]<br>else:<br>u&#x3D;p&#x2F;np. linalg.norm(p)<br>theata&#x3D;math. atan2(np. linalg.norm(p),c)<br>zrou&#x3D;theata</em>u<br>returnzrou<br>#把旋转矩阵的一维向量形式还原为旋转矩阵并返回<br>defto_rotation_matrix(zrou):<br>theta&#x3D;np. linalg.norm(zrou)<br>zrou_prime&#x3D;zrou&#x2F;theta<br>W&#x3D;np. array([[0,-zrou_prime[ 2],zrou_prime[ 1]],<br>[zrou_prime[ 2],0,-zrou_prime[ 0]],<br>[-zrou_prime[ 1],zrou_prime[ 0],0]])<br>R&#x3D;np. eye(3,dtype&#x3D;’float’)+W<em>math. sin(theta)+np. dot(W,W)</em>(1-math. cos(theta))<br>returnR<br>拍摄的不同角度，不同高度的图像<br>运行结果：<br>博主的手机是华为p9，后置摄像头是1200万像素。<br>内部参数矩阵是为：<br>[9. 95397796e+02,-5. 74043156e+00,5. 30659959e+02,0. 00000000e+00,1. 04963119e+03,6. 55565437e+02,0. 00000000e+00,0. 00000000e+00,1. 00000000e+00]<br>因为代码是以一个方格为一个单位，没有考虑单位长度，所以要求真实的参数应该乘一个单位长度，博主采用的方格的尺寸是2. 98cm的，自己拿excel画的，get了一个新技能~~<br>转自：金凯博自动化<br>本文仅做学术分享，如有侵权，请联系删文。<br>下载1：OpenCV-Contrib扩展模块中文版教程<br>在「小白学视觉」公众号后台回复：扩展模块中文教程，即可下载全网第一份OpenCV扩展模块教程中文版，涵盖扩展模块安装、SFM算法、立体视觉、目标跟踪、生物视觉、超分辨率处理等二十多章内容。<br>下载2：Python视觉实战项目52讲<br>在「小白学视觉」公众号后台回复：Python视觉实战项目，即可下载包括图像分割、口罩检测、车道线检测、车辆计数、添加眼线、车牌识别、字符识别、情绪检测、文本内容提取、面部识别等31个视觉实战项目，助力快速学校计算机视觉。<br>下载3：OpenCV实战项目20讲<br>在「小白学视觉」公众号后台回复：OpenCV实战项目20讲，即可下载含有20个基于OpenCV实现20个实战项目，实现OpenCV学习进阶。<br>交流群<br>欢迎加入公众号读者群一起和同行交流，目前有SLAM、三维视觉、传感器、自动驾驶、计算摄影、检测、分割、识别、医学影像、GAN、算法竞赛等微信群（以后会逐渐细分），请扫描下面微信号加群，备注：”昵称+学校&#x2F;公司+研究方向“，例如：”张三+上海交大+视觉SLAM“。请按照格式备注，否则不予通过。添加成功后会根据研究方向邀请进入相关微信群。请勿在群内发送广告，否则会请出群，谢谢理解~</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/28/1000002559-2247631759-3-1751105920/">https://zejuncao.github.io/2025/06/28/1000002559-2247631759-3-1751105920/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">小白学视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/28/1000002559-2247631759-1-1751105920/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002559-2247631759_1-1751105920.jpg" class="responsive-img" alt="ICCV 2025 | 湖南大学提出全新无源遮挡感知分割框架 UNLOCK，全景理解性能碾压传统 UDA 方法">
+                        
+                        <span class="card-title">ICCV 2025 | 湖南大学提出全新无源遮挡感知分割框架 UNLOCK，全景理解性能碾压传统 UDA 方法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B0%8F%E7%99%BD%E5%AD%A6%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">小白学视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/28/1000000580-2247495354-1-1751104258/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000580-2247495354_1-1751104258.jpg" class="responsive-img" alt="告别单一大模型依赖！北航等机构发布综述：大语言模型集成（LLM Ensemble）">
+                        
+                        <span class="card-title">告别单一大模型依赖！北航等机构发布综述：大语言模型集成（LLM Ensemble）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PaperAgent/">
+                        <span class="chip bg-color">PaperAgent</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

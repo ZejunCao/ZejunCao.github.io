@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="浙大联合上海AI Lab提出视觉统一Diffusion架构DICEPTION！各种视觉任务一网打尽！, ZejunCao&#39;Blogs">
+    <meta name="description" content="浙大联合上海AI Lab提出视觉统一Diffusion架构DICEPTION！各种视觉任务一网打尽！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+数源AI最新论文解读系列论文名：DICEPTION:AGeneral">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>浙大联合上海AI Lab提出视觉统一Diffusion架构DICEPTION！各种视觉任务一网打尽！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/2247493761-2247493761_3-1750779198.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">浙大联合上海AI Lab提出视觉统一Diffusion架构DICEPTION！各种视觉任务一网打尽！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AIGC-Studio/">
+                                <span class="chip bg-color">AIGC Studio</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/iWgtOaFc6yoJ7PWA6OaLlQ">浙大联合上海AI Lab提出视觉统一Diffusion架构DICEPTION！各种视觉任务一网打尽！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>数源AI最新论文解读系列<br>论文名：DICEPTION:AGeneralistDiffusionModelforVisualPerceptualTasks<br>论文链接：https :&#x2F;&#x2F;arxiv. org&#x2F;pdf&#x2F;2502. 17157<br>开源代码：https :&#x2F;&#x2F;aim-uofa. github.io&#x2F;Diception&#x2F;<br>基础模型通常需要在数十亿个数据样本上进行大量训练，它们在各自的领域中起着关键作用。在自然语言处理（NLP）领域，当前的基础模型已经显示出作为通用解决方案的潜力，能够解决各种基础任务，并且对于新任务只需进行最少的微调。这种成功可归因于各种语言任务之间的表征差异相对较小。然而，在计算机视觉领域，任务表征可能存在显著差异，到目前为止，我们仍然缺乏一种有效的方法来统一这些不同的任务。<br>我们在此的主要目标是创建一个优秀的通用感知模型，该模型能够在计算资源和训练数据有限的情况下处理多项任务。为实现这一目标，我们借助在数十亿张图像上预训练的文本到图像扩散模型，并推出了我们的视觉通用模型：DICEPTION。我们详尽的评估指标表明，DICEPTION能够有效处理多项感知任务，其性能与最先进的模型相当。我们仅使用了SAM-vit-h模型0. 06%的数据（例如，60万张与10亿张像素级标注图像）就取得了与之相当的结果。受王等人[ 109]的启发，DICEPTION使用颜色编码来表示各种感知任务的输出；并且我们发现，为不同实例分配随机颜色的策略在实体分割和语义分割中都非常有效。将各种感知任务统一为条件图像生成，使我们能够充分利用预训练的文本到图像模型。因此，与从头开始训练的传统模型相比，DICEPTION可以以低几个数量级的成本进行高效训练。当将我们的模型应用于其他任务时，只需要在少至50张图像上微调约1%的参数。DICEPTION为视觉通用模型提供了有价值的见解和更有前景的解决方案。项目网页和HuggingFace演示均已上线。<br>最近的扩散模型主要基于流匹配方法和DiT架构构建。它们旨在学习一个速度场，该速度场能有效地将样本从源分布映射到目标分布。训练过程包括最小化模型预测速度与真实速度之间的差异，这通常表示为：<br>其中是条件，通常是文本提示。是干净图像的潜在表示，是加噪后的图像。学习到的速度场对应一个常微分方程（ODE），因此在推理过程中，从源分布中抽取的样本可以通过求解这个ODE转换为所需的输出。<br>决定在RGB空间中统一不同任务的表示形式，主要受两个关键因素驱动：（1）它能最大程度地利用文本到图像模型中的先验知识，这些模型在RGB领域进行了广泛的训练。（2）RGB是计算机视觉中的基础表示形式，它提供了一个通用的视觉框架，通过该框架可以连贯且直观地可视化各种任务。<br>我们专注于计算机视觉中几个最基本的任务：单目深度估计、法线估计和分割。特别是分割任务，涵盖了点提示分割、实体分割和语义分割。所有这些任务都可以在RGB空间中统一，区别仅在于通道数量。对于单通道表示，如深度图和分割掩码，我们通过将通道数据重复三次使其与RGB对齐。对于本质上为三通道的表示，如法线图，我们直接将其视为RGB图像。<br>实体分割是指在不考虑类别的情况下分割图像中的每个实例。我们为图像中的每个掩码随机分配一种颜色，并将它们合并成一个三通道的RGB掩码。Painter发现随机分配颜色会使模型难以优化。然而，我们发现这种方法对训练没有不利影响，并且能使模型通过为不同实例绘制不同颜色来有效学习区分它们。在后期处理中，可以使用聚类算法从RGB掩码中提取每个实例的掩码，而不会显著降低性能。我们还在语义分割中应用了随机颜色分配。与传统的语义分割不同，我们的方法能够分割同一语义类别的实例。默认情况下，我们使用K-means算法进行掩码提取。<br>用表示每个任务在统一之前的原始表示，用表示统一后的类RGB输出表示。我们将这个过程形式化为：。<br>架构。我们的模型采用了与SD3相同的架构。我们的目标是尽可能保持架构不变，充分利用预训练的先验知识。我们使用简单的任务提示来引导模型执行各种任务，如“图像到深度”、“图像到法线”和“图像到分割”。<br>图1：我们提出了一个解决多个感知任务的通用扩散模型。这里展示了所提出的DICEPTION的整体流程。在每个去噪步骤中，点嵌入、输入图像潜变量和任务嵌入保持不变，只有噪声潜变量被更新。<br>对于点提示分割，一种简单的方法是直接在图像上绘制点。但这种策略对绘制点的大小高度敏感。如果绘制的点太大，它们可能会遮挡小区域，导致分割失败。相反，如果绘制的点太小，模型在变分自编码器（VAE）下采样和分块处理后可能会丢失相关的点信息。为了解决这个问题，我们引入了一个简单的两层多层感知机（MLP），使模型能够理解点提示。<br>受分割一切模型（SAM）的启发，我们将正弦-余弦位置编码应用于点坐标，然后将它们输入到多层感知机（MLP）中，以生成与输入隐藏状态维度匹配的点嵌入。我们使用两个可学习的嵌入来指示该嵌入是否为点嵌入：表示点嵌入，表示非点嵌入。处理后的点嵌入与相加。对于其他任务，我们简单地使用作为点嵌入。在训练过程中，我们随机选择1-5个点来指导分割。当所选点的数量少于5个时，我们用将点嵌入填充到长度为5。在执行不需要点输入的任务时，点嵌入只是一个长度为5的序列，其中每个元素都是。将最终的点嵌入表示为，这个过程可以表示为：<br>输入公式化与损失。DICEPTION在稳定扩散模型3（SD3）的基础上引入了两个额外的输入：输入图像和点嵌入。对于输入图像，我们首先使用变分自编码器（VAE）将其下采样8倍，然后将其分块成序列。我们将这种预处理表示为。随后，任务提示令牌e、点嵌入、噪声令牌和输入图像令牌被连接起来形成完整的输入。我们在训练稳定扩散模型3（SD3）时采用流匹配损失。在训练过程中，损失仅应用于噪声令牌：<br>在实际场景中，通常需要使模型仅使用少量训练数据就能快速适应新任务。然而，传统的专用基础模型通常局限于与其领域密切相关的任务，并且通常需要大量的数据集和精心设计的网络架构来进行适应。扩散模型虽然在许多方面功能强大，但仅通过使用有限的数据微调几个参数，很难适应下游任务。<br>DICEPTION有效地解决了这一局限性。我们在肺部分割、肿瘤分割和图像高亮显示等任务上进行了实验，这些任务与模型的原始领域有不同程度的重叠。我们使用低秩自适应（LoRA）[42]方法训练了模型不到1%的参数，而无需进行任何复杂的架构修改。值得注意的是，尽管训练样本有限（每个任务50个），但DICEPTION在所有目标任务中都始终能提供成功且高质量的性能。这些结果有力地证明了DICEPTION作为真正统一的基础模型的潜力。<br>数据。我们从开放图像（Open-Images）[51]数据集中随机选取张图像，并使用深度预测（DepthPro）[7]和稳定法线（StableNormal）[123]方法生成深度和法线数据。对于点提示分割任务，我们从SA-1B[ 49]数据集中随机选取张图像，以及从AM2k[ 56]、AIM500[ 57]和P3M-10k[ 55]合成的20万张具有细粒度头发掩码的图像。实体分割数据来自实体V2（EntityV2）[81]，语义分割数据来自COCO-Rem[ 94]，人体姿态数据来自COCO[ 62]。对于少样本微调，我们从公开标注的胸部X光数据集[ 108]、LOL-v2[ 121]和Kaggle的脑肿瘤数据集中选取50个样本作为训练样本。更多细节见附录A。<br>训练。我们使用4块英伟达（NVIDIA）H800GPU进行了24天的训练。我们采用AdamW优化器，恒定学习率为，每块GPU的批量大小为28。我们发现训练过程非常稳定。然而，与深度和法线任务相比，分割任务的收敛速度较慢。因此，我们增加了每一批次中分割数据的比例。具体来说，在每一批次中，深度和法线数据各占15%，点提示分割、实体分割和语义分割各占，姿态估计占。我们观察到，在训练结束时，尽管损失不再显著下降，但模型在分割任务上的性能仍在持续提升。<br>在少样本微调期间，我们对网络中所有注意力和层应用秩为128的低秩自适应（LoRA），其占网络总参数的比例小于。不同任务的任务提示分别为“图像到肺部分割”、“图像到肿瘤分割”和“图像高亮”。LoRA训练在单块英伟达H100GPU上进行，恒定学习率为，批量大小为8。更多少样本微调的可视化结果请参考附录C。<br>推理。我们遵循预训练模型的设置，在推理过程中进行28步去噪。推理可以在内存为的GPU上以批量大小为4运行。<br>我们比较了专用模型、现有多任务模型和我们的DICEPTION在各种任务上的性能。具体来说，我们使用与Genpercept（通用感知）相同的协议评估深度，使用与StableNormal（稳定法线）相同的方法评估法线估计，使用与SAM（分割一切模型）相同的方法进行点提示分割，使用与Painter（绘图器）相同的方法评估人体关键点。我们还在MSCOCO（微软通用上下文对象）数据集上评估语义分割和实体分割。对于实体分割，我们将所有预测类别分配到同一标签。<br>如表1和表2所示，我们的DICEPTION显著优于现有的多任务模型，并且达到了与最先进的专用模型相当的性能，或者仅表现出可接受的性能下降。对于点提示分割，如图3所示，我们仅使用了SAM-vit-h0. 06%的数据就取得了与之相当的结果。SAM仅在某些超出我们模型训练范围的分布外数据集（如WoodScape（森林景观）鱼眼数据集）上显示出明显优势。值得注意的是，虽然大多数专用模型需要大量数据或复杂的数据管道，但我们的方法用显著更少的数据取得了优异的结果，其中大部分数据是通过简单随机选择获得的。对于实体分割，我们观察到我们的模型在小物体上表现不佳。我们认为这是由于数据量有限，导致模型对较大物体过拟合。这个问题可以通过引入更多针对小物体的数据来解决。<br>我们观察到，尽管我们的模型为人体姿态和语义分割生成了高质量的可视化结果，但相应的评估指标仍然相对较低。对于人体关键点，这主要归因于两个因素：首先，我们使用骨骼形式的RGB图像而不是热图。虽然前者产生了视觉上吸引人的结果，但后处理过程中关键点的提取引入了相当大的误差。其次，我们的评估遵循自顶向下的人体关键点协议。原始的图像在输入模型之前被调整为，导致输入极其模糊，这可能是性能下降的原因。<br>语义分割在后处理过程中也引入了相当大的误差。我们在附录B. 3中对指标下降进行了全面解释。对于单个图像，我们可以在RGB掩码的后处理过程中调整超参数以获得最佳掩码。然而，不同的结果需要不同的最佳超参数，并且在评估过程中手动调整验证集中的每个样本是不切实际的<br>表2：使用专门模型和多任务模型进行表面法线估计的定量比较。所有方法均采用StableNormal[ 123]的相同评估协议进行评估。由于涉及过多的人工操作。这导致我们的方法生成了显著的语义分割可视化结果，但指标相对较低。我们仅在COCO-Rem上进行训练就取得了出色的结果。此外，我们的语义分割能够区分同一语义类别的不同实例。我们相信我们已经有力地证明了我们的方法在使用ID进行实例级语义分割方面的潜力。有关后处理的更多详细信息，请查看附录B。<br>对于单任务模型的训练，我们确保网络架构保持不变，并且每个特定任务所使用的训练数据总量与多任务模型相同。例如，如果多任务模型以每批4个深度数据样本进行100次迭代训练，那么单任务模型也将以每批4个数据样本进行100次迭代训练。在我们当前的数据设置（约180万个样本）下，我们没有观察到多任务模型和单任务模型之间存在显著差距，也没有看到不同任务之间相互促进的趋势，如表1、表2、表3和图3中的“我们的单任务模型（Ours-single）”所示。<br>图3：与SAM-vit-h的平均交并比（mIoU）对比。我们仅使用了其0. 06%的数据（60万对10亿）就取得了与SAM相当的结果。<br>我们认为，为了得出更可靠的结论，使用更大的数据集进行探索更为合适。我们将此作为未来的工作。<br>多点提示分割。在点提示分割中，歧义是一个显著的问题。例如，如果一个点放置在人的衣服上，模型可能会分割出衣服，但期望的结果是分割出人。因此，需要更多的点来解决这种歧义。如图4所示，额外的点有助于模型更好地分割出期望的结果。<br>图4：在所有23个验证数据集上，单点分割和五点分割的平均交并比（mIoU）比较。<br>扩散模型的架构。在DiT[ 77]出现之前，UNet架构在扩散模型中占主导地位。我们还基于预训练的UNet模型SDXL[ 78]进行了多任务实验。具体来说，我们采用了Marigold[ 47]的方法，将第一个卷积层的输入通道从4扩展到8以适应图像输入，并同样使用任务提示来引导模型解决不同的任务。然而，如图S16所示，我们发现这种方法效果并不理想，即使是在仅涉及深度和法线估计的最小多任务场景中也是如此。我们将这一局限性归因于Transformer架构比UNet具有更强的信息聚合能力。UNet在降采样过程中会出现严重的信息丢失，而Transformer能够保持更全面的表征，使其在多任务场景中表现更好。<br>我们介绍了DICEPTION，这是一个基于扩散模型的多任务视觉通用模型。我们的方法在RGB空间中统一了不同的任务，利用预训练图像生成模型的先验知识，取得了与专用基础模型相当或略低但可接受的结果。我们无需精心挑选极高质量的数据，也无需使用大量数据，就能取得良好的性能。此外，对于分割任务，我们证明了在我们的框架中，为不同实例分配随机颜色的策略非常有效，能够实现高质量的实体分割和语义分割。在少样本微调中，我们能够用最少的数据和最少的可训练参数取得高质量的结果。我们相信，DICEPTION为如何有效利用生成模型的先验知识来构建强大的视觉通用模型提供了思路，能够更高效地解决感知任务。<br>感谢你看到这里，也欢迎点击关注下方公众号并添加公众号小助手加入官方读者交流群，一个有趣有AI的AIGC公众号:关注AI、深度学习、计算机视觉、AIGC、StableDiffusion、Sora等相关技术，欢迎一起交流学习💗～</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/24/2247493761-2247493761-3-1750779198/">https://zejuncao.github.io/2025/06/24/2247493761-2247493761-3-1750779198/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AIGC-Studio/">
+                                    <span class="chip bg-color">AIGC Studio</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/24/2247493761-2247493761-1-1750779198/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2247493761-2247493761_1-1750779198.jpg" class="responsive-img" alt="多模态任务大一统！蚂蚁推出Ming-Omni：图像、文本、语音三模态无缝融合，一网打尽复杂任务！">
+                        
+                        <span class="card-title">多模态任务大一统！蚂蚁推出Ming-Omni：图像、文本、语音三模态无缝融合，一网打尽复杂任务！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/24/2247493761-2247493761-2-1750779198/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2247493761-2247493761_2-1750779198.jpg" class="responsive-img" alt="StepFun提出Step-Video-T2V！300亿参数视频生成大模型！可生成204帧视频！">
+                        
+                        <span class="card-title">StepFun提出Step-Video-T2V！300亿参数视频生成大模型！可生成204帧视频！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

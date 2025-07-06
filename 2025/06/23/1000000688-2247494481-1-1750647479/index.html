@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="检索增强生成（RAG）领域关键数据集综述：分类、挑战与展望, ZejunCao&#39;Blogs">
+    <meta name="description" content="检索增强生成（RAG）领域关键数据集综述：分类、挑战与展望
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+检索增强生成（RAG）通过融合外部知识库与大型语言模型，已成为解决知识密集型自然语言处理（NLP）任务的关键范">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>检索增强生成（RAG）领域关键数据集综述：分类、挑战与展望 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000000688-2247494481_1-1750647479.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">检索增强生成（RAG）领域关键数据集综述：分类、挑战与展望</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ChallengeHub/">
+                                <span class="chip bg-color">ChallengeHub</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/R-THlr4h42IYrdH99zsiBA">检索增强生成（RAG）领域关键数据集综述：分类、挑战与展望</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>检索增强生成（RAG）通过融合外部知识库与大型语言模型，已成为解决知识密集型自然语言处理（NLP）任务的关键范式。高质量、多样化的数据集是推动RAG技术发展、评估模型能力和揭示其局限性的基石。本文旨在对RAG领域的关键数据集进行一次系统性的梳理与全景分析。我们基于对30篇核心研究论文的分析，提炼并审查了148个相关数据集，并首次提出一个涵盖六大类别的层次化分类体系，即问答（QuestionAnswering）、事实验证（FactVerification）、槽填充（SlotFilling）、多模态任务（MultimodalTasks）、专项应用（SpecializedApplications）和评估基准（EvaluationandBenchmarking）。分析表明，尽管问答任务（尤其是开放域QA）仍是RAG研究的主流，但面向医疗、金融、教育等垂直领域的专业数据集和融合文本、图像的多模态数据集正迅速兴起。同时，如RGB、WikiEval和ARES等专用评估基准的出现，标志着RAG的评测正从单一的准确性指标向检索质量、生成忠实度、鲁棒性等多维度、细粒度的方向深化。然而，当前数据集在复杂与多跳推理、高效的领域自适应、跨模态信息的深度对齐以及对模型幻觉的精准量化等方面仍面临显著挑战。本文最后对未来数据集的构建方向进行了展望，强调了开发动态、可解释且能应对高风险应用场景的新型评测资源的紧迫性，以期为下一代RAG技术的研究与落地提供坚实的数据支持。<br>关键词：检索增强生成（RAG）、数据集综述、问答系统、多模态学习、模型评估<br>近年来，大规模语言模型（LargeLanguageModels,LLMs）在自然语言处理的众多任务中取得了革命性突破。然而，这些模型并非没有局限性，其固有的“知识截止日期”导致其无法获取最新信息，且在生成过程中容易产生事实性错误或“幻觉”（Hallucination），这在知识密集型应用中构成了严峻挑战。为应对这些问题，检索增强生成（Retrieval-AugmentedGeneration,RAG）应运而生，成为一个极具影响力的技术范式。RAG通过在生成答案前，从外部知识库（如维基百科、专业文献库）中动态检索相关信息，将检索到的证据作为上下文提供给LLM，从而显著提升了生成内容的事实准确性、时效性和可解释性。<br>随着RAG技术的蓬勃发展，学术界和工业界涌现出大量用以训练、评估和分析RAG系统的数据集。这些数据集是推动RAG技术迭代、衡量模型能力和发现未来研究方向的基石。然而，数据集的快速增长也带来了新的挑战：研究者面临着在众多任务类型、评估维度和数据领域中进行选择的困难，缺乏一个系统性的视角来理解当前数据集的全景、识别其覆盖范围的空白以及评估其适用性。因此，对RAG领域的关键数据集进行一次全面而系统的综述，对于凝聚社区共识、指导未来研究和促进技术落地具有至关重要的意义。<br>通过对现有工作的系统性梳理，我们观察到当前RAG数据集呈现出三大核心趋势：</p>
+<p>评估深度化（DeepeningEvaluation）：评估标准正从单一的答案准确率（如ExactMatch）向更细粒度的多维度指标演进。新的评估框架不仅关注最终答案的质量，还深入考察RAG流程中关键环节的性能，例如检索内容的相关性（Relevance）、生成内容对检索证据的忠实度（Faithfulness）以及系统在面对噪声和对抗性提问时的鲁棒性（Robustness）。<br>跨模态融合（Cross-modalFusion）：为应对真实世界信息的多样性，数据集开始融合文本、图像、表格等多种数据模态。这些数据集（如WebQA,MultimodalQA）要求模型具备跨模态理解与推理的能力，推动了RAG技术向更复杂的认知智能方向发展。<br>本文旨在为研究者提供一份关于RAG数据集的全面指南。我们首先提出了一个层次化的RAG数据集分类体系，该体系将现有数据集划分为六个主要类别。在此基础上，我们对每个类别下的代表性数据集进行了深入剖析，探讨其设计目标、评测方法和核心挑战。最后，我们总结了该领域的发展趋势与尚待解决的难题，并对未来的研究方向进行了展望，以期为RAG领域的持续创新提供有价值的参考。<br>为了系统性地梳理和理解当前RAG领域的全景，我们提出了一套层次化的数据集分类体系。该体系依据任务目标、数据模态和应用领域的不同，将现有关键数据集划分为六个主类别：问答（QuestionAnswering）、事实验证（FactVerification）、槽填充（SlotFilling）、多模态任务（MultimodalTasks）、专项应用（SpecializedApplications）以及评估与基准（EvaluationandBenchmarking）。这一结构不仅清晰地展示了RAG技术从核心能力验证向复杂、垂直领域应用的演进路径，也为研究者根据特定目标（如提升检索精度、增强生成忠实度或进行多模态融合）选择合适的评测资源提供了明确指引。<br>NaturalQuestions(NQ)<br>开放域问答。源自真实谷歌搜索查询，包含长&#x2F;短答案，是QA研究的基础基准。<br>ExactMatch(EM)<br>验证RAG等新模型在知识密集型任务上的基础性能和准确率。<br>TriviaQA(TQA)<br>开放域问答。大规模、远程监督的阅读理解数据集，问题与答案对来自于小知识问答网站。<br>ExactMatch(EM)<br>评估模型在远程监督和噪声数据环境下的阅读理解与生成能力。<br>WebQuestions(WQ)<br>开放域问答。基于Freebase的问答对，旨在将自然语言问题解析为知识库查询。<br>ExactMatch(EM)<br>测试模型对结构化知识库的理解与查询生成能力。<br>CuratedTrec(CT)<br>开放域问答。问题答案以正则表达式形式给出，强调答案的精确匹配。<br>ExactMatch(EM)<br>评估模型生成精确、格式化答案的能力。<br>SQuAD<br>开放域问答&#x2F;阅读理解。基于维基百科文章，问题答案直接从给定段落中抽取。<br>ExactMatch(EM),F1<br>评估模型在给定上下文中的信息抽取和定位能力，是RAG端到端微调的常见基准。<br>COVID-QA<br>开放域问答。针对COVID-19的专业问答数据集，用于评估模型在医疗领域的快速适应能力。<br>EM,F1,Top-kretrievalaccuracy<br>RAG模型在特定新领域的自适应能力，特别是检索器和生成器的联合优化。<br>NewsQA<br>开放域问答。包含新闻文章和相应问题，用于评估模型在新闻领域的领域适应性。<br>EM,F1,Top-kretrievalaccuracy<br>评估RAG在处理非结构化、叙事性强的文本（如新闻）时的表现和领域迁移效果。<br>QAConv<br>开放域问答。从对话中生成问答对，用于评估模型在对话式场景下的QA能力。<br>EM,F1,Top-kretrievalaccuracy<br>RAG在理解和利用对话历史上下文进行检索和生成方面的有效性。<br>PopQA<br>开放域问答。包含针对流行和长尾实体的问答对，测试模型知识覆盖的广度。<br>Accuracy<br>评估模型对不同流行度知识的掌握情况，缓解知识偏见。<br>MedQA-USMLE<br>医疗问答。包含美国执业医师资格考试（USMLE）等专业医学考试的多项选择题。<br>Accuracy<br>提升RAG在专业、高风险领域（如医疗）的知识检索准确性和推理能力。<br>PubMedQA<br>医疗问答。基于生物医学文献摘要的问答数据集，问题形式为是&#x2F;否&#x2F;可能。<br>Accuracy<br>在移除明确上下文后，测试RAG系统自主检索和综合医学文献以回答问题的能力。<br>BioASQ<br>医疗问答。大规模生物医学语义索引与问答挑战，涵盖多类型问题。<br>Accuracy,Rouge-1<br>评估模型在生物医学领域的长文本理解、精确答案生成和可信度保证。<br>MathNationqueries<br>数学教育问答。包含中学生在数学平台上的真实提问，用于评估数学问题解答。<br>K-F1++,BLEURT,BERTScore<br>探索RAG在提供教学性解答时的平衡点：既要忠于知识源，又要满足用户的偏好。<br>HotpotQA<br>多跳问答。需要模型整合来自多个文档的信息才能回答，强调可解释的推理过程。<br>EM,F1,ContextRelevance<br>评估RAG系统进行复杂、多步推理和证据链整合的能力。<br>2WikiMultiHopQA<br>多跳问答。专为多跳问答设计，每个问题需要从两个维基百科段落中寻找线索。<br>EM,F1<br>测试模型在结构化和非结构化混合知识源中的多步信息检索与合成。<br>MuSiQue<br>多跳问答。通过组合单跳问题来构建需要多步推理的复杂问题。<br>EM,F1<br>评估模型分解复杂问题、执行顺序推理以及整合中间答案的能力。<br>FEVER<br>事实验证。大规模数据集，要求模型将声明分类为“支持”、“反驳”或“信息不足”。<br>LabelAccuracy<br>提升RAG在证据检索和逻辑推理方面的性能，以准确判断信息真伪。<br>StrategyQA<br>事实验证&#x2F;推理。问题需要多步、策略性的推理才能回答，强调隐式推理过程。<br>Accuracy<br>评估模型利用常识和世界知识进行复杂、间接推理以完成验证任务的能力。<br>PubHealth<br>事实验证。专注于公共健康领域的声明验证，要求模型具备专业知识。<br>Accuracy<br>RAG在特定垂直领域（公共卫生）进行事实核查的准确性和可靠性。<br>HoVer<br>事实验证。一个多跳事实抽取与声明验证数据集，要求模型跨多个文档收集证据。<br>未指定<br>测试模型在处理需要多步证据链的复杂声明时的信息整合与验证能力。<br>—<br>KILT<br>槽填充&#x2F;知识密集型任务。一个涵盖多种知识密集型任务的基准套件，标准化了槽填充任务。<br>R-Precision,Recall@5,Accuracy,F1<br>RAG在零样本或少样本场景下，从非结构化文本中准确抽取结构化信息的能力。<br>—<br>zsRE<br>槽填充&#x2F;关系抽取。用于零样本关系抽取的槽填充任务数据集。<br>Accuracy,F1,KILT-AC,KILT-F1<br>评估模型在面对新关系类型时的泛化能力，无需重新训练。<br>—<br>T-REx<br>槽填充&#x2F;知识库填充。大规模数据集，将自然语言文本与知识库三元组对齐。<br>Accuracy,F1,KILT-AC,KILT-F1<br>利用RAG从海量文本中自动填充知识库，提升知识抽取的覆盖面和准确性。<br>VQA<br>视觉问答。包含对MSCOCO图像的标注问答对，常用于预训练和评估。<br>VQAaccuracy<br>RAG模型在融合视觉和文本信息以回答关于图像内容的问题上的表现。<br>MultimodalQA<br>视觉问答&#x2F;多模态QA。包含跨表格、文本和图像的人工标注多模态问题。<br>ExactMatch,F1<br>RAG在需要从多种模态（文本、图像）中检索和整合证据以回答问题时的性能。<br>WebQA<br>多模态问答&#x2F;检索。问题需要检索1-2张图片或1-2个文本片段来回答，强调多跳、多模态检索。<br>BARTScore,KeywordF1<br>评估多模态RAG系统在开放知识库中联合检索文本和图像证据的能力。<br>CXR-PRO&#x2F;MIMIC-CXR<br>放射学报告生成。包含胸部X光片及其对应的放射学报告，用于评估报告自动生成。<br>BERTScore,S_embscore,RadGraphF1<br>提升RAG在医疗影像领域的报告生成质量，减少对先验知识的幻觉引用。<br>MS-CXR<br>放射学报告生成。短语级grounding数据集，包含短语在X光片上的边界框标注。<br>BERTScore,S_embscore,RadGraphF1<br>评估生成文本与图像在细粒度（短语级别）上的一致性和准确性。<br>KumarandClarkClinicalMedicine<br>医疗教育。一本完整的临床医学教科书，用于测试RAG在医学教育领域的检索和摘要生成。<br>未指定<br>RAG在处理大规模、专业化文档（如医学教科书）时的摘要、检索和问答能力。<br>BritishNationalFormulary<br>药理学。一本完整的国家药典，用于测试RAG在药理学领域的检索与摘要性能。<br>未指定<br>在高风险的药理学领域，RAG能否提供比通用LLM更准确、更有针对性的答案。<br>MITREATT&amp;CK<br>网络安全。包含MITREATT&amp;CK框架中的战术、技术描述，用于分析网络攻击程序。<br>SamplesAverageF1,Precision,Recall<br>RAG在理解和分类高度专业化的网络安全文本、辅助安全分析师工作方面的应用潜力。<br>LayerZerocryptocurrencybridgingprojectdataset<br>加密货币。关于LayerZero项目的公开信息语料库，用于测试模型对最新事件的问答能力。<br>Falsepositives&#x2F;negatives(Accuracy)<br>评估RAG与微调在知识注入方面的优劣，特别是在处理模型训练截止日期后的新知识。<br>Retrieval-AugmentedGenerationBenchmark(RGB)<br>RAG能力评估。专门为评估RAG四大基本能力（噪声鲁棒性、负例拒绝、信息整合、反事实鲁棒性）而设计的中英文基准。<br>Accuracy,Rejectionrate,Errordetection&#x2F;correctionrate<br>全面诊断当前LLM在RAG框架下的核心能力短板，推动模型鲁棒性研究。<br>WikiEval<br>RAG质量评估。包含（问题-上下文-答案）三元组，并标注了忠实度、答案相关性和上下文相关性。<br>Faithfulness,Answer&#x2F;ContextRelevance<br>开发能够与人类判断高度一致的自动化RAG评估框架（如RAGAS）。<br>RAGTruth<br>幻觉检测。为分析RAG中词级别幻觉而构建的语料库，包含幻觉强度标注。<br>Precision,Recall,F1score<br>开发能精确检测、定位并评估RAG生成内容中幻觉的工具和模型。<br>NoMIRACL<br>多语言鲁棒性评估。跨18种语言，包含相关和不相关子集，用于衡量幻觉和错误率。<br>Hallucinationrate,Errorrate<br>评估和提升RAG系统在多语言和跨文化背景下的鲁棒性，特别是在“拒绝回答”方面的能力。<br>ARESevaluationdatasets<br>RAG自动化评估。利用多个现有数据集（如KILT,SuperGLUE）构建自动化评估框架，衡量上下文相关性、答案忠实度等。<br>Context&#x2F;Answerrelevance,Answerfaithfulness<br>降低RAG系统评估的人工成本，实现快速、准确、可扩展的自动化评测。<br>BEIR<br>零样本信息检索。一个异构的信息检索基准，用于零样本评估IR模型。<br>nDCG@10,Recall@100<br>评估RAG中的检索器在未知领域的泛化能力（零样本检索）。<br>TREC-DL<br>深度学习检索。TREC会议的深度学习赛道，包含文档和段落检索任务。<br>nDCG@1,nDCG@5,nDCG@10<br>对比和评估前沿的深度学习检索模型（常作为RAG检索器）的性能。<br>TREC-COVID,NFCorpus,etc.<br>BEIR子集。针对特定领域（如COVID、营养学、新闻）的检索任务。<br>nDCG@10,Recall@100<br>评估检索模型在不同垂直领域的性能表现和领域适应性。<br>问答（QA）是检验和驱动RAG技术发展的核心任务，也是最成熟、最丰富的应用领域。其根本目标是评估模型根据用户提问，从大规模知识源中精确检索相关信息并生成准确、连贯答案的能力。问答任务的重要性在于，它直接模拟了人类获取和利用知识的核心场景，为RAG系统的检索精度、生成质量和信息整合能力提供了最直观的量化基准。在RAG框架下，QA不仅是下游应用，其数据集，如NaturalQuestions，也常被用于RAG模型的预训练或初始化阶段，如在\“Zero-shotSlotFillingwithDPRandRAG\“研究中，模型便利用NQ进行了初始化，这凸显了QA数据集在RAG生态中的基础性地位。该类别下的数据集呈现出从简单事实查询到复杂推理、从通用领域到垂直领域的演进趋势，并可细分为开放域问答、领域特定问答和多跳问答三大子类。<br>子类别中，开放域问答（Open-DomainQA）是RAG研究的起点和基石。这类数据集，如NaturalQuestions(NQ)、TriviaQA(TQA)和WebQuestions(WQ)，要求模型在无特定领域限制的庞大知识库（通常是维基百科）中寻找答案。它们的评测通常围绕答案的精确度展开，以ExactMatch(EM)为核心指标。例如，开创性的RAG论文在NQ上取得了44. 5的EM得分，在TQA上达到56. 8，在规模较小的WQ上达到45. 2。这些基线成绩为后续研究提供了明确的比较对象。数据集的规模差异也揭示了不同挑战：如MS-MARCO拥有超过15万的训练样本，专注于生成式摘要型答案，采用Bleu-1和Rouge-L进行评估；而CuratedTrec(CT)规模小得多（训练集仅635个样本），但其答案形式为正则表达式，对模型的精确匹配能力提出了更高要求。领域特定问答（Domain-SpecificQA）则将RAG的应用推向了专业化场景，要求模型掌握特定领域的术语、知识体系和推理逻辑。例如，COVID-QA专注于医疗健康领域，用于评估模型在疫情知识上的域适应能力。研究显示，即便经过端到端优化，RAG模型在该数据集上的EM和F1得分（8. 32,19. 57）仍显著低于通用领域，暴露了在专业术语理解和低资源域适应方面的挑战。类似地，MedQA-USMLE利用美国医学执照考试题，全面考察模型在临床医学领域的知识水平，MKRAG模型在此取得了48. 54%的准确率，验证了RAG在辅助专业决策中的潜力。MathNationqueries则聚焦于教育领域，探索RAG在解答数学问题时的效果。多跳问答（Multi-HopQA）是对RAG系统推理能力的高级考验。与单步检索即可回答的问题不同，HotpotQA、2WikiMultiHopQA和MuSiQue等数据集中的问题需要模型整合来自多个不同文档的证据片段，构建起一条完整的推理链。这类任务不仅要求检索器能够召回所有相关的证据片段，还要求生成器能够理解并综合这些分散的信息。例如，ARES框架在HotpotQA上的评估显示，上下文相关性和答案相关性的Kendall’stau系数均为0. 94，表明优秀的RAG系统需要在检索和生成两端都具备高度的协调性和准确性。<br>当前，问答类数据集的核心挑战在于如何弥合“检索”与“生成”之间的鸿沟。检索出的文档可能包含噪声、冗余甚至矛盾的信息，如何让生成器有效筛选、整合并忠实于核心证据，是提升性能的关键。特别是在长篇问答（Long-formQA）任务（如ASQA、EL15）中，模型不仅要找到答案，还要生成一段有条理、有逻辑的解释性文本，这对生成器的规划和组织能力提出了更高要求。同时，领域适应性仍然是一个巨大挑战，如Fine-TuningorRetrieval?研究所示，在处理专业知识（MMLU子集）和时效性知识（CurrentEventsTask）时，RAG的表现显著优于微调，证明了其在知识注入方面的独特优势，但也需要更有效的域内语料来优化检索器。未来的趋势正朝着更复杂的交互形式发展，如对话式问答（QAConv），以及需要更深层次世界知识和常识推理的问答（CommonsenseQA），这将推动RAG系统从一个“信息查找器”向一个“知识对话伙伴”演进。<br>开放域QA<br>79169&#x2F;8758&#x2F;3611<br>谷歌搜索日志真实问题，包含长短两种答案形式，是RAG性能的黄金标准。<br>多跳QA<br>约90k(train)<br>需要整合多个维基百科文档的证据，考验模型的推理链构建和信息综合能力。<br>领域特定QA<br>跨越多语言版本<br>基于真实医学考试题，要求模型具备高度专业的医学知识和临床推理能力。<br>领域特定QA<br>2000(test)<br>专注于COVID-19知识，评估RAG在快速演化的新领域中的域适应和知识更新能力。<br>长篇QA<br>未明确<br>要求模型生成详细、多方面的长篇答案，而非简单的实体或短语，考验生成质量。<br>事实验证是评估RAG系统可信度和可靠性的关键任务，其重要性在当前信息爆炸和虚假信息泛滥的时代尤为突出。该任务要求模型对一个给定的声明（Claim），通过检索外部知识库中的证据，判断其真实性，并通常将其分类为“支持”（Supported&#x2F;SUP）、“驳斥”（Refuted&#x2F;REF）或“信息不足”（NotEnoughInfo&#x2F;NEI）。与问答任务不同，事实验证更侧重于模型的逻辑推理和细粒度文本理解能力，即模型不仅要“知其然”（找到相关信息），更要“知其所以然”（理解证据与声明之间的逻辑关系）。对于RAG系统而言，这一任务直接考验了其检索到的证据是否充分、准确，以及生成器能否基于这些证据做出正确的逻辑判断，而非凭空捏造或曲解。一个强大的事实验证能力是构建负责任、可信赖AI系统的基石。<br>事实验证数据集可依据其知识领域分为通用事实验证和领域特定事实验证。通用事实验证的代表是FEVER（FactExtractionandVERification）数据集，它拥有超过18. 5万条从维基百科抽取的声明，并由人工标注了相应的证据句。FEVER的规模和三分类标签体系使其成为该领域的标准基准。在RAG的早期研究中，模型在FEVER-3（三分类）任务上实现了72. 5%的准确率，这表明了RAG框架在整合证据进行判断方面的潜力，但也揭示了其中的挑战，特别是在区分“驳斥”和“信息不足”时，模型常常因为未能检索到决定性的负面证据而错误地将“驳斥”判断为“信息不足”。StrategyQA则增加了任务的复杂性，其问题需要多步、隐式的推理才能得出答案，这要求RAG系统不仅能检索事实，还能利用常识和逻辑将事实串联起来。领域特定事实验证则将挑战推向了专业领域，如PubHealth数据集专注于公共健康领域的声明。这类数据集的声明通常涉及专业术语和复杂的因果关系，其真实性判断往往不是非黑即白，可能存在多种限定条件。例如，Self-RAG模型在该数据集上取得了72. 4%（7B模型）的准确率，显示了通过自我反思和批判性思维来提升专业领域判断能力的潜力。HoVer数据集则专注于多跳事实抽取与验证，其声明需要连接多个文档中的信息才能被证实或证伪，这直接对RAG系统的多文档检索与综合能力提出了极高的要求。<br>事实验证任务的核心挑战在于证据的完备性与推理的精确性。首先，检索阶段必须高效且全面。如果检索器未能找到所有相关的、尤其是具有决定性的（支持或反驳）证据，生成器（在此任务中通常是分类器）的判断就成了无源之水。FEVER的研究表明，许多错误源于检索失败。其次，模型需要具备强大的自然语言推理（NLI）能力，以精确捕捉证据与声明之间的细微逻辑关系，如蕴含、矛盾、中立等。当检索到多份证据时，模型还需处理证据间的潜在冲突，并做出综合判断。一个新兴的趋势是可解释性事实验证，即模型不仅要给出判断标签，还要明确指出是哪些证据片段支持了其判断。这与RAG的核心理念——提供可溯源的答案——高度契合。例如，ALCE-ASQA等工作开始关注引用精度和召回率，这为评估生成内容的事实依据提供了更细粒度的指标。未来的研究方向可能包括：1）开发能处理更长、更复杂证据链的数据集；2）构建能动态应对新出现声明和知识更新的验证系统；3）探索将形式逻辑与神经网络相结合，以增强模型的推理鲁棒性。<br>通用事实验证<br>145k&#x2F;10k&#x2F;10k(FEVER-3)<br>规模最大、最常用的事实验证基准，包含“支持&#x2F;驳斥&#x2F;信息不足”三分类，考验证据检索和NLI能力。<br>领域特定事实验证<br>未明确<br>专注于公共健康领域的声明，涉及专业知识，对模型的领域适应性和处理模糊信息的能力要求高。<br>通用事实验证（推理）<br>2290&#x2F;490(train&#x2F;test)<br>问题需要隐式、多步的推理策略才能解答，强调了超越简单事实匹配的深度推理。<br>多跳事实验证<br>未明确<br>声明需要跨越多个文档进行验证，对RAG的多文档检索与信息整合能力构成严峻考验。<br>槽填充（SlotFilling）是信息抽取（IE）领域的一项核心任务，旨在从非结构化的文本中识别并抽取出预定义类别（即“槽”）的特定信息，用以填充知识库或结构化模板。在RAG的背景下，这项任务的重要性体现在其能够将模型的强大生成能力与结构化知识构建直接关联起来。通过检索相关的上下文或示例，RAG可以更准确地生成符合特定槽位要求的实体或值，尤其是在零样本（Zero-shot）或少样本（Few-shot）场景下，这种能力至关重要。这使得RAG不仅能回答问题，还能主动地、结构化地“消化”和“组织”外部知识，为知识图谱构建、数据库自动填充等下游应用提供动力。该任务的评估通常围绕抽取结果的准确率（Accuracy）、精确率（Precision）、召回率（Recall）和F1值展开。<br>槽填充数据集的核心代表是KILT（KnowledgeIntensiveLanguageTasks）基准中的相关任务，特别是zsRE（Zero-shotRelationExtraction）和T-REx。KILT作为一个综合性基准，旨在将不同的知识密集型任务统一到一个框架下进行评估，而槽填充是其关键组成部分。T-REx是一个大规模的数据集，包含超过228万个训练实例，它将维基百科文本与知识库中的三元组（主语-关系-宾语）对齐，为模型学习如何从文本中抽取关系事实提供了丰富的监督信号。研究\“Zero-shotSlotFillingwithDPRandRAG\“中，名为KGIo的模型在T-REx测试集上取得了77. 90%的准确率和81. 31%的F1值，展示了RAG在处理大规模、有监督槽填充任务上的强大实力。zsRE数据集则更具挑战性，它专注于零样本关系抽取，即模型需要在没有见过任何训练样本的情况下，仅凭关系的描述来抽取新的关系三元组。该数据集包含84种训练关系和24种测试关系，KGIo在此任务上取得了68. 97%的准确率和74. 47%的F1值。这一结果凸显了RAG的独特优势：当面对未知关系时，模型可以检索与该关系描述相似的已知关系实例或文本片段，通过类比和归纳来生成正确的槽位填充值，极大地增强了模型的泛化能力。<br>槽填充任务面临的核心挑战是处理关系的多样性和歧义性。现实世界中的关系是复杂且开放的，任何预定义的模式都难以穷尽所有可能性，因此，零样本和少样本能力至关重要。RAG通过检索相似实例来应对这一挑战，但检索的质量直接决定了最终的性能。如何精确地用自然语言描述一个关系，并以此为查询找到最相关的证据，是一个开放的研究问题。此外，文本中的歧义性也构成了巨大障碍：同一实体在不同上下文中可能扮演不同角色，同一段文本可能蕴含多种关系。模型需要具备强大的上下文理解能力来消解这些歧义。未来的发展趋势正朝着更灵活、更动态的槽填充框架演进。例如，不再局限于固定的、预定义的“槽”，而是转向开放式信息抽取（OpenIE），其中关系本身也是从文本中动态发现的。RAG可以在此过程中通过检索广泛的文本语料来验证和泛化新发现的关系模式。另一个趋势是与对话系统结合，在交互中动态澄清用户的意图，并填充相应的槽位，这要求模型不仅能抽取，还能理解对话历史并生成澄清性问题。<br>知识密集型任务套件<br>包含多个子任务数据集<br>将问答、槽填充、事实验证等统一在维基百科知识源上，推动了RAG模型的标准化评估。<br>槽填充&#x2F;关系抽取<br>228万训练实例<br>大规模数据集，将文本与知识库三元组对齐，为监督学习提供了丰富信号，考验模型的规模化学习能力。<br>零样本槽填充&#x2F;关系抽取<br>14. 7万训练实例；24种测试关系<br>专注于零样本场景，测试模型在未见过的关系上的泛化能力，是评估RAG归纳推理能力的关键。<br>多模态任务将RAG的应用边界从纯文本领域拓展至包含图像、表格等多种数据模态的复杂场景。其核心重要性在于，现实世界的信息本质上是多模态的，有效的AI系统必须具备理解和整合跨模态信息的能力。对于RAG而言，这意味着其“检索”和“生成”过程都需要处理和融合非文本数据。例如，回答一个关于图片内容的问题，可能需要检索相似的图片、相关的文本描述，并最终生成一段既符合文本逻辑又忠于视觉事实的答案。这类任务直接考验了RAG系统在构建统一的跨模态表示空间、实现精准的跨模态检索以及进行连贯的多模态内容生成方面的综合能力，是推动RAG技术迈向更通用、更强大人工智能的关键一步。<br>多模态任务的数据集主要可分为视觉问答（VisualQuestionAnswering,VQA）和多模态检索与生成。视觉问答是该领域的经典任务，其代表数据集VQA（及其后续版本）提供了大量的“图像-问题-答案”三元组。在RAG框架下，模型不仅要理解问题和图像，还可能需要检索外部的文本知识（如关于图像中物体的百科信息）或视觉知识（如相似场景的图片）来辅助回答。例如，在\“MuRAG\“论文中，VQA数据集被用于预训练，帮助模型学习图像、文本和问答之间的对齐，最终在验证集上取得了超过72%的VQA准确率。MultimodalQA数据集则更进一步，其问题可能需要同时依赖表格、文本和图像进行回答，对模型的跨模态信息整合能力提出了更高要求。MuRAG模型在该数据集上相较于基线模型实现了超过10%（文本问题）和20%（图像问题）的EM提升，证明了多模态RAG框架的有效性。多模态检索与生成任务则更直接地关注RAG的核心流程。WebQA数据集要求模型回答一个问题，其答案的证据可能是一到两张图片或一到两个文本片段。这迫使模型必须在统一的语义空间中对文本和图像进行检索排序。MuRAG的研究表明，在包含大量干扰项的全维基设置下，其性能比传统的视觉语言模型（VLP）高出10-20%，凸显了检索增强在该任务中的巨大优势。为了支撑这些复杂的任务，大规模的图文预训练数据集，如LAION（过滤后含2亿图文对）和ConceptualCaption（1500万图文对），为模型学习强大的跨模态表示提供了基础。<br>多模态RAG面临的核心挑战在于模态间的对齐与融合，即“模态鸿沟”问题。如何构建一个共享的表示空间，使得文本查询可以有效地检索到相关图像，反之亦然，是首要难题。CLIP等模型的成功为解决这一问题提供了思路，但当涉及到更复杂的场景（如细粒度对象关系、抽象概念）时，对齐仍然非常困难。其次，跨模态幻觉是一个严峻问题。模型在生成答案时，可能会“捏造”出图像中不存在的物体或属性，这要求生成过程必须被视觉内容紧密地“锚定”。最后，评估多模态生成内容的质量本身就是一个难题。传统的文本评估指标（如BLEU&#x2F;ROUGE）无法衡量生成内容与视觉事实的一致性。未来的发展趋势包括：1）构建更复杂的、需要多步跨模态推理的数据集，例如，一个问题需要先从文本中找到一个实体，再在图片中定位该实体，并回答其属性；2）探索更强大的统一多模态架构，能够无缝处理和生成任意模态的组合；3）开发更先进的评估指标和基准，能够细粒度地衡量生成内容在各个模态上的忠实度和相关性。<br>视觉问答<br>40万图文问答三元组（预训练）<br>经典的VQA任务，考验模型对图像内容的理解和语言生成能力，常用于多模态RAG的预训练。<br>多模态QA<br>18k图像&#x2F;17k文本（训练）<br>问题需要联合图像和文本证据作答，直接测试RAG的跨模态检索与信息综合能力。<br>多模态QA<br>2. 1k图像&#x2F;7. 4k文本（训练）<br>问题源自表格、文本和图像，场景复杂，对模型的异构信息整合能力要求极高。<br>图文预训练<br>2亿图文对<br>超大规模的图文对数据集，为训练强大的跨模态表示模型提供了坚实基础，是多模态RAG成功的关键。<br>专项应用数据集是检验RAG技术在真实世界复杂场景中实用价值的“试金石”。与通用的学术基准不同，这类数据集通常源自特定行业（如医疗、金融、网络安全）的实际需求，旨在解决该领域内的具体问题。其重要性在于，它们将RAG从一个理论框架推向了一个可落地的解决方案，直接评估其在处理高度专业化、非结构化、且对准确性和可靠性有极高要求的知识时的表现。专项应用数据集的评估不仅关注模型的性能指标，更看重其在实际工作流中的应用效果、可解释性以及与领域专家的协同能力。它们驱动RAG技术进行深度领域适应，发展出更精细的检索策略和更可控的生成模式。<br>专项应用数据集可大致分为医疗应用和技术领域两大类。医疗应用是RAG展现巨大潜力的前沿阵地。例如，MIMIC-CXR及其衍生的CXR-PRO数据集专注于放射学报告的自动生成。任务要求模型根据胸部X光片（图像），通过检索相似的既往病例（图像+报告），生成一份准确、专业的诊断报告。研究显示，采用检索增强的方法，在BERTScore等指标上比传统方法有显著提升（如在CXR-PRO上提升25. 88%），这证明RAG能有效利用历史经验知识来减少诊断遗漏和错误。MS-CXR数据集则提供更精细的短语-边界框标注，用于评估生成报告中关键发现的定位准确性。此外，将权威医学教科书，如《KumarandClarkClinicalMedicine》和《BritishNationalFormulary》，构建为RAG的知识库，直接用于回答临床问题，展示了RAG在医学教育和辅助诊疗中的广阔前景。技术领域的应用同样广泛。在网络安全领域，MITREATT&amp;CK数据集被用于训练和评估模型对网络攻击行为的理解能力。通过检索ATT&amp;CK框架中的策略、技术和过程（TTP）描述，RAG系统能更准确地将日志或报告中的攻击描述映射到具体的TTP类别，其F1分数（0. 68）显著高于仅靠微调的模型（0. 54），显示了RAG在理解专业术语和分类方面的优势。在金融科技领域，LayerZerocryptocurrencybridgingprojectdataset则是一个典型的时效性知识应用案例。由于加密货币领域技术迭代快，预训练模型的知识迅速过时。通过为RAG系统提供一个包含最新项目文档、博客和新闻的知识库，可以使其准确回答关于2021年9月（多数模型知识截止点）之后事件的问题，准确率达到81%，远超仅依赖内部知识的模型。<br>专项应用的核心挑战在于知识的获取与表征。专业领域的知识通常是私有的、非结构化的（如PDF报告、内部文档），且更新迅速。如何高效地将这些异构数据清洗、切分并构建成高质量的检索索引，是RAG系统成功部署的第一道门槛。其次，领域术语的理解至关重要。模型需要能处理大量的缩写、同义词和特定上下文中的词义，这对检索器的语义匹配能力提出了极高要求。最后，评估的复杂性不容忽视。自动化指标往往不足以衡量应用的成败，必须引入领域专家进行人工评估，这既耗时又昂贵。未来的发展趋势将聚焦于人机协同（Human-in-the-loop）的RAG系统，AI作为高效的知识检索与初稿生成工具，辅助领域专家进行决策。另一个趋势是知识图谱增强的RAG（KG-RAG），如在MIT15. 401金融课程上的应用，通过构建课程知识图谱来指导检索过程，使系统能更好地理解概念间的关系，从而提供更具结构化和个性化的辅导，其评估得分比标准RAG提升了35%。这表明，将符号知识（知识图谱）与向量检索相结合，是提升RAG在专业领域深耕能力的重要方向。<br>医疗报告生成<br>真实放射学报告与影像<br>多模态（图像+文本）检索与生成，要求高度的医学专业性和诊断准确性，评估需结合专家意见。<br>网络安全TTP分类<br>MITREATT&amp;CK框架<br>处理高度专业化的网络安全术语，对模型的分类和解释能力要求高，考验RAG在零日攻击理解上的潜力。<br>时效性知识QA<br>公开网络信息<br>知识库内容新、变化快，专门用于测试RAG处理模型知识截止日期后新知识的能力。<br>教育&#x2F;知识图谱RAG<br>MIT公开课材料<br>探索KG-RAG在教育领域的应用，挑战在于如何从课程材料中自动构建高质量知识图谱以优化检索。<br>评估基准数据集在RAG生态中扮演着“裁判员”和“指挥棒”的关键角色。与面向特定应用的任务数据集不同，这类数据集的核心目标是系统性地、多维度地、细粒度地剖析RAG系统的内在能力与缺陷。它们的重要性在于为快速发展的RAG研究提供一个公平、可复现的竞技场，使得不同的模型、检索器、生成器或融合策略可以在统一的标准下进行横向比较。通过精心设计的测试用例，这些基准不仅衡量系统的最终表现，更深入地探究其在特定压力下的行为，如处理噪声、拒绝回答、整合信息和对抗事实谬误等。这推动了RAG技术从单纯追求更高分数，转向构建更鲁棒、更可信、更智能的系统。<br>评估基准可以从评估的侧重点上分为通用RAG能力评估和检索专项评估。通用RAG能力评估致力于对整个RAG流程进行全面“体检”。Retrieval-AugmentedGenerationBenchmark(RGB)是这一方向的开创性工作，它创新地提出了四大核心能力维度：噪声鲁棒性（在检索文档中掺入无关信息）、负面拒绝（当知识库中无答案时拒绝回答）、信息整合（综合多个文档的碎片信息）和反事实鲁棒性（识别并纠正检索到的错误信息）。实验结果发人深省：即便是最先进的LLM，在负面拒绝任务上的最高成功率也仅为45%，在信息整合任务上准确率不足70%，系统性地揭示了当前RAG系统的脆弱性。RAGTruth则聚焦于RAG最棘手的“幻觉”问题，通过对近1. 8万条生成结果进行逐词级别的精细标注，构建了一个专门用于分析和检测词级别幻觉的语料库，为开发更忠实于信源的RAG模型提供了宝贵资源。WikiEval和ARES框架则探索了利用LLM本身作为评估者的可行性，通过生成合成数据对评判模型进行微调，以自动化地评估答案忠实度、上下文相关性等多个维度，极大地提升了评估效率。NoMIRACL则将评估的视野拓展到多语言场景，其横跨18种语言的测试集，包含了大量“无答案”样本，专门用于测试RAG系统在不同语言环境下的幻觉率和错误率。检索专项评估则专注于RAG流程的第一环——检索器。BEIR（Benchmarking-IR）是该领域的黄金标准，它汇集了十多个来自不同领域（如生物医学、新闻、法律）的IR数据集，用于对检索模型进行零样本（Zero-shot）性能评测。GAR-meets-RAG等研究利用BEIR来验证其新型检索范式的有效性，通过在TREC-COVID、SciFact等子集上的表现，展示了其在nDCG@10和Recall@100等关键IR指标上的优势。TREC-DL则是由美国国家标准与技术研究院（NIST）组织的深度学习评测任务，专注于大规模文档和段落检索，为工业级的检索系统性能评估提供了权威基准。<br>评估基准面临的核心挑战是评估的深度与广度的平衡。一方面，评估需要足够深入，能够捕捉到模型在逻辑、事实性、风格等方面的细微差异，这往往需要昂贵且耗时的人工标注，如RAGTruth的构建。另一方面，评估需要足够广泛，能够覆盖多样的任务、领域和语言，以保证模型评估结果的普适性，如BEIR和NoMIRACL的设计。如何以可扩展的方式实现深度与广度的结合，是当前研究的难点。“评估者偏见”是另一个挑战，无论是人类标注员还是LLM评估者，都可能带有自身的偏见，影响评估结果的公正性。未来的发展趋势将是构建更具诊断性的、自动化的评估流水线。这包括开发能够自动生成覆盖各种边缘案例（如逻辑陷阱、微妙的事实错误）的对抗性测试集。同时，对RAG系统全流程的综合建模与评估将成为焦点，不仅评估最终答案，还评估检索出的文档质量、文档排序的合理性、以及生成器对文档的利用效率等中间过程，从而为模型的优化提供更具指导性的反馈。最终，一个理想的评估基准应该能动态演进，持续不断地提出新的挑战，引领RAG技术向着更智能、更可靠的方向发展。<br>通用RAG能力<br>约1200个问题实例<br>首个系统性评估RAG四大核心能力（噪声鲁棒性、负面拒绝、信息整合、反事实鲁棒性）的基准。<br>检索专项<br>18个IR数据集<br>异构、多领域的零样本信息检索基准，是评估RAG中检索器泛化能力的事实标准。<br>幻觉检测<br>约1. 8万条生成响应<br>提供词级别的幻觉标注，专注于细粒度的事实一致性评估，为开发可信RAG提供了关键语料。<br>多语言鲁棒性<br>5. 6万样本，18种语言<br>跨语言评估RAG的幻觉率和错误率，特别设计了大量无答案样本，考验模型的“知之为知之”能力。<br>为了系统地评估不同类型数据集的特点，我们选取开放域问答、多跳问答、医疗问答及多模态评估四类代表性数据集进行横向对比，并提出选型建议。<br>通用性强，覆盖广泛知识；评测标准统一（如EM&#x2F;F1），便于模型间直接比较。<br>侧重事实检索，问题形式相对单一，难以深入评估复杂推理与综合分析能力。<br>验证模型基础检索、生成能力；作为领域适应的预训练或基线模型评估。<br>专门设计用于测试模型的多步推理、证据链构建和跨文档信息整合能力。<br>数据集构建复杂，标注成本高，导致数据规模相对较小，可能无法覆盖所有推理模式。<br>复杂推理系统开发；评估模型的逻辑链条构建与证据整合能力。<br>领域专业性高，能有效检验模型在垂直领域的知识掌握与应用水平，具有极高的现实应用价值。<br>数据获取与标注需大量专家知识，成本高昂；数据隐私与合规性要求严格。<br>医疗、金融等高风险垂直领域RAG应用的性能评测与优化。<br>任务更贴近真实世界的信息获取场景，能够评估模型整合处理异构数据的能力。<br>评估指标体系尚在发展中，跨模态对齐难度大，容易引入“模态幻觉”等新问题。<br>跨模态检索、视觉问答等前沿系统的研究与开发。<br>选型策略建议：对于基础RAG能力研究，推荐使用NaturalQuestions(NQ)与HotpotQA的组合，以兼顾通用知识检索与复杂推理。对于医疗等垂直应用，应优先采用如MMCU_Medical和PubMedQA等专业数据集。在探索前沿多模态能力时，建议并行测试VQA与WebQA，以全面评估视觉理解与跨模态检索性能。<br>RAG数据集的发展正朝着更精细、动态和复杂的方向演进，呈现出三大显著趋势：<br>评估维度细粒化：早期的评估主要集中于答案的准确性，而新一代基准则追求更全面的能力剖析。例如，WikiEval和RAGAS引入了对生成答案的忠实度（Faithfulness）、答案相关性（AnswerRelevance）和上下文相关性（ContextRelevance）的评估。更进一步，RAGTruth语料库在词汇级别标注幻觉，实现了对生成内容事实性的像素级审视。ARES框架则旨在自动化评估RAG系统的多个维度，推动评估从“结果正确”向量“过程可靠”转变。<br>领域适应与动态更新：为了测试模型应对新知识和特定领域的能力，动态和时效性强的数据集不断涌现。COVID-QA数据集的出现，推动了RAG模型在突发公共卫生事件下的快速领域适应研究。CurrentEventsTask和LayerZerocryptocurrencybridgingprojectdataset这类数据集直接评估模型对训练截止日期后新知识的学习能力，这对RAG在新闻、金融等时效性要求高的领域的应用至关重要。<br>推理复杂度提升：从单步事实检索到多步、隐式、甚至反事实推理的演进，是RAG数据集发展的另一重要趋势。HotpotQA和MuSiQue等数据集要求模型构建清晰的推理路径。StrategyQA则需要模型进行隐式的、策略性的多步推理。最新基准如**Retrieval-AugmentedGenerationBenchmark(RGB)**，系统性地设计了噪声鲁棒性、负样本拒绝、信息整合和反事实鲁棒性四大能力模块，全面挑战当前RAG系统的推理极限。<br>尽管RAG数据集取得了长足发展，但它们也揭示了当前技术在落地应用中面临的共性核心挑战：<br>证据不完整与分散：在处理复杂问题时，所需证据往往分散在多个文档片段中，甚至存在于不同的模态。HoVer等数据集的研究表明，超过60%的复杂声明需要多跳证据支持，而现有检索器难以保证一次性召回所有必要证据，导致生成内容“以偏概全”。<br>模态鸿沟与对齐失败：在多模态任务中，文本与图像等不同模态信息的有效对齐是巨大挑战。对MultimodalQA等数据集的分析发现，约25%的错误答案源于模型未能准确理解查询与视觉内容之间的关联，即“模态鸿沟”问题，这直接导致生成内容出现与视觉事实相悖的幻觉。<br>评估滞后与幻觉难题：当前自动化评估指标（如ROUGE、BLEU）难以捕捉生成文本中细微但致命的事实性错误。尽管RAGTruth等数据集为人为标注幻觉提供了可能，但构建能自动、精准、可解释地检测幻觉的评估系统仍是亟待解决的难题。如NoMIRACL数据集所示，即使是顶尖的LLM，在面对不相关上下文时，幻觉率仍可高达35. 5%以上。<br>针对以上挑战，学界正探索混合检索策略（如融合密集与稀疏检索）、基于LLM的评估器（LLM-as-a-Judge）、以及跨模态对比学习等前沿技术，以期推动RAG系统向更鲁棒、更可信的方向发展。<br>本文系统地综述了检索增强生成（RAG）领域的关键数据集，提出并遵循一个涵盖问答、事实验证、多模态任务等六大类别的层次化分类体系。通过对超过140个数据集的分析，我们揭示了各类数据集的设计目标、评测范式和技术瓶颈，并横向对比了不同数据集的优劣与适用场景。<br>我们的分析确认了当前RAG技术面临的核心挑战，包括证据检索的不完备性、跨模态信息的对齐鸿沟以及对生成内容幻觉的评估滞后。这些挑战限制了RAG在关键领域的可靠应用。<br>展望未来，我们认为RAG数据集及相关研究应聚焦于以下几个前瞻性方向：<br>开发支持可解释性评估的标注框架：未来的数据集不仅应标注答案的正确性，更应标注其推理路径、证据充分性以及检索决策的合理性。这将为开发具备“自解释”能力的RAG系统提供数据基础，使用户能够理解并信任模型的输出。<br>构建动态更新的领域基准：针对金融、法律、加密货币等知识快速迭代的领域，需要建立可持续更新的动态基准测试。这要求数据集能够自动或半自动地从实时信息流中抽取新问题与知识，以持续评估模型的时效性与适应能力。<br>探索检索-生成的联合优化基准：当前多数研究将检索与生成视为独立或串联优化的模块。未来需要设计新型数据集，以评估和推动二者的端到端联合优化。例如，设计能够量化“检索质量对生成多样性&#x2F;忠实度影响”的指标，并激励模型学会在检索不确定时主动表达“不知情”或请求更多信息。<br>最后，随着RAG技术向医疗、金融、网络安全等高风险领域渗透，对其安全、可靠、公平性的精细化评估将成为研究的重中之重。构建能够全面模拟这些领域复杂决策场景、并包含对抗性攻击和偏见检测的专用数据集，将是推动RAG技术从学术研究走向产业级成熟应用的关键一步。<br>添加微信，备注”LLM“进入大模型技术交流群<br>如果你觉得这篇文章对你有帮助，别忘了点个赞、送个喜欢</p>
+<blockquote>
+<p>&#x2F;作者：致Great</p>
+</blockquote>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/06/23/1000000688-2247494481-1-1750647479/">https://zejuncao.github.io/2025/06/23/1000000688-2247494481-1-1750647479/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ChallengeHub/">
+                                    <span class="chip bg-color">ChallengeHub</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/06/23/1000000192-2247486923-1-1750649458/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000192-2247486923_1-1750649458.jpg" class="responsive-img" alt="大模型思考机理的系统综述！">
+                        
+                        <span class="card-title">大模型思考机理的系统综述！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%89%8D%E6%B2%BF/">
+                        <span class="chip bg-color">AI大模型前沿</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/23/1000001501-2247507930-2-1750646895/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001501-2247507930_2-1750646895.jpg" class="responsive-img" alt="「幻觉」可助力科研？LLM发现了治疗癌症的新药">
+                        
+                        <span class="card-title">「幻觉」可助力科研？LLM发现了治疗癌症的新药</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ScienceAI/">
+                        <span class="chip bg-color">ScienceAI</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

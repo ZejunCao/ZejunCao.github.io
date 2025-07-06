@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="智启Alpha：LLM-MCTS框架进行量化投资因子挖掘 | Arxiv 论文, ZejunCao&#39;Blogs">
+    <meta name="description" content="智启Alpha：LLM-MCTS框架进行量化投资因子挖掘 | Arxiv 论文
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+在风云变幻的金融市场中，如何精准预测价格波动，获取超额收益（即“Alpha”）一直是量化投">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>智启Alpha：LLM-MCTS框架进行量化投资因子挖掘 | Arxiv 论文 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001429-2247509950_1-1751525303.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">智启Alpha：LLM-MCTS框架进行量化投资因子挖掘 | Arxiv 论文</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Coggle%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/">
+                                <span class="chip bg-color">Coggle数据科学</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/fliP6YxYmXgUIdPLMlSRNQ">智启Alpha：LLM-MCTS框架进行量化投资因子挖掘 | Arxiv 论文</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>在风云变幻的金融市场中，如何精准预测价格波动，获取超额收益（即“Alpha”）一直是量化投资领域的核心挑战。传统的Alpha因子挖掘依赖于人类的智慧和经验，耗时耗力且效率不高。而近年来兴起的自动化方法，如基于遗传编程或强化学习的技术，虽有进步，却往往受限于搜索效率低下，或者生成难以理解的“黑箱”Alpha因子。<br>https :&#x2F;&#x2F;arxiv. org&#x2F;pdf&#x2F;2505. 11122<br>NavigatingtheAlphaJungle:AnLLM-PoweredMCTSFrameworkforFormulaicFactorMining<br>近日，清华大学的余诗、段一彤和李建三位研究者带来了一项突破性成果——一个将大型语言模型（LLMs）与蒙特卡洛树搜索（MCTS）深度融合的全新框架，旨在克服现有方法的局限性，高效、精准地挖掘可解释的公式化Alpha因子。这项研究无疑为量化投资的未来发展指明了新的方向。<br>当前Alpha因子挖掘方法大致可分为两大类：基于神经网络和基于公式的方法。<br>神经网络方法：虽然能通过深度学习捕捉复杂模式，隐式构建Alpha，但其结果往往缺乏可解释性，难以理解其背后的经济逻辑，在实际投资中如同“黑箱”操作，难以建立信任。<br>公式化方法：旨在发现由显式数学表达式表示的Alpha因子。传统上，这些因子由人类专家手工构建，例如经典的Fama-French因子。近年来，自动化技术如遗传编程和强化学习也开始涉足，试图自动发现这些公式。<br>量化投资领域对自动化挖掘Alpha因子的探索由来已久，其发展脉络清晰，大致可分为传统方法和基于大型语言模型的新兴方法。<br>早期以及目前主流的自动化公式化Alpha因子挖掘方法主要依赖于遗传编程（GP）。GP通过模拟生物进化过程来发现和优化公式，具有强大的探索能力。<br>GPLearn(Linetal.[2019b])：较早的工作，利用遗传编程并结合时间序列操作符来构建Alpha因子。<br>AutoAlpha(Zhangetal.[2020])：通过多样化的低深度Alpha因子初始化策略，提升了Alpha挖掘的效率，避免了模型过于复杂。<br>AlphaEvolve(Cuietal.[2021])：则通过计算图的方式来演化更复杂的Alpha因子，旨在捕捉更深层次的市场模式。<br>除了遗传编程，也有其他创新方法涌现：<br>AlphaGen(Yuetal.[2023])：采用强化学习来优化Alpha因子集合的整体表现，这标志着Alpha挖掘从单一因子优化向组合优化迈进。<br>AlphaForge(Shietal.[2024])：提出了一种基于深度学习的生成-预测结构，利用深度学习的强大特征提取能力来辅助Alpha的生成和筛选。<br>近年来，随着大型语言模型（LLMs）能力的突飞猛进，它们也被引入到Alpha因子挖掘领域，展现出巨大的潜力。<br>FAMA(Lietal.[2024b])：该方法利用LLM进行上下文学习（in-contextlearning），从多样化的Alpha因子中进行学习，并通过经验链（chain-of-experience）机制学习过去成功的挖掘案例，旨在解决公式同质化的问题。这与本研究的方法形成对比，FAMA侧重于经验学习，而本研究则更侧重于MCTS驱动的树搜索推理。<br>其他LLM-based探索：<br>Kouetal.(Kouetal.[2024])：通过多智能体框架从多模态数据（不仅仅是传统的量价数据）中挖掘Alpha。<br>QuantAgent(Wangetal.[2024c])：引入了一个带有知识库的双循环LLM精炼系统来优化Alpha。<br>AlphaAgent(Tangetal.[2025])：则关注挖掘抗衰减（decay-resistant）的Alpha因子，并加入了对Alpha原创性和复杂性的控制，甚至可能包含人类反馈循环。<br>值得注意的是，尽管这些新兴的LLM-based方法展现出潜力，但由于缺乏详细的框架描述和开源代码，它们的可复现性受到限制。因此，本研究的对比基准中未包含这些方法，以确保实验结果的严谨性和可信度。<br>树搜索方法被广泛应用于增强LLMs的探索能力，特别是在LLM-based智能体和推理领域。它们允许不同层级的探索，从而更有效地解决复杂问题。<br>Chain-of-Thoughts(CoT)(Weietal.[2022])：作为基础，CoT通过引导LLM生成一系列中间推理步骤来提升其推理能力。<br>TreeofThoughts(ToT)(Yaoetal.[2024])：在此基础上更进一步，ToT将问题分解为多个推理步骤，并应用树搜索来探索每个步骤的多种可能性，从而在更大的搜索空间中找到最优解。<br>LATS(Zhouetal.[2023])：将LLM视为更通用的智能体，在推理和行动层面都进行探索，使其能够更灵活地解决问题。<br>RethinkMCTS(Lietal.[2024a])：将代码生成任务建模为推理问题，并应用蒙特卡洛树搜索（MCTS）在“思维层面”进行搜索，有效地提升了代码生成的质量和效率。<br>在金融市场中，Alpha因子挖掘是一个旨在从海量复杂金融数据中识别预测信号的关键任务。我们考虑一个金融市场，其中包含支股票，并在个交易日内进行观测。<br>对于每支股票和每个交易日，其状态由一个特征向量描述。<br>原始特征通常包括每日的开盘价、最高价、最低价、收盘价（OHLC）、交易量以及成交量加权平均价（VWAP）等。<br>完整的市场历史数据被组织成一个张量。未来收益则被组织成一个矩阵，其中表示股票在第天之后特定未来期间的实际收益。<br>为了捕捉时间序列模式，我们使用一个长度为的回溯窗口。一个Alpha因子的作用是将该窗口内的历史特征数据映射到一个预测得分向量。<br>其中，每个代表了该Alpha因子对股票在未来预期收益的量化预测。Alpha因子挖掘的最终目标是发现一个多样化的Alpha因子集合。<br>这些独立Alpha因子的输出，即，聚合后形成一个综合预测信号，其中是模型参数。<br>本研究提出的Alpha因子挖掘框架，巧妙地将大型语言模型（LLM）与蒙特卡洛树搜索（MCTS）相结合，以实现Alpha因子的自动化发现和优化。整个框架的核心是一个迭代过程，其概览如图1所示。<br>这个迭代过程主要包含以下三个关键步骤：<br>选择(Selection)：<br>利用树的上限置信区间（UCT）准则来选择一个最有潜力的节点（即一个Alpha公式）。UCT是一种在探索（尝试新路径）和利用（利用已知最佳路径）之间取得平衡的策略。<br>扩展(Expansion)：<br>一旦节点被选中，LLM会介入，根据对特定评估维度的表现反馈，生成一个经过优化的新Alpha因子。LLM在这里扮演双重角色：首先，基于表现不佳的评估维度，提出有针对性的优化建议；其次，将这些建议转化为具体的Alpha公式。<br>评估(Evaluation)：<br>新生成的Alpha因子随后会通过回测进行评估。这些评估结果将用于形成MCTS树中的新节点。<br>这个迭代的优化和评估过程会持续进行。每个树的扩展次数可以根据已发现Alpha因子的整体质量进行调整。最终，那些满足预定义标准（例如，信息系数IC或排名信息系数RankIC阈值）的高性能Alpha因子会被收集到一个有效Alpha因子知识库中。<br>在MCTS框架中，“选择”步骤是实现探索和利用平衡的关键。搜索树中的每个节点代表一个Alpha因子，它由其公式和优化历史组成。一个动作对应于对节点应用的特定优化操作。每个节点都维护一个值，表示从节点开始并执行动作所获得的最大累积奖励（例如，回测性能）。<br>与标准MCTS通常会选择到叶节点才进行扩展和模拟不同，我们的方法允许任何节点被选中进行扩展。这是因为每个Alpha因子的优化都可以通过回测立即评估，从而无需单独的模拟阶段。<br>每个节点都关联一个多维评估得分向量，其中是第个评估维度的得分，是最高得分。<br>为了引导优化方向，使其侧重于弱项但又保持探索多样性，我们随机选择一个维度进行改进。选择维度的概率由下式给出：<br>其中是一个维全1向量，是控制随机性的温度参数，Softmax函数将分数归一化为概率分布。这使得得分较低的维度被优先考虑。<br>一旦选定维度，LLM就会生成有针对性的优化建议，以提高该维度的性能。为了使这些建议更具实用性，我们采用少样本学习（few-shotlearning），使用来自有效Alpha因子知识库的Alpha因子作为示例（详细信息见附录C. 2）。<br>框架中的评估步骤对于评估候选Alpha公式对现有有效Alpha因子知识库的潜在贡献至关重要。与传统MCTS不同，我们绕过了模拟阶段，直接评估Alpha因子的回测性能，从而将搜索引向有前景的表达式。<br>为了解决这个问题，我们采用相对排名方法。一个Alpha因子在诸如信息系数（IC）这样的指标上的相对排名计算如下：<br>其中是知识库中大小为的一个Alpha因子，是指示函数。这确保了评估标准是自适应的，避免了固定阈值可能在早期过于严格或后期过于宽松的问题。<br>为了提供更细粒度的优化反馈，我们从多个维度评估Alpha公式。这些维度的选择可以根据具体需求进行定制。在本研究中，我们以五个关键方面为例进行多维评估：<br>有效性(Effectiveness)：预测准确性。<br>稳定性(Stability)：预测准确性的一致性。<br>换手率(Turnover)：每日交易量是否在期望范围内。<br>多样性(Diversity)：对有效Alpha知识库新颖性的贡献。<br>过拟合风险(OverfittingRisk)。<br>除了过拟合风险，其他每个维度的得分都是基于相关的、相对排名的回测指标计算的。第个维度的得分由给出，其中表示与该维度相关的特定回测指标（例如，对于有效性，可以是IC）的相对排名。<br>对过拟合风险的评估是独特的。我们利用LLM来生成这个分数（具体提示见附录J. 3），它会考虑Alpha公式及其优化历史，从而融入了定性的、类似专家判断的评估。<br>为了缓解Alpha公式的同质化，并防止在Alpha挖掘过程中过度利用常见的结构模式，我们引入了频繁子树规避（FSA）机制。这种方法受到AutoAlpha(Zhangetal.[2020])中观察的启发，即公式化Alpha的内在模式受到其“根基因”的显著影响。<br>我们将根基因定义为Alpha公式表达式树中源自其叶节点（即原始特征）的子树。在识别根基因时，我们抽象掉了操作符的具体参数值，仅关注树的结构。</p>
+<p>如图2所示，我们的FSA方法通过识别和阻止这些频繁重复的根基因结构来运作。<br>我们首先从一个包含先前发现的有效Alpha因子的知识库（AlphaZoo）中挖掘频繁闭合根基因。一个频繁子树被称为“闭合的”，如果它的任何直接超树（即，该子树加上一个额外的节点）不共享相同的支持计数；这有助于识别最大的常见模式。<br>然后，我们选择Top-k个最频繁的闭合子树（例如，图中），并引导LLM避免生成包含这些特定子表达式的新Alpha公式。<br>实验在中国A股市场的真实数据上进行。为确保市场代表性，实验分别针对两个股票池：沪深300指数（大盘股、流动性好）和中证1000指数（中小盘股）。<br>定义了两个不同的预测目标：股票的10日收益率和30日收益率，买卖均以收盘价执行。数据集按时间顺序划分为：<br>训练期：2011年1月1日至2020年12月31日<br>测试期：2021年1月1日至2024年11月30日<br>研究团队将框架与多种公式化Alpha挖掘方法进行比较，包括：<br>DSO(DeepSymbolicOptimization)：基于深度学习的符号优化框架。<br>GP(GeneticProgramming)：传统的遗传编程方法。<br>AlphaGen：基于强化学习的公式化Alpha挖掘框架。<br>AlphaForge：具有生成-预测架构，为公平比较挖掘能力，仅使用其Alpha挖掘网络。<br>LLM-based方法：<br>CoT(Chain-of-Thought)：提示LLM进行分步推理直接生成Alpha因子。<br>ToT(Tree-of-Thought)：使LLM能够以树状结构探索不同的推理路径。<br>FAMA：利用LLM和上下文示例来使公式多样化，并使用“经验链”从过去的成功中学习。<br>LLM选择：本研究及其所有基于LLM的基线都使用OpenAI的GPT4. 1模型作为LLM骨干。<br>为了进行公平严格的比较，性能基准是基于受控的搜索次数（或等效地，Alpha生成数量）来衡量的。这种方法很适合，因为框架和所有基线都固有地涉及一个独特的搜索过程，每次迭代都会产生一个新的候选Alpha公式。<br>搜索计数设置：<br>对于基于LLM的方法（包括本研究的方法），报告的是在搜索次数为1,000、2,000或3,000次时达到的最佳性能。<br>对于其他方法，搜索次数从一个较小的值逐渐增加，直到性能收敛，上限为600,000次（是LLM-based方法最大值的200倍），以确保公平的效率比较。<br>运行时限制：为了考虑实际限制，任何单一实验运行的最大实际运行时长限制为24小时。这种实验设计旨在实现两个关键比较：<br>在相似的、明确定义的计算预算下，公平评估本框架与其他基于LLM的方法。<br>与非LLM方法进行鲁棒的搜索效率比较。<br>本实验评估了我们生成的Alpha因子与基线方法在预测性能上的表现。<br>模型选择：使用两个代表性的机器学习模型：<br>LightGBM：高效的梯度提升框架。<br>三层多层感知器（MLP）：用于捕捉复杂的非线性关系。<br>Alpha集大小：对于每种Alpha挖掘方法，我们生成了三种不同大小的Alpha集——10、50和100个Alpha因子——作为这些模型的输入特征，以便全面比较不同规模的挖掘Alpha集。<br>数据预处理：输入Alpha因子和目标收益率在训练前都进行了截面排名归一化，以减轻异常值的影响。<br>预测性能指标：使用量化金融中的标准指标进行评估：信息系数（IC）和排名信息系数（RankIC）。<br>图3展示了LightGBM和MLP模型在不同方法挖掘的Alpha因子上的平均预测性能（详细结果见附录H）。<br>我们的框架在所有指标上始终优于基线方法。这表明我们框架挖掘的Alpha因子对未来股票收益具有卓越的预测能力，并且可以有效地转化为交易盈利能力。<br>本实验进行了消融研究，以评估我们框架中的三个关键组件：MCTS、多维反馈和FSA。<br>表1展示了这些组件对预测性能的影响。当纳入有效性（Effectiveness）和多样性（Diversity）作为反馈时，MCTS展现出优于CoT和ToT的预测性能。<br>随着额外反馈维度的整合，性能逐步提高。值得注意的是，虽然换手率（Turnover）反馈略微降低了IC和RankIC，但通过降低交易成本，它却**提升了实际交易指标（AR、IR）。<br>FSA的整合进一步改善了LightGBM和MLP模型在所有指标上的表现。<br>这些结果强调了MCTS、多维反馈和FSA对我们框架有效性的单独和集体贡献。<br>本实验评估了不同方法挖掘的Alpha公式的可解释性。<br>可解释性定义：我们将Alpha公式的可解释性定义为其阐明合理逻辑、特定市场现象或投资策略的能力。<br>量化评估：为了量化这一点，我们从每种方法中随机选择一个Alpha公式，并使用LLM来对其可解释性进行排名。这个过程重复了50次，并计算每种方法的平均排名。为了减轻单一LLM可能带来的潜在偏差，我们聚合了来自三个不同LLM的排名。<br>研究结果表明，我们框架挖掘的公式的可解释性仅次于CoT方法。值得注意的是，我们的方法在公式可解释性方面显著超越了非LLM-based方法。这表明我们的方法实现了令人信服的权衡：在提供强大预测性能的同时，保持了高度的可解释性。<br>整个MCTS流程是一个迭代优化的过程，旨在高效地探索和发现高性能的Alpha因子。<br>首先，如图5所示，我们通过LLM生成一个初始的Alpha公式。这个公式随后进行多维评估，其结果将作为MCTS搜索树的根节点（V0）。<br>在这个示例中，目标搜索计数（targetsearchcount）被初始化为3。<br>这个目标是动态调整的：每当新生成的节点取得新的最高分数时，目标搜索计数就会增加1，这鼓励框架对有前景的搜索路径进行更深入的探索。<br>在根节点V0构建完成后，MCTS过程进入节点扩展阶段。如图6所示，根节点V0被扩展，生成了它的第一个子节点V1。<br>优化维度选择：根据公式（2）进行采样，选择一个用于优化的维度（在本例中，选择了稳定性维度）。<br>LLM生成建议与公式：随后，LLM会生成有针对性的优化建议。基于这些建议，LLM会产生一个优化后的Alpha公式，图中用高亮显示了修改部分。<br>评估与节点生成：这个优化后的Alpha公式会接受相同的多维评估过程，从而产生带有得分的节点V1。<br>更新优化历史：V1的优化历史会更新，包含此次特定优化步骤的摘要和评估分数的相应变化。<br>计数更新：最后，如果V1的得分是新的最高分，目标搜索计数会更新，同时当前搜索计数也会增加。<br>扩展过程继续进行，如图7所示。<br>节点选择：根据UCT准则，节点V1被选中进行下一次扩展。<br>LLM生成与评估：与上一步类似，LLM会基于采样的优化维度生成一个改进的Alpha公式，该公式随后被评估，从而创建节点V2。<br>累计优化历史：值得注意的是，V2的优化历史是累积的，它包含了从根节点V0到V1再到V2的所有优化步骤和分数演变。<br>计数更新：当前搜索计数随即增加。<br>Alpha公式的生成被分解为两个步骤，旨在提高LLM遵循指令的精确度和生成公式的质量：<br>生成Alpha画像（AlphaPortrait）：<br>Alpha画像是一种文本表示，包括Alpha因子的名称、简洁的描述以及用伪代码表示的公式。<br>这种两步法将Alpha因子的概念设计与其具体构建解耦，从而降低了LLM遵循指令的复杂性，并提高了生成公式的质量。<br>从画像推导Alpha公式：<br>在生成Alpha公式时，LLM被指示使用符号参数（例如，移动平均操作符的回溯窗口），而不是固定的数值。<br>同时，LLM会提出几组潜在的参数值（在我们的实验中是三组）。<br>随后，我们对每组参数值导出的Alpha因子进行回测，并选择表现最佳的配置。<br>这种策略使得对每个生成的Alpha公式的探索和利用更加高效。<br>在每次优化迭代中，一旦选择了一个需要改进的维度，我们就会利用LLM生成相关的优化建议。我们采用少样本学习（few-shotlearning），使用来自有效Alpha知识库中的Alpha因子作为示例。针对不同的评估维度，我们量身定制了示例选择策略：<br>有效性（Effectiveness）和稳定性（Stability）：<br>为了选择多样而有效的示例，我们首先过滤有效Alpha知识库，只保留那些与当前Alpha因子相关性超出前η%（例如，η&#x3D;50%）的Alpha因子。<br>从这个过滤后的子集中，我们选择在有效性或稳定性方面得分最高的Top-k个Alpha因子（例如，k&#x3D;3）作为少样本示例。<br>这个两阶段过程通过防止高度相似的Alpha因子主导示例集，从而确保了多样性。<br>多样性（Diversity）：<br>为了鼓励探索新颖的Alpha结构，我们从有效Alpha知识库中选择与当前Alpha因子相关性最低的Top-k个Alpha因子作为少样本示例。<br>换手率（Turnover）和过拟合风险（OverfittingRisk）：<br>对于这些维度，我们采用零样本（zero-shot）方法，直接提示LLM生成优化建议，而无需显式示例。<br>首先，LLM会创建一个“Alpha画像”。这其实是一个文本表示，它包含了Alpha因子的名称（比如“动量因子”）、一个简洁的描述（解释它的经济逻辑或计算方式），以及用伪代码表示的公式。这种先有概念设计（Alpha画像），再有具体实现（Alpha公式）的两步走策略，有效地解耦了任务的复杂性。它减轻了LLM直接从零开始生成复杂代码的负担，让LLM能更专注于概念层面的设计，从而显著提升了最终生成公式的质量。<br>在从Alpha画像生成具体Alpha公式时，我们指示LLM使用符号参数（例如，移动平均线中的“回溯窗口长度”会用一个符号变量表示），而不是直接给出固定的数值。同时，LLM会为这些符号参数建议几组可能的数值（在我们的实验中，是三组）。我们随后会对由每组参数值推导出的Alpha因子进行回测，并最终选择性能最佳的参数配置。这种策略让每一次Alpha公式的生成都更具效率和利用价值，因为我们能在一个概念公式下探索其最佳的数值参数组合。<br>尽管我们提出的Alpha因子挖掘框架取得了令人鼓舞的进展，但仍存在一些值得讨论的局限性：<br>新颖性和复杂性的差距<br>虽然我们的方法能够生成有效的Alpha公式，但在实现与人类专家开发的公式相同水平的新颖性和复杂性方面仍存在差距。该框架有时可能难以产生高度复杂或非常规的Alpha因子。<br>LLM内部知识库的限制<br>生成的Alpha因子的多样性固有地受到LLM内部知识库的限制。这反过来可能限制了与某些非LLM方法相比，所探索的搜索空间的广度。因此，将我们的方法扩展到需要探索庞大而多样Alpha前景的超大规模Alpha挖掘任务时，可能会面临挑战。<br>未来研究方向<br>解决这些局限性，例如通过纳入增强新颖性的机制或扩展有效搜索空间，构成了未来研究的重要方向。这意味着未来的工作可以专注于如何让LLM生成更具创造性的公式，以及如何更有效地利用其知识库来探索更广阔的Alpha因子空间。<br>#学习大模型&amp;讨论Kaggle#<br>△长按添加竞赛小助手<br>每天大模型、算法竞赛、干货资讯<br>与36000+来自竞赛爱好者一起交流~</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/07/03/1000001429-2247509950-1-1751525303/">https://zejuncao.github.io/2025/07/03/1000001429-2247509950-1-1751525303/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Coggle%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/">
+                                    <span class="chip bg-color">Coggle数据科学</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/03/2247807578-2247807578-1-1751525919/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2247807578-2247807578_1-1751525919.jpg" class="responsive-img" alt="AI 100产品榜单报名开启了">
+                        
+                        <span class="card-title">AI 100产品榜单报名开启了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%87%8F%E5%AD%90%E4%BD%8D/">
+                        <span class="chip bg-color">量子位</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/03/1000000229-2247486616-1-1751524882/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000229-2247486616_1-1751524882.jpg" class="responsive-img" alt="瓦力算法7月第1周急招岗位｜微软 /华为 / 小鹏 / 京东 / 阿里 / 字节 / 新东方 / 虹软 /">
+                        
+                        <span class="card-title">瓦力算法7月第1周急招岗位｜微软 /华为 / 小鹏 / 京东 / 阿里 / 字节 / 新东方 / 虹软 /</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%93%A6%E5%8A%9B%E7%AE%97%E6%B3%95%E5%AD%A6%E7%A0%94%E6%89%80/">
+                        <span class="chip bg-color">瓦力算法学研所</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

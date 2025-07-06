@@ -1,0 +1,1099 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="低秩压缩与多头潜在注意力机制, ZejunCao&#39;Blogs">
+    <meta name="description" content="低秩压缩与多头潜在注意力机制
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+作者:捏太阳链接:https :&amp;#x2F;&amp;#x2F;zhuanlan. zhihu.com&amp;#x2F;p&amp;#x2F;2823350227">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>低秩压缩与多头潜在注意力机制 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002345-2650449365_2-1751379236.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">低秩压缩与多头潜在注意力机制</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AINLP/">
+                                <span class="chip bg-color">AINLP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RBKjm7-0PRDL_8cQUw8P-A">低秩压缩与多头潜在注意力机制</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>作者:捏太阳<br>链接:https :&#x2F;&#x2F;zhuanlan. zhihu.com&#x2F;p&#x2F;28233502273<br>作者其它相关文章推荐：<br>强化学习重要知识点梳理<br>基于人类反馈的强化学习(RLHF)深度解析<br>近端策略优化(PPO)算法深度解析<br>矩阵的秩是一个描述矩阵「线性独立性」的概念。简单来说，矩阵的秩就是其线性独立的行或列的最大数量。从一个简单的情况开始思考：一个2×2的矩阵，想象这个矩阵代表了一个平面上的线性变换：<br>这个矩阵的第二行是第一行的2倍。这意味着这个矩阵包含的独立信息实际上只有一行。这就引出了秩的第一个关键概念：秩表示矩阵中独立信息的数量。<br>让我们通过几个具体的例子来理解秩：<br>满秩矩阵：<br>秩为1的矩阵：<br>零秩矩阵：<br>矩阵的秩有几个重要性质：<br>秩总是小于或等于矩阵的行数和列数中的较小值<br>行秩等于列秩（这就是为什么我们可以简单地说\“矩阵的秩\“）<br>秩反映了矩阵方程组解的性质<br>让我们用一个实际的问题来理解秩的意义。<br>这个系数矩阵的秩是1，这告诉我们：<br>这两个方程实际上是同一个方程（第二个是第一个的2倍）<br>系统是欠定的（有无穷多个解）<br>理解秩的一个好方法是把它想象成矩阵中\“真正独立的维度\“的数量。比如：<br>秩为2的2×2矩阵可以把向量映射到整个平面<br>秩为1的2×2矩阵只能把向量映射到一条直线<br>秩为0的矩阵把所有向量都映射到原点<br>在线性代数中，有几种主要的矩阵分解方法，这里介绍一下最常见的几种：<br>LU分解（LUDecomposition）<br>将矩阵分解为一个下三角矩阵L和一个上三角矩阵U的乘积<br>A&#x3D;LU<br>2. QR分解（QRDecomposition）<br>将矩阵分解为一个正交矩阵Q和一个上三角矩阵R的乘积<br>A&#x3D;QR<br>Q的列向量是单位正交的（相互垂直且长度为1）<br>3. 特征值分解（Eigendecomposition）<br>只适用于方阵<br>其中D是对角矩阵（包含特征值），P的列是对应的特征向量<br>4. 奇异值分解（SVD,SingularValueDecomposition）<br>最通用的分解方法，可以应用于任何矩阵<br>和是正交矩阵，是对角矩阵（包含奇异值）<br>SVD分解是最接近MLA中低秩压缩思想的分解方法，因为：<br>SVD可以通过截取最大的k个奇异值来得到原矩阵的最佳k秩近似<br>这种近似保留了原矩阵最重要的信息<br>可以用于降维和压缩<br>以一个具体的Python代码示例说明SVD分解：<br>在实际应用中，比如MLA：<br>不是真的对一个大矩阵进行SVD分解<br>而是直接设计两个小矩阵的维度，让它们通过训练自动学习到一个好的低秩表示<br>这种方式计算效率更高，且更适合深度学习的训练过程<br>1. 3.1基本原理SVD将一个矩阵分解为三个矩阵的乘积，给定一个的矩阵，要求将其分解为：，其中：<br>：左奇异向量矩阵，是的列正交矩阵<br>：奇异值对角矩阵，是的对角矩阵（对角线上是奇异值）<br>：右奇异向量矩阵的转置，是的列正交矩阵的转置<br>几何意义：SVD描述了矩阵作为线性变换时<br>首先通过进行旋转&#x2F;反射<br>然后通过进行缩放<br>最后通过进行旋转&#x2F;反射<br>1. 3.2奇异值的含义和作用<br>奇异值反映了矩阵在对应方向上的\“拉伸程度\“：<br>最大奇异值表示矩阵能产生的最大拉伸<br>奇异值按从大到小排序<br>奇异值的大小反映了对应变换方向的重要性<br>1. 3.3求解步骤<br>计算（得到一个矩阵）<br>2. 求的特征值和特征向量<br>特征值就是奇异值的平方<br>特征向量构成矩阵<br>3. 计算奇异值：对特征值开平方根<br>4. 计算矩阵：<br>具体计算过程<br>通过一个具体的例子来理解奇异值分解（SVD）的数学求解过程：<br>已知矩阵A&#x3D;[32][23]<br>计算：<br>2. 求的特征值：<br>构建特征方程：<br>或<br>3. 根据特征值求特征向量：<br>对：<br>解得₁<br>对：<br>解得₂<br>4. 使用特征向量构造矩阵：<br>5. 计算奇异值-对特征值开平方根：<br>6. 计算<br>首先，我们已经有：<br>现在计算：<br>因此，<br>U&#x3D;[1&#x2F;√21&#x2F;√2][1&#x2F;√21&#x2F;√2]<br>验证：<br>U是正交矩阵（）<br>可以通过重构原矩阵<br>让我们验证一下重构：<br>这样我们就完整地求出了矩阵的奇异值分解：，其中：<br>1. 3.4SVD的低秩近似<br>这是SVD最重要的应用之一，也是理解MLA的关键：<br>假设原始矩阵的奇异值为：σ₁&#x3D;5,σ₂&#x3D;1<br>完整重构：<br>低秩近似（只保留最大的奇异值）：<br>为什么这样做有效？<br>较大的奇异值对应矩阵的主要特征<br>较小的奇异值可能只对应噪声<br>舍弃小奇异值可以实现数据压缩<br>这就是为什么MLA中选择低秩压缩是有效的：<br>不是简单地截断维度<br>而是保留最重要的特征方向<br>在压缩和信息保留之间取得平衡<br>从原始MHA开始，逐步理解为什么需要MLA，以及MLA是如何解决MHA的问题的。先从最基础的MHA（Multi-HeadAttention，多头注意力）开始：<br>在MHA中，每个token都需要三种向量：查询向量（Query）、键向量（Key）和值向量（Value）。我们可以把这个过程想象成一个图书馆的检索系统：查询向量就像是读者的需求，键向量就像是书籍的索引卡，而值向量则是书籍的实际内容。<br>在Transformer架构中，多头注意力机制是一个核心组件。为了彻底理解这个组件，我们从基本定义开始，然后逐步深入每个计算步骤。首先，定义输入和关键参数：<br>输入序列的隐藏状态：，其中是模型的隐藏维度（例如768）<br>注意力头的数量：（例如12）<br>每个头的维度：（例如64），通常有<br>对于每个输入token的隐藏状态：[维度：d]，MHA首先通过三个不同的投影矩阵生成查询、键、值向量：<br>维度：<br>维度：<br>维度：<br>这就像是对一个token从不同角度进行观察。每个投影矩阵就像是一个特定的视角，帮助我们从不同方面理解这个token。<br>将投影后的向量分割成个头：<br>从到<br>从到<br>从到<br>如果我们有个头，每个头都会得到原始向量的一部分。这就像是让多个专家从不同角度来分析同一个问题，每个专家关注不同的特征。<br>对于每个头，计算注意力输出：<br>这里的计算过程可以细分为：<br>计算查询和键的点积：，[维度：1]（标量）<br>缩放点积：除以，[维度：1]<br>应用Softmax函数获得注意力权重，[维度：]（是序列长度）<br>将注意力权重与值向量相乘并求和，[维度：]<br>这个计算过程就像是在图书馆中，对每本书（键值对）进行相关性评分（通过查询），然后根据这些评分来整合信息。<br>将所有头的输出拼接起来，然后通过输出投影矩阵转换到最终的输出空间：<br>其中：<br>[维度：]是拼接所有头的输出，<br>是输出投影矩阵[维度：]，<br>是最终输出[维度：]，<br>在实际实现中，这个过程通常可以通过矩阵运算并行化：<br>注意在生成过程中，我们需要存储所有历史token的键值对：<br>每个token的键缓存：[]<br>每个token的值缓存：[]<br>因此对于长度为的序列，KV缓存的大小是：<br>用具体数字举例，如果：<br>&#x3D;768（隐藏维度）<br>&#x3D;12（头数）<br>&#x3D;64（每头维度）<br>&#x3D;1024（序列长度）<br>则KV缓存大小为：<br>个数值需要存储，<br>这就是为什么MHA在长序列生成时会面临内存瓶颈的原因。这个完整的计算过程展示了MHA的复杂性和计算开销。正是这些开销促使了后来MQA、GQA和MLA等优化方案的提出。<br>关于序列长度：这里这个序列长度是不是指模型能生成的最大序列的长度？<br>这是一个很好的问题，因为它涉及到模型的一个重要特性。序列长度（SequenceLength）在Transformer模型中实际上有几个相关但不同的概念：<br>模型的最大位置编码长度（MaximumPositionEmbeddings）<br>这是模型在预训练时设定的一个固定值<br>决定了模型能理解的最大上下文窗口大小<br>比如模型的位置编码最大是2048，那么它就不能直接处理超过2048个token的输入<br>2. 训练时的序列长度<br>这通常小于最大位置编码长度<br>是实际训练时使用的序列长度<br>受限于GPU内存和训练效率的考虑<br>3. 推理时的序列长度<br>这是实际生成或处理文本时的长度<br>受限于两个因素：<br>模型的最大位置编码长度（硬限制）<br>可用的GPU内存（实践限制）<br>在上面提到的&#x3D;1024这个例子中：<br>这个数字（1024）是一个示例值，表示在某个特定时刻，模型需要存储的历史信息长度。在实际应用中：<br>模型可能支持更长的序列（如2048、4096或更多）<br>但实际能处理的长度往往受限于硬件资源<br>这也是为什么优化KV缓存如此重要<br>用一个类比来解释：想象你在看一本很长的书。模型的最大位置编码长度就像是你的阅读理解能力的上限——你最多能同时理解多少内容。而实际处理时的序列长度，就像是你当前正在关注的页数范围。即使你能理解整本书（最大位置编码），但在某一时刻，你可能只关注其中的一部分（实际序列长度），这部分内容需要存在你的短期记忆（KV缓存）中。这就是为什么研究人员在努力优化注意力机制（如MLA）：<br>减少KV缓存的大小<br>允许模型处理更长的序列<br>在有限的硬件资源下提供更好的性能<br>通过理解\“投影矩阵\“这个概念，从直观的几何意义开始，然后过渡到在注意力机制中的应用。首先，从最基础的向量投影说起。想象一个简单的例子：假设你站在一个房间里，手里拿着一支激光笔。当你用激光笔指向墙壁时，激光点实际上是三维空间中的光线被\“投影\“到二维的墙面上。这就是最直观的投影概念——将高维空间中的点映射到低维空间。在线性代数中，投影矩阵的作用是：<br>将向量从一个空间转换到另一个空间<br>在这个过程中可能改变向量的维度<br>保留我们关心的某些特定特征<br>现在让我们看看在注意力机制中的投影矩阵：<br>为什么需要这三个不同的投影？还是一个图书馆的例子来解释：想象你走进一个图书馆，想找一本关于\“机器学习\“的书。这个过程涉及三个不同的视角：<br>查询（Query）投影：将你的需求\“机器学习\“转化成图书馆检索系统能理解的格式<br>就像把自然语言转换成检索关键词<br>W_Q的作用是学习如何最好地表达\“我想要什么\“<br>2. 键（Key）投影：将每本书的特征转化成可以被检索的形式<br>就像图书的分类编号和关键词标签<br>W_K的作用是学习如何最好地表达\“我有什么\“<br>3. 值（Value）投影：将书本的实际内容转化成可以被利用的形式<br>就像书本的摘要或核心内容<br>W_V的作用是学习如何最好地表达\“我能提供什么\“<br>这些投影矩阵是随机初始化的，但在训练过程中会不断优化，以学习：<br>Q投影：如何最好地表达查询意图<br>K投影：如何最好地表达内容特征<br>V投影：如何最好地表达实际信息<br>通过这三个不同的投影空间，注意力机制可以：<br>更准确地计算相关性（Q和K的点积：我想要什么和我有什么的匹配程度）<br>更有效地提取信息（通过V获取内容）<br>让模型从不同角度理解和处理信息<br>这就像是在图书馆中，同一本书在不同的维度上都有其表示：<br>与不同查询需求的相关程度（Q空间）<br>在检索系统中如何被找到（K空间）<br>能提供什么样的信息（V空间）<br>MHA的问题<br>MHA在实际应用中面临着一个严重的问题：在生成文本时，我们需要存储所有历史token的键向量和值向量。这就像是图书馆需要为每本书都保存完整的索引卡和内容副本，随着书籍数量增加，存储空间会急剧膨胀。<br>为了解决这个问题，研究人员提出了几种方案：<br>MQA（Multi-QueryAttention）-多查询注意力：所有头共享相同的键值对<br>GQA（Grouped-QueryAttention）-分组查询注意力：几个头共享一组键值对<br>但这些方法都有一个共同的缺点：它们通过减少信息来节省空间，这会导致性能下降。就像是让多个图书管理员共用同一套索引系统，虽然节省了空间，但可能会影响检索的准确性。这就是MLA出现的背景。<br>MLA的创新<br>MLA提出了一个创新的思路：与其直接存储或共享键值对，不如先将它们压缩成一个更小的潜在向量，需要时再恢复出来。MLA的核心创新在于：<br>低秩键值联合压缩：将键和值的信息共同压缩到一个更小的潜在空间<br>解耦的位置编码：将内容信息和位置信息分开处理<br>矩阵乘法优化：通过重排计算顺序来提高效率<br>这就像是图书馆发明了一种新的压缩技术，可以把索引和内容压缩存储，需要时再快速恢复，同时还保持了信息的完整性。对比来看：<br>存储效率：<br>MHA：需要存储完整的键值对<br>MLA：只需要存储压缩后的潜在向量<br>2. 计算方式：<br>MHA：直接在完整维度空间进行注意力计算<br>MLA：在压缩空间中进行部分计算，并通过解耦的位置编码保持性能<br>3. 性能表现：<br>MHA：完整信息，但存储开销大<br>MLA：通过巧妙的设计，在更少的存储空间下实现了更好的性能<br>这种演进过程展示了如何通过深入理解问题本质，找到既保持性能又提高效率的解决方案。<br>为了展示MLA的完整计算过程，论文附录提供了完整公式，这里对这些公式进行深入分析，先定义MLA中使用的关键维度参数：<br>：模型的隐藏维度（hiddendimension）<br>：注意力头的数量（numberofattentionheads）<br>：每个头的维度（dimensionperhead）<br>：键值压缩维度（KVcompressiondimension）<br>：查询压缩维度（querycompressiondimension）<br>：解耦位置编码的每头维度（per-headdimensionfordecoupledpositionencoding）<br>首先，输入向量经过下投影矩阵压缩成潜在查询向量<br>然后分成两条路径：<br>内容路径：通过上投影得到内容查询<br>位置路径：通过和RoPE得到位置查询<br>最后将两部分拼接在一起，形成完整的查询向量<br>注意，对查询进行低秩压缩，是为了减少训练过程中的激活内存，但是这不能减少KV缓存<br>1-查询压缩：<br>这个表达式看起来简单，但包含了几个重要的概念：<br>是输入向量，代表第t个位置的隐藏状态（或token表示）。这个向量包含了原始的、未压缩的特征信息。<br>是下投影矩阵（Down-projectionmatrix），其中：<br>\“D\“表示\“down\“，意味着这是一个降维操作<br>\“Q\“表示这个操作是针对查询（Query）的<br>这个矩阵的维度是，其中是原始维度，是压缩后的维度<br>3. 是压缩后的潜在查询向量，维度比原始输入小得多（）。这个向量捕获了原始查询信息的关键特征。<br>这个压缩步骤的目的是：<br>减少内存使用：通过将高维度的查询信息压缩到低维空间<br>提高计算效率：后续操作可以在较小的维度空间中进行<br>保留关键信息：虽然维度降低了，但矩阵经过训练，能够保留最重要的特征信息<br>2-查询内容上投影：<br>这个公式描述了压缩查询的上投影过程。逐步理解：<br>是在公式(37)中得到的压缩潜在向量<br>是上投影矩阵（Up-projectionmatrix），将压缩的信息投影回高维空间<br>是上投影后的结果，它被分割成个头<br>分号[;]表示向量的垂直连接，说明每个头的查询向量被垂直堆叠在一起<br>3-查询位置编码<br>这个公式描述了位置编码查询的生成过程：<br>是生成位置相关查询的专用投影矩阵<br>函数应用旋转位置编码，为查询添加位置信息，结果同样被分成个头<br>上标表示这部分是与位置信息（Rotary）相关的查询<br>：位置编码查询<br>每个：单个头的位置查询<br>这两个公式共同构成了MLA的查询处理机制，它们的创新之处在于：<br>双路径设计：<br>压缩路径（C）处理内容信息<br>旋转路径（R）处理位置信息<br>效率优化：<br>主要的内容处理通过压缩路径进行，减少计算量<br>位置信息通过独立的路径处理，避免与压缩机制的冲突<br>灵活性：<br>可以独立调整内容处理和位置编码的维度<br>允许在保持位置信息准确性的同时实现高效压缩</p>
+<p>来自内容压缩路径，包含了token的语义信息<br>来自位置编码路径，包含了位置信息<br>这种设计非常巧妙，就像是给每个查询配备了两个不同的\“镜头\“：一个用于看内容，另一个用于确定位置。这样的组合让模型能够同时理解\“说了什么\“和\“在哪里说的\“。<br>使用单个下投影矩阵将输入压缩成潜在向量（这是需要缓存的关键部分）<br>键的处理也分两条路径：<br>内容路径：通过从潜在向量恢复键的内容信息<br>位置路径：直接从输入计算位置信息<br>值只需要内容信息，通过从潜在向量恢复<br>1-键值联合压缩<br>这个公式表示键值对的联合压缩过程，这是MLA的一个重要创新。我们可以把它理解为：<br>是输入的隐藏状态，包含了原始的token表示<br>是一个特殊的下投影矩阵，它同时服务于键和值的压缩<br>是压缩后的潜在向量，它包含了键和值共享的信息<br>论文中这个公式左侧的被标记为蓝色，表示这是一个需要在推理过程中被缓存的关键向量。理解一下为什么：想象一下模型在生成文本时的工作过程。就像是一个作家在写故事，需要随时回顾前面写过的内容。在这个过程中：<br>每个新生成的token都需要参考之前的信息<br>如果每次都重新计算所有信息，会非常耗时<br>因此，我们需要存储一些关键信息以供快速访问<br>就是这样一个关键信息：<br>它包含了键和值的压缩信息<br>这个向量的维度比原始的键值对小得多<br>存储这个压缩向量比存储完整的键和值更节省空间<br>这就像是一个高效的笔记系统：<br>不是把所有细节都记下来<br>而是记录关键的概要信息<br>需要时可以快速展开使用<br>这种设计带来的好处是：<br>显著减少内存使用<br>加快推理速度<br>保持模型性能<br>这个设计的独特之处在于它的效率：<br>传统方法需要分别存储键和值<br>MLA通过这个联合压缩，大大减少了存储需求<br>这就像是把两个相关的信息压缩成一个更紧凑的表示<br>2-键的生成：内容键+位置键<br>是压缩后的潜在向量，它包含了键和值共享的信息<br>：键的上投影矩阵<br>：内容键<br>这个公式描述了如何从压缩的键值向量中恢复键的内容信息。想象一下，就像是一个包含了精华信息的浓缩包，而就像是一个展开装置，将这些浓缩的信息重新展开成我们需要的键向量。通过这个上投影过程，我们得到了个头的键向量，每个头负责关注输入信息的不同方面。<br>是输入的隐藏状态，包含了原始的token表示<br>：位置键投影矩阵<br>：位置键<br>这个公式处理键的位置信息，与内容信息的处理是分开的。这就像是给每个键添加一个位置标记，告诉模型\“这个信息来自哪里\“。RoPE（旋转位置编码）的使用非常巧妙，它不仅能编码位置信息，还能保持向量之间的相对关系。<br>这两个公式协同工作的方式很有趣：<br>内容信息（公式42）告诉我们\“说了什么\“<br>位置信息（公式43）告诉我们\“在哪里说的\“<br>这种分离设计的好处是：<br>可以更精确地控制内容和位置信息的处理<br>允许内容信息使用压缩技术节省空间<br>保持位置编码的准确性不受压缩的影响<br>这就像是在写一本书，其中：<br>内容信息就像是书中的文字<br>位置信息就像是页码和章节标记<br>两者结合才能让读者完整理解整本书的内容<br>3-键的组合<br>：内容键与位置键组合后的完整键<br>这个公式描述了完整键向量的组装过程。想象你在制作一个拼图，这个公式就像是把两块重要的拼图pieces拼在一起：包含了内容信息，而包含了位置信息，键向量需要同时理解\“说了什么\“和\“在哪里说的\“，所以组合了内容和位置信息。这里有一个有趣的细节：每个注意力头都有自己的内容信息（注意下标），但所有头共享同一个位置信息（注意没有下标）。这就像是每个头都有自己独特的视角来看内容，但它们都共同遵循同一个位置参考系统。</p>
+<p>是压缩后的潜在向量，它包含了键和值共享的信息<br>：值上投影矩阵<br>：值向量<br>这个公式展示了如何从压缩的键值向量中生成值向量。这个过程有点像从一个压缩文件中解压出我们需要的信息。矩阵就像是一个解码器，它能够从压缩的中提取出完整的值信息。注意这里的值向量只有内容部分（上标C），没有位置部分（没有R），这是因为值向量主要负责携带实际的信息内容，只需要关注\“说了什么\“，而不需要额外的位置信息。键值的处理思路展示了MLA架构的一个重要创新：它通过巧妙的设计实现了信息的高效处理，这种设计不仅节省了计算资源，还保持了模型的强大性能。你可以把这个过程想象成一个图书馆的检索系统：键向量就像是图书的索引卡，需要同时知道书的内容（内容信息）和在书架上的位置（位置信息）；而值向量就像是书本的实际内容，只需要关注内容本身就够了。这种分工明确的设计使得整个系统既高效又准确。<br>使用组合后的查询和键计算注意力分数<br>注意力分数经过缩放（使用作为缩放因子）和Softmax<br>最后与值向量加权求和，得到每个头的输出<br>1-注意力计算和头部输出<br>：每个头的输出<br>这是MLA架构中的核心计算步骤，它展示了如何将查询、键和值向量组合起来生成最终的输出，让我们逐步分解这个公式的每个部分，就像解开一个精密的时钟机制：首先，在分数计算部分，分子查询向量和键向量的点积运算。想象你在图书馆找书，查询向量就像是你的搜索关键词，而键向量就像是书籍的标签。它们的点积告诉我们这本书与你的搜索有多匹配。接着看分母。这个缩放因子与原始Transformer中不同，因为它考虑了两种维度：<br>是内容信息的维度<br>是位置信息的维度<br>这就像在调整放大镜的焦距，确保我们看到的画面既不会太模糊也不会太刺眼。Softmax操作则像是一个投票系统，它将所有的匹配分数转换成概率分布。较高的匹配分数会得到更多的\“投票权\“。<br>最后，我们用这些概率权重去加权值向量。注意这里使用的是纯内容值向量（带有上标C），没有位置信息。这就像是根据搜索相关度来整合不同书籍的内容。<br>整个求和过程表示我们要考虑从位置1到当前位置的所有信息。这就像是在阅读一本书时，我们会考虑从开始到当前页的所有相关内容。<br>这个设计的巧妙之处在于：<br>它同时利用了内容和位置信息来计算注意力权重<br>但在整合信息时只使用内容值向量<br>通过合适的缩放因子确保了计算的稳定性<br>将所有注意力头的输出拼接起来<br>通过输出投影矩阵得到最终的输出表示<br>1-最终输出生成<br>：输出投影矩阵<br>：最终输出<br>这个公式是MLA计算流程的最后一步，代表了如何将所有注意力头的输出整合成最终的表示，描述了一个重要的整合过程，就像是一个管弦乐团在演奏交响乐。每个注意力头（）就像是乐团中的一个乐器部分，各自关注和处理输入信息的不同方面。而输出投影矩阵则像是一位优秀的指挥家，负责将这些独立的声部完美地融合在一起，创造出和谐的整体效果。<br>MLA的主要创新在于其存储效率。在推理过程中，只需要缓存：<br>：压缩的键值向量<br>：位置键向量<br>总缓存维度为，这远小于原始MHA的。这种设计显著减少了内存使用，同时通过巧妙的架构设计保持了模型性能。<br>论文附录C中有一段描述：其中蓝色框中的向量需要缓存以用于生成。在推理过程中，朴素公式需要从恢复和用于注意力计算。幸运的是，由于矩阵乘法的结合律，我们可以将吸收到中，将吸收到中。因此，我们不需要为每个查询计算出键和值。通过这种优化，我们避免了在推理过程中重新计算和的计算开销。<br>从数学原理的角度重新解释MLA中的这两步优化。<br>1、将吸收到中<br>首先，在MLA中键是这样计算的：<br>2. 然后在注意力分数计算中，我们计算查询和键的相似度：<br>3. 将键的计算代入相似度计算：<br>4. 根据矩阵乘法的结合律，我们可以重新组合括号：<br>5. 现在，让我们看查询是如何计算的：<br>6. 将这个代入到第4步的表达式：<br>7. 这里是一个新的矩阵，我们可以预先计算它。令:<br>8. 那么相似度计算就变成了：<br>这就是所谓的\“吸收\“过程：我们把两个矩阵的乘法预先计算好，形成一个新的变换矩阵。这样在实际推理时，我们就不需要先计算完整的键向量，而是可以直接在压缩空间中进行计算。<br>2、将吸收到中<br>回顾MLA中的完整注意力计算。当我们得到注意力权重后，需要与值向量相乘：<br>2. 其中值向量是这样计算的：<br>3. 将值的计算代入到注意力计算中：<br>4. 最后，这个结果还要经过输出投影矩阵：<br>5. 根据矩阵乘法的结合律，我们可以重新组合：<br>6. 这里是一个新的矩阵，我们可以预先计算它。令<br>7. 那么整个计算就变成了：<br>通过这两个\“吸收\“操作（到和到），MLA实现了在压缩空间中直接进行注意力计算，大大提高了推理效率。这就是论文中所说的\“我们不需要为每个查询计算键和值\“的原理。<br>这种优化之所以可行，完全是基于矩阵乘法的结合律。我们可以改变计算的顺序而不改变最终结果。这让我们能够选择计算量最小的顺序。<br>这就像在计算(2×3)×4和2×(3×4)时，虽然最终结果相同，但选择后者可以减少一步计算。在高维矩阵运算中，这种优化带来的计算节省更加显著。<br>这种数学变换的意义在于：<br>原本需要先从压缩向量重建完整的键值向量，再进行注意力计算<br>现在可以直接在压缩空间中进行计算，因为我们可以预先预先计算好变换矩阵<br>这样的优化让我们可以：<br>避免了显式重建值向量的步骤<br>减少了中间计算和存储<br>在保持数学等价性的同时提高了计算效率<br>当我们说\“低秩\“时，实际上在暗示一个重要的性质：这种压缩是通过矩阵分解实现的。举个例子，假设我们有一个8×8的矩阵M，它的秩是3，这意味着它可以被分解为：<br>这就是为什么要强调\“低秩\“：不是简单地把大矩阵变小，而是利用矩阵的内在结构（秩）来实现压缩，确保压缩后保留了原始数据的主要信息<br>低秩压缩的核心思想是：我们可以用一个较小的矩阵来近似表示一个大矩阵。而这个小矩阵正常来说是通过矩阵分解得到的，但在MLA中是直接设计小矩阵的维度，让它们通过训练自动学习到一个好的低秩表示<br>在论文中，秩就是信息压缩的维度，还是通过一个具体的例子来理解这个过程：想象一个5120维的向量，它可能代表了一张图片的所有像素值。当我们用一个秩为512的变换去处理它时，本质上我们是在说：<br>\“这5120个数字中，实际上可以用512个独立的特征来表达主要信息\“<br>这就像是在拍照片时的压缩过程：<br>原始图片可能有数百万个像素点（高维空间）<br>但这些像素之间存在大量相关性（不是完全独立的）<br>我们可以找到一些主要的特征（比如主要的颜色模式、边缘特征等）来表达这张图片<br>这些主要特征的数量就相当于我们说的\“秩\“<br>在MLA中：<br>这个过程告诉我们：<br>当矩阵的秩是512时，它最多可以保留512个独立的信息维度<br>即使最终重建回5120维，信息也被限制在这512个维度张成的空间中<br>这就是为什么它被称为\“低秩压缩\“-我们用较低的维度（512）来近似表示高维数据（5120）<br>这种压缩之所以有效，是因为在实际应用中：<br>真实数据通常存在大量冗余<br>并非所有维度都同等重要<br>保留最重要的512个维度往往足以表达数据的主要特征<br>传统SVD和MLA在处理高维数据压缩时有着根本的区别。想象我们在整理一个大图书馆：<br>传统SVD的方式是：<br>先完整整理所有书籍并建立详细的分类系统（先构建完整矩阵）<br>分析这个系统，找出主要的分类维度（计算奇异值和奇异向量）<br>基于主要维度重新组织（低秩近似）<br>而MLA的方式是：<br>直接定义和初始化一个高效的压缩编码系统（下投影矩阵W_DKV）<br>同时定义和初始化一个解码系统（上投影矩阵W_UK）<br>通过训练让这两个系统自动学习最优的压缩和重建方式<br>这就像是：<br>这种设计的优点是：<br>不需要先构建和存储大矩阵<br>直接在小矩阵空间进行优化<br>通过反向传播自动学习最优的分解形式<br>MLA中选择，假设一个具体的例子：<br>为什么选择？<br>太小的压缩维度（比如d_h）可能损失太多信息<br>太大的压缩维度（比如8d_h）节省的空间有限<br>提供了一个很好的平衡点：<br>足够大以保留关键信息<br>足够小以显著节省内存<br>这两个矩阵形成了一个\“信息漏斗\“系统：<br>下投影矩阵（W_DKV：Down-projection）：将高维信息压缩到低维空间<br>上投影矩阵（W_UK,W_UV：Up-projection）：将低维信息恢复到高维空间<br>这就像是一个自动编码器：<br>在MLA中，这种设计的优势是：<br>存储效率：只需要存储低维的潜在向量<br>计算效率：部分计算可以在低维空间进行<br>信息提取：强制模型学习最重要的特征<br>使用正态分布（GaussianDistribution）初始化权重<br>标准差的选择遵循Xavier&#x2F;Glorot初始化的原理<br>通常不使用偏置项（bias&#x3D;False）<br>为什么选择这种初始化方式？<br>帮助网络在训练初期有更好的梯度流动<br>避免梯度消失或爆炸<br>保持每一层输出的方差相对稳定<br>在MLA中，（压缩维度）是低秩压缩的秩。DeepSeek-V2选择，假设一个具体的例子让我们看看这种设计带来的具体收益：<br>存储空间：<br>计算效率：<br>压缩过程是额外的计算开销<br>但在生成过程中，由于缓存大幅减少：<br>内存访问更快<br>可以处理更长的序列<br>支持更大的批处理大小<br>这种设计在实践中证明是非常有效的，因为：为什么选择？<br>太小的压缩维度（比如d_h）可能损失太多信息<br>太大的压缩维度（比如8d_h）节省的空间有限<br>提供了一个很好的平衡点：<br>足够大以保留关键信息（秩&#x3D;512足以捕获大部分重要信息），保持了模型性能<br>足够小以显著节省内存，提高了推理效率<br>想象我们有一个图书馆的信息检索系统，需要处理用户的查询请求：<br>原始多头注意力（MHA）：<br>每个图书管理员（注意力头）都有自己完整的编目系统<br>每个管理员都可以根据自己的专业领域进行独立的搜索<br>无信息损失，但需要存储大量的编目信息<br>多查询注意力（MQA）：<br>所有图书管理员共享同一个编目系统：<br>管理员A可能专注于科技类书籍<br>管理员B可能专注于文学类书籍<br>但他们都必须使用同样的检索方式，这会导致：<br>科技类书籍可能无法按照技术领域精确分类<br>文学作品可能无法按照文学流派详细归类<br>这种方式的信息损失最大，因为所有专业化的检索能力都被限制在一个统一的系统中。<br>分组查询注意力（GQA）：<br>图书管理员分组共享编目系统：<br>科技组的管理员共享一个专业的科技文献编目系统<br>文学组的管理员共享一个专门的文学作品编目系统<br>这比MQA好，因为：<br>保留了一定的专业化能力<br>不同领域可以有各自的检索方式<br>但仍然存在组内信息混合的问题<br>多头潜在注意力（MLA）：<br>每个管理员都有自己的检索系统，但通过智能压缩：<br>1. 首先提取关键特征：<br>对于科技书籍：可能是关键词、技术领域、出版年份<br>对于文学作品：可能是作者风格、主题、写作手法<br>2. 这些特征被压缩成一个精简的索引（256维）：<br>不是简单地删减信息<br>而是找到最能代表原始信息的特征组合<br>3. 重建时：<br>可以从这些关键特征重建出详细的检索信息<br>虽然可能损失一些细节<br>但保留了最重要的区分性特征<br>所以，信息损失的比较：<br>MQA：损失最大，因为完全共享同一套系统<br>GQA：损失较大，但通过分组保留了一些专业化能力<br>MLA：损失相对最小，因为：<br>压缩是基于数据本身的特征进行的<br>保留了最重要的区分性信息<br>每个头仍然保持了一定的独特性<br>这就是为什么MLA能在节省存储空间的同时，仍然保持较好的性能。它不是简单地共享或删减信息，而是通过智能的压缩方式保留了最重要的特征。<br>进技术交流群请添加AINLP小助手微信（id:ainlp2)<br>请备注具体方向+所用到的相关技术点<br>关于AINLP<br>AINLP是一个有趣有AI的自然语言处理社区，专注于AI、NLP、机器学习、深度学习、推荐算法等相关技术的分享，主题包括LLM、预训练模型、自动生成、文本摘要、智能问答、聊天机器人、机器翻译、知识图谱、推荐系统、计算广告、招聘信息、求职经验分享等，欢迎关注！加技术交流群请添加AINLP小助手微信(id：ainlp2)，备注工作&#x2F;研究方向+加群目的。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/07/01/1000002345-2650449365-2-1751379236/">https://zejuncao.github.io/2025/07/01/1000002345-2650449365-2-1751379236/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AINLP/">
+                                    <span class="chip bg-color">AINLP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/01/1000002345-2650449365-3-1751379236/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002345-2650449365_3-1751379236.jpg" class="responsive-img" alt="西湖大学人工智能与生物医学影像实验室招收博士生">
+                        
+                        <span class="card-title">西湖大学人工智能与生物医学影像实验室招收博士生</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AINLP/">
+                        <span class="chip bg-color">AINLP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/01/1000000212-2247487901-1-1751375340/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000212-2247487901_1-1751375340.jpg" class="responsive-img" alt="强化学习再梳理，从PPO到GRPO到DAPO">
+                        
+                        <span class="card-title">强化学习再梳理，从PPO到GRPO到DAPO</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC%E5%B0%8F%E7%99%BD%E5%85%A5%E9%97%A8%E8%AE%B0/">
+                        <span class="chip bg-color">AIGC小白入门记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
