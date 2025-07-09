@@ -1,0 +1,1099 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="万字长文，YOLOv12性能为什么这么强？A²机制破局，登顶实时检测SOTA！, ZejunCao&#39;Blogs">
+    <meta name="description" content="万字长文，YOLOv12性能为什么这么强？A²机制破局，登顶实时检测SOTA！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+以下文章来源于微信公众号：集智书童作者：小书童链接：https :&amp;#x2F;&amp;#x2F;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>万字长文，YOLOv12性能为什么这么强？A²机制破局，登顶实时检测SOTA！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001665-2247540333_1-1751989679.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">万字长文，YOLOv12性能为什么这么强？A²机制破局，登顶实时检测SOTA！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                <span class="chip bg-color">江大白</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/inuiDgO7oxZ40K-dCnC_fA">万字长文，YOLOv12性能为什么这么强？A²机制破局，登顶实时检测SOTA！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>以下文章来源于微信公众号：集智书童<br>作者：小书童<br>链接：https :&#x2F;&#x2F;mp. weixin.qq. com&#x2F;s&#x2F;JE4jFdRm0NZDlNRIhPvpBA<br>本文仅用于学术分享，如有侵权，请联系后台作删文处理<br>导读<br>YOLOv12在保持实时检测速度的同时，引入区域注意力、R-ELAN和FlashAttention等模块，显著提升了精度与计算效率，解决了传统YOLO在长依赖建模、梯度传播与资源开销方面的瓶颈，推动目标检测进一步突破。<br>1. 实时目标检测中的效率与精度权衡：YOLOv12通过引入注意力机制和优化计算资源，解决了传统卷积神经网络（CNN）在捕获长距离依赖关系上的局限性，同时保持了实时性能。<br>2. 高计算开销的注意力机制挑战：通过设计区域注意力模块（A2）、FlashAttention等技术，有效降低了注意力机制的计算复杂度和内存开销。<br>3. 深度网络训练中的梯度阻断问题：通过残差高效层聚合网络（R-ELAN），改善了深层模型的梯度传播，提升了训练稳定性与收敛速度。<br>1. 区域注意力模块（A2）：将特征图划分为大小相等且不重叠的块，显著降低自注意力的计算复杂度，同时保留较大的感受野。<br>2. 残差高效层聚合网络（R-ELAN）：通过引入残差连接和优化特征融合策略，解决了传统ELAN架构中梯度阻断的问题，增强了深层模型的训练稳定性。<br>3. FlashAttention集成：通过重构计算以更好地利用GPU高速内存（SRAM），减少内存访问开销，提升推理速度。<br>4. 多层感知器（MLP）比例优化：将MLP扩展比例从4降低至1. 2，避免不必要的计算开销，平衡效率与性能。<br>1. 准确性提升：YOLOv12-N实现了40. 6%的mAP，超越YOLOv10-N（38. 5%）和YOLOv11-N（39. 4%），同时保持更低的推理延迟。<br>2. 推理速度优化：YOLOv12-S的推理延迟为2. 61毫秒，比RT-DETR-R18&#x2F;RT-DETRv2-R18快约42%，仅使用36%的计算量和45%的参数。<br>3. 计算效率改进：YOLOv12-L在88. 9GFLOPs的情况下实现53.7%mAP，优于YOLOv11-L（86. 9GFLOPs，53. 3%mAP），表明其更高的计算效率。<br>1. 硬件约束下的边缘部署挑战：尽管YOLOv12在高端GPU上表现出色，但其对内存和计算资源的需求限制了其在低功耗边缘设备（如NVIDIAJetsonNano、树莓派）上的应用。<br>2. 训练复杂性增加：基于注意力的模块需要更多的FLOPs和内存带宽，导致训练成本高昂，尤其对于GPU资源有限的用户。<br>3. 数据集依赖性：YOLOv12的优越精度依赖于大规模数据集（如MSCOCO和OpenImages），但在小规模或分布不平衡的数据集上表现可能受限。<br>4. 任务扩展的局限性：当前YOLOv12主要专注于2D目标检测，尚未充分探索3D目标检测、实例分割和全景分割等更复杂的场景理解任务。<br>通过上述分析，YOLOv12在实时目标检测领域取得了显著进步，但未来仍需进一步研究以解决硬件适应性和任务扩展等方面的挑战。<br>YOLO（YouOnlyLookOnce）系列一直是在实时目标检测领域领先的框架，持续在速度和准确性之间取得平衡。然而，将注意力机制集成到YOLO中一直具有挑战性，因为注意力机制的计算开销较高。YOLOv12引入了一种新颖的方法，成功地将基于注意力的增强功能与实时性能相结合。本文全面回顾了YOLOv12的架构创新，包括用于计算高效自注意力的区域注意力机制、用于改进特征聚合的残差高效层聚合网络，以及用于优化内存访问的FlashAttention。此外，作者将YOLOv12与之前的YOLO版本和竞争性目标检测器进行基准测试，分析其在准确性、推理速度和计算效率方面的改进。通过这一分析，作者展示了YOLOv12如何通过优化延迟-准确性权衡和优化计算资源来推动实时目标检测的发展。<br>实时目标检测是现代计算机视觉的核心技术，在自动驾驶[1,2,3,4]、机器人[5,6,7]和视频监控[8,9,10]等应用中发挥着关键作用。这些领域不仅要求高精度，还需要低延迟性能以确保实时决策。在各类目标检测框架中，YOLO（YouOnlyLookOnce）系列已成为主流解决方案[ 11]，通过持续优化卷积神经网络（CNN）架构[12,13,14,15,16,17,18,19,20,21]，在速度与精度之间取得了平衡。然而，基于CNN的检测器面临一个基本挑战——其捕获长距离依赖关系的有限能力，这对于理解复杂场景中的空间关系至关重要。这一局限性促使研究行人加强对注意力机制的研究，特别是视觉Transformer（ViTs）[22,23]，后者在全局特征建模方面表现出色。尽管具有这些优势，ViTs存在二次方计算复杂度[ 24]和内存访问效率低下[25,26]的问题，使其难以部署于实时场景。<br>为解决这些局限性，YOLOv12[ 27]引入了一种以注意力为中心的方法，通过整合关键创新来提升效率，同时保持实时性能。通过将注意力机制嵌入YOLO框架中，它成功地在CNN基础检测器和基于transformer的检测器之间架起了桥梁，而未牺牲速度。这是通过以下几个架构增强实现的，这些增强优化了计算效率，改进了特征聚合，并细化了注意力机制：<br>1. 区域注意力（A2）：一种新颖的机制，通过划分空间区域来降低自注意力的复杂性，在保持较大感受野的同时提升计算效率。这使得基于注意力的模型能够在速度上与卷积神经网络（CNN）相媲美。<br>2. 残差高效层聚合网络（R-ELAN）：对传统ELAN的增强，通过引入残差捷径和改进的特征聚合策略，旨在稳定大规模模型的训练，确保更好的梯度流和优化。<br>3. 架构优化：通过多项结构改进，包括集成FlashAttention以实现高效内存访问、移除位置编码以简化计算，以及优化MLP比例以平衡性能和推理速度。<br>这篇综述系统性地考察了YOLOv12中的关键架构进展，包括注意力机制、特征聚合策略和计算优化的集成。为了进行结构化分析，本文组织如下：第2节概述了YOLO架构的技术演进，重点介绍了推动YOLOv12发展的进步。第3节详细描述了YOLOv12的架构设计，包括其Backbone特征提取过程和检测Head。第4节探讨了模型的关键创新，包括A2模块、R-ELAN以及其他为提高效率而进行的增强。第5节展示了基准评估，比较了YOLOv12与前代YOLO版本以及当前最先进的目标检测器的性能。第6节讨论了YOLOv12支持的各种计算机视觉任务。第7节就模型效率、部署考虑以及YOLOv12在现实应用中的影响进行了更广泛的讨论。第8节分析了当前挑战并概述了未来的研究方向。最后，第9节总结全文，概括了YOLOv12对实时目标检测的贡献及其在该领域进一步发展的潜力。<br>YOLO系列通过持续的建筑创新和性能优化，彻底改变了实时目标检测领域。YOLO的发展可以通过其不同版本进行追溯，每个版本都引入了重大进展。<br>YOLOv1（2015）[11]由JosephRedmon等人开发，引入了单阶段目标检测的概念，优先考虑速度而非精度。该方法将图像划分为网格，并直接从每个网格单元预测边界框和类别概率，从而实现实时推理。与双阶段检测器相比，此方法显著降低了计算开销，尽管在定位精度方面存在一些权衡。<br>YOLOv2（2016）[12]，由JosephRedmon开发，通过引入Anchor框、批量归一化和多尺度训练增强了检测能力。Anchor框使模型能够预测不同形状和大小的边界框，提高了其检测多样化物体的能力。批量归一化稳定了训练并提升了收敛性，而多尺度训练使模型对不同的输入分辨率更加鲁棒。<br>YOLOv3（2018）[13]，由JosephRedmon再次改进，通过Darknet-53Backbone网络、特征金字塔网络（FPN）和逻辑分类器进一步提升了准确率。Darknet-53提供了更深、更强大的特征提取能力，而FPN使模型能够利用多尺度特征以提升小目标检测性能。逻辑分类器取代了softmax用于类别预测，实现了多标签分类。</p>
+<p>YOLOv5（2020）[15]由Ultralytics开发，通过引入PyTorch实现，标志着关键性的转变。这极大地简化了训练和部署，使YOLO对更广泛的受众更加易用。它还引入了自动Anchor点学习，在训练过程中动态调整Anchor框大小，并集成了数据增强的进步。从Darknet到PyTorch的转变是一个重大变化，极大地促进了该模型的人气。</p>
+<p>YOLOv7（2022）[17]由Wang等人开发，通过扩展高效层聚合网络（E-ELAN）和重新参数化卷积进一步提高了效率。E-ELAN增强了特征集成和学习能力，而重新参数化卷积降低了计算开销。<br>YOLOv8(2023)[18]，由Ultralytics开发，引入了C2f模块、任务特定检测Head和无需Anchor框的检测。C2f模块增强了特征融合和梯度流，任务特定检测Head支持更专业的检测任务，无需Anchor框的检测消除了预定义Anchor框的需求，简化了检测过程。<br>YOLOv9(2024)[19]，由王建尧等人开发，引入了广义高效层聚合网络（GELAN）和可编程梯度信息（PGI）。GELAN提升了模型学习多样化特征的能力，而PGI有助于避免深度网络训练过程中的信息损失。<br>YOLOv10(2024)[20]由多个研究贡献者开发，强调双重标签分配、无NMS检测和端到端训练。双重标签分配增强了模型处理模糊目标实例的能力，无NMS检测降低了计算开销，端到端训练简化了训练过程。之所以表述为“多个研究贡献者”，是因为此时对于这一特定版本，尚未存在单一、普遍认可且持续获得认可的开发者或组织，与先前版本不同。<br>YOLOv11（2024）[21]由GlennJocher和JingQiu开发，重点关注C3K2模块、特征聚合和优化训练流程。C3K2模块增强了特征提取能力，特征聚合提升了模型整合多尺度特征的能力，优化训练流程减少了训练时间。与YOLOv10类似，开发者信息不够集中，更具协作性。<br>YOLOv12（2025）[27]，最新迭代版本，在集成注意力机制的同时保持了实时效率。它引入了A2、残差高效层聚合网络（R-ELAN）和FlashAttention，并采用混合CNN-Transformer框架。这些创新提升了计算效率，优化了延迟-精度权衡，超越了基于CNN和基于Transformer的目标检测器。<br>YOLO模型的演进体现了从基于Darknet的架构[11,12,13,14]向PyTorch实现的转变[15,16,17,18,19,20,21]，以及最近向混合CNN-Transformer架构的发展[ 27]。每一代模型都在速度和准确性之间取得了平衡，并融合了特征提取、梯度优化和数据效率方面的进步。图1展示了YOLO架构的演进过程，突出了各版本中的关键创新。<br>YOLOv12的架构优化将注意力机制嵌入YOLO框架中，从而提升了计算效率并实现了高速推理。下一节将详细分析这些改进，并通过多个检测任务对YOLOv12的性能进行基准测试。<br>YOLO框架通过引入一个统一的神经网络，革新了目标检测领域，该网络在一次前向传播中同时执行边界框回归和目标分类[ 28]。与传统的两阶段检测方法不同，YOLO采用端到端的方法，使其在实时应用中表现出极高的效率。其全微分设计允许无缝优化，从而在目标检测任务中提升了速度和准确性。<br>YOLOv12架构的核心由两个主要组件构成：Backbone网络和Head网络。Backbone网络作为特征提取器，通过一系列卷积层处理输入图像，生成不同尺度的层次化特征图。这些特征捕捉了目标检测所需的必要空间和上下文信息。Head网络负责细化这些特征，并通过多尺度特征融合与定位生成最终预测。通过上采样、拼接和卷积操作的结合，Head网络增强了特征表示，确保对小、中、大目标进行稳健检测。YOLOv12的Backbone网络和Head网络架构如图1所示。<br>YOLOv12的主干网络通过一系列卷积层处理输入图像，逐步降低其空间维度，同时增加特征图的深度。该过程始于一个初始卷积层，用于提取Low-Level特征，随后通过多个卷积层进行下采样以捕获层次化信息。第一阶段应用一个步长为2的卷积来生成初始特征图，接着通过另一个卷积层进一步降低空间分辨率，同时增加特征深度。<br>随着图像通过Backbone网络，它利用C3k2和A2C2F等专用模块进行多尺度特征学习。C3k2模块增强特征表示的同时保持计算效率，A2C2F模块则改进特征融合以实现更好的空间和上下文理解。Backbone网络继续这一过程，直至生成三个关键特征图：P3、P4和P5，每个特征图代表不同尺度的特征提取。这些特征图随后被传递给检测Head进行进一步处理。<br>YOLOv12的Head负责融合多尺度特征并生成最终的目标检测预测。它采用了一种特征融合策略，结合Backbone网络不同层级的信息，以提升小、中、大目标检测的准确性。这通过一系列上采样和拼接操作实现。该过程始于最高分辨率的特征图（P5）使用最近邻插值方法进行上采样，然后与相应的低分辨率特征图（P4）进行拼接，以创建精细化的特征表示。融合后的特征通过A2C2F模块进一步处理，以增强其表达能力。<br>对下一个尺度进行类似的处理，通过上采样细化后的特征图并将其与低尺度特征（P3）连接。这种层次融合确保了Low-Level和High-Level特征都对最终检测做出贡献，从而提高了模型检测不同尺度物体的能力。<br>特征融合后，网络进行最终处理以准备进行检测。经过优化的特征再次进行下采样，并在不同层次进行融合，以增强目标表示。C3k2模块应用于最大尺度（P5&#x2F;32-large），以确保保留高分辨率特征的同时降低计算成本。这些处理后的特征图随后被传递到最终的检测层，该层对不同的目标类别进行分类和定位预测。其Backbone网络和Head架构的详细分解在算法1中正式描述。<br>YOLOv12引入了一种以注意力为中心的实时目标检测新方法，弥合了传统卷积神经网络与基于注意力的架构之间的性能差距。与之前主要依赖卷积神经网络以提高效率的YOLO版本不同，YOLOv12在不牺牲速度的前提下集成了注意力机制。这是通过三个关键架构改进实现的：A2模块、R-ELAN以及整体模型结构的增强，包括FlashAttention和多层感知器（MLP）中计算开销的减少。以下将详细阐述这些组件：<br>注意力机制的有效性传统上受到其高计算成本的阻碍，特别是在自注意力操作中与二次复杂度相关的问题[ 29]。缓解这一问题的常见策略是线性注意力[ 30]，它通过使用更高效的转换来近似注意力交互，从而降低复杂度。然而，尽管线性注意力提高了速度，但它存在全局依赖退化[ 31]、训练过程中的不稳定性[ 32]以及对输入分布变化的敏感性[ 33]。此外，由于其低秩表示约束[34,32]，它难以在高分辨率图像中保留细粒度细节，从而限制了其在目标检测中的有效性。<br>为解决这些局限性，YOLOv12引入了A2模块，该模块保留了自注意力机制的优势，同时显著降低了计算开销[ 27]。与传统全局注意力机制通过计算整个图像的交互不同，区域注意力将特征图分割成大小相等且不重叠的块，可以是水平或垂直方向。具体而言，一个维度为的特征图被分割成个大小为或的块，无需其他注意力模型（如ShiftedWindow[ 35]、Criss-CrossAttention[ 36]或AxialAttention[ 37]）中可见的显式窗口分割方法。这些方法通常会增加额外的复杂性并降低计算效率，而A2通过简单的reshape操作实现分割，在保持大感受野的同时显著提升了处理速度[ 27]。这种方法如图2所示。<br>尽管A2将感受野缩小至原始尺寸的，但它仍然在覆盖范围和效率方面超越了传统的局部注意力方法。此外，其计算成本几乎减半，从（传统自注意力复杂度）降至。这种效率提升使得YOLOv12能够更有效地处理大规模图像，同时保持鲁棒的检测精度[ 27]。<br>特征聚合在提升深度学习架构中的信息流方面发挥着关键作用。之前的YOLO模型采用了高效层聚合网络（ELAN）[17]，该网络通过将卷积层的输出分割成多个并行处理流，并在重新合并之前优化特征融合。然而，这种方法引入了两个主要缺点：梯度阻断和优化困难。这些问题在更深层次模型中尤为明显，输入与输出之间缺乏直接残差连接阻碍了有效的梯度传播，导致收敛缓慢或不稳定。<br>为应对这些挑战，YOLOv12引入了R-ELAN，这是一种新型增强技术，旨在提升训练稳定性和收敛速度。与ELAN不同，R-ELAN集成了残差快捷连接，通过一个缩放因子（默认设置为0. 01）将输入直接连接到输出[ 27]。这确保了梯度流的平滑性，同时保持了计算效率。这些残差连接借鉴了视觉Transformer中的层缩放技术[ 38]，但它们被专门适配于卷积架构，以防止延迟开销，这通常会影响注意力密集型模型。<br>•CSPNet（跨阶段部分网络）：CSPNet通过将特征图分为两部分来改进梯度流并减少冗余计算，其中一部分通过一系列卷积进行处理，而另一部分保持不变，然后将其合并。这种部分连接方法在保持表征能力的同时提高了效率[ 39]。<br>•ELAN（高效层聚合网络）：ELAN通过引入更深层次的特征聚合扩展了CSPNet。它在初始的卷积之后使用了多个并行卷积路径，这些路径被连接起来以丰富特征表示。然而，缺乏直接残差连接限制了梯度流，使得更深的网络更难训练[ 17]。<br>•C3k2：ELAN的改进版本，C3k2在特征聚合过程中引入了额外的变换，但仍然继承了ELAN的梯度阻塞问题。虽然它提高了结构效率，但并未完全解决深度网络面临的优化挑战[21,19]。<br>•R-ELAN：与ELAN和C3k2不同，R-ELAN通过引入残差连接重构特征聚合。R-ELAN并非先分割特征图并独立处理各部分，而是提前调整通道维度，在通过Bottleneck层之前生成统一的特征图。<br>该设计通过减少冗余操作，同时确保有效的特征集成，显著提高了计算效率[ 27]。<br>在YOLOv12中引入R-ELAN带来了多项优势，包括更快的收敛速度、改进的梯度稳定性以及降低优化难度，尤其对于大尺度模型（L-和X-scale）。先前版本在标准优化器如Adam和AdamW[ 17]下常面临收敛失败的问题，但R-ELAN有效缓解了这些问题，使YOLOv12在深度学习应用中更加鲁棒[ 27]。<br>YOLOv12在介绍A2和R-ELAN之后，还包含了一些额外的架构改进来提升整体性能：<br>•高效卷积设计：为提升计算效率，YOLOv12策略性地保留那些具有优势的卷积层。它不使用带有层归一化（LN）的全连接层，而是采用结合批归一化（BN）的卷积操作，这更适合实时应用[ 27]。这使得模型能够在引入注意力机制的同时，保持类似CNN的效率。<br>•移除位置编码：与传统的基于注意力机制的架构不同，YOLOv12摒弃了显式的位置编码，而是在注意力模块中采用大核尺寸的分离卷积[ 27]，称为位置感知器。这确保了空间感知性，同时不增加不必要的复杂性，从而提高了效率和推理速度。<br>•优化MLP比例：传统视觉Transformer通常使用MLP扩展比例为4，这在实时设置中会导致计算效率低下。YOLOv12将MLP比例降低至1. 2[ 27]，确保FFN不会主导整体运行时间。这一改进有助于平衡效率与性能，避免不必要的计算开销。<br>•FlashAttention集成：基于注意力机制的模型中的一个关键Bottleneck是内存效率低下[25,26]。YOLOv12集成了FlashAttention，这是一种通过重构计算以更好地利用GPU高速内存（SRAM）来减少内存访问开销的优化技术。这使得YOLOv12在速度上能与CNNs相媲美，同时利用了注意力机制的优势建模能力。<br>评估目标检测模型的性能需要对准确性和计算效率进行全面分析。YOLOv12在MSCOCO2017目标检测基准[ 40]上进行了评估，该基准数据集是用于评估目标检测模型的标准数据集。其性能与之前的YOLO版本以及RT-DETR和RT-DETRv2等最先进的检测模型进行了比较。评估考虑了关键指标，如平均精度均值（mAP）、推理延迟和FLOPs，为YOLOv12在实际应用中的有效性提供了见解。结果在图4中进行了可视化，并在后续章节中详细阐述，突出了YOLOv12在准确性、速度和计算效率方面的进步。<br>推理速度是实时目标检测应用中的关键因素，响应性至关重要。图4（a）中的结果表明，YOLOv12在保持具有竞争力的或更优延迟的同时，实现了比以往YOLO模型更高的mAP。例如，最小变体YOLOv12-N达到了40. 6%mAP，超越了YOLOv10-N（38. 5%）和YOLOv11-N（39. 4%），在T4GPU上的推理时间为1. 64ms。较大的YOLOv12-X模型实现了55. 2%mAP，比其前身YOLOv11-X提高了0. 6%，展示了模型改进在准确性和计算效率方面的有效性。这种跨模型尺寸的持续改进突显了YOLOv12架构和优化策略的有效性。<br>值得注意的是，YOLOv12在推理速度方面始终优于RT-DETR模型。YOLOv12-S的运行速度比RT-DETR-R18&#x2F;RT-DETRv2-R18快约42%，同时仅使用36%的计算量和45%的参数。具体而言，YOLOv12-S的延迟为2. 61毫秒，而RT-DETR-R18&#x2F;RT-DETRv2-R18的延迟为4. 58毫秒，这凸显了YOLOv12在降低延迟的同时保持或提升检测精度的效率。这些改进表明YOLOv12非常适合对时间敏感的应用，如自动驾驶、监控和机器人技术，在这些领域快速处理至关重要。<br>一个关键的观察是YOLOv12在不同模型尺寸上表现出高效的扩展性。虽然增加FLOPs通常会导致更高的精度，但YOLOv12始终在相同或更少FLOPs的情况下优于先前模型，这进一步证实了其架构优化的优势。例如，YOLOv12-L实现了53. 7%mAP，使用了88. 9GFLOPs，而YOLOv11-L实现了53. 3%mAP，使用了86. 9GFLOPs。这一趋势表明，即使在计算约束下，YOLOv12也能保持高效率，使其适合部署在资源受限的硬件上，如边缘设备和移动平台，其中功耗效率是首要考虑因素。<br>YOLOv12在推理速度和硬件利用方面的效率提升在多个平台上都十分明显。表2提供了在RTX3080、RTXA500和RTXA6000GPU上，以FP32和FP16精度进行推理延迟的比较分析，将YOLOv12与YOLOv9[ 19]、YOLOv10[ 20]和YOLOv11[ 21]进行了基准测试。为确保一致性，所有实验均在相同的硬件上进行。此外，YOLOv9和YOLOv10使用Ultralytics代码库[ 41]进行了评估。<br>实验结果突出表明，YOLOv12在推理速度上显著优于YOLOv9，同时保持了与YOLOv10和YOLOv11相当的效率。值得注意的是，在RTX3080GPU上，YOLOv12-N的推理时间为1. 7毫秒（FP32）和1. 1毫秒（FP16），相较于YOLOv9的2. 4毫秒（FP32）和1. 5毫秒（FP16）实现了提升。此外，在NVIDIAT4GPU上，YOLOv12-S的推理延迟为2. 61毫秒，进一步巩固了其在同类实时目标检测模型中最快之一的地位。这种效率水平确保了YOLOv12适用于对延迟敏感的应用场景。<br>除了GPU基准测试之外，图5还提供了关于准确率、模型参数和CPU延迟之间权衡的额外比较见解。图5(a)展示了准确率-参数的权衡关系，其中YOLOv12建立了一个主导边界，超越了之前的YOLO版本，包括YOLOv10，其架构更为紧凑。图5(b)展示了在CPU上的准确率-延迟性能，其中YOLOv12实现了更高的效率，在IntelCorei7-10700K上评估时超越了其前身。<br>这些改进通过集成FlashAttention得到进一步促进，FlashAttention优化了GPU内存访问（SRAM利用率）并减少了内存开销，从而实现了更高的吞吐量和更低的内存消耗。通过解决内存访问Bottleneck，YOLOv12能够进行更大批量的处理，并高效地处理高分辨率视频流，使其特别适用于需要即时反馈的实时应用，例如增强现实、交互式机器人和自主系统。<br>YOLO系列始终以实时目标检测为优先，通过每次迭代提升了速度与准确性的平衡。YOLOv1引入了单次检测的基本概念[ 11]，使模型能够通过单次评估直接从完整图像中预测边界框和类别概率。虽然其速度具有突破性，但其准确性因定位误差而受损。YOLOv2通过引入批量归一化、Anchor框和多尺度训练改进了这一点，显著提升了精度和召回率[ 12]。<br>后续版本如YOLOv3[ 13]和YOLOv4[ 14]引入了Anchor框（anchorboxes）和特征金字塔网络（featurepyramidnetworks）以增强检测能力。随后的模型包括YOLOv5和YOLOv6，在保持卷积架构基础的同时进行了优化以提高效率。值得注意的是，YOLOv6引入了BiC和SimCSPSPPF模块[ 16]，进一步提升了速度和精度。YOLOv7和YOLOv8通过集成E-ELAN和C2f模块[17,18]进一步优化了框架，以实现更强大的特征提取能力。<br>YOLOv9引入了GELAN进行架构优化和PGI进行训练改进[ 19]，实现了更好的梯度流并增强了对抗小目标检测的鲁棒性。YOLOv10和YOLOv11转向减少延迟和提升检测效率，其中YOLOv11引入了C3K2模块和轻量级深度可分离卷积来加速检测[ 42]。<br>沿着这一轨迹，YOLOv12通过集成注意力机制[ 27]在实时性能上达到了或超越了其前代模型，此前认为这种机制对于此类应用来说过于缓慢。FlashAttention的引入解决了内存Bottleneck问题，使得注意力过程与传统卷积方法一样迅速，同时提高了检测精度。值得注意的是，YOLOv12-N实现了40. 6%的mAP，推理延迟为1. 64毫秒，在精度和速度两方面均优于YOLOv10-N和YOLOv11-N。<br>目标定位一直是YOLO模型的核心，每个版本都在不断优化其边界框回归能力。YOLOv1最初将目标检测表述为回归问题[ 11]，直接从图像中预测边界框，而不依赖区域Proposal。然而，它缺乏基于Anchor点的机制，导致定位精度不一致。YOLOv2引入了Anchor框和高分辨率分类器，提升了定位精度[ 12]。<br>YOLOv3和YOLOv4采用基于Anchor框的检测方法，虽然有效，但由于预定义的Anchor框尺寸，偶尔会导致边界框不准确[13,14]。YOLOv5和YOLOv6转向Anchor-Free框方法和双层特征融合，提高了定位精度[15,16]。YOLOv7和YOLOv8在动态标签分配[ 17]和增强损失函数[ 18]等方面的进一步优化，延续了这一趋势。YOLOv9通过改进特征聚合策略并引入更先进的分配策略来减少错位，从而提升了定位精度[ 19]。<br>YOLOv10和YOLOv11通过引入C3K2模块和无非极大值抑制（NMS-free）训练改进了检测Head，优化了边界框预测[20,21]。YOLOv12[ 27]通过引入A2提升了目标定位能力，A2能够捕获更广泛的感受野，从而实现更精确的定位。FlashAttention的应用降低了内存开销，进一步提高了边界框回归的精度，因此在保持快速推理速度的同时，在定位精度上超越了前代版本。<br>在相同图像中检测不同尺寸的物体一直是YOLO系列的研究重点。YOLOv1和YOLOv2由于多尺度特征提取能力有限，在小目标检测方面存在困难[11,12]。YOLOv4引入了FPN[ 14]以促进多尺度检测。YOLOv5和YOLOv6通过CSPNet[ 43]和SimCSPSPPF[ 16]等改进优化了不同尺度的性能。YOLOv7和YOLOv8引入了C2f模块以提升特征提取能力，增强了多尺度检测性能[17,18]。<br>YOLOv9引入了GELAN，通过优化不同分辨率下的空间特征进一步提升了多尺度检测能力[ 19]。YOLOv10和YOLOv11则专注于加速特征聚合并采用轻量级检测Head，从而提升了性能，尤其对于小目标[20,21]。<br>YOLOv12通过集成A2[ 27]提升了多尺度目标检测能力，A2能够在无需复杂窗口划分的情况下保持较大的感受野，同时保留了检测速度。性能指标表明，YOLOv12-N在小型目标上实现了20. 2%的mAP，在中型目标上实现了45. 2%的mAP，在大型目标上实现了58. 4%的mAP，在所有尺度上均优于先前模型。<br>有效的特征提取是目标检测的基础，而每一次YOLO的迭代都致力于提升这一过程。YOLOv1依赖于全连接层，这限制了其对未见过的物体尺度的泛化能力[ 11]。YOLOv2将这些层替换为更深层的卷积层和批量归一化，从而提高了效率[ 12]。YOLOv3和YOLOv4则采用了基于Darknet的Backbone网络，尽管这些网络功能强大，但计算量较大[13,14]。<br>YOLOv5和YOLOv6引入了CSPNet[ 15]和SimCSPSPPF[ 16]以优化特征学习并减少冗余。YOLOv7和YOLOv8中E-ELAN和C2f模块的实现使特征提取更加高效[17,18]。YOLOv9引入了GELAN，进一步优化了梯度流，并允许更好地利用特征图[ 19]。<br>YOLOv10和YOLOv11通过引入C3K2模块和轻量级卷积进一步优化了特征流[20,21]。YOLOv12引入了R-ELAN[ 27]，增强了梯度流和特征融合。FlashAttention的应用解决了内存效率问题，实现了更快更有效的特征提取。这些创新最终在速度和精度之间取得了卓越的平衡，将YOLOv12置于实时检测性能的前沿。<br>YOLO系列中实例分割的演进体现了从基于网格的简单检测向高质量、像素级目标轮廓划分的转变，同时保持了实时性能。<br>早期的模型YOLOv1、YOLOv2和YOLOv3专门设计用于边界框检测，缺乏分割能力[11,12,13]。YOLOv5的引入带来了重大进展，通过整合轻量级的全卷积ProtoNet实现了实例分割[ 15]。这使得能够生成原型Mask，并与检测输出结合，在保持高速性能的同时生成像素级精确的分割Mask。<br>YOLOv6专注于架构改进，如RepVGG和CSPStackRep模块，通过不直接添加分割分支来增强特征提取[ 16]。YOLOv7引入了专门的分割变体（YOLOv7-Seg），在保持实时效率的同时生成高质量Mask[ 17]。YOLOv8通过Anchor-Free点分割头和改进的Backbone网络进一步优化分割，实现了更高的精度和鲁棒的分割Mask[ 18]。YOLOv10引入了自适应Mask分辨率、特征对齐模块以减少Mask框错位，以及选择性Transformer元素以捕获长距离依赖关系[ 20]。这些改进显著提升了分割质量，同时保持了计算效率。YOLOv11通过交叉阶段部分与空间注意力（C2PSA）模块进一步优化分割，提高了在杂乱环境中对相关区域的关注[ 42]。<br>虽然YOLOv12没有引入专门的实例分割框架，但某些架构增强措施——例如改进的注意力机制以及通过R-ELAN进行特征聚合——可能有助于更有效地区分物体边界[ 27]。FlashAttention通过减少内存开销，也可能有助于更精细的物体感知。然而，由于缺乏具体的基准测试或关于YOLOv12分割性能的明确文档，其在该领域的优势仍属于探索性而非已确认的改进。<br>YOLOv12在目标检测领域实现了重大进步，它基于YOLOv11的坚实基础，同时融入了前沿的架构增强。该模型在准确性、速度和计算效率之间取得了精妙的平衡，使其成为适用于不同领域实时计算机视觉应用的理想解决方案。<br>YOLOv12引入了多种模型尺寸，从纳米（12n）到超大型（12x），支持在多种硬件平台上部署。这种可扩展性确保YOLOv12能够在资源受限的边缘设备和高性能GPU上高效运行，在保持高精度的同时优化推理速度。纳米和小型变体显著降低了延迟，同时保留了检测精度，使其成为自动驾驶导航[44,45]、机器人[ 5]和智能监控[46,47,48]等实时应用的理想选择。<br>YOLOv12引入了多项关键架构改进，提升了特征提取和处理效率。R-ELAN优化了特征融合和梯度传播，使得网络结构能够更深且更高效。此外，引入分离卷积减少了参数数量，同时保持空间一致性，从而在极低的计算开销下提升了特征提取能力。<br>YOLOv12中的一项突出优化是采用FlashAttention驱动的基于区域的注意力机制，该机制在提升检测精度的同时降低了内存开销。这使得YOLOv12能够更精确地定位目标，特别是在杂乱或动态环境中，而无需牺牲推理速度。这些架构改进共同提升了mAP，同时保持了实时处理效率，使该模型在需要低延迟目标检测的应用中表现出色。<br>基准测试评估证实，YOLOv12在准确性和效率方面均优于之前的YOLO版本。YOLOv12m变体在参数数量减少25%的情况下，实现了与YOLOv11x相当或更优的mAP，展现了显著的计算效率提升。此外，YOLOv12s等小型变体具有更低的推理延迟，适用于边缘计算和嵌入式视觉应用[ 49]。<br>从硬件部署角度来看，YOLOv12具有高度可扩展性，表现出与高性能GPU和低功耗AI加速器的兼容性。其优化的模型变体允许在自动驾驶、工业自动化、安防监控和其他实时应用中进行灵活部署[50,51,52]。该模型的内存高效利用和低计算开销使其成为资源约束严格环境中的实用选择。<br>YOLOv12中引入的创新具有广泛的多行业影响。其以较低的运算开销实现高精度目标检测的能力，使其在自主导航、安全和实时监控系统等领域尤为珍贵。此外，该模型的微小目标检测[ 53]改进增强了其在医学影像和农业监测中的实用性，在这些领域，检测细粒度视觉细节至关重要。<br>此外，YOLOv12的高效处理流程确保了其在云端、边缘和嵌入式AI系统中的无缝部署，进一步巩固了其作为领先实时检测框架的地位。随着对高速、高精度视觉模型的需求不断增长，YOLOv12在可扩展和高效的目标检测技术方面树立了新的标杆。<br>尽管YOLOv12在架构和效率方面取得了显著进步，但仍存在若干挑战，亟待深入研究。解决这些局限性对于优化其在实际应用中的部署，并拓展YOLOv12在标准目标检测之外的能力至关重要。<br>YOLOv12集成了注意力机制和FlashAttention以提升准确率，但这些增强带来了更高的计算需求。尽管该模型在高端GPU上实现了实时性能，但在低功耗边缘设备如移动处理器、嵌入式系统和物联网设备上部署它仍然是一个挑战[ 54]。<br>一个关键限制是内存Bottleneck。基于注意力机制的架构由于需要大量特征图和矩阵乘法，导致VRAM使用量较高。这使得在资源受限的设备上高效运行YOLOv12变得困难，例如NVIDIAJetsonNano、树莓派和基于ARM的微控制器[ 55]。通过模型压缩技术如低秩分解[ 56]和权重剪枝[ 57]优化内存占用，可以帮助缓解这一问题。<br>另一个挑战是推理延迟。虽然YOLOv12相比于完整的VisionTransformer[22,23]减少了注意力开销，但在边缘硬件上仍落后于纯基于CNN的YOLO版本。结构化剪枝、知识蒸馏和量化（例如int8）等策略能够提升嵌入式AI加速器上的实时性能[ 58]。<br>此外，未来的研究可以探索针对硬件的特定优化，以提升YOLOv12在不同平台上的效率。诸如层级优化[ 59]、高效卷积核[ 60]以及FPGA&#x2F;DSP实现等技术，可以使模型更适应低功耗设备[ 61]。<br>YOLOv12的准确率提升是以增加训练复杂度和更高数据集依赖为代价的。与早期为轻量级训练优化的YOLO模型不同，YOLOv12引入了注意力机制和更深层次的特征聚合，这导致计算需求更高。<br>一个主要的挑战是训练成本。基于注意力的模块需要显著更多的FLOPs和内存带宽，导致训练成本高昂，尤其对于GPU资源有限的科研行人而言。注意力权重的低秩分解、梯度预训练权重和高效的损失函数等技术有助于降低计算开销[ 62]。<br>另一个问题是数据效率。YOLOv12的优越精度很大程度上归功于在MSCOCO和OpenImages等大规模数据集上进行训练。然而，在许多实际应用中，例如医学影像[ 63]和工业缺陷检测[ 28]，数据集通常规模较小或分布不平衡。探索自监督学习、半监督训练。<br>领域自适应技术[64,65,66]能够提升YOLOv12在低数据环境下的性能。<br>此外，超参数敏感性仍然是一个挑战。YOLOv12需要对学习率、注意力头数和Anchor框大小等参数进行大量调整，这可能会带来较高的计算成本。未来的研究可以探索使用NAS等技术[ 67]进行自动化超参数调整，以提高可用性和效率。<br>YOLOv12主要用于2D目标检测，而许多新兴应用需要超越简单边界框的更High-Level场景理解。将YOLOv12扩展到3D目标检测、实例分割和全景分割可能开辟新的研究机会。<br>在3D目标检测方面，自动驾驶[ 3]和机器人[ 68]等应用需要能够预测深度感知3D边界框的模型。当前的基于Transformer的模型如DETR3D和BEVFormer利用多视角输入和激光雷达融合[ 69]。将YOLOv12扩展以处理立体图像或激光雷达数据，可以使它适用于3D感知任务。<br>以实例分割为例，YOLOv12缺少专门的分割头。现有的解决方案如YOLACT和SOLOv2通过集成轻量级Mask分支实现实时实例分割[ 70]。YOLO的未来迭代可以引入并行分割分支以提升像素级目标界定能力。<br>此外，全景分割[ 71]，它结合了实例分割和语义分割，已成为计算机视觉中的一个日益增长的研究领域。尽管当前的YOLO模型不支持这项任务，但在保持YOLO效率的同时集成基于transformer的分割头，将能够实现一个统一的目标检测和分割框架。<br>在本综述中，作者对YOLOv12进行了深入分析，它是实时目标检测器YOLO家族的最新演进。通过集成A2模块、R-ELAN和FlashAttention等创新技术，YOLOv12有效平衡了准确性与推理速度之间的权衡。这些改进不仅解决了早期YOLO版本和传统卷积方法中固有的局限性，还拓展了实时目标检测所能达到的边界。<br>作者追溯了YOLO架构的技术演进，并详细阐述了YOLOv12中的结构优化，包括其优化的Backbone网络和检测Head。全面的基准测试评估表明，YOLOv12在多个指标上实现了卓越性能，包括延迟、准确性和计算效率，使其既适合高性能GPU，也适合资源受限的设备。<br>尽管YOLOv12标志着显著的进步，但作者的综述也指出了几个仍然存在的挑战，例如边缘部署的硬件限制和训练复杂性。总体而言，YOLOv12在实时目标检测方面迈出了重要一步，结合了卷积和基于注意力方法的优势。其可扩展的设计和增强的效率不仅适用于广泛的应用，还为计算机视觉领域的进一步创新铺平了道路。<br>[1].AREVIEWOFYOLOV12:ATTENTION-BASEDENHANCEMENTSVS. PREVIOUSVERSIONS<br>欢迎加入《AI未来星球》，一起成长<br>扫描下方二维码即可加入~<br>真诚分享AI落地过程（AI商机-&gt;项目签约-&gt;算法开发-&gt;产品开发-&gt;实施运维）中的各方面经验和踩过的坑。<br>你可以获得什么？<br>1、大白之前花费10W+购买，AI行业各场景私有数据集下载，星球内倾情分享；2、AI行业研发、产品、商业落地问题咨询（目前AI公司创业中），都可获高质量解答，有效期一年，无限次提问，有问必答。3、定期邀请AI行业各类嘉宾分享，创业&#x2F;商业等方面的经验！<br>帮助你解决遇到的实际问题，升职加薪！<br>大家一起加油！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/07/08/1000001665-2247540333-1-1751989679/">https://zejuncao.github.io/2025/07/08/1000001665-2247540333-1-1751989679/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                                    <span class="chip bg-color">江大白</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/08/1000001665-2247540333-2-1751989679/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000001665-2247540333_2-1751989679.jpg" class="responsive-img" alt="开放词汇目标检测范式再升级！零样本识别 + 思维链推理双加持！">
+                        
+                        <span class="card-title">开放词汇目标检测范式再升级！零样本识别 + 思维链推理双加持！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B1%9F%E5%A4%A7%E7%99%BD/">
+                        <span class="chip bg-color">江大白</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/08/1000000587-2247495425-1-1751989510/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000587-2247495425_1-1751989510.jpg" class="responsive-img" alt="阿里深夜开源王炸Agent！硬刚OpenAI，性能全面SOTA！">
+                        
+                        <span class="card-title">阿里深夜开源王炸Agent！硬刚OpenAI，性能全面SOTA！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PaperAgent/">
+                        <span class="chip bg-color">PaperAgent</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
