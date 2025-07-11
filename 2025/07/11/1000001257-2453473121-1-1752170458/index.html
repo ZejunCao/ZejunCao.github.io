@@ -1,0 +1,1105 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="前OpenAI研究员Kevin Lu 长文：别搞RL了，去做产品吧！, ZejunCao&#39;Blogs">
+    <meta name="description" content="前OpenAI研究员Kevin Lu 长文：别搞RL了，去做产品吧！
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+强化学习也将陷入死胡同。昨天夜里，前OpenAI研究员KevinLu发了一篇长文，直指当下AI研究的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>前OpenAI研究员Kevin Lu 长文：别搞RL了，去做产品吧！ | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000001257-2453473121_1-1752170458.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">前OpenAI研究员Kevin Lu 长文：别搞RL了，去做产品吧！</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AGI-Hunt/">
+                                <span class="chip bg-color">AGI Hunt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-11
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/L98DqIA8zlhKBAcstfN29A">前OpenAI研究员Kevin Lu 长文：别搞RL了，去做产品吧！</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>强化学习也将陷入死胡同。<br>昨天夜里，前OpenAI研究员KevinLu发了一篇长文，直指当下AI研究的核心问题：我们都在错误的方向上努力。<br>他的观点很是犀利：<br>真正推动AI大规模进步的不是Transformer，而是互联网。<br>这话听起来像是在开玩笑。<br>但KevinLu给出了一个让人深思的论证：没有互联网提供的海量数据，就算有了Transformer，我们也造不出GPT-4。<br>数据才是AI的命脉，这个道理大家都懂，但研究者们却选择性地忽略了它。<br>KevinLu提到了一个有趣的现象：自从GPT-4发布以来，已经过去了两年多，但我们很难感受到基础模型有什么质的飞跃。<br>为什么？<br>因为我们进入了一个新的时代：从计算受限转向了数据受限。<br>在计算受限的时代，更高效的架构确实能带来更好的性能。但现在，所有方法的性能都会趋同，因为瓶颈不在算法，而在数据。<br>KevinLu甚至大胆地说：就算没有Transformer，用CNN或者状态空间模型，我们也能达到GPT-4. 5的水平。<br>但问题是，没有互联网，就算有Transformer，我们也造不出GPT-2。<br>KevinLu把互联网比作AI诞生的「原始汤」（primordialsoup），这个比喻很是贴切。<br>互联网为next-tokenprediction提供了完美的数据源：<br>多样性<br>从小众语言到冷门粉丝文化，只要有人关心，就会在互联网上留下痕迹。这些内容最终都会被永远地刻进AGI的记忆里。<br>天然技能课程<br>从小学生的KhanAcademy，到大学的MIT开放课程，再到前沿的arXiv论文，互联网自然地形成了一个从易到难的学习阶梯。<br>用户自发贡献<br>最关键的是，人们想要使用互联网。这不是研究员人工构建的数据集，而是活生生的人类智慧的记录。<br>KevinLu引用了AlecRadford在2020年的一次演讲：<br>每次我们构建数据集，就是把世界上其他所有东西的重要性设为0，把数据集里的东西重要性设为1。我们可怜的模型！它们知道得太少，却还有太多东西被我们隐藏了。<br>既然互联网是监督学习的完美搭档，那强化学习的「互联网」在哪里？<br>KevinLu认为这正是问题所在。目前的强化学习要么依赖于：<br>人类偏好（RLHF）<br>收集困难，噪声巨大，而且不同人的偏好可能完全相反。<br>可验证奖励（RLVR）<br>局限于数学、编程等狭窄领域，很难泛化到其他任务。<br>而研究者们在做什么？<br>还在调整Q函数的裁剪方式，研究新的时序高斯探索方法……<br>这些都不会带来真正的突破。<br>KevinLu的核心观点是：<br>要创造强化学习的「互联网」，必须从产品入手。<br>他列举了几个可能的方向：<br>机器人技术<br>但面临奖励标注困难、形态差异、现实差距等挑战。<br>推荐系统<br>某种程度上是人类偏好的延伸，但更有针对性。<br>AI研究<br>让AI来训练AI，优化基准测试性能。<br>交易系统<br>有清晰的指标（赚钱），但你的RL智能体很可能会学会「不玩」。<br>计算机操作数据<br>类似Adept尝试的方向，教模型执行计算机操作。<br>但这些都还不够。KevinLu梦想的是一个像互联网一样丰富、多样、有经济价值的RL任务生态系统。<br>这需要的不是RL理论经验，而是产品思维。<br>KevinLu特别强调了研究与产品协同设计的重要性。<br>互联网之所以完美，是因为：<br>它是去中心化的，任何人都可以贡献知识<br>它有自然的激励机制（点赞、广告收入）<br>它是经济可行的，便宜到人人都能用<br>人们真的想用它<br>这些特性不是研究员设计出来的，而是产品自然演化的结果。<br>AGI不应该只是在数学题上表现优秀，而应该真正改变人类的生活。<br>如果这是我们的目标，那么从一开始就应该考虑AGI的产品形态。<br>KevinLu的文章，也让我想到了一个问题：<br>当所有研究者都在优化算法时，谁来优化数据？<br>互联网用了20年时间，创造了一个让AI得以诞生的数据海洋。现在，我们需要为强化学习创造同样的东西。<br>这不是一个技术问题，而是一个生态问题。<br>如KevinLu所说，未来五年或将由一次大规模的强化学习训练决定。<br>如果我们还在摆弄RL算法的小零件，而不是思考如何创造新的数据源，那我们可能会重蹈2015-2020年RL研究的覆辙——<br>做了很多研究，但都不重要。<br>所以，也许是时候从实验室走出来，去真实世界创造些什么了。<br>毕竟，改变世界的从来不是算法，而是产品。<br>KevinLu原文👇<br>发布于2025年7月<br>尽管AI的进步常常被归功于里程碑式的论文——比如Transformer[ 1]、RNN[ 2]或扩散模型[ 3]——但这忽略了人工智能的根本瓶颈：数据。<br>但拥有好的数据意味着什么？<br>如果我们真正想要推进AI，与其研究深度学习优化，不如研究互联网。<br>互联网才是真正解锁AI模型规模化的技术。<br>受到架构创新带来的快速进步的启发（5年内从AlexNet到Transformer），许多研究者寻求更好的架构先验。人们打赌[ 4]我们是否能设计出比Transformer更好的架构。事实上，自Transformer以来确实开发出了更好的架构——但为什么自GPT-4以来很难\“感受到\“改进？<br>计算受限。曾几何时，方法随着计算而扩展，我们看到更高效的方法更好。重要的是尽可能高效地将数据装入模型，这些方法不仅取得了更好的结果，而且似乎随着规模而改进。<br>数据受限。实际上，研究并非无用。社区已经开发出了比Transformer更好的方法——比如SSMs(AlbertGu等，2021)[5]和Mamba(AlbertGu等，2023)[6]（以及更多）——但我们并不认为它们是免费的胜利：对于给定的训练计算量，我们应该训练一个表现更好的Transformer。<br>但数据受限的范式是自由的：反正我们所有的方法都会表现相同！所以我们应该选择最适合推理的方法[ 7]，这很可能是某种次二次注意力变体，我们可能会很快看到这些方法重新受到关注（推理时间消耗[ 8]）。<br>现在想象一下，我们不\“仅仅\“关心推理（这是\“产品\“），而是关心渐近性能（\“AGI\“）。<br>显然，优化架构是错误的。<br>确定如何裁剪Q函数轨迹绝对是错误的。<br>手工制作新数据集不具有可扩展性。<br>你的新时序高斯探索方法可能也不具有可扩展性。<br>社区的大部分已经达成共识，我们应该研究消费数据的新方法，其中有两个主要范式：(1)next-token预测和(2)强化学习。（显然，我们在新范式上没有取得很大进展:)<br>里程碑式的工作提供了消费数据的新途径：<br>AlexNet(AlexKrizhevsky等，2012)[9]使用next-token预测来消费ImageNet[ 10]<br>GPT-2(AlecRadford等，2019)[11]使用next-token预测来消费互联网的文本<br>\“原生多模态\“模型（GPT-4o[ 12]、Gemini1. 5[ 13]）使用next-token预测来消费互联网的图像和音频<br>ChatGPT[ 14]使用强化学习来消费聊天设置中的随机人类偏好奖励<br>DeepseekR1[ 15]使用强化学习来消费狭窄领域中的确定性可验证奖励<br>就next-token预测而言，互联网是伟大的解决方案：它为基于序列的方法（next-token预测）提供了丰富的序列相关数据源来学习。<br>互联网充满了结构化HTML形式的序列，适合next-token预测。根据排序，你可以恢复各种不同的有用能力。<br>这不仅仅是巧合：这种序列数据对于next-token预测来说是完美的；互联网和next-token预测相辅相成。<br>AlecRadford在2020年发表了一次有先见之明的演讲[ 16]，谈到尽管当时提出了所有新方法，但与策划更多数据相比，似乎都不重要。特别是，我们不再希望通过更好的方法获得\“魔法\“泛化（我们的损失函数应该实现解析树），而是一个简单的原则：如果模型没有被告知某事，它当然不知道。<br>与其通过创建大型监督数据集来手动指定预测什么……<br>弄清楚如何从\“那里\“的一切中学习和预测。<br>你可以认为每次我们构建数据集时，就是将世界上其他所有东西的重要性设置为0，将数据集中所有内容的重要性设置为1。<br>我们可怜的模型！它们知道得太少，却还有太多东西被隐藏起来。<br>在GPT-2之后，世界开始注意到[ 17]OpenAI，时间证明了它的影响。<br>低数据。显而易见的反事实是，在低数据环境中，Transformer将毫无价值：我们认为它们比卷积或循环网络具有更差的\“架构先验\“。因此，Transformer应该比它们的卷积对应物表现更差。<br>书籍。一个不那么极端的情况是，没有互联网，我们可能会在书籍或教科书上进行预训练。在所有人类数据中，通常我们可能认为教科书代表了人类智能的巅峰，其作者经历了巨大的教育并将大量思想倾注到每个词中。本质上，它代表了\“高质量数据\“应该优于\“高数量\“数据的观点。<br>教科书。phi模型（\“教科书就是你所需要的一切\“；SuriyaGunasekar等，2023）在这里展示了出色的小模型性能，但仍然需要GPT-4（在互联网上预训练）来执行过滤和生成合成数据。像学者一样，与类似大小的对应物相比，phi模型的世界知识也很差，如SimpleQA(JasonWei等，2024)[18]所衡量的。<br>确实phi模型相当不错，但我们还没有看到这些模型能够达到基于互联网的对应物的相同渐近性能，而且显然教科书缺乏大量真实世界和多语言知识（尽管它们在计算受限的环境中看起来非常强大）。<br>我认为这与我们上面对RL数据的早期分类也有有趣的联系。教科书就像可验证的奖励：它们的陈述（几乎）总是正确的。相比之下，书籍——特别是创意写作——可能包含更多关于人类偏好的数据，并为其结果学生模型注入更大的多样性。<br>就像我们可能不相信o3[ 19]或Sonnet3. 7[ 20]为我们写作一样，我们可能认为只在高质量数据上训练的模型缺乏某种创造性。直接联系到上面，phi模型并没有真正的产品市场契合度：当你需要知识时，你更喜欢大模型；当你想要一个本地[ 21]角色扮演写作模型时，人们通常不会转向phi。<br>实际上，书籍和教科书只是互联网上可用数据的压缩形式，即使有强大的智能在背后执行压缩。再上一层，互联网是我们模型的一个令人难以置信的多样化监督源，也是人类的代表。<br>来自DataReportal[ 22]。<br>乍一看，许多研究者可能会觉得奇怪（或分心），为了在研究上取得进展，我们应该转向产品。但实际上我认为这很自然：假设我们关心AGI为人类做一些有益的事情，而不仅仅是在真空中表现智能（如AlphaZero[ 23]所做的），那么考虑AGI采用的形式因素（产品）是有意义的——我认为研究（预训练）和产品（互联网）之间的协同设计是美丽的。<br>来自ThinkingMachinesLab[ 24]。<br>互联网是去中心化的，任何人都可以民主地添加知识：没有中央真理来源。互联网中代表着大量丰富的观点、文化模因和低资源语言；如果我们用大型语言模型对它们进行预训练，我们会得到一个理解大量知识的结果智能。<br>因此，这意味着产品的管理者（即互联网的管理者）在AGI的设计中扮演着重要角色！如果我们削弱了互联网的多样性，我们的模型在RL中使用的熵将显著降低。如果我们消除数据，我们将从AGI的代表中删除整个亚文化。<br>对齐。有一个超级有趣的结果，为了拥有对齐的模型，你必须在对齐和未对齐的数据上进行预训练（\“当坏数据导致好模型\“；KennethLi等，2025）因为预训练然后学习两者之间的线性可分方向。如果你删除所有未对齐的数据，这会导致模型对什么是未对齐数据以及为什么它是坏的没有强烈的理解（另见XiangyuQi等，2024[ 25]和MohitRaghavendra等，2024[ 26]）。<br>解毒结果。更高的数字（\“Toxigen\“）表示更大的毒性。在10%有毒数据上预训练的模型（10%有毒数据+引导（我们的））比在0%有毒数据上预训练的毒性更小（清洁数据+引导）。<br>特别是，上面的\“有毒\“数据来自4chan，一个以不受限制的讨论和有毒内容而闻名的匿名在线论坛。尽管这是一个特定的案例，其中产品和研究之间存在深刻的联系（我们需要不受限制的讨论来拥有对齐的研究模型），但我认为你可以想到更多这样的互联网设计决策影响训练后结果的案例。<br>对于非对齐示例，请参阅用更好的标题改进图像生成（JamesBetker等，2023）[27]，这是DALL-E3背后的技术；重新标题以更好地解开\“好\“和\“坏\“图像现在几乎用于所有生成模型。这与人类偏好奖励中的赞成&#x2F;反对有相似之处。<br>互联网的另一个重要特性是它包含了各种难度程度的广泛知识：从小学生的教育知识（KhanAcademy[ 28]）到大学级课程（MITOpenCourseWare[ 29]），再到前沿科学（arXiv[ 30]）。如果你只在前沿科学上训练模型，你可以想象有很多隐含的未写出的知识，模型可能无法仅从阅读论文中学到。<br>这很重要，因为想象你有一个数据集，你在上面训练模型，现在它学习了那个数据集。接下来呢？好吧，你可以手动出去策划下一个——OpenAI开始时以每小时2美元[ 31]支付知识工作者标记数据；然后升级到每小时100美元左右的博士级工作者；现在他们的前沿模型正在执行价值O($10,000)[32]的SWE任务。<br>但这是很多工作，对吧？我们开始手动收集像CIFAR[ 33]这样的数据集，然后ImageNet[ 34]，然后更大的ImageNet……——或者小学数学[ 35]，然后AIME[ 36]，然后FrontierMath[ 37]……——但是，通过在行星规模上服务整个世界，互联网自然地包含了具有平滑难度课程的任务。<br>RL中的课程。当我们转向强化学习时，课程扮演着更重要的角色：由于奖励是稀疏的，模型必须理解解决任务一次并获得非零奖励所需的子技能。一旦模型发现了一次非零奖励，它就可以分析什么是成功的，然后尝试再次复制它，RL从稀疏奖励中学习得令人印象深刻。<br>但没有免费的午餐：模型仍然需要平滑的课程才能学习。预训练更宽容，因为它的目标是密集的；但为了弥补这一点，RL必须使用密集的课程。<br>来自YunzhiZhang等，2020[ 38]。RL智能体首先学习实现靠近迷宫起点的附近目标，然后学习实现更远的目标。<br>自我对弈（如在AlphaZero[ 39]或AlphaStar[ 40]中使用的）也创建了一个课程（在国际象棋或星际争霸的狭窄领域）。就像RL智能体或视频游戏玩家想要获胜（因此发现新策略）一样，在线用户想要贡献新想法（有时会收到点赞或广告收入），从而扩展知识前沿并创建自然的学习课程。<br>因此，重要的是要记住人们实际上想要使用互联网，所有这些有用的属性都是与互联网作为产品互动的结果。如果我们必须手动策划数据集，那么策划的内容与人们认为有用的能力之间就存在二分法。研究者不应该选择有用的技能：互联网用户会告诉你。<br>人们实际想要使用互联网的一部分是，该技术对每个用户来说足够便宜，可以看到广泛的采用。如果互联网被昂贵的订阅所限制，用户最终不会大规模贡献他们的数据。（另见：Google搜索[ 42]）<br>我认为人们在讨论规模化时经常错过这一点，但互联网是扩展学习和搜索——数据和计算——的简单想法，如果你能找到这些简单的想法并扩展它们，你会得到很好的结果。<br>所以我认为除了数学理论之外，还有充分的空间讨论应该如何构建AGI：互联网（以及扩展的AGI）可以从许多角度考虑，从哲学到社会科学。众所周知，LLM会持续它们所训练数据的偏见[ 43]。如果我们在1900年代的数据上训练模型，我们将拥有1900年代语言结构的快照，可以永远保存。我们可以实时观察人类知识和文化的演变。<br>在维基百科文章和Github仓库中，我们可以看到人类智能的协作本质。我们可以模拟合作和人类对更完美结果的渴望。在在线论坛中，我们可以看到辩论和多样性，人类贡献新颖的想法（并经常受到某种选择压力来提供一些新思想）。从社交媒体中，AI学习人类认为什么重要到足以与他们的亲人分享。它看到人类的错误，修复它们的过程，以及对真理的不懈追求。<br>正如Claude所写的，<br>AI不是从我们最好的一面学习，而是从我们完整的一面学习——包括争论、困惑和集体意义建构的混乱过程。<br>要点。准确地说，互联网对模型训练非常有用，因为：<br>它是多样化的，因此它包含了对模型有用的大量知识。<br>它形成了模型学习新技能的自然课程。<br>人们想要使用它，因此他们不断贡献更多数据（产品市场契合）。<br>它是经济的：该技术足够便宜，大量人类可以使用它。<br>强化学习是未来（并且是实现超人智能的\“必要条件\“），这在某种程度上是显而易见的。但是，如上所述，我们缺乏RL消费的通用数据源。获得高质量的奖励信号是一场深刻的斗争：我们必须要么争夺原始的聊天数据，要么在微薄的可验证任务中寻找。我们看到来自其他人的聊天偏好不一定对应于我喜欢的，而在可验证数据上训练的模型不一定在我关心的不可验证任务上变得更好。<br>互联网是监督next-token预测的完美补充：人们可能会强烈地说，给定互联网作为基础，研究者必须收敛到next-token预测。我们可以将互联网视为导致人工智能出现的**\“原始汤\“**。<br>所以我可能会说互联网是next-token预测的对偶。<br>ML术语（研究）<br>产品术语（对偶）<br>next-token预测<br>互联网<br>序列数据<br>HTML文件<br>训练-测试差异<br>产品市场契合<br>推理成本<br>经济可行性<br>鲁棒表示<br>冗余（相同信息以多种方式表达）<br>主动学习<br>用户参与<br>多任务学习<br>行星级多样性<br>进化适应度<br>点赞<br>涌现<br>病毒式传播<br>如上所述，尽管我们付出了所有研究努力，我们仍然只有两个主要的学习范式。因此，提出新的\“产品\“想法可能比新的主要范式更容易。这引出了问题：强化学习的对偶是什么？<br>首先，我注意到有一些工作将RL应用于next-token预测目标，使用困惑度[ 44]作为奖励信号（YunhaoTang等，2025）[45]。这个方向旨在作为RL的好处和互联网多样性之间的桥梁。<br>然而，我认为这在某种程度上是误导的，因为RL范式的美妙之处在于它允许我们消费新的数据源（奖励），而不是作为建模旧数据的新目标。例如，GAN（IanGoodfellow等，2014）[46]曾经是从固定数据中获得更多的花哨（和强大）目标，但最终被扩散[ 47]超越，然后最终又回到next-token预测。<br>相反，最令人兴奋的是找到（或创建）新的数据源供RL消费！<br>有几种不同的想法，每种都有某种缺点。它们都不是\“纯粹\“的研究想法，而是涉及围绕RL构建产品。在这里，我推测一下这些可能是什么样子。<br>回想一下，我们期望的属性是：多样化、自然课程、产品市场契合和经济可行。<br>传统奖励。<br>人类偏好（RLHF）。如上所述，这些很难收集，在人与人之间可能有所不同，并且噪声极大。正如YouTube或TikTok所见，这些倾向于优化\“参与度\“而不是智能；是否可以建立明确的联系，即增加参与度导致增加智能，还有待观察。<br>……但在接下来的几年里，YouTube肯定会有很多RL（AndrejKarpathy[ 48]）。<br>可验证奖励（RLVR）。这些仅限于一组狭窄的领域，并且并不总是泛化到这些领域之外；参见o3和ClaudeSonnet3. 7。<br>应用。<br>机器人技术。许多人梦想在未来十年建立大规模机器人数据收集管道和飞轮，作为将智能带入现实世界的一种方式，它们令人难以置信地激动人心。正如机器人初创公司的高失败率所证明的，这显然具有挑战性。对于RL，除了许多其他原因之外，很难标记奖励，你必须处理不同的机器人形态，存在一些模拟到现实的差距，非平稳环境等。正如我们在自动驾驶汽车中看到的，它们也不一定是经济的。<br>推荐系统。某种程度上是人类偏好的延伸，但更有针对性一些，我们可以使用RL向用户推荐一些产品，看看他们是否使用或购买它。这在作为一个领域而言会产生一些狭窄的惩罚，或者更一般（例如，\“生活建议\“），然后面临更嘈杂的奖励。<br>AI研究。我们可以使用RL来执行\“AI研究\“（AI科学家；ChrisLu等，2024）[49]，并训练模型来训练其他模型以最大化基准性能。可以说这不是一个狭窄的领域，但在实践中它是。此外，正如ThinkingMachines[ 50]所写：\“最重要的突破往往来自重新思考我们的目标，而不仅仅是优化现有的指标。\“<br>喜欢这个项目：nanoGPT-&gt;递归自我改进基准。好老的nanoGPT不断给予和惊喜:)<br>首先我把它写成一个小仓库来教人们训练GPT的基础知识。</p>
+<p>交易。现在我们有一个有趣的指标，它大部分是不可破解的（模型可能学习市场操纵），但你可能会在过程中损失很多钱（你的RL智能体可能会学会不玩）。<br>计算机操作数据。就RL教模型一个过程而言，我们可以教模型在计算机上执行操作（与机器人技术不太相同），就像Adept[ 53]试图做的那样。特别是当与人类数据结合时（正如许多交易公司对其员工所拥有的），人们可以使用next-token预测和RL的某种组合来实现这一目标。但同样，这也不那么容易，人们通常不会同意他们的数据被记录（不像互联网，它要求你通过参与来参与内容，大多数人不会同意键盘记录器）。<br>编码与此相关。对过去测试用例的RL是可验证的，但生成测试用例（以及大规模系统设计、建模技术债务……）不是。<br>最后的评论：想象我们为了一点而牺牲多样性。你可以在家中为你的产品指标使用RL，无论是视频游戏的RL[ 54]、Claude试图运营自动售货机[ 55]，还是其他一些利润或用户参与的概念。这可能有效的原因有很多——但挑战在于如何将其转换为一个多样化的奖励信号，该信号可以扩展成突破性的范式转变。<br>无论如何，我认为我们离发现强化学习的正确对偶还很远，在一个像互联网一样优雅和富有成效的系统中。<br>但我希望你能带走这个梦想，有一天我们会弄清楚如何创造这个，这将是一件大事：<br>deep_learning_architecture\“Transformer\“:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;Transformer_<br>RNN:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;Recurrent_neural_network<br>扩散模型:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;Diffusion_model<br>打赌:https :&#x2F;&#x2F;www. isattentionallyouneed.com&#x2F;<br>SSMs(AlbertGu等，2021):https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2111. 00396<br>Mamba(AlbertGu等，2023):https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2312. 00752<br>最适合推理的方法:https :&#x2F;&#x2F;x. com&#x2F;_kevinlu&#x2F;status&#x2F;1939737362764112019<br>推理时间消耗:https :&#x2F;&#x2F;kevinlu. ai&#x2F;spending-inference-time</p>
+<p>ImageNet:https :&#x2F;&#x2F;www. image-net. org&#x2F;</p>
+<p>GPT-4o:https :&#x2F;&#x2F;openai. com&#x2F;index&#x2F;introducing-4o-image-generation&#x2F;</p>
+<p>ChatGPT:https :&#x2F;&#x2F;chatgpt. com&#x2F;<br>DeepseekR1:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2501. 12948<br>有先见之明的演讲:https :&#x2F;&#x2F;sites. google.com&#x2F;view&#x2F;berkeley-cs294-158-sp20&#x2F;home</p>
+<p>SimpleQA(JasonWei等，2024):https :&#x2F;&#x2F;openai. com&#x2F;index&#x2F;introducing-simpleqa&#x2F;<br>o3:https :&#x2F;&#x2F;openai. com&#x2F;index&#x2F;introducing-o3-and-o4-mini&#x2F;<br>Sonnet3. 7:https :&#x2F;&#x2F;www. anthropic.com&#x2F;news&#x2F;claude-3-7-sonnet<br>本地:https :&#x2F;&#x2F;www. reddit.com&#x2F;r&#x2F;LocalLLaMA&#x2F;</p>
+<p>AlphaZero:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;AlphaZero<br>ThinkingMachinesLab:https :&#x2F;&#x2F;thinkingmachines. ai&#x2F;<br>XiangyuQi等，2024:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2406. 05946<br>MohitRaghavendra等，2024:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2410. 03717<br>用更好的标题改进图像生成（JamesBetker等，2023）:https :&#x2F;&#x2F;cdn. openai.com&#x2F;papers&#x2F;dall-e-3. pdf<br>KhanAcademy:https :&#x2F;&#x2F;www. khanacademy.org&#x2F;<br>MITOpenCourseWare:https :&#x2F;&#x2F;ocw. mit.edu&#x2F;<br>arXiv:https :&#x2F;&#x2F;arxiv. org&#x2F;<br>每小时2美元:https :&#x2F;&#x2F;time. com&#x2F;6247678&#x2F;openai-chatgpt-kenya-workers&#x2F;<br>O($10,000):https :&#x2F;&#x2F;openai. com&#x2F;index&#x2F;introducing-o3-and-o4-mini&#x2F;<br>CIFAR:https :&#x2F;&#x2F;www. cs.toronto. edu&#x2F;~kriz&#x2F;cifar. html<br>ImageNet:https :&#x2F;&#x2F;www. image-net. org&#x2F;<br>小学数学:https :&#x2F;&#x2F;paperswithcode. com&#x2F;dataset&#x2F;gsm8k</p>
+<p>FrontierMath:https :&#x2F;&#x2F;epoch. ai&#x2F;frontiermath<br>YunzhiZhang等，2020:https :&#x2F;&#x2F;sites. google.com&#x2F;berkeley. edu&#x2F;vds&#x2F;?pli&#x3D;1&amp;authuser&#x3D;1<br>AlphaZero:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;AlphaZero</p>
+<p>苦涩的教训:https :&#x2F;&#x2F;www. cs.utexas. edu&#x2F;~eunsol&#x2F;courses&#x2F;data&#x2F;bitter_lesson. pdf<br>Google搜索:https :&#x2F;&#x2F;news. ycombinator.com&#x2F;item?id&#x3D;2110938<br>偏见:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2309. 00770<br>困惑度:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;Perplexity<br>（YunhaoTang等，2025）:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2503. 19618<br>（IanGoodfellow等，2014）:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;1406. 2661<br>扩散:https :&#x2F;&#x2F;en. wikipedia.org&#x2F;wiki&#x2F;Diffusion_model<br>AndrejKarpathy:https :&#x2F;&#x2F;x. com&#x2F;karpathy&#x2F;status&#x2F;1929634696474120576<br>（AI科学家；ChrisLu等，2024）:https :&#x2F;&#x2F;arxiv. org&#x2F;abs&#x2F;2408. 06292<br>ThinkingMachines:https :&#x2F;&#x2F;thinkingmachines. ai&#x2F;<br>https :&#x2F;&#x2F;t. co&#x2F;XSJz9mL9HC:https :&#x2F;&#x2F;t. co&#x2F;XSJz9mL9HC<br>2025年6月30日:https :&#x2F;&#x2F;twitter. com&#x2F;karpathy&#x2F;status&#x2F;1939709449956126910?ref_src&#x3D;twsrc%5Etfw<br>Adept:https :&#x2F;&#x2F;www. adept.ai&#x2F;<br>视频游戏的RL:https :&#x2F;&#x2F;kevinlu. ai&#x2F;pokemon-agents<br>Claude试图运营自动售货机:https :&#x2F;&#x2F;www. anthropic.com&#x2F;research&#x2F;project-vend-1<br>Twitter主题:https :&#x2F;&#x2F;x. com&#x2F;_kevinlu&#x2F;status&#x2F;1942977315031687460<br>KevinLu原文:https :&#x2F;&#x2F;kevinlu. ai&#x2F;the-only-important-technology-is-the-internet<br>👇<br>👇<br>👇<br>另外，我还用AI进行了全网的AI资讯采集，并用AI进行挑选、审核、翻译、总结后发布到《AGIHunt》的实时AI快讯群中。<br>这是个只有信息、没有感情的AI资讯信息流（不是推荐流、不卖课、不讲道理、不教你做人、只提供信息、希望能为你节省一些时间）<br>欢迎加入！<br>也欢迎加群和2000+群友交流。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/07/11/1000001257-2453473121-1-1752170458/">https://zejuncao.github.io/2025/07/11/1000001257-2453473121-1-1752170458/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AGI-Hunt/">
+                                    <span class="chip bg-color">AGI Hunt</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/11/2247522719-2247522719-1-1752181752/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/2247522719-2247522719_1-1752181752.jpg" class="responsive-img" alt="英伟达市值突破4万亿美元！特朗普将在白宫接见黄仁勋">
+                        
+                        <span class="card-title">英伟达市值突破4万亿美元！特朗普将在白宫接见黄仁勋</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-11
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC%E5%BC%80%E6%94%BE%E7%A4%BE%E5%8C%BA/">
+                        <span class="chip bg-color">AIGC开放社区</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/11/1000000537-2247494074-1-1752163278/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000000537-2247494074_1-1752163278.jpg" class="responsive-img" alt="手机上实时跑3D数字人？阿里开源MNN-TaoAvatar，打造本地离线智能数字人新标杆。">
+                        
+                        <span class="card-title">手机上实时跑3D数字人？阿里开源MNN-TaoAvatar，打造本地离线智能数字人新标杆。</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AIGC-Studio/">
+                        <span class="chip bg-color">AIGC Studio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

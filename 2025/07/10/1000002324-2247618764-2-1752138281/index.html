@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="【源头活水】万字长文带你梳理Llama开源家族：从Llama-1到Llama-3, ZejunCao&#39;Blogs">
+    <meta name="description" content="【源头活水】万字长文带你梳理Llama开源家族：从Llama-1到Llama-3
+
+仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接
+
+“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【源头活水】万字长文带你梳理Llama开源家族：从Llama-1到Llama-3 | ZejunCao&#39;Blogs</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZejunCao&#39;Blogs</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZejunCao&#39;Blogs</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/frontcover/1000002324-2247618764_2-1752138281.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【源头活水】万字长文带你梳理Llama开源家族：从Llama-1到Llama-3</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能前沿讲习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-10
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/JF6vlL1QpdUO-V2HdQ6DjQ">【源头活水】万字长文带你梳理Llama开源家族：从Llama-1到Llama-3</a></p>
+<blockquote>
+<p>仅用于站内搜索，没有排版格式，具体信息请跳转上方微信公众号内链接</p>
+</blockquote>
+<p>“问渠那得清如许，为有源头活水来”，通过前沿领域知识的学习，从其他研究领域得到启发，对研究问题的本质有更清晰的认识和理解，是自我提高的不竭源泉。为此，我们特别精选论文阅读笔记，开辟“源头活水”专栏，帮助你广泛而深入的阅读科研文献，敬请关注！<br>在AI领域，大模型的发展正以前所未有的速度推进技术的边界。<br>北京时间4月19日凌晨，Meta在官网上官宣了Llama-3，作为继Llama-1、Llama-2和Code-Llama之后的第三代模型，Llama-3在多个基准测试中实现了全面领先，性能优于业界同类最先进的模型。<br>纵观Llama系列模型，从版本1到3，展示了大规模预训练语言模型的演进及其在实际应用中的显著潜力。这些模型不仅在技术上不断刷新纪录，更在商业和学术界产生了深远的影响。因此，对Llama模型不同版本之间的系统对比，不仅可以揭示技术进步的具体细节，也能帮助我们理解这些高级模型如何解决现实世界的复杂问题。<br>文本将详细梳理Llama开源家族的演进历程，包括：<br>Llama进化史（第1节）<br>模型架构（第2节）<br>训练数据（第3节）<br>训练方法（第4节）<br>效果对比（第5节）<br>社区生态（第6节）<br>总结（第7节）<br>本节将对每个版本的Llama模型进行简要介绍，包括它们发布的时间和主要特点。<br>Llama-1[ 1]是Meta在2023年2月发布的大语言模型，是当时性能非常出色的开源模型之一，有7B、13B、30B和65B四个参数量版本。Llama-1各个参数量版本都在超过1Ttoken的语料上进行了预训训练，其中，最大的65B参数的模型在2,048张A10080GGPU上训练了近21天，并在大多数基准测试中超越了具有175B参数的GPT-3。<br>由于模型开源且性能优异，Llama迅速成为了开源社区中最受欢迎的大模型之一，以Llama为核心的生态圈也由此崛起。我们将在第6节对这一生态进行详细介绍。与此同时，众多研究者将其作为基座模型，进行了继续预训练或者微调，衍生出了众多变体模型（见下图），极大地推动了大模型领域的研究进展。<br>唯一美中不足的是，因为开源协议问题，Llama-1不可免费商用。<br>时隔5个月，Meta在2023年7月发布了免费可商用版本Llama-2[ 2]，有7B、13B、34B和70B四个参数量版本，除了34B模型外，其他均已开源。<br>相比于Llama-1，Llama-2将预训练的语料扩充到了2Ttoken，同时将模型的上下文长度从2,048翻倍到了4,096，并引入了分组查询注意力机制（grouped-queryattention,GQA）等技术。</p>
+<p>通过“预训练-有监督微调-基于人类反馈的强化学习”这一训练流程，Llama-2Chat不仅在众多基准测试中取得了更好的模型性能，同时在应用中也更加安全。<br>随后，得益于Llama-2的优异性能，Meta在2023年8月发布了专注于代码生成的Code-Llama，共有7B、13B、34B和70B四个参数量版本。<br>系列2024年4月，Meta正式发布了开源大模型Llama3，包括8B和70B两个参数量版本。除此之外，Meta还透露，400B的Llama-3还在训练中。<br>相比Llama-2，Llama-3支持8K长文本，并采用了一个编码效率更高的tokenizer，词表大小为128K。在预训练数据方面，Llama-3使用了超过15Ttoken的语料，这比Llama2的7倍还多。<br>Llama-3在性能上取得了巨大飞跃，并在相同规模的大模型中取得了最优异的性能。<br>另外，推理、代码生成和指令跟随等能力得到了极大的改进，使Llama3更加可控。<br>本节将详细描述Llama的模型架构，包括神经网络的大小、层数、注意力机制等。<br>目前，主流的大语言模型都采用了Transformer[ 3]架构，它是一个基于多层自注意力（Self-attention）的神经网络模型。<br>原始的Transformer由编码器（Encoder）和解码器（Decoder）两个部分构成，同时，这两个部分也可以独立使用。<br>例如基于编码器的BERT[ 4]模型和基于解码器的GPT[ 5]模型。<br>Llama模型与GPT类似，也是采用了基于解码器的架构。在原始Transformer解码器的基础上，Llama进行了如下改动：<br>为了增强训练稳定性，采用前置的RMSNorm[ 6]作为层归一化方法。<br>为了提高模型性能，采用SwiGLU[ 7]作为激活函数。<br>为了更好地建模长序列数据，采用RoPE[ 8]作为位置编码。<br>为了平衡效率和性能，部分模型采用了分组查询注意力机制（Grouped-QueryAttention,GQA）[9]。<br>具体来说，首先将输入的token序列通过词嵌入（wordembedding）矩阵转化为词向量序列。然后，词向量序列作为隐藏层状态依次通过𝐿个解码器层，并在最后使用RMSNorm进行归一化。归一化后的隐藏层状态将作为最后的输出。<br>在每个解码器层中，输入的隐藏层状态首先通过RMSNorm归一化然后被送入注意力模块。注意力模块的输出将和归一化前的隐藏层状态进行残差连接。之后，新的隐藏层状态进行RMSNorm归一化，然后被送入前馈网络层。类似地，前馈网络层的输出同样进行残差连接，作为解码器层的输出。<br>每个版本的Llama由于其隐藏层的大小、层数的不同，均有不同的变体。接下来，我们将展开看下每个版本的不同变体。<br>Llama-1模型架构，详见MODEL_CARD：<br>https :&#x2F;&#x2F;github. com&#x2F;meta-llama&#x2F;llama&#x2F;blob&#x2F;main&#x2F;MODEL_CARD. md<br>为了更好地编码数据，Llama-1使用BPE[ 10]算法进行分词，具体由sentencepiece进行实现。值得注意的是，Llama-1将所有数字分解为单独的数字，并对未知的UTF-8字符回退到字节进行分解。词表大小为32k。<br>Llama-2模型架构，详见MODEL_CARD（同上）<br>Llama-2使用了和Llama-1相同的模型架构以及tokenizer。与Llama-1不同的是，Llama-2将上下文长长度扩展到了4k，并且34B和70B参数量版本使用了GQA。<br>Llama-3模型架构，详见MODEL_CARD：<br>https :&#x2F;&#x2F;github. com&#x2F;meta-llama&#x2F;llama3&#x2F;blob&#x2F;main&#x2F;MODEL_CARD. md</p>
+<p>本节将对每个版本的训练数据进行简要介绍，包括数据来源、规模和处理方式。<br>Llama-1使用了海量无标注数据进行自监督学习，这些预训练数据由多个来源混合而成，且都是公开的数据。各个来源的数据量和采样比例见下表。<br>英语CommonCrawl：Llama-1预处理了2017年至2020年间的五个CommonCrawl数据集。该过程在行级别去重，使用fastText线性分类器进行语言识别以去除非英语页面，并使用n-gram语言模型过滤低质量内容。此外，Llama-1训练了一个线性模型来分类维基百科中用作参考的页面和随机采样的页面，并丢弃了未被分类为参考的页面。<br>C4：在探索性实验中，Llama-1观察到使用多样化的预处理CommonCrawl数据集可以提升性能。因此，Llama-1的数据中包括了公开可获得的C4数据集。C4的预处理也包括去重和语言识别步骤：与CCNet的主要区别在于质量过滤，主要依赖于标点符号的存在或网页中的单词和句子数量等启发式规则。<br>Github：Llama-1使用GoogleBigQuery上可公开获取的GitHub数据集。Llama-1仅保留在Apache、BSD和MIT许可下分发的项目。此外，Llama-1还使用基于行长度或字母数字字符比例的启发式规则过滤低质量文件，并用正则表达式移除如页眉等样板内容。最后，Llama-1在文件级别对结果数据集进行去重，匹配精确相同的内容。<br>维基百科：Llama-1添加了2022年6月至8月期间的维基百科数据，涵盖使用拉丁或西里尔文字的20种语言。Llama-1处理数据以移除超链接、评论和其他格式化的样板内容。<br>Gutenberg和Books3：Llama-1在训练数据集中包括了两个书籍语料库：Gutenberg项目（包含公共领域的书籍）和ThePile的Books3部分，一个公开可获得的用于训练大型语言模型的数据集。Llama-1在书籍级别进行去重，移除超过90%内容重合的书籍。<br>ArXiv：Llama-1处理ArXiv的Latex文件，以增加科学数据到Llama-1的数据集。Llama-1移除了第一节之前的所有内容以及参考文献部分。Llama-1还移除了. tex文件中的注释，并内联扩展了用户编写的定义和宏，以增强论文间的一致性。<br>StackExchange：Llama-1包括了StackExchange的数据转储，这是一个涵盖从计算机科学到化学等多种领域的高质量问题和答案的网站。Llama-1保留了28个最大网站的数据，移除了文本中的HTML标签，并根据得分将答案排序（从最高到最低）。<br>经过上述处理，Llama-1的整个训练数据集包含大约1. 4Ttoken。对于Llama-1的大部分训练数据，每个token在训练期间只使用一次，但维基百科和Books的数据进行了大约两个epoch的训练。<br>Llama-2预训练使用了来自公开可用源的2T个数据token（未详细指出具体的开源数据）。Llama-2-Chat还在为此项目创建的27,540个提示-响应对上进行了额外的微调，其表现优于更大但质量较低的第三方数据集。为了实现AI对齐，使用了包含1,418,091个Meta示例和七个较小数据集的组合的人类反馈强化学习（RLHF）。在Meta示例中，平均对话深度为3. 9，AnthropicHelpful和AnthropicHarmless集合为3. 0，包括OpenAISummarize、StackExchange等在内的其他五个集合的平均对话深度为1. 0。微调数据包括公开可用的指令数据集以及超过一百万个新的人类标注示例。<br>在预训练过程中，Llama-2对数据的安全性进行了全面考量。通过对预训练数据进行分析，Llama-2能够增加透明度，并发现潜在的问题根源，如潜在的偏见。Llama-2采取了一系列措施，包括遵循Meta公司的隐私和法律审查流程，排除已知含有大量个人信息的网站的数据。此外，Llama-2未对数据集进行额外的过滤，以使模型在各种任务中更广泛可用，同时避免过度清洗可能导致的意外人口统计消除。对于语言的代表性和毒性的分析，Llama-2使用了相应的工具和数据集，以了解预训练数据的特征，为模型的安全调整提供指导。这一过程确保了我们的模型在安全性方面得到了充分的考虑，并促使我们在部署模型之前进行了重要的安全调整。<br>Llama2的预训练主要集中在英语数据上，尽管实验观察表明模型在其他语言方面已有一定的熟练度，但由于非英语语言的预训练数据量有限，其熟练度受到限制（如下图所示）。因此，该模型在非英语语言中的性能仍然脆弱，应谨慎使用（说明多语言能力差：有可能是词表较小导致）。<br>预训练数据截至到2022年9月，但某些调整数据较新，直到2023年7月。<br>在Llama2发布的技术报告中有说明：<br>我们将继续努力微调模型，以提高在其他语言环境下的适用性，并在未来发布更新版本，以解决这一问题。<br>当前Llama-3不但扩充了词表大小而且增加了多语言的训练语料。从而完成了在Llama2在技术报告的承诺，而且在当前公布出来的多语言任务中获得了大幅度提升的性能。<br>为了更好训练Llama-3，研究人员精心设计了预训练语料库，这些不仅关注数量，还特别强调了质量。LLAMA-3其训练数据量大幅增加，从LLAMA-2的2TTokens扩展到了15TTokens，增长了约8倍。其中，代码数据扩充了4倍，显著提升了模型在代码能力和逻辑推理能力方面的表现。<br>LLAMA-3提供了三种规模的模型版本：小型模型具有8B参数，其性能略优于Mistral7B和Gemma7B；中型模型则拥有70B参数，其性能介于ChatGPT3. 5和GPT4之间；大型模型规模达到400B，目前仍在训练中，旨在成为一个多模态、多语言版本的模型，预期性能应与GPT4或GPT4V相当。<br>值得注意的是，LLAMA-3并没有采用MOE（MixtureofExperts）结构，这种结构主要用于降低训练和推理成本，但在性能上通常无法与同规模的密集型（Dense）模型相比。随着模型规模的扩大，如何降低推理成本将成为一个需要关注的问题。<br>此外，LLAMA-3的训练数据包括了大量的代码token和超过5%的非英语token，来源于30多种语言。这不仅使得模型在处理英语内容时更加高效，也显著提升了其多语言处理能力，这表明LLAMA-3在全球多语言环境中的适应性和应用潜力。<br>为确保数据质量，Meta开发了一系列数据过滤pipeline，包括启发式过滤器、NSFW过滤器、语义重复数据删除技术及用于预测数据质量的文本分类器。这些工具的有效性得益于先前版本Llama的表现，特别是在识别高质量数据方面。<br>此外，Meta通过大量实验评估了在最终预训练数据集中混合不同来源数据的最佳策略，确保Llama-3能在多种场景下展现卓越性能，如日常琐事、STEM领域、编程和历史知识等。<br>本节将对每个版本的训练方法进行简要介绍，包括预训练、有监督微调和基于人类反馈的强化学习。<br>Llama-1模型是一个基础的自监督学习模型，它没有经过任何形式的特定任务微调。自监督学习是一种机器学习技术，其中模型通过分析大量未标记的数据来预测其输入数据的某些部分。这种方法允许模型在没有人类标注的数据的情况下自动学习数据的内在结构和复杂性。Llama-1在公布的技术报告中详细描述了使用AdamW优化器的机器学习模型的具体训练配置。AdamW是对Adam优化器的改进，可以更有效地处理权重衰减，从而提高训练的稳定性。β1和β2参数的选择影响训练过程的收敛行为和稳定性。Llama-1描述的余弦学习率调度是一种有效的技术，用于在训练期间调整学习率，通过逐渐减少学习率，在某些情况下可以导致更好的收敛。实施0. 1的权重衰减和1.0的梯度裁剪是预防过拟合和确保数值稳定性的标准做法。使用预热步骤是一种策略性方法，旨在训练过程初期稳定训练动态。根据模型大小调整学习率和批量大小是一种优化资源分配和效率的实用方法，有可能提高模型性能。<br>Llama-1也展示了一系列针对大规模语言模型训练进行的优化措施。通过使用xformers库[ 12]中的causalmulti-headattention（通过不存储注意力权重和不计算由于语言建模任务的因果性质而被屏蔽的key&#x2F;query. 分数来实现的）的高效实现，减少了内存占用和计算时间，显示了在处理大量数据时对效率的关注。此外，采用手动实现反向传播函数代替依赖自动微分系统，以及利用检查点技术保存计算成本高的激活，都是提高训练速度和减少资源消耗的有效策略。通过模型和序列并行性以及优化GPU之间的通信，进一步提升了训练过程的效率。这些优化措施特别适合于训练参数庞大的模型，如650亿参数的模型，能显著减少训练时间，提高整体的运算效率。整体上，这些优化技术体现了在高性能计算领域对资源管理和效率优化的深入考量，对于推动大规模语言模型的发展具有重要意义。<br>Llama-2模型是在Llama-1的基础上进一步发展的，而Llama-2-Chat模型则是基于Llama-2进行微调的版本。这两个模型保持了固定的4k上下文长度，这与OpenAI的GPT-4在微调过程中可能增加的上下文长度不同。<br>在Llama-2和Llama-2-Chat的微调中，采用了自回归损失函数，这是一种在生成模型中常见的方法，模型预测下一个token时会考虑到之前的所有token。在训练过程中，用户输入提示的token损失被清零，这意味着模型被训练以忽略这些特定的token，从而更专注于生成回复。<br>Llama-2-Chat的训练过程如下图所示。整个过程起始于利用公开数据对Llama-2进行预训练。在此之后，通过有监督微调创建了Llama-2-Chat的初始版本。随后，使用基于人类反馈的强化学习（RLHF）方法来迭代地改进模型，具体包括拒绝采样（RejectionSampling）和近端策略优化（ProximalPolicyOptimization,PPO）。在RLHF阶段，人类偏好数据也在并行迭代，以保持奖励模型的更新。<br>与Llama-2类似，Llama-3系列也有两个模型——预训练模型Llama-3和微调后的模型Llama-3-Instruct。<br>在预训练阶段，为了有效地利用预训练数据，Llama-3投入了大量精力来扩大预训练。具体而言，通过为下游基准测试制定一系列扩展法则（scalinglaws），使得在训练之前就能预测出模型在关键任务上的性能，进而选择最佳的数据组合。<br>在这一过程中，Llama-3对扩展法则有了一些新的观察。例如，根据DeepMind团队提出的Chinchilla[ 11]扩展法则，8B模型的最优训练数据量约为200Btoken，但实验发现，即使训练了两个数量级的数据后，模型性能仍在继续提高。在多达15Ttoken上进行训练后，8B和70B参数的模型都继续以对数线性的方式提升性能。<br>为了训练最大的Llama-3模型，Meta结合了三种并行策略：数据并行、模型并行和流水并行。当同时在16KGPU上进行训练时，最高效的策略实现了每个GPU超过400TFLOPS的计算利用率。最后，模型在两个定制的24KGPU集群上进行了训练。<br>为了最大限度地延长GPU的正常运行时间，Meta开发了一个先进的新训练堆栈，可以自动检测、处理和维护错误。另外还大大提高了硬件可靠性和无声数据损坏的检测机制，并开发了新的可扩展存储系统，减少了检查点和回滚的开销。这些改进使总的有效训练时间超过95%。综合起来，这些改进使Llama-3的训练效率比Llama-2提高了约三倍。<br>在微调阶段，Meta对模型的微调方法进行了重大创新，结合了有监督微调（SupervisedFine-Tuning,SFT）、拒绝采样、近似策略优化（ProximalPolicyOptimization,PPO）和直接策略优化（DirectPolicyOptimization,DPO）。这种综合方法优化了模型在执行复杂的推理和编码任务时的表现。特别是通过偏好排序的训练，Llama-3在处理复杂的逻辑推理问题时能更准确地选择最合适的答案，这对于提高AI在实际应用中的可用性和可靠性至关重要。<br>本节将对比不同版本在众多基准测试中的效果差异。<br>Meta官方数据显示，Llama-2在众多基准测试中都优于Llama-1和其他开源语言模型。<br>Meta官方数据显示，在各自参数规模上，Llama-38B和70B版本都取得了不错的成绩。8B模型在众多基准测试中均胜过Gemma7B和Mistral7BInstruct，而70B模型超越了闭源模型Claude3Sonnet，对比谷歌的GeminiPro1. 5性能也是相当。<br>同时，在Llama-3的开发过程中，Meta还开发了一个包含1800个提示的高质量人类评估集。评测结果显示，Llama3不仅大幅超越Llama2，也战胜了Claude3Sonnet、MistralMedium和GPT-3. 5这些知名模型。<br>Llama-3之所以能够取得如此出色的成绩，离不开它预训练模型的优异性能。在众多基准测试中，8B模型超越了Mistral7B和Gemma7B，70B模型则战胜了GeminiPro1. 0和Mixtral8x22B。<br>另外，Meta表示，最大的Llama-3仍在训练中，其参数超过400B，并在多项基准测试中取得了出色的成绩。一旦完成训练，Meta将发表一篇详细的研究论文。<br>值得注意的是，根据英伟达科学家JimFan的整理，Llama3400B基本逼近Claude-3-Opus和GPT-4-turbo，这将意味着开源社区即将迎来GPT-4级大模型。<br>本节将简要介绍Llama模型对开源社区的影响。<br>自Meta发布Llama模型以来，它对全球AI社区产生了深远的影响。作为一个开源的大语言模型（LLM），Llama不仅提供了一个强大的技术基础，还推动了全球范围内对AI技术的广泛采用和创新。<br>Llama模型的开源策略被视为LLM时代的“安卓”，这意味着它提供了一个模块化和可自定义的平台，使研究人员和开发者能够根据自己的需要调整和优化模型。这种开放性极大地降低了进入门槛，使得从小型创业公司到大型企业都能够利用这一技术。四月十九日的Llama3的发布，一日的下载量已经突破了1. 14k，两个8B的模型位列trending第一。<br>在OpenAI转向更封闭的商业模式后，Llama的发布为全球进行AI项目研发的团队和个人提供了一种可靠的选择。这种开源模型确保了用户不必完全依赖单一的商业API，从而增加了企业的运营安全感和自由度，尤其是在数据安全和成本控制方面。<br>技术上，Llama模型已经展示了与GPT相媲美的性能，这证明了开源社区在推动前沿技术方面的能力。此外，社区通过对模型的不断优化和调整，在不同的垂直领域中开发出适用的解决方案，类似于StableDiffusion和Midjourney等社区驱动的大模型。<br>Llama的应用已经扩展到多种平台和设备，包括移动和边缘设备。这种多样化的应用不仅推动了技术的普及，也加速了新应用的创新。例如，云平台如AWS和GoogleCloud的积极参与，证明了Llama模型的广泛适用性和强大功能。<br>随着Llama模型的持续发展和优化，Meta强调了对多模态AI、安全性和责任以及社区支持的持续关注。这些方向不仅符合当前AI发展的趋势，也为Llama社区的未来提供了明确的路线图。<br>总之，Llama模型的发布不仅证明了开源模型在全球AI领域的重要性，也为AI的未来发展方向提供了新的视角和动力。通过持续的技术进步和社区驱动的创新，Llama有望继续推动全球AI技术的广泛应用和发展。<br>参考文献</p>
+<p>[7]ShazeerN. Gluvariantsimprovetransformer[ J].arXivpreprintarXiv:2002. 05202,2020.</p>
+<p>[12]https :&#x2F;&#x2F;github. com&#x2F;facebookresearch&#x2F;xformers<br>本文目的在于学术交流，并不代表本公众号赞同其观点或对其内容真实性负责，版权归原作者所有，如有侵权请告知删除。<br>收藏，分享、在看，给个三连击呗！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZejunCao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zejuncao.github.io/2025/07/10/1000002324-2247618764-2-1752138281/">https://zejuncao.github.io/2025/07/10/1000002324-2247618764-2-1752138281/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZejunCao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能前沿讲习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/10/1000002323-2247618763-2-1752138277/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002323-2247618763_2-1752138277.jpg" class="responsive-img" alt="训练扩散模型其实比你想象的更简单！何恺明团队新作Dispersive Loss：给扩散模型加正则化">
+                        
+                        <span class="card-title">训练扩散模型其实比你想象的更简单！何恺明团队新作Dispersive Loss：给扩散模型加正则化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/10/1000002324-2247618764-1-1752138281/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/frontcover/1000002324-2247618764_1-1752138281.jpg" class="responsive-img" alt="【他山之石】蒙娜丽莎让大模型们几乎全军覆没！网友：懂了，AI不会眯眼睛">
+                        
+                        <span class="card-title">【他山之石】蒙娜丽莎让大模型们几乎全军覆没！网友：懂了，AI不会眯眼睛</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            ZejunCao
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%89%8D%E6%B2%BF%E8%AE%B2%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能前沿讲习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2025</span>
+            
+            <a href="/about" target="_blank">ZejunCao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ZejunCao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:caozejun369@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1378463428" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1378463428" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5915009280" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5915009280" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/Garfusion/posts" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/Garfusion/posts" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
